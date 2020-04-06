@@ -4,7 +4,7 @@ using WFM.DAL;
 
 namespace WFM.UI.ModelsView
 {
-    public class PrincipalContactView
+    public class ContactView
     {
         //Contact Person Name, Contact Person Mobile, Contact Person Fixed Line, Designation
 
@@ -20,13 +20,11 @@ namespace WFM.UI.ModelsView
         [MaxLength(50)]
         public string FixedLine { get; set; }
 
+        public string DesignationName { get; set; }
+
         [Display(Name = "Active")]
         public bool IsActive { get; set; } = true;
         public int DesignationId { get; set; }
-        public int PrincipalId { get; set; }
         public Designation Designation { get; set; }
-        public Principal Principal { get; set; }
-
     }
-
 }

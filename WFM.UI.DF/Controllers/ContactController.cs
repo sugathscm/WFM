@@ -13,14 +13,14 @@ using WFM.UI.ModelsView;
 
 namespace WFM.UI.Controllers
 {
-    public class PrincipalContactController : Controller
+    public class ContactController : Controller
     {
         private ApplicationUserManager _userManager;
 
-        public PrincipalContactController()
+        public ContactController()
         {
         }
-        public PrincipalContactController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ContactController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
         }
@@ -40,17 +40,17 @@ namespace WFM.UI.Controllers
         // GET: Contact
         public ActionResult Index(int? id)
         {
-            Contact projectSector = new Contact();
+            Contact contact = new Contact();
 
             using (WorkFlowEntities entities = new WorkFlowEntities())
             {
                 if (id != null)
                 {
-                    projectSector = entities.Contacts.Where(o => o.Id == id).SingleOrDefault();
+                    contact = entities.Contacts.Where(o => o.Id == id).SingleOrDefault();
                 }
                 //ViewBag.PrincipalContactList = entities.PrincipalContacts.Where(o => o.ParentId == 0).OrderBy(o => o.Name).ToList();
             }
-            return View(projectSector);
+            return View(contact);
         }
 
         public ActionResult GetList()
@@ -58,14 +58,18 @@ namespace WFM.UI.Controllers
             using (WorkFlowEntities entities = new WorkFlowEntities())
             {
                 var list = entities.Contacts.OrderBy(o => o.Name).ToList();
-                List<PrincipalContactView> modelList = new List<PrincipalContactView>();
+                List<ContactView> modelList = new List<ContactView>();
                 foreach (var item in list)
                 {
-                    modelList.Add(new PrincipalContactView()
+                    modelList.Add(new ContactView()
                     {
                         Id = item.Id,
                         IsActive = item.IsActive,
-                        Name = item.Name
+                        Name = item.Name,
+                        Mobile = item.Mobile,
+                        Email = item.Email,
+                        FixedLine = item.FixedLine,
+                        DesignationName = (item.DesignationId == 0) ? "" : entities.Designations.Where(o => o.Id == item.DesignationId).SingleOrDefault().Name,
                     });
                 }
                 return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
@@ -83,47 +87,47 @@ namespace WFM.UI.Controllers
                 try
                 {
                     int id = model.Id;
-                    Contact projectSector = null;
-                    Contact oldPrincipalContact = null;
+                    Contact contact = null;
+                    Contact oldContact = null;
                     if (model.Id == 0)
                     {
-                        projectSector = new Contact
+                        contact = new Contact
                         {
                             Name = model.Name,
                             IsActive = true
                         };
 
-                        entities.Contacts.Add(projectSector);
+                        entities.Contacts.Add(contact);
                         entities.SaveChanges();
 
-                        oldPrincipalContact = new Contact();
-                        oldData = new JavaScriptSerializer().Serialize(oldPrincipalContact);
-                        newData = new JavaScriptSerializer().Serialize(projectSector);
+                        oldContact = new Contact();
+                        oldData = new JavaScriptSerializer().Serialize(oldContact);
+                        newData = new JavaScriptSerializer().Serialize(contact);
                     }
                     else
                     {
-                        projectSector = entities.Contacts.Where(o => o.Id == model.Id).SingleOrDefault();
-                        oldPrincipalContact = entities.Contacts.Where(o => o.Id == model.Id).SingleOrDefault();
+                        contact = entities.Contacts.Where(o => o.Id == model.Id).SingleOrDefault();
+                        oldContact = entities.Contacts.Where(o => o.Id == model.Id).SingleOrDefault();
 
                         oldData = new JavaScriptSerializer().Serialize(new Contact()
                         {
-                            Id = oldPrincipalContact.Id,
-                            Name = oldPrincipalContact.Name,
-                            IsActive = oldPrincipalContact.IsActive
+                            Id = oldContact.Id,
+                            Name = oldContact.Name,
+                            IsActive = oldContact.IsActive
                         });
 
-                        projectSector.Name = model.Name;
+                        contact.Name = model.Name;
                         bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
-                        projectSector.IsActive = model.IsActive;
+                        contact.IsActive = model.IsActive;
 
                         newData = new JavaScriptSerializer().Serialize(new Contact()
                         {
-                            Id = projectSector.Id,
-                            Name = projectSector.Name,
-                            IsActive = projectSector.IsActive
+                            Id = contact.Id,
+                            Name = contact.Name,
+                            IsActive = contact.IsActive
                         });
 
-                        entities.Entry(projectSector).State = System.Data.Entity.EntityState.Modified;
+                        entities.Entry(contact).State = System.Data.Entity.EntityState.Modified;
                         entities.SaveChanges();
                     }
 

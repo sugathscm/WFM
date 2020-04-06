@@ -33,5 +33,6 @@ namespace WFM.UI.ModelsView
         public Country Country { get; set; }
 
         public ICollection<Contact> PrincipalContacts { get; set; }
+        public string CountryName { get; internal set; }
     }
 }

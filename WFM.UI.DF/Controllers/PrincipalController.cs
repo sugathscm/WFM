@@ -50,6 +50,8 @@ namespace WFM.UI.Controllers
                     principal = entities.Principals.Where(o => o.Id == id).SingleOrDefault();
                 }
                 //ViewBag.PrincipalList = entities.Principals.Where(o => o.ParentId == 0).OrderBy(o => o.Name).ToList();
+                var listData = entities.Countries.Select(s => new { Id = s.Id, Value = s.Name }).ToList();
+                ViewBag.ListObject = new SelectList(listData, "Id", "Value");
             }
             return View(principal);
         }
@@ -58,15 +60,24 @@ namespace WFM.UI.Controllers
         {
             using (WorkFlowEntities entities = new WorkFlowEntities())
             {
-                var list = entities.Principals.OrderBy(o => o.Name).ToList();
+                var list = entities.Principals.Include("Country").OrderBy(o => o.Name).ToList();
                 List<PrincipalView> modelList = new List<PrincipalView>();
                 foreach (var item in list)
                 {
                     modelList.Add(new PrincipalView()
                     {
                         Id = item.Id,
+                        AddressLine1 = item.AddressLine1,
+                        AddressLine2 = item.AddressLine2,
+                        City = item.City,
+                        Province = item.Province,
+                        Postcode = item.Postcode,
+                        Email = item.Email,
+                        Website = item.Website,
                         IsActive = item.IsActive,
-                        Name = item.Name                    });
+                        CountryName = item.Country.Name,
+                        Name = item.Name
+                    });
                 }
                 return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
             }
@@ -90,6 +101,14 @@ namespace WFM.UI.Controllers
                         principal = new Principal
                         {
                             Name = model.Name,
+                            AddressLine1 = model.AddressLine1,
+                            AddressLine2 = model.AddressLine2,
+                            City = model.City,
+                            Province = model.Province,
+                            Postcode = model.Postcode,
+                            CountryId = model.CountryId,
+                            Email = model.Email,
+                            Website = model.Website,
                             IsActive = true
                         };
 
@@ -109,10 +128,26 @@ namespace WFM.UI.Controllers
                         {
                             Id = oldPrincipal.Id,
                             Name = oldPrincipal.Name,
+                            AddressLine1 = oldPrincipal.AddressLine1,
+                            AddressLine2 = oldPrincipal.AddressLine2,
+                            City = oldPrincipal.City,
+                            Province = oldPrincipal.Province,
+                            Postcode = oldPrincipal.Postcode,
+                            CountryId = oldPrincipal.CountryId,
+                            Email = oldPrincipal.Email,
+                            Website = oldPrincipal.Website,
                             IsActive = oldPrincipal.IsActive
                         });
 
                         principal.Name = model.Name;
+                        principal.AddressLine1 = model.AddressLine1;
+                        principal.AddressLine2 = model.AddressLine2;
+                        principal.City = model.City;
+                        principal.Postcode = model.Postcode;
+                        principal.Province = model.Province;
+                        principal.CountryId = model.CountryId;
+                        principal.Website = model.Website;
+                        principal.Email = model.Email;
                         bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
                         principal.IsActive = model.IsActive;
 
@@ -120,6 +155,14 @@ namespace WFM.UI.Controllers
                         {
                             Id = principal.Id,
                             Name = principal.Name,
+                            AddressLine1 = principal.AddressLine1,
+                            AddressLine2 = principal.AddressLine2,
+                            City = principal.City,
+                            Province = principal.Province,
+                            Postcode = principal.Postcode,
+                            CountryId = principal.CountryId,
+                            Email = principal.Email,
+                            Website = principal.Website,
                             IsActive = principal.IsActive
                         });
 

@@ -175,7 +175,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InwardInquiryController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PrincipalContactController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\PrincipalController.cs" />
     <Compile Include="Controllers\ProjectSectorController.cs" />
     <Compile Include="Controllers\TenderController.cs" />
@@ -183,7 +183,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ModelsView\PrincipalContactView.cs" />
+    <Compile Include="ModelsView\ContactView.cs" />
     <Compile Include="ModelsView\PrincipalView.cs" />
     <Compile Include="ModelsView\ProjectSectorView.cs" />
     <Compile Include="ModelsView\UsersInRoleViewModel.cs" />
@@ -682,7 +682,7 @@
     <Content Include="Views\InwardInquiry\Details.cshtml" />
     <Content Include="Views\InwardInquiry\Index.cshtml" />
     <Content Include="Views\Principal\Index.cshtml" />
-    <Content Include="Views\PrincipalContact\Index.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\ProjectSector\Index.cshtml" />
     <Content Include="Views\Tender\Details.cshtml" />
     <Content Include="Views\Tender\Index.cshtml" />
