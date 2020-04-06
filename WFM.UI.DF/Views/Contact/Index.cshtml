@@ -82,15 +82,25 @@
                             @Html.HiddenFor(m => m.Id, new { @name = "Id" })
                             <div class="row">
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 ">
-                                    @*<label for="validationCustom01">First name</label>*@
                                     @Html.LabelFor(m => m.Title, new { @class = "control-label" })
-                                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                                    @Html.DropDownList("Title", new List<SelectListItem>
+                                    {
+                                    new SelectListItem{ Text="Mr.", Value = "Mr." },
+                                    new SelectListItem{ Text="Ms.", Value = "Ms." },
+                                    new SelectListItem{ Text="Mrs.", Value = "Mrs." },
+                                    new SelectListItem{ Text="Miss.", Value = "Miss." },
+                                    new SelectListItem{ Text="Dr.", Value = "Dr." },
+                                    new SelectListItem{ Text="Rev.", Value = "Rev." }
+                                    }, "Title", new { @class = "form-control required" })
                                 </div>
-                                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 ">
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
                                     @Html.LabelFor(m => m.Name, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                                 </div>
-                                
+                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                                    @Html.LabelFor(m => m.Designation, new { @class = "control-label" })
+                                    @Html.DropDownList("DesignationId", (SelectList)ViewBag.ListObject, "Designation", new { @class = "form-control required" })
+                                </div>
                             </div>
                             <br/>
                             <div class="form-row">
@@ -106,6 +116,7 @@
                                     @Html.LabelFor(m => m.FixedLine, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.FixedLine, new { @class = "form-control" })
                                 </div>
+                                
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="form-group">
                                         <div class="form-check">

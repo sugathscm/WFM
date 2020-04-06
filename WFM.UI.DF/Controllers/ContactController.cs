@@ -49,6 +49,8 @@ namespace WFM.UI.Controllers
                     contact = entities.Contacts.Where(o => o.Id == id).SingleOrDefault();
                 }
                 //ViewBag.PrincipalContactList = entities.PrincipalContacts.Where(o => o.ParentId == 0).OrderBy(o => o.Name).ToList();
+                var listData = entities.Designations.Select(s => new { Id = s.Id, Value = s.Name }).ToList();
+                ViewBag.ListObject = new SelectList(listData, "Id", "Value");
             }
             return View(contact);
         }
@@ -65,6 +67,7 @@ namespace WFM.UI.Controllers
                     {
                         Id = item.Id,
                         IsActive = item.IsActive,
+                        Title=item.Title,
                         Name = item.Name,
                         Mobile = item.Mobile,
                         Email = item.Email,
@@ -93,8 +96,13 @@ namespace WFM.UI.Controllers
                     {
                         contact = new Contact
                         {
+                            Title=model.Title,
                             Name = model.Name,
-                            IsActive = true
+                            Mobile=model.Mobile,
+                            Email=model.Email,
+                            FixedLine=model.FixedLine,
+                            IsActive = true,
+                            DesignationId=model.DesignationId
                         };
 
                         entities.Contacts.Add(contact);
@@ -112,18 +120,33 @@ namespace WFM.UI.Controllers
                         oldData = new JavaScriptSerializer().Serialize(new Contact()
                         {
                             Id = oldContact.Id,
+                            Title=oldContact.Title,
                             Name = oldContact.Name,
+                            Mobile=oldContact.Mobile,
+                            Email=oldContact.Email,
+                            FixedLine=oldContact.FixedLine,
+                            DesignationId=oldContact.DesignationId,
                             IsActive = oldContact.IsActive
                         });
 
+                        contact.Title = model.Title;
                         contact.Name = model.Name;
+                        contact.Mobile = model.Mobile;
+                        contact.Email = model.Email;
+                        contact.FixedLine = model.FixedLine;
+                        contact.DesignationId = model.DesignationId;
                         bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
                         contact.IsActive = model.IsActive;
 
                         newData = new JavaScriptSerializer().Serialize(new Contact()
                         {
                             Id = contact.Id,
+                            Title = contact.Title,
                             Name = contact.Name,
+                            Mobile = contact.Mobile,
+                            Email = contact.Email,
+                            FixedLine = contact.FixedLine,
+                            DesignationId = contact.DesignationId,
                             IsActive = contact.IsActive
                         });
 
