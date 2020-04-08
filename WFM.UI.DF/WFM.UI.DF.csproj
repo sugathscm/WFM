@@ -180,6 +180,7 @@
     <Compile Include="Controllers\ProjectSectorController.cs" />
     <Compile Include="Controllers\SourcingPartnerController.cs" />
     <Compile Include="Controllers\TenderController.cs" />
+    <Compile Include="Controllers\TenderDocumentSectionController.cs" />
     <Compile Include="Controllers\TenderDocumentTypeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -737,6 +738,7 @@
     <Content Include="Views\Tender\Index.cshtml" />
     <Content Include="Views\TenderDocumentType\Index.cshtml" />
     <Content Include="Views\SourcingPartner\Index.cshtml" />
+    <Content Include="Views\TenderDocumentSection\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
