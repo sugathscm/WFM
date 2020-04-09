@@ -1,7 +1,7 @@
-﻿@model WFM.DAL.Contact
+﻿@model WFM.DAL.SourcingPartner
 
 @{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Sourcing Partners";
 }
 
 <script type="text/javascript">
@@ -10,17 +10,16 @@
             "paging": true,
 
             "ajax": {
-                "url": "/Contact/GetList",
+                "url": "/SourcingPartner/GetList",
                 "type": "POST",
                 "datatype": "json"
             },
             "columns": [
-                { "data": "Title" },
                 { "data": "Name" },
                 { "data": "Mobile" },
                 { "data": "Email" },
                 { "data": "FixedLine" },
-                { "data": "DesignationName" },
+                { "data": "SourcingPartnerType" },
                 {
                     "data": "IsActive",
                     "render": function (data, type, full, meta) {
@@ -33,7 +32,7 @@
                 {
                     "data": "Id", "searchable": false, "ordering": false,
                     "render": function (data, type, full, meta) {
-                        return '<a class="btn btn-info" href="/Contact/Index/' + data + '">Edit</a>';
+                        return '<a class="btn btn-info" href="/SourcingPartner/Index/' + data + '">Edit</a>';
                     }
                 },
             ]
@@ -74,32 +73,20 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body">
-                        @using (Html.BeginForm("SaveOrUpdate", "Contact", FormMethod.Post, new { @class = "needs-validation", role = "form" }))
+                        @using (Html.BeginForm("SaveOrUpdate", "SourcingPartner", FormMethod.Post, new { @class = "needs-validation", role = "form" }))
                         {
                             @*<form class="needs-validation" novalidate="">*@
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary("", new { @class = "text-danger" })
                             @Html.HiddenFor(m => m.Id, new { @name = "Id" })
                             <div class="row">
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 ">
-                                    @Html.LabelFor(m => m.Title, new { @class = "control-label" })
-                                    @Html.DropDownList("Title", new List<SelectListItem>
-                                    {
-                                    new SelectListItem{ Text="Mr.", Value = "Mr." },
-                                    new SelectListItem{ Text="Ms.", Value = "Ms." },
-                                    new SelectListItem{ Text="Mrs.", Value = "Mrs." },
-                                    new SelectListItem{ Text="Miss.", Value = "Miss." },
-                                    new SelectListItem{ Text="Dr.", Value = "Dr." },
-                                    new SelectListItem{ Text="Rev.", Value = "Rev." }
-                                    }, "Title", new { @class = "form-control" })
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 ">
                                     @Html.LabelFor(m => m.Name, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                                 </div>
-                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
-                                    @Html.LabelFor(m => m.Designation, new { @class = "control-label" })
-                                    @Html.DropDownList("DesignationId", (SelectList)ViewBag.ListObject, "Designation", new { @class = "form-control" })
+                                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+                                    @Html.LabelFor(m => m.SourcingPartnerType, new { @class = "control-label" })
+                                    @Html.TextBoxFor(m => m.SourcingPartnerType, new { @class = "form-control" })
                                 </div>
                             </div>
                             <br/>
@@ -141,12 +128,11 @@
                     <table id="List" class="table table-striped table-bordered first">
                         <thead>
                             <tr>
-                                <th>Title</th>
                                 <th>Name</th>
                                 <th>Mobile</th>
                                 <th>Email</th>
                                 <th>Fixed Line</th>
-                                <th>Designation</th>
+                                <th>Sourcing Partner Type</th>
                                 <th>Active</th>
                                 <th></th>
                             </tr>

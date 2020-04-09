@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Principal";
 }
+
+
 <script type="text/javascript">$(document).ready(function () {
         $('#List').DataTable({
             "paging": true,
@@ -39,6 +41,8 @@
             ]
         });
     });</script>
+
+    
 
 <div class="dashboard-ecommerce">
     <div class="container-fluid dashboard-content ">
@@ -107,7 +111,8 @@
                                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                                     @Html.LabelFor(m => m.Country, new { @class = "control-label" })
                                     @*@Html.TextBoxFor(m => m.Country, new { @class = "form-control" })*@
-                                    @Html.DropDownList("CountryId", (SelectList)ViewBag.ListObject, "Country", new { @class = "form-control required" })
+                                    @Html.DropDownList("CountryId", (SelectList)ViewBag.ListObject, "Country", new { @class = "form-control" })
+                                    @*@Html.DropDownListFor(m => m.OrganizationTypeId, new SelectList(Model.OrganizationTypeList, "Id", "Name"), "Select Organization Type", new { @class = "form-control" })*@
                                 </div>
                             </div>
                             <div class="form-row">
@@ -164,4 +169,9 @@
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+            $('#CountryId').select2({
+                selectOnClose: true
+            });
+</script>
 }
