@@ -33,11 +33,13 @@ namespace WFM.DAL
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<DataAudit> DataAudits { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<LoginAudit> LoginAudits { get; set; }
         public virtual DbSet<Principal> Principals { get; set; }
         public virtual DbSet<PrincipalContact> PrincipalContacts { get; set; }
         public virtual DbSet<ProjectSector> ProjectSectors { get; set; }
         public virtual DbSet<SourcingPartner> SourcingPartners { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TenderDocumentSection> TenderDocumentSections { get; set; }
         public virtual DbSet<TenderDocumentType> TenderDocumentTypes { get; set; }
         public virtual DbSet<WFMConfiguration> WFMConfigurations { get; set; }
