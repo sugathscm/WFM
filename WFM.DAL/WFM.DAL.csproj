@@ -87,6 +87,9 @@
       <DependentUpon>WFMModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Employee.cs">
+      <DependentUpon>WFMModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="LoginAudit.cs">
       <DependentUpon>WFMModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -107,6 +110,9 @@
     <Compile Include="SourcingPartner.cs">
       <DependentUpon>WFMModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>WFMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TenderDocumentSection.cs">
       <DependentUpon>WFMModel.tt</DependentUpon>

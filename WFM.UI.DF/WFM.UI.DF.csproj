@@ -172,6 +172,7 @@
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DesignationController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InwardInquiryController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -186,6 +187,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ModelsView\ContactView.cs" />
+    <Compile Include="ModelsView\EmployeeView.cs" />
     <Compile Include="ModelsView\PrincipalView.cs" />
     <Compile Include="ModelsView\ProjectSectorView.cs" />
     <Compile Include="ModelsView\SourcingPartnerView.cs" />
@@ -739,6 +741,7 @@
     <Content Include="Views\TenderDocumentType\Index.cshtml" />
     <Content Include="Views\SourcingPartner\Index.cshtml" />
     <Content Include="Views\TenderDocumentSection\Index.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
