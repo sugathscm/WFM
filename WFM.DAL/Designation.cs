@@ -18,16 +18,20 @@ namespace WFM.DAL
         public Designation()
         {
             this.Contacts = new HashSet<Contact>();
-            this.Employees = new HashSet<Employee>();
+            this.People = new HashSet<Person>();
+            this.PersonHistories = new HashSet<PersonHistory>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public bool IsActive { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contact> Contacts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Person> People { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonHistory> PersonHistories { get; set; }
     }
 }

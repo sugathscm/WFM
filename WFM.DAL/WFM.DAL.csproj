@@ -55,75 +55,141 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AspNetRole.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="AspNetUser.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="AspNetUserClaim.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="AspNetUserLogin.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Contact.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Country.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataAudit.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Designation.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Division.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Employee.cs">
       <DependentUpon>WFMModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetDataAuditByUser_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetLoginAuditByUser_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetOrganizationList_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetPersonHistoryList_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetPersonList_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetRelationshipListReport_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LinkManagementModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LinkManagementModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LinkManagementModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LinkManagementModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LinkManagementModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="LoginAudit.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Organization.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrganizationType.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Person.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PersonHistory.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PersonRelationship.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PersonRelationshipDetail.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Principal.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="PrincipalContact.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ProjectSector.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelationshipType.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SourcingPartner.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="SubOrganization.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagram.cs">
       <DependentUpon>WFMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TenderDocumentSection.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="TenderDocumentType.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Title.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="WFMConfiguration.cs">
-      <DependentUpon>WFMModel.tt</DependentUpon>
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="WFMModel.Context.cs">
@@ -154,6 +220,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <EntityDeploy Include="LinkManagementModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LinkManagementModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="LinkManagementModel.edmx.diagram">
+      <DependentUpon>LinkManagementModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="WFMModel.edmx.diagram">
       <DependentUpon>WFMModel.edmx</DependentUpon>
@@ -161,6 +234,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LinkManagementModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LinkManagementModel.edmx</DependentUpon>
+      <LastGenOutput>LinkManagementModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="LinkManagementModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LinkManagementModel.edmx</DependentUpon>
+      <LastGenOutput>LinkManagementModel.cs</LastGenOutput>
+    </Content>
     <Content Include="WFMModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>WFMModel.Context.cs</LastGenOutput>

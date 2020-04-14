@@ -9,7 +9,7 @@ using WFM.UI.DF;
 
 namespace WFM.UI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         private ApplicationUserManager _userManager;

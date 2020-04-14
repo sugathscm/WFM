@@ -12,7 +12,7 @@ using WFM.UI.ModelsView;
 
 namespace WFM.UI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProjectSectorController : Controller
     {
         private ApplicationUserManager _userManager;
