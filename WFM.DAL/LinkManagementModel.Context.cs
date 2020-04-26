@@ -27,7 +27,6 @@ namespace WFM.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
@@ -37,6 +36,7 @@ namespace WFM.DAL
         public virtual DbSet<DataAudit> DataAudits { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<Division> Divisions { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<LoginAudit> LoginAudits { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
         public virtual DbSet<OrganizationType> OrganizationTypes { get; set; }
@@ -53,7 +53,8 @@ namespace WFM.DAL
         public virtual DbSet<TenderDocumentSection> TenderDocumentSections { get; set; }
         public virtual DbSet<TenderDocumentType> TenderDocumentTypes { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
-        public virtual DbSet<WFMConfiguration> WFMConfigurations { get; set; }
+        public virtual DbSet<WFM_Configuration> WFM_Configuration { get; set; }
+        public virtual DbSet<WFM_Designation> WFM_Designation { get; set; }
     
         public virtual ObjectResult<GetDataAuditByUser_Result> GetDataAuditByUser(Nullable<System.Guid> userId)
         {

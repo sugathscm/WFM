@@ -9,9 +9,9 @@ using System.Web.Script.Serialization;
 using WFM.BAL;
 using WFM.DAL;
 using WFM.UI.DF;
-using WFM.UI.ModelsView;
+using WFM.UI.DF.ModelsView;
 
-namespace WFM.UI.Controllers
+namespace WFM.UI.DF.Controllers
 {
     public class ContactController : Controller
     {
@@ -42,14 +42,14 @@ namespace WFM.UI.Controllers
         {
             Contact contact = new Contact();
 
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 if (id != null)
                 {
                     contact = entities.Contacts.Where(o => o.Id == id).SingleOrDefault();
                 }
                 //ViewBag.PrincipalContactList = entities.PrincipalContacts.Where(o => o.ParentId == 0).OrderBy(o => o.Name).ToList();
-                var listData = entities.Designations.Select(s => new { Id = s.Id, Value = s.Name }).ToList();
+                var listData = entities.WFM_Designation.Select(s => new { Id = s.Id, Value = s.Name }).ToList();
                 ViewBag.ListObject = new SelectList(listData, "Id", "Value");
             }
             return View(contact);
@@ -57,7 +57,7 @@ namespace WFM.UI.Controllers
 
         public ActionResult GetList()
         {
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 var list = entities.Contacts.OrderBy(o => o.Name).ToList();
                 List<ContactView> modelList = new List<ContactView>();
@@ -72,7 +72,7 @@ namespace WFM.UI.Controllers
                         Mobile = item.Mobile,
                         Email = item.Email,
                         FixedLine = item.FixedLine,
-                        DesignationName = (item.DesignationId == 0) ? "" : entities.Designations.Where(o => o.Id == item.DesignationId).SingleOrDefault().Name,
+                        DesignationName = (item.DesignationId == 0) ? "" : entities.WFM_Designation.Where(o => o.Id == item.DesignationId).SingleOrDefault().Name,
                     });
                 }
                 return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
@@ -85,7 +85,7 @@ namespace WFM.UI.Controllers
         public ActionResult SaveOrUpdate(Contact model)
         {
             string newData = string.Empty, oldData = string.Empty;
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 try
                 {

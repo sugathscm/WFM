@@ -11,7 +11,7 @@ namespace WFM.BAL
     {
         public static int SaveLoginAudit(LoginAudit loginAudit)
         {
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 entities.LoginAudits.Add(loginAudit);
                 entities.SaveChanges();
@@ -21,7 +21,7 @@ namespace WFM.BAL
 
         public static int SaveDataAudit(DataAudit dataAudit)
         {
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 entities.DataAudits.Add(dataAudit);
                 entities.SaveChanges();

@@ -9,9 +9,9 @@ using System.Web.Script.Serialization;
 using WFM.BAL;
 using WFM.DAL;
 using WFM.UI.DF;
-using WFM.UI.ModelsView;
+using WFM.UI.DF.ModelsView;
 
-namespace WFM.UI.Controllers
+namespace WFM.UI.DF.Controllers
 {
     public class SourcingPartnerController : Controller
     {
@@ -42,7 +42,7 @@ namespace WFM.UI.Controllers
         {
             SourcingPartner sourcingPartner = new SourcingPartner();
 
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 if (id != null)
                 {
@@ -56,7 +56,7 @@ namespace WFM.UI.Controllers
 
         public ActionResult GetList()
         {
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 var list = entities.SourcingPartners.OrderBy(o => o.Name).ToList();
                 List<SourcingPartnerView> modelList = new List<SourcingPartnerView>();
@@ -83,7 +83,7 @@ namespace WFM.UI.Controllers
         public ActionResult SaveOrUpdate(SourcingPartner model)
         {
             string newData = string.Empty, oldData = string.Empty;
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 try
                 {

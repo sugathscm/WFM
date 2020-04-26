@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using WFM.DAL;
 using WFM.UI.DF;
-using WFM.UI.ModelsView;
+using WFM.UI.DF.ModelsView;
 
-namespace WFM.UI.Controllers
+namespace WFM.UI.DF.Controllers
 {
     //[Authorize]
     public class ProjectSectorController : Controller
@@ -42,7 +42,7 @@ namespace WFM.UI.Controllers
         {
             ProjectSector projectSector = new ProjectSector();
 
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 if (id != null)
                 {
@@ -55,7 +55,7 @@ namespace WFM.UI.Controllers
 
         public ActionResult GetList()
         {
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 var list = entities.ProjectSectors.OrderBy(o => o.Name).ToList();
                 List<ProjectSectorView> modelList = new List<ProjectSectorView>();
@@ -77,7 +77,7 @@ namespace WFM.UI.Controllers
         public ActionResult SaveOrUpdate(ProjectSector model)
         {
             string newData = string.Empty, oldData = string.Empty;
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 try
                 {

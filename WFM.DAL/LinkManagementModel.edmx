@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="LinkManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -116,6 +106,19 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="FixedLine" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DesignationId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="LoginAudit">
           <Key>
@@ -271,26 +274,6 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="DateCreated" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="TempData">
-          <Property Name="Title" Type="varchar" MaxLength="10" />
-          <Property Name="Name" Type="varchar" MaxLength="100" />
-          <Property Name="Organization" Type="varchar" MaxLength="500" />
-          <Property Name="Designation" Type="varchar" MaxLength="100" />
-          <Property Name="Telephone" Type="varchar" MaxLength="100" />
-          <Property Name="Email" Type="varchar" MaxLength="100" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="TempData1">
-          <Property Name="TitleId" Type="int" />
-          <Property Name="Name" Type="nvarchar" MaxLength="250" />
-          <Property Name="Designation" Type="nvarchar" MaxLength="250" />
-          <Property Name="Organization" Type="nvarchar" MaxLength="250" />
-          <Property Name="DesignationId" Type="int" />
-          <Property Name="OrgId" Type="int" />
-        </EntityType>-->
         <EntityType Name="TenderDocumentSection">
           <Key>
             <PropertyRef Name="Id" />
@@ -317,13 +300,21 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
           <Property Name="IsActive" Type="bit" />
           <Property Name="DateCreated" Type="datetime" />
         </EntityType>
-        <EntityType Name="WFMConfiguration">
+        <EntityType Name="WFM_Configuration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Value" Type="nvarchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="WFM_Designation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -405,6 +396,18 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Contact">
+              <PropertyRef Name="DesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Designation">
+          <End Role="Designation" Type="Self.Designation" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
               <PropertyRef Name="DesignationId" />
             </Dependent>
           </ReferentialConstraint>
@@ -618,7 +621,6 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
         <Function Name="ImportCSV" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SetRelationshipText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="LinkManagementModelStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -629,6 +631,7 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
           <EntitySet Name="DataAudit" EntityType="Self.DataAudit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginAudit" EntityType="Self.LoginAudit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrganizationType" EntityType="Self.OrganizationType" Schema="dbo" store:Type="Tables" />
@@ -645,7 +648,8 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
           <EntitySet Name="TenderDocumentSection" EntityType="Self.TenderDocumentSection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TenderDocumentType" EntityType="Self.TenderDocumentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Title" EntityType="Self.Title" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="WFMConfiguration" EntityType="Self.WFMConfiguration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WFM_Configuration" EntityType="Self.WFM_Configuration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WFM_Designation" EntityType="Self.WFM_Designation" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -669,6 +673,10 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
           <AssociationSet Name="FK_dbo_PrincipalContact_dbo_Designation_DesignationId" Association="Self.FK_dbo_PrincipalContact_dbo_Designation_DesignationId">
             <End Role="Designation" EntitySet="Designation" />
             <End Role="Contact" EntitySet="Contact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Designation" Association="Self.FK_Employee_Designation">
+            <End Role="Designation" EntitySet="Designation" />
+            <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_Person_Designation" Association="Self.FK_Person_Designation">
             <End Role="Designation" EntitySet="Designation" />
@@ -740,16 +748,6 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LinkManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -844,6 +842,7 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Contacts" Relationship="Self.FK_dbo_PrincipalContact_dbo_Designation_DesignationId" FromRole="Designation" ToRole="Contact" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Designation" FromRole="Designation" ToRole="Employee" />
           <NavigationProperty Name="People" Relationship="Self.FK_Person_Designation" FromRole="Designation" ToRole="Person" />
           <NavigationProperty Name="PersonHistories" Relationship="Self.FK_PersonHistory_Designation" FromRole="Designation" ToRole="PersonHistory" />
         </EntityType>
@@ -857,6 +856,20 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <NavigationProperty Name="People" Relationship="Self.FK_Person_Division" FromRole="Division" ToRole="Person" />
           <NavigationProperty Name="PersonHistories" Relationship="Self.FK_PersonHistory_Division" FromRole="Division" ToRole="PersonHistory" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FixedLine" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DesignationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Designation" Relationship="Self.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
         </EntityType>
         <EntityType Name="LoginAudit">
           <Key>
@@ -1066,13 +1079,21 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
           <NavigationProperty Name="People" Relationship="Self.FK_Person_Title" FromRole="Title" ToRole="Person" />
           <NavigationProperty Name="PersonHistories" Relationship="Self.FK_PersonHistory_Title" FromRole="Title" ToRole="PersonHistory" />
         </EntityType>
-        <EntityType Name="WFMConfiguration">
+        <EntityType Name="WFM_Configuration">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Value" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WFM_Designation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -1139,6 +1160,18 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
             </Principal>
             <Dependent Role="Principal">
               <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Designation">
+          <End Role="Designation" Type="Self.Designation" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DesignationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1327,7 +1360,6 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
         <EntityContainer Name="LinkManagementEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
@@ -1337,6 +1369,7 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
           <EntitySet Name="DataAudits" EntityType="Self.DataAudit" />
           <EntitySet Name="Designations" EntityType="Self.Designation" />
           <EntitySet Name="Divisions" EntityType="Self.Division" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="LoginAudits" EntityType="Self.LoginAudit" />
           <EntitySet Name="Organizations" EntityType="Self.Organization" />
           <EntitySet Name="OrganizationTypes" EntityType="Self.OrganizationType" />
@@ -1353,7 +1386,8 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
           <EntitySet Name="TenderDocumentSections" EntityType="Self.TenderDocumentSection" />
           <EntitySet Name="TenderDocumentTypes" EntityType="Self.TenderDocumentType" />
           <EntitySet Name="Titles" EntityType="Self.Title" />
-          <EntitySet Name="WFMConfigurations" EntityType="Self.WFMConfiguration" />
+          <EntitySet Name="WFM_Configuration" EntityType="Self.WFM_Configuration" />
+          <EntitySet Name="WFM_Designation" EntityType="Self.WFM_Designation" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -1373,6 +1407,10 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
           <AssociationSet Name="FK_dbo_Principal_dbo_Country_CountryId" Association="Self.FK_dbo_Principal_dbo_Country_CountryId">
             <End Role="Country" EntitySet="Countries" />
             <End Role="Principal" EntitySet="Principals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Designation" Association="Self.FK_Employee_Designation">
+            <End Role="Designation" EntitySet="Designations" />
+            <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
           <AssociationSet Name="FK_Person_Designation" Association="Self.FK_Person_Designation">
             <End Role="Designation" EntitySet="Designations" />
@@ -1534,16 +1572,6 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="LinkManagementModelStoreContainer" CdmEntityContainer="LinkManagementEntities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="LinkManagementModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="LinkManagementModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -1642,6 +1670,20 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="LinkManagementModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="FixedLine" ColumnName="FixedLine" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1841,12 +1883,21 @@ warning 6013: The table/view 'DB_A4945A_OSL.dbo.TempData1' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="WFMConfigurations">
-            <EntityTypeMapping TypeName="LinkManagementModel.WFMConfiguration">
-              <MappingFragment StoreEntitySet="WFMConfiguration">
+          <EntitySetMapping Name="WFM_Configuration">
+            <EntityTypeMapping TypeName="LinkManagementModel.WFM_Configuration">
+              <MappingFragment StoreEntitySet="WFM_Configuration">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WFM_Designation">
+            <EntityTypeMapping TypeName="LinkManagementModel.WFM_Designation">
+              <MappingFragment StoreEntitySet="WFM_Designation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

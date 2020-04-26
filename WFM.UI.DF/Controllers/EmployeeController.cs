@@ -9,9 +9,9 @@ using System.Web.Script.Serialization;
 using WFM.BAL;
 using WFM.DAL;
 using WFM.UI.DF;
-using WFM.UI.ModelsView;
+using WFM.UI.DF.ModelsView;
 
-namespace WFM.UI.Controllers
+namespace WFM.UI.DF.Controllers
 {
     public class EmployeeController : Controller
     {
@@ -42,13 +42,13 @@ namespace WFM.UI.Controllers
         {
             Employee employee = new Employee();
 
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 if(id !=null)
                 {
                     employee = entities.Employees.Where(e => e.Id == id).SingleOrDefault();
                 }
-                var listData = entities.Designations.Select(s => new { Id = s.Id, Value = s.Name }).ToList();
+                var listData = entities.WFM_Designation.Select(s => new { Id = s.Id, Value = s.Name }).ToList();
                 ViewBag.ListObject = new SelectList(listData, "Id", "Value");
             }
                 return View(employee);
@@ -56,7 +56,7 @@ namespace WFM.UI.Controllers
 
         public ActionResult GetList()
         {
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 var list = entities.Employees.OrderBy(o => o.Name).ToList();
                 List<EmployeeView> modelList = new List<EmployeeView>();
@@ -71,7 +71,7 @@ namespace WFM.UI.Controllers
                         Mobile = item.Mobile,
                         Email = item.Email,
                         FixedLine = item.FixedLine,
-                        DesignationName = (item.DesignationId == 0) ? "" : entities.Designations.Where(o => o.Id == item.DesignationId).SingleOrDefault().Name,
+                        DesignationName = (item.DesignationId == 0) ? "" : entities.WFM_Designation.Where(o => o.Id == item.DesignationId).SingleOrDefault().Name,
                     });
                 }
                 return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
@@ -84,7 +84,7 @@ namespace WFM.UI.Controllers
         public ActionResult SaveOrUpdate(Employee model)
         {
             string newData = string.Empty, oldData = string.Empty;
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 try
                 {

@@ -12,10 +12,10 @@ namespace WFM.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class WFMConfiguration
+    public partial class WFM_Designation
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Value { get; set; }
+        public bool IsActive { get; set; }
     }
 }

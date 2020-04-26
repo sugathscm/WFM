@@ -12,7 +12,7 @@ using Microsoft.Owin.Security;
 using WFM.UI.DF;
 using WFM.UI.DF.Models;
 
-namespace WFM.UI.Controllers
+namespace WFM.UI.DF.Controllers
 {
     [Authorize]
     public class AccountController : Controller

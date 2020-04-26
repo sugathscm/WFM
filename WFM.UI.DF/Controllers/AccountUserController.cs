@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using WFM.DAL;
 using WFM.UI.DF.Models;
-using WFM.UI.ModelsView;
+using WFM.UI.DF.ModelsView;
 
-namespace WFM.UI.Controllers
+namespace WFM.UI.DF.Controllers
 {
     [Authorize(Roles = "Administrator")]
     public class AccountUserController : Controller

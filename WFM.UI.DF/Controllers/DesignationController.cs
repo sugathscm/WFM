@@ -10,7 +10,7 @@ using WFM.BAL;
 using WFM.DAL;
 using WFM.UI.DF;
 
-namespace WFM.UI.Controllers
+namespace WFM.UI.DF.Controllers
 {
     //[Authorize]
     public class DesignationController : Controller
@@ -41,12 +41,12 @@ namespace WFM.UI.Controllers
         // GET: Designation
         public ActionResult Index(int? id)
         {
-            Designation designation = new Designation();
+            WFM_Designation designation = new WFM_Designation();
             if (id != null)
             {
-                using (WorkFlowEntities entities = new WorkFlowEntities())
+                using (LinkManagementEntities entities = new LinkManagementEntities())
                 {
-                    designation = entities.Designations.Where(o => o.Id == id).SingleOrDefault();
+                    designation = entities.WFM_Designation.Where(o => o.Id == id).SingleOrDefault();
                 }
             }
             return View(designation);
@@ -54,15 +54,15 @@ namespace WFM.UI.Controllers
 
         public ActionResult GetList()
         {
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
-                var list = entities.Designations.OrderBy(o => o.Name).ToList();
+                var list = entities.WFM_Designation.OrderBy(o => o.Name).ToList();
 
-                List<Designation> modelList = new List<Designation>();
+                List<WFM_Designation> modelList = new List<WFM_Designation>();
 
                 foreach (var item in list)
                 {
-                    modelList.Add(new Designation() { Id = item.Id, IsActive = item.IsActive, Name = item.Name });
+                    modelList.Add(new WFM_Designation() { Id = item.Id, IsActive = item.IsActive, Name = item.Name });
                 }
 
                 return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
@@ -75,32 +75,32 @@ namespace WFM.UI.Controllers
         public ActionResult SaveOrUpdate(Designation model)
         {
             string newData = string.Empty, oldData = string.Empty;
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 try
                 {
                     int id = model.Id;
-                    Designation designation = null;
-                    Designation oldDesignation = null;
+                    WFM_Designation designation = null;
+                    WFM_Designation oldDesignation = null;
                     if (model.Id == 0)
                     {
-                        designation = new Designation
+                        designation = new WFM_Designation
                         {
                             Name = model.Name,
                             IsActive = true
                         };
 
-                        entities.Designations.Add(designation);
+                        entities.WFM_Designation.Add(designation);
                         entities.SaveChanges();
 
-                        oldDesignation = new Designation();
+                        oldDesignation = new WFM_Designation();
                         oldData = new JavaScriptSerializer().Serialize(oldDesignation);
                         newData = new JavaScriptSerializer().Serialize(designation);
                     }
                     else
                     {
-                        designation = entities.Designations.Where(o => o.Id == model.Id).SingleOrDefault();
-                        oldDesignation = entities.Designations.Where(o => o.Id == model.Id).SingleOrDefault();
+                        designation = entities.WFM_Designation.Where(o => o.Id == model.Id).SingleOrDefault();
+                        oldDesignation = entities.WFM_Designation.Where(o => o.Id == model.Id).SingleOrDefault();
 
                         oldData = new JavaScriptSerializer().Serialize(new Designation()
                         {
@@ -111,7 +111,7 @@ namespace WFM.UI.Controllers
 
                         designation.Name = model.Name;
                         bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
-                        designation.IsActive = model.IsActive;
+                        designation.IsActive = model.IsActive.Value;
 
                         newData = new JavaScriptSerializer().Serialize(new Designation()
                         {

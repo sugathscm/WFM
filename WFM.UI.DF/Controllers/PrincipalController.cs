@@ -10,9 +10,9 @@ using WFM.BAL;
 using WFM.DAL;
 using WFM.UI.DF;
 using WFM.UI.DF.Models;
-using WFM.UI.ModelsView;
+using WFM.UI.DF.ModelsView;
 
-namespace WFM.UI.Controllers
+namespace WFM.UI.DF.Controllers
 {
     public class PrincipalController : Controller
     {
@@ -43,7 +43,7 @@ namespace WFM.UI.Controllers
         {
             Principal principal = new Principal();
 
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 if (id != null)
                 {
@@ -58,7 +58,7 @@ namespace WFM.UI.Controllers
 
         public ActionResult GetList()
         {
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 var list = entities.Principals.Include("Country").OrderBy(o => o.Name).ToList();
                 List<PrincipalView> modelList = new List<PrincipalView>();
@@ -89,7 +89,7 @@ namespace WFM.UI.Controllers
         public ActionResult SaveOrUpdate(Principal model)
         {
             string newData = string.Empty, oldData = string.Empty;
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 try
                 {

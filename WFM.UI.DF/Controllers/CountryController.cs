@@ -10,7 +10,7 @@ using WFM.BAL;
 using WFM.DAL;
 using WFM.UI.DF;
 
-namespace WFM.UI.Controllers
+namespace WFM.UI.DF.Controllers
 {
     //[Authorize]
     public class CountryController : Controller
@@ -43,7 +43,7 @@ namespace WFM.UI.Controllers
             Country country = new Country();
             if (id != null)
             {
-                using (WorkFlowEntities entities = new WorkFlowEntities())
+                using (LinkManagementEntities entities = new LinkManagementEntities())
                 {
                     country = entities.Countries.Where(o => o.Id == id).SingleOrDefault();
                 }
@@ -53,7 +53,7 @@ namespace WFM.UI.Controllers
 
         public ActionResult GetList()
         {
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 var list = entities.Countries.OrderBy(o => o.Name).ToList();
 
@@ -74,7 +74,7 @@ namespace WFM.UI.Controllers
         public ActionResult SaveOrUpdate(Country model)
         {
             string newData = string.Empty, oldData = string.Empty;
-            using (WorkFlowEntities entities = new WorkFlowEntities())
+            using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 try
                 {

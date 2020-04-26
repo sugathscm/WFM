@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using WFM.DAL;
 
-namespace WFM.UI.ModelsView
+namespace WFM.UI.DF.ModelsView
 {
     public class EmployeeView
     {

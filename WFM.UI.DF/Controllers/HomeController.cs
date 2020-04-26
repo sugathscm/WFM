@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using WFM.UI.DF;
 
-namespace WFM.UI.Controllers
+namespace WFM.UI.DF.Controllers
 {
     //[Authorize]
     public class HomeController : Controller
