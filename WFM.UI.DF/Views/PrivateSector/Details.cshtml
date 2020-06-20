@@ -1,0 +1,852 @@
+﻿@model WFM.DAL.WFM_Project
+@using WFM.DAL
+@{
+    ViewBag.Title = "Inward Inquiry";
+}
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Inward Inquiry</h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                @*<li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>*@
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+                <div class="section-block">
+                    <h5 class="section-title">Inward Inquiry - 100001</h5>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+                <div class="section-block-main-data">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Project Code</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.Code)">
+                                </div>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Company</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_Organization.Name)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Sector &amp; Sub Sector</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_ProjectSector.Name)-@Html.DisplayFor(m => m.WFM_ProjectSector1.Name)">
+                                </div>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Value</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.Value)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Start Date</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.StartDate)">
+                                </div>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Expiary Date</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.ExpiaryDate)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Last Updated Date</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.CurrentDocumentTabDate)">
+                                </div>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Last Updated By</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.LastUpdatedBy)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Name of the opportunity</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.Name)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Status</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_ProjectStatus.Name)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Current Tab</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_DocumentTab.Name)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 con-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group row">
+                                <label for="ProjectDescription" class="col-lg-12 col-sm-12 col-form-label text-small">Time Line Information</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="progress mb-3" style=" margin-top: 10px!important;">
+                                        <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- ============================================================== -->
+        <!-- justified tabs  -->
+        <!-- ============================================================== -->
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+            <div class="tab-regular">
+                <ul class="nav nav-tabs nav-fill" id="myTab7" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="sourcing-tab-justify" data-toggle="tab" href="#sourcing-justif" role="tab" aria-controls="sourcing" aria-selected="true">Sourcing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="randd-tab-justify" data-toggle="tab" href="#randd-justify" role="tab" aria-controls="randd" aria-selected="false">R and D - Finance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="approval-tab-justify" data-toggle="tab" href="#approval-justify" role="tab" aria-controls="approval" aria-selected="false">Approval</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="marketing-tab-justify" data-toggle="tab" href="#marketing-justify" role="tab" aria-controls="marketing" aria-selected="false">Marketing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="verification-tab-justify" data-toggle="tab" href="#verification-justify" role="tab" aria-controls="verification" aria-selected="false">Verification</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="legal-tab-justify" data-toggle="tab" href="#legal-justify" role="tab" aria-controls="legal" aria-selected="false">Legal Contracting</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="InwardInquiry">
+                    <div class="tab-pane fade show active" id="sourcing-justif" role="tabpanel" aria-labelledby="sourcing-tab-justify">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form id="form" data-parsley-validate="" novalidate="">
+                                        <div class="row">
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Name of the opportunity</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Short description</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Started Date</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        <label required="" placeholder="Type something" class="form-control">@DateTime.Now.ToShortDateString()</label>
+                                                    </div>
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Expiary Date</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        <label required="" placeholder="Type something" class="form-control">@DateTime.Now.ToShortDateString()</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Sector</label>
+                                                    <div class="col-lg-12 col-sm-12 ">
+                                                        @Html.DropDownListFor(m => m.SectorId, new SelectList(ViewBag.SectorList, "Id", "Name"), "Select Sector", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Sub Sector</label>
+                                                    <div class="col-lg-12 col-sm-12 ">
+                                                        <select class="form-control" id="SubSectorId" name="SubSectorId">
+                                                            <option>Choose</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Status</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.StatusId, new SelectList(ViewBag.SectorList, "Id", "Name"), "Select Status", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-12 col-sm-12 col-form-label text-small">Project Value</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Bond Type</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        <label placeholder="" class="form-control">Ex/Non</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-12 col-sm-3 col-form-label text-small">Is project presented by owner</label>
+                                                    <div class="col-12 col-sm-8 col-lg-6">
+                                                        <label class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Yes</span>
+                                                        </label>
+                                                        <label class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">No</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div clss="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+                                                <h4 style="padding-left:15px;">Details of Project Owner / Introducer</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Organisation</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Mobile</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Assistant's Contact No <small>(PA / Driver etc)</small></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Priority Framework</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Name</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Landline <small>(Home & Office)</small></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Intended method of Introduction</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Rationale for No.8</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Designation</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Email</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="email" required="" data-parsley-type="email" placeholder="Enter a valid e-mail" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Project owner's expectations <small>(Requirement)</small></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Address</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Fax</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Introducer's expectation</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-12 col-sm-6 col-form-label text-small">Companies</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-12 col-sm-6 col-form-label text-small">If public, name of line agency</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-12 col-sm-6 col-form-label text-small">If private, name of entity/ promoter</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-12 col-sm-6 col-form-label text-small">Key contact person/s: <br /><small>(Please mention the names with abbreviations as appropriate)</small></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-12 col-sm-6 col-form-label text-small">Verification of information to establish project existence</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-12 col-sm-6 col-form-label text-small">Is mandate available? If not, potential to obtain</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-12 col-sm-6 col-form-label text-small">Recommended Implementer / Project champion</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-12 col-sm-6 col-form-label text-small">1. Evaluation Report post processing through evaluation model<br />2. Exception approval report (if applicable)</label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                                        <input type="text" required="" placeholder="" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            @{
+                                                int i = 0;
+                                                foreach (var document in ViewBag.Type1DocumentList as List<WFM_Document>)
+                                                {
+                                                    i = i + 1;
+                                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@i . @Html.Raw(document.Name)</label>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                <input type="file" required="" placeholder="" class="form-control" id="@document.Id">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <button type="button" class="btn btn-primary float-left">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="randd-justify" role="tabpanel" aria-labelledby="randd-tab-justify">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form id="form" data-parsley-validate="" novalidate="">
+
+                                        <div class="row">
+                                            @{
+                                                i = 0;
+                                                foreach (var document in ViewBag.Type2DocumentList as List<WFM_Document>)
+                                                {
+                                                    i = i + 1;
+                                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@i . @Html.Raw(document.Name)</label>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                <input type="file" required="" placeholder="" class="form-control" id="@document.Id">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="row">
+                                            @{
+                                                i = 0;
+                                                foreach (var document in ViewBag.Type1ProjectDocumentList as List<WFM_ProjectDocument>)
+                                                {
+                                                    i = i + 1;
+                                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@i . @Html.Raw(document.WFM_Document.Name) <small>Version - @document.Version</small></label>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                <button class="btn"><i class="fa fa-eye"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        @*<div class="col-xl-6 con-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group row">
+                                                    <div class="col-12">
+                                                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-block">Documents available from Sourcing</button>
+                                                    </div>
+                                                </div>
+                                            </div>*@
+
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <button type="button" class="btn btn-primary float-left">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="approval-justify" role="tabpanel" aria-labelledby="approval-tab-justify">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form id="form" data-parsley-validate="" novalidate="">
+                                        <div class="row">
+                                            @{
+                                                i = 0;
+                                                foreach (var document in ViewBag.Type2ProjectDocumentList as List<WFM_ProjectDocument>)
+                                                {
+                                                    i = i + 1;
+                                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@i . @Html.Raw(document.WFM_Document.Name) <small>Version - @document.Version</small></label>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                <button class="btn"><i class="fa fa-eye"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12 con-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="form-group row">
+                                                    <div class="col-3 col-lg-3">
+                                                        <label class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Approve</span>
+                                                        </label>
+                                                        <label class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Reject</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-9 col-lg-9">
+                                                        <input id="reason" type="text" required="" data-parsley-type="" placeholder="Reason" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <button type="button" class="btn btn-primary float-left">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="marketing-justify" role="tabpanel" aria-labelledby="marketing-tab-justify">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form id="form" data-parsley-validate="" novalidate="">
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Principal 1</label>
+                                                    <div class="col-lg-12 col-sm-12 ">
+                                                        @Html.DropDownListFor(m => m.PrincipalId1, new SelectList(ViewBag.Principals, "Id", "Name"), "Select Principal", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Principal 2</label>
+                                                    <div class="col-lg-12 col-sm-12 ">
+                                                        @Html.DropDownListFor(m => m.PrincipalId2, new SelectList(ViewBag.Principals, "Id", "Name"), "Select Principal", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Principal 3</label>
+                                                    <div class="col-lg-12 col-sm-12 ">
+                                                        @Html.DropDownListFor(m => m.PrincipalId3, new SelectList(ViewBag.Principals, "Id", "Name"), "Select Principal", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr />
+                                        <div class="row">
+                                            @{
+                                                i = 0;
+                                                foreach (var document in ViewBag.Form8B as List<WFM_Document>)
+                                                {
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-0">
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@Html.Raw(document.Name)</label>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                @foreach (var field in document.WFM_DocumentField.ToList() as List<WFM_DocumentField>)
+                                                                {
+                                                                    i = i + 1;
+                                                                    <div class="form-group row">
+                                                                        <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@i . @Html.Raw(field.FieldName)</label>
+                                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                            <input id="@field.Id" type="text" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <button type="button" class="btn btn-primary float-left">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="verification-justify" role="tabpanel" aria-labelledby="verification-tab-justify">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form id="form" data-parsley-validate="" novalidate="">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <button type="button" class="btn btn-info btn-block">View Form 8B 1 & 2</button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="button" class="btn btn-info btn-block">View Form 12</button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="button" class="btn btn-info btn-block">View Mandate</button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <button type="button" class="btn btn-primary float-left">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="legal-justify" role="tabpanel" aria-labelledby="legal-tab-justify">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form id="form" data-parsley-validate="" novalidate="">
+                                        <div class="row">
+                                            <div class="col-md-2 col-sm-2 col-2 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <button type="button" class="btn btn-primary float-left">Agree</button>
+                                                        <button type="button" class="btn btn-primary float-right">Reject</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h4>Messages</h4>
+                                            <div id="messages"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end justified tabs  -->
+        <!-- ============================================================== -->
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+            <div class="row">
+                <div class="col-12">
+                    <h4>Messages</h4>
+                    <div id="messages"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-12 mb-0">
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">1. Project Idea Note / proposal (Not required if Item 3 or 4 is available)</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">2. Financial model</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">3. Pre feasibility / feasibility / viability report</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div><div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">4. Business Plan</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">5. Mandate</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">6. NDA / NCA</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">7. Consultancy agreement</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">8. Private sector project >information sheet </label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">9. Management / audited accounts</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">10. Projected financials (Not required if Item 2 is available)</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">11. Form 1, Form 20, BRC</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">12. Articles of association</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">13. Company profile/website</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">14. Annual report (3 years of audited financial stats)</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">15. Promoter's profile</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $('#SectorId').select2({
+            selectOnClose: true
+        });
+
+        $('#SubSectorId').select2({
+            selectOnClose: true
+        });
+
+        $('#StatusId').select2({
+            selectOnClose: true
+        });
+
+        $('#PrincipalId1').select2({
+            selectOnClose: true
+        });
+
+        $('#PrincipalId2').select2({
+            selectOnClose: true
+        });
+
+        $('#PrincipalId3').select2({
+            selectOnClose: true
+        });
+    </script>
+}

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/assets/vendor/fonts/circular-std/style.css" />
     <link rel="stylesheet" href="~/assets/libs/css/style-light.css" />
-    <link rel="stylesheet" href="~/assets/vendor/fonts/fontawesome/css/fontawesome-al/l.css" />
+    <link rel="stylesheet" href="~/assets/vendor/fonts/fontawesome/css/fontawesome-all.css" />
     <link rel="stylesheet" href="~/assets/vendor/charts/chartist-bundle/chartist.css" />
     <link rel="stylesheet" href="~/assets/vendor/charts/morris-bundle/morris.css" />
     <link rel="stylesheet" href="~/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css" />
@@ -22,7 +22,13 @@
     <link rel="stylesheet" href="~/assets/vendor/datatables/css/select.bootstrap4.css" />
     <link rel="stylesheet" href="~/assets/vendor/datatables/css/fixedHeader.bootstrap4.css" />
     <link rel="stylesheet" href="~/assets/vendor/select2/css/select2.css" />
+    <link rel="stylesheet" href="~/assets/libs/css/main.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <script src="~/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Scripts/bootstrap-wysiwyg.js"></script>
+    <link rel="stylesheet" href="~/assets/libs/css/index.css" />
     <!-- bootstap bundle js -->
     <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 </head>
@@ -56,7 +62,7 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="index.html">WFM</a>
+                <a class="navbar-brand" href="~/home">WFM</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -141,7 +147,7 @@
                                 Administration
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="Home"><i class="fa fa-fw fa-tachometer-alt"></i>Dashboard <span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="~/home"><i class="fa fa-fw fa-tachometer-alt"></i>Dashboard <span class="badge badge-success">6</span></a>
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-cogs"></i>Administration <span class="badge badge-success">6</span></a>
                                 <div id="submenu-1" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
@@ -152,13 +158,13 @@
                                             <a class="nav-link" href="DataAudit">Data Audit</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="dashboard-sales.html">Settings</a>
+                                            <a class="nav-link" href="#">Settings</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="dashboard-sales.html">Audit Trail</a>
+                                            <a class="nav-link" href="#">Audit Trail</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="dashboard-sales.html">Message Centre</a>
+                                            <a class="nav-link" href="#">Message Centre</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -168,7 +174,10 @@
                                 <div id="master" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="~/TenderDocumentType">Tender Document Type</a>
+                                            <a class="nav-link" href="~/CabinetPaper">Cabinet Papers</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/Contact">Contacts</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="~/Country">Country</a>
@@ -177,69 +186,61 @@
                                             <a class="nav-link" href="~/Designation">Designation</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="~/ProjectSector">Project Sector</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/Contact">Principal Contacts</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/Principal">Principals</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/SourcingPartner">Sourcing Partners</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/TenderDocumentSection">Tender Document Section</a>
-                                        </li>
-                                        @*<li class="nav-item">
-                                            <a class="nav-link" href="~/TenderDocumentDetailSection">Tender Document Detail Section</a>
-                                        </li>*@
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/AccountUser">User Management</a>
+                                            <a class="nav-link" href="~/Division">Division</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="~/Employee">Employees</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="~/CabinetPaper">Cabinet Papers</a>
+                                            <a class="nav-link" href="~/Principal">Principals</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/ProjectSector">Project Sector</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/SourcingPartner">Sourcing Partners</a>
+                                        </li>
+                                        @*<li class="nav-item">
+                                            <a class="nav-link" href="~/TenderDocumentSection">Tender Document Section</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/TenderDocumentType">Tender Document Type</a>
+                                        </li>*@
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/AccountUser">User Management</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-divider">
-                                Work Flow
+                                Sourcing
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#inward" aria-controls="inward"><i class="fa fa-fw fa-money-bill-alt"></i>Inward Inquiries <span class="badge badge-success">6</span></a>
-                                <div id="inward" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/InwardInquiry">Inward Inquiry List</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/InwardInquiry/Details">Inward Inquiry</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <li>
+                                <a class="nav-link" href="~/sourcing"><i class="fa fa-fw fa-tachometer-alt"></i>Inward Inquiry List</a>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#tenders" aria-controls="tenders"><i class="fa fa-fw fa-money-bill-alt"></i>Tenders <span class="badge badge-success">6</span></a>
-                                <div id="tenders" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/Tender">Tender List</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/Tender/Details">Tender</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <li>
+                                <a class="nav-link" href="~/sourcing/details"><i class="fa fa-fw fa-tachometer-alt"></i>New Inward Inquiry</a>
+                            </li>
+                            <li class="nav-divider">
+                                Projects
+                            </li>
+                            <li>
+                                <a class="nav-link" href="~/PrivateSector"><i class="fa fa-fw fa-tachometer-alt"></i>Private Sector</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="~/PublicSectorTender"><i class="fa fa-fw fa-tachometer-alt"></i>Public Sector - Tender</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="~/PublicSectorNonTender"><i class="fa fa-fw fa-tachometer-alt"></i>Public Sector - Non Tender</a>
                             </li>
                             <li class="nav-divider">
                                 History Data
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="~/Tenders/History"><i class="fa fa-fw fa-briefcase"></i>Tenders <span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="~/Tenders/History"><i class="fa fa-fw fa-briefcase"></i>Tender List <span class="badge badge-success">6</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/Tenders/History"><i class="fa fa-fw fa-briefcase"></i>Inward Inquiry List <span class="badge badge-success">6</span></a>
                             </li>
                         </ul>
                     </div>

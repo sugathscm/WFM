@@ -2,13 +2,12 @@
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using WFM.BAL;
+using WFM.BAL.Services;
 using WFM.DAL;
-using WFM.UI.DF;
+using WFM.UI.DF.Models;
 
 namespace WFM.UI.DF.Controllers
 {
@@ -16,6 +15,7 @@ namespace WFM.UI.DF.Controllers
     public class DesignationController : Controller
     {
         private ApplicationUserManager _userManager;
+        private readonly DesignationService designationService = new DesignationService();
 
         public DesignationController()
         {
@@ -44,102 +44,91 @@ namespace WFM.UI.DF.Controllers
             WFM_Designation designation = new WFM_Designation();
             if (id != null)
             {
-                using (LinkManagementEntities entities = new LinkManagementEntities())
-                {
-                    designation = entities.WFM_Designation.Where(o => o.Id == id).SingleOrDefault();
-                }
+                designation = designationService.GetDesignationById(id);
             }
             return View(designation);
         }
 
         public ActionResult GetList()
         {
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+            List<WFM_Designation> list = designationService.GetDesignationList();
+
+            List<BaseViewModel> modelList = new List<BaseViewModel>();
+
+            foreach (var item in list)
             {
-                var list = entities.WFM_Designation.OrderBy(o => o.Name).ToList();
-
-                List<WFM_Designation> modelList = new List<WFM_Designation>();
-
-                foreach (var item in list)
-                {
-                    modelList.Add(new WFM_Designation() { Id = item.Id, IsActive = item.IsActive, Name = item.Name });
-                }
-
-                return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
+                modelList.Add(new BaseViewModel() { Id = item.Id, IsActive = item.IsActive, Name = item.Name });
             }
+
+            return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveOrUpdate(Designation model)
+        public ActionResult SaveOrUpdate(WFM_Designation model)
         {
             string newData = string.Empty, oldData = string.Empty;
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+
+            try
             {
-                try
+                int id = model.Id;
+                WFM_Designation designation = null;
+                WFM_Designation oldDesignation = null;
+                if (model.Id == 0)
                 {
-                    int id = model.Id;
-                    WFM_Designation designation = null;
-                    WFM_Designation oldDesignation = null;
-                    if (model.Id == 0)
+                    designation = new WFM_Designation
                     {
-                        designation = new WFM_Designation
-                        {
-                            Name = model.Name,
-                            IsActive = true
-                        };
+                        Name = model.Name,
+                        IsActive = true
+                    };                   
 
-                        entities.WFM_Designation.Add(designation);
-                        entities.SaveChanges();
+                    oldDesignation = new WFM_Designation();
+                    oldData = new JavaScriptSerializer().Serialize(oldDesignation);
+                    newData = new JavaScriptSerializer().Serialize(designation);
+                }
+                else
+                {
+                    designation = designationService.GetDesignationById(model.Id);
+                    oldDesignation = designationService.GetDesignationById(model.Id);
 
-                        oldDesignation = new WFM_Designation();
-                        oldData = new JavaScriptSerializer().Serialize(oldDesignation);
-                        newData = new JavaScriptSerializer().Serialize(designation);
-                    }
-                    else
+                    oldData = new JavaScriptSerializer().Serialize(new WFM_Designation()
                     {
-                        designation = entities.WFM_Designation.Where(o => o.Id == model.Id).SingleOrDefault();
-                        oldDesignation = entities.WFM_Designation.Where(o => o.Id == model.Id).SingleOrDefault();
-
-                        oldData = new JavaScriptSerializer().Serialize(new Designation()
-                        {
-                            Id = oldDesignation.Id,
-                            Name = oldDesignation.Name,
-                            IsActive = oldDesignation.IsActive
-                        });
-
-                        designation.Name = model.Name;
-                        bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
-                        designation.IsActive = model.IsActive.Value;
-
-                        newData = new JavaScriptSerializer().Serialize(new Designation()
-                        {
-                            Id = designation.Id,
-                            Name = designation.Name,
-                            IsActive = designation.IsActive
-                        });
-
-                        entities.Entry(designation).State = System.Data.Entity.EntityState.Modified;
-                        entities.SaveChanges();
-                    }
-
-                    CommonService.SaveDataAudit(new DataAudit()
-                    {
-                        Entity = "Designation",
-                        NewData = newData,
-                        OldData = oldData,
-                        UpdatedOn = DateTime.Now,
-                        UserId = new Guid(User.Identity.GetUserId())
+                        Id = oldDesignation.Id,
+                        Name = oldDesignation.Name,
+                        IsActive = oldDesignation.IsActive
                     });
 
-                    TempData["Message"] = "<div id='flash-success'>Record Saved Successfully.</div>";
+                    designation.Name = model.Name;
+                    bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
+                    designation.IsActive = model.IsActive;
+
+                    newData = new JavaScriptSerializer().Serialize(new WFM_Designation()
+                    {
+                        Id = designation.Id,
+                        Name = designation.Name,
+                        IsActive = designation.IsActive
+                    });
                 }
-                catch (Exception ex)
+
+                designationService.SaveOrUpdate(designation);
+
+                CommonService.SaveDataAudit(new DataAudit()
                 {
-                    TempData["Message"] = "<span id='flash-error'>Error.</span>" + ex.InnerException;
-                }
+                    Entity = "Designation",
+                    NewData = newData,
+                    OldData = oldData,
+                    UpdatedOn = DateTime.Now,
+                    UserId = new Guid(User.Identity.GetUserId())
+                });
+
+                TempData["Message"] = "<div id='flash-success'>Record Saved Successfully.</div>";
             }
+            catch (Exception ex)
+            {
+                TempData["Message"] = "<span id='flash-error'>Error.</span>" + ex.InnerException;
+            }
+
 
             return RedirectToAction("Index", "Designation");
         }

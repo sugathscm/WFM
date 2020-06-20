@@ -30,9 +30,9 @@ namespace WFM.UI.DF.ModelsView
         [Display(Name = "Active")]
         public bool IsActive { get; set; } = true;
 
-        public Country Country { get; set; }
+        public WFM_Country Country { get; set; }
 
-        public ICollection<Contact> PrincipalContacts { get; set; }
+        public ICollection<WFM_Contact> PrincipalContacts { get; set; }
         public string CountryName { get; internal set; }
     }
 }

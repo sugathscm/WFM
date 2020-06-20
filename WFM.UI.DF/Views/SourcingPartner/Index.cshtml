@@ -1,4 +1,4 @@
-﻿@model WFM.DAL.SourcingPartner
+﻿@model WFM.DAL.WFM_SourcingPartner
 
 @{
     ViewBag.Title = "Sourcing Partners";
@@ -85,15 +85,15 @@
                                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
-                                    @Html.LabelFor(m => m.SourcingPartnerType, new { @class = "control-label" })
-                                    @Html.TextBoxFor(m => m.SourcingPartnerType, new { @class = "form-control" })
+                                    @Html.LabelFor(m => m.SourcingPartnerTypeId, new { @class = "control-label" })
+                                    @Html.DropDownListFor(model => model.SourcingPartnerTypeId, new SelectList(Enum.GetValues(typeof(WFM.BAL.Enums.SourcingPartnerType))), "Select")
                                 </div>
                             </div>
-                            <br/>
+                            <br />
                             <div class="form-row">
                                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
                                     @Html.LabelFor(m => m.Mobile, new { @class = "control-label" })
-                                   @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control" })
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
                                     @Html.LabelFor(m => m.Email, new { @class = "control-label" })
@@ -103,11 +103,11 @@
                                     @Html.LabelFor(m => m.FixedLine, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.FixedLine, new { @class = "form-control" })
                                 </div>
-                                
+
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="form-group">
                                         <div class="form-check">
-                                            @Html.CheckBoxFor(m => m.   IsActive, new { @class = "form-check-input", @checked = Model.IsActive })
+                                            @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-check-input", @checked = Model.IsActive })
                                             @Html.LabelFor(m => m.IsActive, new { @class = "col-md-2 control-label" })
                                         </div>
                                     </div>
@@ -146,14 +146,17 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script>
-    $('#DesignationId').select2({
-        selectOnClose: true
-    });
+    <script>
+        $('#DesignationId').select2({
+            selectOnClose: true
+        });
 
-    $('#Title').select2({
-        selectOnClose: true
-    });
-</script>
+        $('#Title').select2({
+            selectOnClose: true
+        });
 
+        $('#SourcingPartnerTypeId').select2({
+            selectOnClose: true
+        });
+    </script>
 }

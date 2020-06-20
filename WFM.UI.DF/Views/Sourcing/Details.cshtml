@@ -1,0 +1,390 @@
+﻿@model WFM.DAL.WFM_Project
+@using WFM.DAL
+@using WFM.BAL
+@{
+    ViewBag.Title = "Sourcing - Inward Inquiry";
+}
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">@ViewBag.Title (Code - @Html.DisplayFor(m => m.Code))</h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                @*<li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>*@
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                @if (TempData["Message"] != null)
+                {
+                    @Html.Raw(TempData["Message"])
+                }
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row" style="background-color:#fff">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-t-20">
+                <form id="form" data-parsley-validate="" novalidate="">
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Started Date</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control", @placeholder = "DD/MM/YYYY" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Expiary Date</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @Html.TextBoxFor(m => m.ExpiaryDate, new { @class = "form-control", @placeholder = "DD/MM/YYYY" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Sector</label>
+                                <div class="col-lg-12 col-sm-12 ">
+                                    @Html.DropDownListFor(m => m.SectorId, new SelectList(ViewBag.SectorList, "Id", "Name"), "Select Sector", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Sub Sector</label>
+                                <div class="col-lg-12 col-sm-12 ">
+                                    @Html.DropDownListFor(m => m.SubSectorId, new SelectList("", "Id", "Name"), "Select Sub Sector", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Status</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.DropDownListFor(m => m.StatusId, new SelectList(ViewBag.StatusList, "Id", "Name"), "Select Status", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Value</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.TextBoxFor(m => m.Value, new { @required = "", @placeholder = "", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Name of the opportunity</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @Html.TextBoxFor(m => m.Name, new { @required = "", @placeholder = "", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Project Type</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.DropDownListFor(m => m.ProjectTypeId, new SelectList(ViewBag.TypeList, "Id", "Name"), "Select Type", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Organization</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.DropDownListFor(m => m.OrganizationId, new SelectList(ViewBag.OrganizationList, "Id", "Name"), "Select Organization", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Short Description</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @Html.TextBoxFor(m => m.ShortDescription, new { @required = "", @placeholder = "", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Project owner's expectations</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.TextBoxFor(m => m.ProjectOwnerExpectation, new { @required = "", @placeholder = "", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Introducer's expectations</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.TextBoxFor(m => m.IntroducerExpectation, new { @required = "", @placeholder = "", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Contact Person</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.DropDownListFor(m => m.ContactId, new SelectList(ViewBag.ContactList, "Id", "Name"), "Select Contact", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Key contact person 1 </label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.DropDownListFor(m => m.KeyContactPersonId1, new SelectList(ViewBag.ContactList, "Id", "Name"), "Select Contact", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Key contact person 2 </label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.DropDownListFor(m => m.KeyContactPersonId2, new SelectList(ViewBag.ContactList, "Id", "Name"), "Select Contact", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">Key contact person 3 </label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.DropDownListFor(m => m.KeyContactPersonId3, new SelectList(ViewBag.ContactList, "Id", "Name"), "Select Contact", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @*<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-0">
+                                <div class="form-group row">
+                                    <label class="col-12 col-sm-12 col-form-label text-small">Introducers</label>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                        <input type="text" required="" placeholder="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>*@
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Intended method of Introduction</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.DropDownListFor(m => m.MethodOfIntroductionId, new SelectList(ViewBag.MethodOfIntroductionList, "Id", "Name"), "Select Method of IntroductionList", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Priority Framework</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.DropDownListFor(m => m.PriorityFrameworkId, new SelectList(ViewBag.PriorityFrameworkList, "Id", "Name"), "Select Priority Framework", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-0" style="padding-top:20px">
+                            <div class="form-group row">
+                                <label class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-form-label text-small">Is mandate available?</label>
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+                                    @Html.CheckBoxFor(m => m.IsMandateAvailable.Value, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding-top:10px">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-form-label text-small">Is project presented by owner</label>
+                                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+                                    @Html.CheckBoxFor(m => m.IsPresentedByOwner.Value, new { @class = "form-control" })
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                    @Html.TextBoxFor(m => m.PresentedByOwner, new { @required = "", @placeholder = "", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-form-label text-small">Rational For No8</label>
+                                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+                                    @Html.CheckBoxFor(m => m.IsRationalForNo8.Value, new { @class = "form-control" })
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                    @Html.TextBoxFor(m => m.RationalForNo8, new { @required = "", @placeholder = "", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Verification of information to establish project existence</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.TextBoxFor(m => m.VerificationOfInfo, new { @required = "", @placeholder = "", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Recommended Implementer / Project champion</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.TextBoxFor(m => m.ProjectChampion, new { @required = "", @placeholder = "", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Tender</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.DropDownListFor(model => model.TenderType, new SelectList(Enum.GetValues(typeof(WFM.BAL.Enums.TenderType))), "Select")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small"> -</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.DropDownListFor(model => model.TenderTypeList, new SelectList(Enum.GetValues(typeof(WFM.BAL.Enums.TenderTypeList))), "Select")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Registration/Pre-qualification</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.TextBoxFor(m => m.TenderRegistrationPreQualification, new { @required = "", @placeholder = "", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Others; Please specify</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.TextBoxFor(m => m.TenderOthers, new { @required = "", @placeholder = "", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        @{
+                            int i = 0;
+                            foreach (var document in ViewBag.Type1DocumentList as List<WFM_Document>)
+                            {
+                                i = i + 1;
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-0">
+                                    <div class="form-group row">
+                                        <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@i . @Html.Raw(document.Name)</label>
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <input type="file" required="" placeholder="" class="form-control" id="@document.Id">
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <button type="button" class="btn btn-primary float-left">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $('#StartDate').datepicker({
+            uiLibrary: 'bootstrap',
+            "dateFormat": "dd/mm/yy"
+        });
+        $('#ExpiaryDate').datepicker({
+            uiLibrary: 'bootstrap',
+            "dateFormat": "dd/mm/yy"
+        });
+        $('#SectorId').select2({
+            selectOnClose: true
+        });
+
+        $('#StatusId').select2({
+            selectOnClose: true
+        });
+
+        $('#SubSectorId').select2({
+            selectOnClose: true
+        });
+
+        $('#ProjectTypeId').select2({
+            selectOnClose: true
+        });
+
+        $('#OrganizationId').select2({
+            selectOnClose: true
+        });
+
+        $('#ContactId').select2({
+            selectOnClose: true
+        });
+
+        $('#KeyContactPersonId1').select2({
+            selectOnClose: true
+        });
+
+        $('#KeyContactPersonId2').select2({
+            selectOnClose: true
+        });
+
+        $('#KeyContactPersonId3').select2({
+            selectOnClose: true
+        });
+
+        $('#MethodOfIntroductionId').select2({
+            selectOnClose: true
+        });
+
+        $('#PriorityFrameworkId').select2({
+            selectOnClose: true
+        });
+
+        $('#TenderType').select2({
+            selectOnClose: true
+        });
+
+        $('#TenderTypeList').select2({
+            selectOnClose: true
+        });
+
+
+    </script>
+}

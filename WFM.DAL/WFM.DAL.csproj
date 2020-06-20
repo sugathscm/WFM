@@ -66,10 +66,7 @@
     <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Contact.cs">
-      <DependentUpon>LinkManagementModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Country.cs">
+    <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAudit.cs">
@@ -79,9 +76,6 @@
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Division.cs">
-      <DependentUpon>LinkManagementModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Employee.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="GetDataAuditByUser_Result.cs">
@@ -138,38 +132,107 @@
     <Compile Include="PersonRelationshipDetail.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Principal.cs">
-      <DependentUpon>LinkManagementModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PrincipalContact.cs">
-      <DependentUpon>LinkManagementModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProjectSector.cs">
-      <DependentUpon>LinkManagementModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelationshipType.cs">
-      <DependentUpon>LinkManagementModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SourcingPartner.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SubOrganization.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TenderDocumentSection.cs">
-      <DependentUpon>LinkManagementModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TenderDocumentType.cs">
-      <DependentUpon>LinkManagementModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Title.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_BondType.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WFM_Configuration.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="WFM_Contact.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_Country.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_DataAudit.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="WFM_Designation.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_Division.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_Document.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_DocumentField.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_DocumentTab.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_Employee.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_LoginAudit.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_Marketing.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_MarketingSourcingPartner.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_MethodOfIntroduction.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_Organization.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_Principal.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_PrincipalContact.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_PriorityFramework.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_Project.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_ProjectDocument.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_ProjectDocumentFieldValue.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_ProjectDocumentHistory.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_ProjectDocumentTab.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_ProjectSector.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_ProjectStatus.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_ProjectType.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_SourcingPartner.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_TenderDocumentSection.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_TenderDocumentType.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_Title.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

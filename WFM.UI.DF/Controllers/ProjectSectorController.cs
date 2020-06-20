@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using WFM.BAL.Services;
 using WFM.DAL;
 using WFM.UI.DF;
 using WFM.UI.DF.ModelsView;
@@ -16,6 +17,7 @@ namespace WFM.UI.DF.Controllers
     public class ProjectSectorController : Controller
     {
         private ApplicationUserManager _userManager;
+        private readonly ProjectSectorService projectSectorService = new ProjectSectorService();
 
         public ProjectSectorController()
         {
@@ -37,114 +39,107 @@ namespace WFM.UI.DF.Controllers
             }
         }
 
-        // GET: ProjectSector
+        // GET: WFM_ProjectSector
         public ActionResult Index(int? id)
         {
-            ProjectSector projectSector = new ProjectSector();
+            WFM_ProjectSector projectSector = new WFM_ProjectSector();
 
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+            if (id != null)
             {
-                if (id != null)
-                {
-                    projectSector = entities.ProjectSectors.Where(o => o.Id == id).SingleOrDefault();
-                }
-                ViewBag.ProjectSectorList = entities.ProjectSectors.Where(o => o.ParentId == 0).OrderBy(o => o.Name).ToList();
+                projectSector = projectSectorService.GetProjectSectorById(id);
             }
+
+            ViewBag.ProjectSectorList = projectSectorService.GetProjectSectorList().Where(o => o.ParentId == 0).OrderBy(o => o.Name).ToList();
+
             return View(projectSector);
         }
 
         public ActionResult GetList()
         {
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+            var list = projectSectorService.GetProjectSectorList();
+            List<ProjectSectorView> modelList = new List<ProjectSectorView>();
+            foreach (var item in list)
             {
-                var list = entities.ProjectSectors.OrderBy(o => o.Name).ToList();
-                List<ProjectSectorView> modelList = new List<ProjectSectorView>();
-                foreach (var item in list)
+                modelList.Add(new ProjectSectorView()
                 {
-                    modelList.Add(new ProjectSectorView() {
-                        Id = item.Id,
-                        IsActive = item.IsActive,
-                        Name = item.Name,
-                        ParentName = (item.ParentId == 0) ? "" : entities.ProjectSectors.Where(o => o.Id == item.ParentId).SingleOrDefault().Name });
-                }
-                return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
+                    Id = item.Id,
+                    IsActive = item.IsActive,
+                    Name = item.Name,
+                    ParentName = (item.ParentId == 0) ? "" : list.Where(o => o.Id == item.ParentId).SingleOrDefault().Name
+                });
             }
+
+            return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveOrUpdate(ProjectSector model)
+        public ActionResult SaveOrUpdate(WFM_ProjectSector model)
         {
             string newData = string.Empty, oldData = string.Empty;
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+
+            try
             {
-                try
+                int id = model.Id;
+                WFM_ProjectSector projectSector = null;
+                WFM_ProjectSector oldProjectSector = null;
+                if (model.Id == 0)
                 {
-                    int id = model.Id;
-                    ProjectSector projectSector = null;
-                    ProjectSector oldProjectSector = null;
-                    if (model.Id == 0)
+                    projectSector = new WFM_ProjectSector
                     {
-                        projectSector = new ProjectSector
-                        {
-                            Name = model.Name,
-                            IsActive = true,
-                            ParentId = (model.ParentId == null) ? 0 : model.ParentId
-                        };
+                        Name = model.Name,
+                        IsActive = true,
+                        ParentId = (model.ParentId == null) ? 0 : model.ParentId
+                    };
 
-                        entities.ProjectSectors.Add(projectSector);
-                        entities.SaveChanges();
-
-                        oldProjectSector = new ProjectSector();
-                        oldData = new JavaScriptSerializer().Serialize(oldProjectSector);
-                        newData = new JavaScriptSerializer().Serialize(projectSector);
-                    }
-                    else
-                    {
-                        projectSector = entities.ProjectSectors.Where(o => o.Id == model.Id).SingleOrDefault();
-                        oldProjectSector = entities.ProjectSectors.Where(o => o.Id == model.Id).SingleOrDefault();
-
-                        oldData = new JavaScriptSerializer().Serialize(new ProjectSector()
-                        {
-                            Id = oldProjectSector.Id,
-                            Name = oldProjectSector.Name,
-                            IsActive = oldProjectSector.IsActive,
-                            ParentId = oldProjectSector.ParentId
-                        });
-
-                        projectSector.Name = model.Name;
-                        bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
-                        projectSector.IsActive = model.IsActive;
-                        projectSector.ParentId = (model.ParentId == null) ? 0 : model.ParentId;
-
-                        newData = new JavaScriptSerializer().Serialize(new ProjectSector()
-                        {
-                            Id = projectSector.Id,
-                            Name = projectSector.Name,
-                            IsActive = projectSector.IsActive,
-                            ParentId = projectSector.ParentId
-                        });
-
-                        entities.Entry(projectSector).State = System.Data.Entity.EntityState.Modified;
-                        entities.SaveChanges();
-                    }
-
-                    //CommonService.SaveDataAudit(new DataAudit()
-                    //{
-                    //    Entity = "ProjectSector",
-                    //    NewData = newData,
-                    //    OldData = oldData,
-                    //    UpdatedOn = DateTime.Now,
-                    //    UserId = new Guid(User.Identity.GetUserId())
-                    //});
-
-                    TempData["Message"] = "<div id='flash-success'>Record Saved Successfully.</div>";
+                    oldProjectSector = new WFM_ProjectSector();
+                    oldData = new JavaScriptSerializer().Serialize(oldProjectSector);
+                    newData = new JavaScriptSerializer().Serialize(projectSector);
                 }
-                catch (Exception ex)
+                else
                 {
-                    TempData["Message"] = "<span id='flash-error'>Error.</span>" + ex.InnerException;
+                    projectSector = projectSectorService.GetProjectSectorById(model.Id);
+                    oldProjectSector = projectSectorService.GetProjectSectorById(model.Id);
+
+                    oldData = new JavaScriptSerializer().Serialize(new WFM_ProjectSector()
+                    {
+                        Id = oldProjectSector.Id,
+                        Name = oldProjectSector.Name,
+                        IsActive = oldProjectSector.IsActive,
+                        ParentId = oldProjectSector.ParentId
+                    });
+
+                    projectSector.Name = model.Name;
+                    bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
+                    projectSector.IsActive = model.IsActive;
+                    projectSector.ParentId = (model.ParentId == null) ? 0 : model.ParentId;
+
+                    newData = new JavaScriptSerializer().Serialize(new WFM_ProjectSector()
+                    {
+                        Id = projectSector.Id,
+                        Name = projectSector.Name,
+                        IsActive = projectSector.IsActive,
+                        ParentId = projectSector.ParentId
+                    });
                 }
+
+                projectSectorService.SaveOrUpdate(projectSector);
+
+                CommonService.SaveDataAudit(new DataAudit()
+                {
+                    Entity = "WFM_ProjectSector",
+                    NewData = newData,
+                    OldData = oldData,
+                    UpdatedOn = DateTime.Now,
+                    UserId = new Guid(User.Identity.GetUserId())
+                });
+
+                TempData["Message"] = "<div id='flash-success'>Record Saved Successfully.</div>";
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = "<span id='flash-error'>Error.</span>" + ex.InnerException;
             }
 
             return RedirectToAction("Index", "ProjectSector");

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using WFM.BAL;
+using WFM.BAL.Services;
 using WFM.DAL;
 using WFM.UI.DF;
 using WFM.UI.DF.ModelsView;
@@ -16,6 +17,8 @@ namespace WFM.UI.DF.Controllers
     public class EmployeeController : Controller
     {
         private ApplicationUserManager _userManager;
+        private readonly EmployeeService employeeService = new EmployeeService();
+        private readonly DesignationService designationService = new DesignationService();
 
         public EmployeeController()
         {
@@ -40,143 +43,128 @@ namespace WFM.UI.DF.Controllers
         // GET: Employee
         public ActionResult Index(int? id)
         {
-            Employee employee = new Employee();
+            WFM_Employee employee = new WFM_Employee();
 
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+
+            if (id != null)
             {
-                if(id !=null)
-                {
-                    employee = entities.Employees.Where(e => e.Id == id).SingleOrDefault();
-                }
-                var listData = entities.WFM_Designation.Select(s => new { Id = s.Id, Value = s.Name }).ToList();
-                ViewBag.ListObject = new SelectList(listData, "Id", "Value");
+                employee = employeeService.GetEmployeeById(id);
             }
-                return View(employee);
+
+            var listData = designationService.GetDesignationList();
+
+            ViewBag.ListObject = new SelectList(listData, "Id", "Name");
+
+            return View(employee);
         }
 
         public ActionResult GetList()
         {
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+
+            var list = employeeService.GetEmployeeList();
+            List<EmployeeView> modelList = new List<EmployeeView>();
+            foreach (var item in list)
             {
-                var list = entities.Employees.OrderBy(o => o.Name).ToList();
-                List<EmployeeView> modelList = new List<EmployeeView>();
-                foreach (var item in list)
+                modelList.Add(new EmployeeView()
                 {
-                    modelList.Add(new EmployeeView()
-                    {
-                        Id = item.Id,
-                        IsActive = item.IsActive,
-                        Title = item.Title,
-                        Name = item.Name,
-                        Mobile = item.Mobile,
-                        Email = item.Email,
-                        FixedLine = item.FixedLine,
-                        DesignationName = (item.DesignationId == 0) ? "" : entities.WFM_Designation.Where(o => o.Id == item.DesignationId).SingleOrDefault().Name,
-                    });
-                }
-                return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
+                    Id = item.Id,
+                    IsActive = item.IsActive,
+                    Title = item.Title,
+                    Name = item.Name,
+                    Mobile = item.Mobile,
+                    Email = item.Email,
+                    FixedLine = item.FixedLine,
+                    DesignationName = (item.DesignationId == 0) ? "" : designationService.GetDesignationById(item.DesignationId).Name,
+                });
             }
+            return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveOrUpdate(Employee model)
+        public ActionResult SaveOrUpdate(WFM_Employee model)
         {
             string newData = string.Empty, oldData = string.Empty;
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+
+            try
             {
-                try
+                int id = model.Id;
+                WFM_Employee employee = null;
+                WFM_Employee oldEmployee = null;
+                if (model.Id == 0)
                 {
-                    int id = model.Id;
-                    Employee employee = null;
-                    Employee oldEmployee = null;
-                    if (model.Id == 0)
+                    employee = new WFM_Employee
                     {
-                        employee = new Employee
-                        {
-                            Title = model.Title,
-                            Name = model.Name,
-                            Mobile = model.Mobile,
-                            Email = model.Email,
-                            FixedLine = model.FixedLine,
-                            IsActive = true,
-                            DesignationId = model.DesignationId
-                        };
+                        Title = model.Title,
+                        Name = model.Name,
+                        Mobile = model.Mobile,
+                        Email = model.Email,
+                        FixedLine = model.FixedLine,
+                        IsActive = true,
+                        DesignationId = model.DesignationId
+                    };
 
-                        entities.Employees.Add(employee);
-                        entities.SaveChanges();
+                    oldEmployee = new WFM_Employee();
+                    oldData = new JavaScriptSerializer().Serialize(oldEmployee);
+                    newData = new JavaScriptSerializer().Serialize(employee);
+                }
+                else
+                {
+                    employee = employeeService.GetEmployeeById(model.Id);
+                    oldEmployee = employeeService.GetEmployeeById(model.Id);
 
-                        oldEmployee = new Employee();
-                        oldData = new JavaScriptSerializer().Serialize(oldEmployee);
-                        newData = new JavaScriptSerializer().Serialize(employee);
-                    }
-                    else
+                    oldData = new JavaScriptSerializer().Serialize(new WFM_Employee()
                     {
-                        employee = entities.Employees.Where(o => o.Id == model.Id).SingleOrDefault();
-                        oldEmployee = entities.Employees.Where(o => o.Id == model.Id).SingleOrDefault();
-
-                        oldData = new JavaScriptSerializer().Serialize(new Employee()
-                        {
-                            Id = oldEmployee.Id,
-                            Title = oldEmployee.Title,
-                            Name = oldEmployee.Name,
-                            Mobile = oldEmployee.Mobile,
-                            Email = oldEmployee.Email,
-                            FixedLine = oldEmployee.FixedLine,
-                            DesignationId = oldEmployee.DesignationId,
-                            IsActive = oldEmployee.IsActive
-                        });
-
-                        employee.Title = model.Title;
-                        employee.Name = model.Name;
-                        employee.Mobile = model.Mobile;
-                        employee.Email = model.Email;
-                        employee.FixedLine = model.FixedLine;
-                        employee.DesignationId = model.DesignationId;
-                        bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
-                        employee.IsActive = model.IsActive;
-
-                        newData = new JavaScriptSerializer().Serialize(new Employee()
-                        {
-                            Id = employee.Id,
-                            Title = employee.Title,
-                            Name = employee.Name,
-                            Mobile = employee.Mobile,
-                            Email = employee.Email,
-                            FixedLine = employee.FixedLine,
-                            DesignationId = employee.DesignationId,
-                            IsActive = employee.IsActive
-                        });
-
-                        entities.Entry(employee).State = System.Data.Entity.EntityState.Modified;
-                        entities.SaveChanges();
-                    }
-
-                    CommonService.SaveDataAudit(new DataAudit()
-                    {
-                        Entity = "Employee",
-                        NewData = newData,
-                        OldData = oldData,
-                        UpdatedOn = DateTime.Now,
-                        UserId = new Guid(User.Identity.GetUserId())
+                        Id = oldEmployee.Id,
+                        Title = oldEmployee.Title,
+                        Name = oldEmployee.Name,
+                        Mobile = oldEmployee.Mobile,
+                        Email = oldEmployee.Email,
+                        FixedLine = oldEmployee.FixedLine,
+                        DesignationId = oldEmployee.DesignationId,
+                        IsActive = oldEmployee.IsActive
                     });
 
-                    TempData["Message"] = "<div id='flash-success'>Record Saved Successfully.</div>";
+                    employee.Title = model.Title;
+                    employee.Name = model.Name;
+                    employee.Mobile = model.Mobile;
+                    employee.Email = model.Email;
+                    employee.FixedLine = model.FixedLine;
+                    employee.DesignationId = model.DesignationId;
+                    bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
+                    employee.IsActive = model.IsActive;
+
+                    newData = new JavaScriptSerializer().Serialize(new WFM_Employee()
+                    {
+                        Id = employee.Id,
+                        Title = employee.Title,
+                        Name = employee.Name,
+                        Mobile = employee.Mobile,
+                        Email = employee.Email,
+                        FixedLine = employee.FixedLine,
+                        DesignationId = employee.DesignationId,
+                        IsActive = employee.IsActive
+                    });
                 }
-                catch (Exception ex)
+
+                CommonService.SaveDataAudit(new DataAudit()
                 {
-                    TempData["Message"] = "<span id='flash-error'>Error.</span>" + ex.InnerException;
-                }
+                    Entity = "Employee",
+                    NewData = newData,
+                    OldData = oldData,
+                    UpdatedOn = DateTime.Now,
+                    UserId = new Guid(User.Identity.GetUserId())
+                });
+
+                TempData["Message"] = "<div id='flash-success'>Record Saved Successfully.</div>";
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = "<span id='flash-error'>Error.</span>" + ex.InnerException;
             }
 
             return RedirectToAction("Index", "Employee");
         }
-
-
-
-
-
-
     }
 }

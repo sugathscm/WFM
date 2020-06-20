@@ -35,18 +35,18 @@ namespace WFM.UI.Controllers
             }
         }
 
-        // GET: TenderDocumentSection
+        // GET: WFM_TenderDocumentSection
         public ActionResult Index(int? id)
         {
-            TenderDocumentSection tenderDocumentSection = new TenderDocumentSection();
+            WFM_TenderDocumentSection tenderDocumentSection = new WFM_TenderDocumentSection();
             using (LinkManagementEntities entities = new LinkManagementEntities())
             {
                 if (id != null)
                 {
-                    tenderDocumentSection = entities.TenderDocumentSections.Where(o => o.Id == id).SingleOrDefault();
+                    tenderDocumentSection = entities.WFM_TenderDocumentSection.Where(o => o.Id == id).SingleOrDefault();
                 }
 
-                ViewBag.TenderDocumentSectionList = entities.TenderDocumentSections.Where(o => o.ParentId == 0).OrderBy(o => o.Name).ToList();
+                ViewBag.TenderDocumentSectionList = entities.WFM_TenderDocumentSection.Where(o => o.ParentId == 0).OrderBy(o => o.Name).ToList();
             }
 
             return View(tenderDocumentSection);
@@ -56,7 +56,7 @@ namespace WFM.UI.Controllers
         {
             using (LinkManagementEntities entities = new LinkManagementEntities())
             {
-                var list = entities.ProjectSectors.OrderBy(o => o.Name).ToList();
+                var list = entities.WFM_ProjectSector.OrderBy(o => o.Name).ToList();
                 List<TenderDocumentSectionView> modelList = new List<TenderDocumentSectionView>();
                 foreach (var item in list)
                 {
@@ -65,7 +65,7 @@ namespace WFM.UI.Controllers
                         Id = item.Id,
                         IsActive = item.IsActive,
                         Name = item.Name,
-                        ParentName = (item.ParentId == 0) ? "" : entities.ProjectSectors.Where(o => o.Id == item.ParentId).SingleOrDefault().Name
+                        ParentName = (item.ParentId == 0) ? "" : entities.WFM_ProjectSector.Where(o => o.Id == item.ParentId).SingleOrDefault().Name
                     });
                 }
                 return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
@@ -75,7 +75,7 @@ namespace WFM.UI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveOrUpdate(TenderDocumentSection model)
+        public ActionResult SaveOrUpdate(WFM_TenderDocumentSection model)
         {
             string newData = string.Empty, oldData = string.Empty;
             using (LinkManagementEntities entities = new LinkManagementEntities())
@@ -83,30 +83,30 @@ namespace WFM.UI.Controllers
                 try
                 {
                     int id = model.Id;
-                    TenderDocumentSection tenderDocumentSection = null;
-                    TenderDocumentSection oldTenderDocumentSection = null;
+                    WFM_TenderDocumentSection tenderDocumentSection = null;
+                    WFM_TenderDocumentSection oldTenderDocumentSection = null;
                     if (model.Id == 0)
                     {
-                        tenderDocumentSection = new TenderDocumentSection
+                        tenderDocumentSection = new WFM_TenderDocumentSection
                         {
                             Name = model.Name,
                             ParentId = model.ParentId,
                             IsActive = true
                         };
 
-                        entities.TenderDocumentSections.Add(tenderDocumentSection);
+                        entities.WFM_TenderDocumentSection.Add(tenderDocumentSection);
                         entities.SaveChanges();
 
-                        oldTenderDocumentSection = new TenderDocumentSection();
+                        oldTenderDocumentSection = new WFM_TenderDocumentSection();
                         oldData = new JavaScriptSerializer().Serialize(oldTenderDocumentSection);
                         newData = new JavaScriptSerializer().Serialize(tenderDocumentSection);
                     }
                     else
                     {
-                        tenderDocumentSection = entities.TenderDocumentSections.Where(o => o.Id == model.Id).SingleOrDefault();
-                        oldTenderDocumentSection = entities.TenderDocumentSections.Where(o => o.Id == model.Id).SingleOrDefault();
+                        tenderDocumentSection = entities.WFM_TenderDocumentSection.Where(o => o.Id == model.Id).SingleOrDefault();
+                        oldTenderDocumentSection = entities.WFM_TenderDocumentSection.Where(o => o.Id == model.Id).SingleOrDefault();
 
-                        oldData = new JavaScriptSerializer().Serialize(new TenderDocumentSection()
+                        oldData = new JavaScriptSerializer().Serialize(new WFM_TenderDocumentSection()
                         {
                             Id = oldTenderDocumentSection.Id,
                             Name = oldTenderDocumentSection.Name,
@@ -119,7 +119,7 @@ namespace WFM.UI.Controllers
                         bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
                         tenderDocumentSection.IsActive = model.IsActive;
 
-                        newData = new JavaScriptSerializer().Serialize(new TenderDocumentSection()
+                        newData = new JavaScriptSerializer().Serialize(new WFM_TenderDocumentSection()
                         {
                             Id = tenderDocumentSection.Id,
                             Name = tenderDocumentSection.Name,
@@ -133,7 +133,7 @@ namespace WFM.UI.Controllers
 
                     //CommonService.SaveDataAudit(new DataAudit()
                     //{
-                    //    Entity = "TenderDocumentSection",
+                    //    Entity = "WFM_TenderDocumentSection",
                     //    NewData = newData,
                     //    OldData = oldData,
                     //    UpdatedOn = DateTime.Now,
@@ -148,7 +148,7 @@ namespace WFM.UI.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "TenderDocumentSection");
+            return RedirectToAction("Index", "WFM_TenderDocumentSection");
         }
     }
 }

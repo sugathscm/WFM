@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -172,17 +175,21 @@
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DesignationController.cs" />
+    <Compile Include="Controllers\DivisionController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InwardInquiryController.cs" />
+    <Compile Include="Controllers\PublicSectorNonTenderController.cs" />
+    <Compile Include="Controllers\PrivateSectorController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\PrincipalController.cs" />
     <Compile Include="Controllers\ProjectSectorController.cs" />
+    <Compile Include="Controllers\SourcingController.cs" />
     <Compile Include="Controllers\SourcingPartnerController.cs" />
-    <Compile Include="Controllers\TenderController.cs" />
+    <Compile Include="Controllers\PublicSectorTenderController.cs" />
     <Compile Include="Controllers\TenderDocumentSectionController.cs" />
     <Compile Include="Controllers\TenderDocumentTypeController.cs" />
+    <Compile Include="Extensions\ExtensionMethods.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -194,6 +201,7 @@
     <Compile Include="ModelsView\SourcingPartnerView.cs" />
     <Compile Include="ModelsView\UsersInRoleViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -233,6 +241,8 @@
     <Content Include="assets\images\slack.png" />
     <Content Include="assets\images\switch.png" />
     <Content Include="assets\libs\css\datatables.min.css" />
+    <Content Include="assets\libs\css\index.css" />
+    <Content Include="assets\libs\css\main.css" />
     <Content Include="assets\libs\css\style-dark.css" />
     <Content Include="assets\libs\css\style-light.css" />
     <Content Include="assets\libs\js\dashboard-ecommerce.js" />
@@ -600,6 +610,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap-wysiwyg.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\vendor\fonts\circular-std\CircularStd-Black.woff" />
@@ -639,6 +650,7 @@
     <Content Include="assets\vendor\summernote\css\font\summernote.ttf" />
     <Content Include="assets\vendor\summernote\css\font\summernote.woff" />
     <Content Include="assets\vendor\summernote\css\font\summernote.woff2" />
+    <Content Include="log4net.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -646,6 +658,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.hotkeys.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -653,7 +666,9 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -691,17 +706,21 @@
     <Content Include="Views\Country\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Designation\Index.cshtml" />
-    <Content Include="Views\InwardInquiry\Details.cshtml" />
-    <Content Include="Views\InwardInquiry\Index.cshtml" />
+    <Content Include="Views\PrivateSector\Details.cshtml" />
+    <Content Include="Views\PrivateSector\Index.cshtml" />
     <Content Include="Views\Principal\Index.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\ProjectSector\Index.cshtml" />
-    <Content Include="Views\Tender\Details.cshtml" />
-    <Content Include="Views\Tender\Index.cshtml" />
+    <Content Include="Views\PublicSectorTender\Details.cshtml" />
+    <Content Include="Views\PublicSectorTender\Index.cshtml" />
     <Content Include="Views\TenderDocumentType\Index.cshtml" />
     <Content Include="Views\SourcingPartner\Index.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\TenderDocumentSection\Index.cshtml" />
+    <Content Include="Views\Sourcing\Index.cshtml" />
+    <Content Include="Views\PublicSectorNonTender\Index.cshtml" />
+    <Content Include="Views\Sourcing\Details.cshtml" />
+    <Content Include="Views\Division\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

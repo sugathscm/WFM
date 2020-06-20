@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using WFM.BAL;
+using WFM.BAL.Services;
 using WFM.DAL;
 using WFM.UI.DF;
 using WFM.UI.DF.ModelsView;
@@ -16,6 +17,8 @@ namespace WFM.UI.DF.Controllers
     public class ContactController : Controller
     {
         private ApplicationUserManager _userManager;
+        private readonly ContactService contactService = new ContactService();
+        private readonly DesignationService designationService = new DesignationService();
 
         public ContactController()
         {
@@ -37,21 +40,17 @@ namespace WFM.UI.DF.Controllers
             }
         }
 
-        // GET: Contact
+        // GET: WFM_Contact
         public ActionResult Index(int? id)
         {
-            Contact contact = new Contact();
+            WFM_Contact contact = new WFM_Contact();
 
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+            if (id != null)
             {
-                if (id != null)
-                {
-                    contact = entities.Contacts.Where(o => o.Id == id).SingleOrDefault();
-                }
-                //ViewBag.PrincipalContactList = entities.PrincipalContacts.Where(o => o.ParentId == 0).OrderBy(o => o.Name).ToList();
-                var listData = entities.WFM_Designation.Select(s => new { Id = s.Id, Value = s.Name }).ToList();
-                ViewBag.ListObject = new SelectList(listData, "Id", "Value");
+                contact = contactService.GetContactById(id);
             }
+            ViewBag.DesignationList = designationService.GetDesignationList();
+
             return View(contact);
         }
 
@@ -59,7 +58,8 @@ namespace WFM.UI.DF.Controllers
         {
             using (LinkManagementEntities entities = new LinkManagementEntities())
             {
-                var list = entities.Contacts.OrderBy(o => o.Name).ToList();
+                var list = contactService.GetContactList();
+
                 List<ContactView> modelList = new List<ContactView>();
                 foreach (var item in list)
                 {
@@ -67,7 +67,7 @@ namespace WFM.UI.DF.Controllers
                     {
                         Id = item.Id,
                         IsActive = item.IsActive,
-                        Title=item.Title,
+                        Title = item.Title,
                         Name = item.Name,
                         Mobile = item.Mobile,
                         Email = item.Email,
@@ -82,95 +82,88 @@ namespace WFM.UI.DF.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveOrUpdate(Contact model)
+        public ActionResult SaveOrUpdate(WFM_Contact model)
         {
             string newData = string.Empty, oldData = string.Empty;
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+
+            try
             {
-                try
+                int id = model.Id;
+                WFM_Contact contact = null;
+                WFM_Contact oldContact = null;
+                if (model.Id == 0)
                 {
-                    int id = model.Id;
-                    Contact contact = null;
-                    Contact oldContact = null;
-                    if (model.Id == 0)
+                    contact = new WFM_Contact
                     {
-                        contact = new Contact
-                        {
-                            Title=model.Title,
-                            Name = model.Name,
-                            Mobile=model.Mobile,
-                            Email=model.Email,
-                            FixedLine=model.FixedLine,
-                            IsActive = true,
-                            DesignationId=model.DesignationId
-                        };
+                        Title = model.Title,
+                        Name = model.Name,
+                        Mobile = model.Mobile,
+                        Email = model.Email,
+                        FixedLine = model.FixedLine,
+                        IsActive = true,
+                        DesignationId = model.DesignationId
+                    };
 
-                        entities.Contacts.Add(contact);
-                        entities.SaveChanges();
+                    oldContact = new WFM_Contact();
+                    oldData = new JavaScriptSerializer().Serialize(oldContact);
+                    newData = new JavaScriptSerializer().Serialize(contact);
+                }
+                else
+                {
+                    contact = contactService.GetContactById(model.Id);
+                    oldContact = contactService.GetContactById(model.Id);
 
-                        oldContact = new Contact();
-                        oldData = new JavaScriptSerializer().Serialize(oldContact);
-                        newData = new JavaScriptSerializer().Serialize(contact);
-                    }
-                    else
+                    oldData = new JavaScriptSerializer().Serialize(new WFM_Contact()
                     {
-                        contact = entities.Contacts.Where(o => o.Id == model.Id).SingleOrDefault();
-                        oldContact = entities.Contacts.Where(o => o.Id == model.Id).SingleOrDefault();
-
-                        oldData = new JavaScriptSerializer().Serialize(new Contact()
-                        {
-                            Id = oldContact.Id,
-                            Title=oldContact.Title,
-                            Name = oldContact.Name,
-                            Mobile=oldContact.Mobile,
-                            Email=oldContact.Email,
-                            FixedLine=oldContact.FixedLine,
-                            DesignationId=oldContact.DesignationId,
-                            IsActive = oldContact.IsActive
-                        });
-
-                        contact.Title = model.Title;
-                        contact.Name = model.Name;
-                        contact.Mobile = model.Mobile;
-                        contact.Email = model.Email;
-                        contact.FixedLine = model.FixedLine;
-                        contact.DesignationId = model.DesignationId;
-                        bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
-                        contact.IsActive = model.IsActive;
-
-                        newData = new JavaScriptSerializer().Serialize(new Contact()
-                        {
-                            Id = contact.Id,
-                            Title = contact.Title,
-                            Name = contact.Name,
-                            Mobile = contact.Mobile,
-                            Email = contact.Email,
-                            FixedLine = contact.FixedLine,
-                            DesignationId = contact.DesignationId,
-                            IsActive = contact.IsActive
-                        });
-
-                        entities.Entry(contact).State = System.Data.Entity.EntityState.Modified;
-                        entities.SaveChanges();
-                    }
-
-                    CommonService.SaveDataAudit(new DataAudit()
-                    {
-                        Entity = "Contact",
-                        NewData = newData,
-                        OldData = oldData,
-                        UpdatedOn = DateTime.Now,
-                        UserId = new Guid(User.Identity.GetUserId())
+                        Id = oldContact.Id,
+                        Title = oldContact.Title,
+                        Name = oldContact.Name,
+                        Mobile = oldContact.Mobile,
+                        Email = oldContact.Email,
+                        FixedLine = oldContact.FixedLine,
+                        DesignationId = oldContact.DesignationId,
+                        IsActive = oldContact.IsActive
                     });
 
-                    TempData["Message"] = "<div id='flash-success'>Record Saved Successfully.</div>";
-                }
-                catch (Exception ex)
-                {
-                    TempData["Message"] = "<span id='flash-error'>Error.</span>" + ex.InnerException;
-                }
-            }
+                    contact.Title = model.Title;
+                    contact.Name = model.Name;
+                    contact.Mobile = model.Mobile;
+                    contact.Email = model.Email;
+                    contact.FixedLine = model.FixedLine;
+                    contact.DesignationId = model.DesignationId;
+                    bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
+                    contact.IsActive = model.IsActive;
 
+                    newData = new JavaScriptSerializer().Serialize(new WFM_Contact()
+                    {
+                        Id = contact.Id,
+                        Title = contact.Title,
+                        Name = contact.Name,
+                        Mobile = contact.Mobile,
+                        Email = contact.Email,
+                        FixedLine = contact.FixedLine,
+                        DesignationId = contact.DesignationId,
+                        IsActive = contact.IsActive
+                    });
+                }
+
+                contactService.SaveOrUpdate(contact);
+
+                CommonService.SaveDataAudit(new DataAudit()
+                {
+                    Entity = "WFM_Contact",
+                    NewData = newData,
+                    OldData = oldData,
+                    UpdatedOn = DateTime.Now,
+                    UserId = new Guid(User.Identity.GetUserId())
+                });
+
+                TempData["Message"] = "<div id='flash-success'>Record Saved Successfully.</div>";
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = "<span id='flash-error'>Error.</span>" + ex.InnerException;
+            }
             return RedirectToAction("Index", "Contact");
         }
     }

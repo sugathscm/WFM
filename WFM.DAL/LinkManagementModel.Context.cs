@@ -27,16 +27,14 @@ namespace WFM.DAL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<Contact> Contacts { get; set; }
-        public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<DataAudit> DataAudits { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<Division> Divisions { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<LoginAudit> LoginAudits { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
         public virtual DbSet<OrganizationType> OrganizationTypes { get; set; }
@@ -44,17 +42,40 @@ namespace WFM.DAL
         public virtual DbSet<PersonHistory> PersonHistories { get; set; }
         public virtual DbSet<PersonRelationship> PersonRelationships { get; set; }
         public virtual DbSet<PersonRelationshipDetail> PersonRelationshipDetails { get; set; }
-        public virtual DbSet<Principal> Principals { get; set; }
-        public virtual DbSet<PrincipalContact> PrincipalContacts { get; set; }
-        public virtual DbSet<ProjectSector> ProjectSectors { get; set; }
         public virtual DbSet<RelationshipType> RelationshipTypes { get; set; }
-        public virtual DbSet<SourcingPartner> SourcingPartners { get; set; }
         public virtual DbSet<SubOrganization> SubOrganizations { get; set; }
-        public virtual DbSet<TenderDocumentSection> TenderDocumentSections { get; set; }
-        public virtual DbSet<TenderDocumentType> TenderDocumentTypes { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
+        public virtual DbSet<WFM_BondType> WFM_BondType { get; set; }
         public virtual DbSet<WFM_Configuration> WFM_Configuration { get; set; }
+        public virtual DbSet<WFM_Contact> WFM_Contact { get; set; }
+        public virtual DbSet<WFM_Country> WFM_Country { get; set; }
+        public virtual DbSet<WFM_DataAudit> WFM_DataAudit { get; set; }
+        public virtual DbSet<WFM_Document> WFM_Document { get; set; }
+        public virtual DbSet<WFM_DocumentField> WFM_DocumentField { get; set; }
+        public virtual DbSet<WFM_DocumentTab> WFM_DocumentTab { get; set; }
+        public virtual DbSet<WFM_Employee> WFM_Employee { get; set; }
+        public virtual DbSet<WFM_LoginAudit> WFM_LoginAudit { get; set; }
+        public virtual DbSet<WFM_Marketing> WFM_Marketing { get; set; }
+        public virtual DbSet<WFM_MarketingSourcingPartner> WFM_MarketingSourcingPartner { get; set; }
+        public virtual DbSet<WFM_Organization> WFM_Organization { get; set; }
+        public virtual DbSet<WFM_Principal> WFM_Principal { get; set; }
+        public virtual DbSet<WFM_PrincipalContact> WFM_PrincipalContact { get; set; }
+        public virtual DbSet<WFM_ProjectDocument> WFM_ProjectDocument { get; set; }
+        public virtual DbSet<WFM_ProjectDocumentFieldValue> WFM_ProjectDocumentFieldValue { get; set; }
+        public virtual DbSet<WFM_ProjectDocumentTab> WFM_ProjectDocumentTab { get; set; }
+        public virtual DbSet<WFM_ProjectSector> WFM_ProjectSector { get; set; }
+        public virtual DbSet<WFM_ProjectStatus> WFM_ProjectStatus { get; set; }
+        public virtual DbSet<WFM_ProjectType> WFM_ProjectType { get; set; }
+        public virtual DbSet<WFM_SourcingPartner> WFM_SourcingPartner { get; set; }
+        public virtual DbSet<WFM_TenderDocumentSection> WFM_TenderDocumentSection { get; set; }
+        public virtual DbSet<WFM_TenderDocumentType> WFM_TenderDocumentType { get; set; }
+        public virtual DbSet<WFM_Title> WFM_Title { get; set; }
+        public virtual DbSet<WFM_ProjectDocumentHistory> WFM_ProjectDocumentHistory { get; set; }
+        public virtual DbSet<WFM_MethodOfIntroduction> WFM_MethodOfIntroduction { get; set; }
+        public virtual DbSet<WFM_PriorityFramework> WFM_PriorityFramework { get; set; }
+        public virtual DbSet<WFM_Project> WFM_Project { get; set; }
         public virtual DbSet<WFM_Designation> WFM_Designation { get; set; }
+        public virtual DbSet<WFM_Division> WFM_Division { get; set; }
     
         public virtual ObjectResult<GetDataAuditByUser_Result> GetDataAuditByUser(Nullable<System.Guid> userId)
         {
@@ -107,9 +128,13 @@ namespace WFM.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ImportCSV");
         }
     
-        public virtual int SetRelationshipText()
+        public virtual int SetRelationshipText(Nullable<int> iN_PersonId)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetRelationshipText");
+            var iN_PersonIdParameter = iN_PersonId.HasValue ?
+                new ObjectParameter("IN_PersonId", iN_PersonId) :
+                new ObjectParameter("IN_PersonId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetRelationshipText", iN_PersonIdParameter);
         }
     }
 }

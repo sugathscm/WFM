@@ -60,9 +60,9 @@
   }
 
 .select2-results {
-  display: block;
-  font-size: 14px;
-  }
+    display: block;
+    font-size: .75rem;
+}
 
 .select2-results__options {
   list-style: none;

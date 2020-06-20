@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using log4net;
 using Microsoft.AspNet.Identity.Owin;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WFM.UI.DF;
+using WFM.BAL.Services;
+using WFM.BAL.ViewModels;
 
 namespace WFM.UI.DF.Controllers
 {
@@ -13,10 +13,13 @@ namespace WFM.UI.DF.Controllers
     public class HomeController : Controller
     {
         private ApplicationUserManager _userManager;
+        private readonly ProjectService projectService = new ProjectService();
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public HomeController()
         {
         }
+
         public HomeController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
@@ -36,6 +39,8 @@ namespace WFM.UI.DF.Controllers
 
         public ActionResult Index()
         {
+            PrepareDashboardProjectList();
+
             //CommonService.SaveLoginAudit(new LoginAudit()
             //{
             //    DateLogged = DateTime.Now,
@@ -44,6 +49,30 @@ namespace WFM.UI.DF.Controllers
             //});
 
             return View();
+        }
+
+        private void PrepareDashboardProjectList()
+        {
+            try
+            {
+                List<ProjectViewModel> projectsWFM = projectService.GetProjects(0);
+
+                var ProjectTypes = projectsWFM.GroupBy(p => p.ProjectTypeName).ToList();
+
+                Dictionary<string, List<ProjectViewModel>> projectListPerType = new Dictionary<string, List<ProjectViewModel>>();
+
+                foreach (var ProjectType in ProjectTypes)
+                {
+                    projectListPerType.Add(ProjectType.Key, ProjectType.ToList());
+                }
+
+                ViewBag.ProjectTypes = projectListPerType;
+            }
+            catch (System.Exception ex)
+            {
+                log.Error("Error in loading projects : " + ex.Message);
+            }
+
         }
 
         public ActionResult About()

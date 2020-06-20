@@ -11,15 +11,15 @@ namespace WFM.UI.DF.Controllers
 {
     public class TenderDocumentTypeController : Controller
     {
-        // GET: TenderDocumentType
+        // GET: WFM_TenderDocumentType
         public ActionResult Index(int? id)
         {
-            TenderDocumentType tenderDocumentType = new TenderDocumentType();
+            WFM_TenderDocumentType tenderDocumentType = new WFM_TenderDocumentType();
             if (id != null)
             {
                 using (LinkManagementEntities entities = new LinkManagementEntities())
                 {
-                    tenderDocumentType = entities.TenderDocumentTypes.Where(o => o.Id == id).SingleOrDefault();
+                    tenderDocumentType = entities.WFM_TenderDocumentType.Where(o => o.Id == id).SingleOrDefault();
                 }
             }
             return View(tenderDocumentType);
@@ -29,13 +29,13 @@ namespace WFM.UI.DF.Controllers
         {
             using (LinkManagementEntities entities = new LinkManagementEntities())
             {
-                var list = entities.TenderDocumentTypes.OrderBy(o => o.Name).ToList();
+                var list = entities.WFM_TenderDocumentType.OrderBy(o => o.Name).ToList();
 
-                List<TenderDocumentType> modelList = new List<TenderDocumentType>();
+                List<WFM_TenderDocumentType> modelList = new List<WFM_TenderDocumentType>();
 
                 foreach (var item in list)
                 {
-                    modelList.Add(new TenderDocumentType() { Id = item.Id, IsActive = item.IsActive, Name = item.Name });
+                    modelList.Add(new WFM_TenderDocumentType() { Id = item.Id, IsActive = item.IsActive, Name = item.Name });
                 }
 
                 return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
@@ -45,7 +45,7 @@ namespace WFM.UI.DF.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveOrUpdate(TenderDocumentType model)
+        public ActionResult SaveOrUpdate(WFM_TenderDocumentType model)
         {
             string newData = string.Empty, oldData = string.Empty;
             using (LinkManagementEntities entities = new LinkManagementEntities())
@@ -53,29 +53,29 @@ namespace WFM.UI.DF.Controllers
                 try
                 {
                     int id = model.Id;
-                    TenderDocumentType tenderDocumentType = null;
-                    TenderDocumentType oldTenderDocumentType = null;
+                    WFM_TenderDocumentType tenderDocumentType = null;
+                    WFM_TenderDocumentType oldTenderDocumentType = null;
                     if (model.Id == 0)
                     {
-                        tenderDocumentType = new TenderDocumentType
+                        tenderDocumentType = new WFM_TenderDocumentType
                         {
                             Name = model.Name,
                             IsActive = true
                         };
 
-                        entities.TenderDocumentTypes.Add(tenderDocumentType);
+                        entities.WFM_TenderDocumentType.Add(tenderDocumentType);
                         entities.SaveChanges();
 
-                        oldTenderDocumentType = new TenderDocumentType();
+                        oldTenderDocumentType = new WFM_TenderDocumentType();
                         oldData = new JavaScriptSerializer().Serialize(oldTenderDocumentType);
                         newData = new JavaScriptSerializer().Serialize(tenderDocumentType);
                     }
                     else
                     {
-                        tenderDocumentType = entities.TenderDocumentTypes.Where(o => o.Id == model.Id).SingleOrDefault();
-                        oldTenderDocumentType = entities.TenderDocumentTypes.Where(o => o.Id == model.Id).SingleOrDefault();
+                        tenderDocumentType = entities.WFM_TenderDocumentType.Where(o => o.Id == model.Id).SingleOrDefault();
+                        oldTenderDocumentType = entities.WFM_TenderDocumentType.Where(o => o.Id == model.Id).SingleOrDefault();
 
-                        oldData = new JavaScriptSerializer().Serialize(new TenderDocumentType()
+                        oldData = new JavaScriptSerializer().Serialize(new WFM_TenderDocumentType()
                         {
                             Id = oldTenderDocumentType.Id,
                             Name = oldTenderDocumentType.Name,
@@ -86,7 +86,7 @@ namespace WFM.UI.DF.Controllers
                         bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
                         tenderDocumentType.IsActive = model.IsActive;
 
-                        newData = new JavaScriptSerializer().Serialize(new TenderDocumentType()
+                        newData = new JavaScriptSerializer().Serialize(new WFM_TenderDocumentType()
                         {
                             Id = tenderDocumentType.Id,
                             Name = tenderDocumentType.Name,
@@ -99,7 +99,7 @@ namespace WFM.UI.DF.Controllers
 
                     //CommonService.SaveDataAudit(new DataAudit()
                     //{
-                    //    Entity = "TenderDocumentType",
+                    //    Entity = "WFM_TenderDocumentType",
                     //    NewData = newData,
                     //    OldData = oldData,
                     //    UpdatedOn = DateTime.Now,
@@ -114,7 +114,7 @@ namespace WFM.UI.DF.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "TenderDocumentType");
+            return RedirectToAction("Index", "WFM_TenderDocumentType");
         }
     }
 }

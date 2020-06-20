@@ -19,7 +19,14 @@ namespace WFM.DAL
         {
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
+            this.WFM_Employee = new HashSet<WFM_Employee>();
+            this.WFM_Marketing = new HashSet<WFM_Marketing>();
+            this.WFM_MarketingSourcingPartner = new HashSet<WFM_MarketingSourcingPartner>();
+            this.WFM_ProjectDocumentHistory = new HashSet<WFM_ProjectDocumentHistory>();
+            this.WFM_ProjectDocumentTab = new HashSet<WFM_ProjectDocumentTab>();
             this.AspNetRoles = new HashSet<AspNetRole>();
+            this.WFM_Project = new HashSet<WFM_Project>();
+            this.WFM_Project1 = new HashSet<WFM_Project>();
         }
     
         public string Id { get; set; }
@@ -40,6 +47,20 @@ namespace WFM.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WFM_Employee> WFM_Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WFM_Marketing> WFM_Marketing { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WFM_MarketingSourcingPartner> WFM_MarketingSourcingPartner { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WFM_ProjectDocumentHistory> WFM_ProjectDocumentHistory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WFM_ProjectDocumentTab> WFM_ProjectDocumentTab { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WFM_Project> WFM_Project { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WFM_Project> WFM_Project1 { get; set; }
     }
 }

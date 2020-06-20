@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using WFM.BAL;
+using WFM.BAL.Enums;
+using WFM.BAL.Services;
 using WFM.DAL;
 using WFM.UI.DF;
 using WFM.UI.DF.ModelsView;
@@ -16,6 +18,8 @@ namespace WFM.UI.DF.Controllers
     public class SourcingPartnerController : Controller
     {
         private ApplicationUserManager _userManager;
+        private readonly SourcingPartnerService sourcingPartnerService = new SourcingPartnerService();
+
 
         public SourcingPartnerController()
         {
@@ -40,130 +44,118 @@ namespace WFM.UI.DF.Controllers
         // GET: SourcingPartners
         public ActionResult Index(int? id)
         {
-            SourcingPartner sourcingPartner = new SourcingPartner();
+            WFM_SourcingPartner sourcingPartner = new WFM_SourcingPartner();
 
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+            if (id != null)
             {
-                if (id != null)
-                {
-                    sourcingPartner = entities.SourcingPartners.Where(o => o.Id == id).SingleOrDefault();
-                }
-                //var listData = entities.Designations.Select(s => new { Id = s.Id, Value = s.Name }).ToList();
-                //ViewBag.ListObject = new SelectList(listData, "Id", "Value");
+                sourcingPartner = sourcingPartnerService.GetSourdingPartnerById(id);
             }
+
             return View(sourcingPartner);
         }
 
         public ActionResult GetList()
         {
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+            var list = sourcingPartnerService.GetSourdingPartnerList();
+            List<SourcingPartnerView> modelList = new List<SourcingPartnerView>();
+            foreach (var item in list)
             {
-                var list = entities.SourcingPartners.OrderBy(o => o.Name).ToList();
-                List<SourcingPartnerView> modelList = new List<SourcingPartnerView>();
-                foreach (var item in list)
+                modelList.Add(new SourcingPartnerView()
                 {
-                    modelList.Add(new SourcingPartnerView()
-                    {
-                        Id = item.Id,
-                        IsActive = item.IsActive,
-                        Name = item.Name,
-                        Mobile = item.Mobile,
-                        Email = item.Email,
-                        FixedLine = item.FixedLine,
-                        SourcingPartnerType = item.SourcingPartnerType,
-                    });
-                }
-                return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
+                    Id = item.Id,
+                    IsActive = item.IsActive,
+                    Name = item.Name,
+                    Mobile = item.Mobile,
+                    Email = item.Email,
+                    FixedLine = item.FixedLine,
+                    SourcingPartnerType = item.SourcingPartnerTypeId,
+                });
             }
+            return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveOrUpdate(SourcingPartner model)
+        public ActionResult SaveOrUpdate(WFM_SourcingPartner model)
         {
             string newData = string.Empty, oldData = string.Empty;
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+
+            try
             {
-                try
+                int id = model.Id;
+                WFM_SourcingPartner sourcingPartner = null;
+                WFM_SourcingPartner oldSourcingPartner = null;
+                if (model.Id == 0)
                 {
-                    int id = model.Id;
-                    SourcingPartner sourcingPartner = null;
-                    SourcingPartner oldSourcingPartner = null;
-                    if (model.Id == 0)
+                    sourcingPartner = new WFM_SourcingPartner
                     {
-                        sourcingPartner = new SourcingPartner
-                        {
-                            Name = model.Name,
-                            Mobile = model.Mobile,
-                            Email = model.Email,
-                            FixedLine = model.FixedLine,
-                            IsActive = true,
-                            SourcingPartnerType = model.SourcingPartnerType
-                        };
+                        Name = model.Name,
+                        Mobile = model.Mobile,
+                        Email = model.Email,
+                        FixedLine = model.FixedLine,
+                        IsActive = true,
+                        SourcingPartnerTypeId = model.SourcingPartnerTypeId
+                    };
 
-                        entities.SourcingPartners.Add(sourcingPartner);
-                        entities.SaveChanges();
+                    oldSourcingPartner = new WFM_SourcingPartner();
+                    oldData = new JavaScriptSerializer().Serialize(oldSourcingPartner);
+                    newData = new JavaScriptSerializer().Serialize(sourcingPartner);
+                }
+                else
+                {
+                    sourcingPartner = sourcingPartnerService.GetSourdingPartnerById(model.Id);
+                    oldSourcingPartner = sourcingPartnerService.GetSourdingPartnerById(model.Id);
 
-                        oldSourcingPartner = new SourcingPartner();
-                        oldData = new JavaScriptSerializer().Serialize(oldSourcingPartner);
-                        newData = new JavaScriptSerializer().Serialize(sourcingPartner);
-                    }
-                    else
+                    oldData = new JavaScriptSerializer().Serialize(new WFM_SourcingPartner()
                     {
-                        sourcingPartner = entities.SourcingPartners.Where(o => o.Id == model.Id).SingleOrDefault();
-                        oldSourcingPartner = entities.SourcingPartners.Where(o => o.Id == model.Id).SingleOrDefault();
-
-                        oldData = new JavaScriptSerializer().Serialize(new SourcingPartner()
-                        {
-                            Id = oldSourcingPartner.Id,
-                            Name = oldSourcingPartner.Name,
-                            Mobile = oldSourcingPartner.Mobile,
-                            Email = oldSourcingPartner.Email,
-                            FixedLine = oldSourcingPartner.FixedLine,
-                            SourcingPartnerType = oldSourcingPartner.SourcingPartnerType,
-                            IsActive = oldSourcingPartner.IsActive
-                        });
-                        
-                        sourcingPartner.Name = model.Name;
-                        sourcingPartner.Mobile = model.Mobile;
-                        sourcingPartner.Email = model.Email;
-                        sourcingPartner.FixedLine = model.FixedLine;
-                        sourcingPartner.SourcingPartnerType = model.SourcingPartnerType;
-                        bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
-                        sourcingPartner.IsActive = model.IsActive;
-
-                        newData = new JavaScriptSerializer().Serialize(new SourcingPartner()
-                        {
-                            Id = sourcingPartner.Id,
-                            Name = sourcingPartner.Name,
-                            Mobile = sourcingPartner.Mobile,
-                            Email = sourcingPartner.Email,
-                            FixedLine = sourcingPartner.FixedLine,
-                            SourcingPartnerType = sourcingPartner.SourcingPartnerType,
-                            IsActive = sourcingPartner.IsActive
-                        });
-
-                        entities.Entry(sourcingPartner).State = System.Data.Entity.EntityState.Modified;
-                        entities.SaveChanges();
-                    }
-
-                    CommonService.SaveDataAudit(new DataAudit()
-                    {
-                        Entity = "SourcingPartner",
-                        NewData = newData,
-                        OldData = oldData,
-                        UpdatedOn = DateTime.Now,
-                        UserId = new Guid(User.Identity.GetUserId())
+                        Id = oldSourcingPartner.Id,
+                        Name = oldSourcingPartner.Name,
+                        Mobile = oldSourcingPartner.Mobile,
+                        Email = oldSourcingPartner.Email,
+                        FixedLine = oldSourcingPartner.FixedLine,
+                        SourcingPartnerTypeId = oldSourcingPartner.SourcingPartnerTypeId,
+                        IsActive = oldSourcingPartner.IsActive
                     });
 
-                    TempData["Message"] = "<div id='flash-success'>Record Saved Successfully.</div>";
+                    sourcingPartner.Name = model.Name;
+                    sourcingPartner.Mobile = model.Mobile;
+                    sourcingPartner.Email = model.Email;
+                    sourcingPartner.FixedLine = model.FixedLine;
+                    sourcingPartner.SourcingPartnerTypeId = model.SourcingPartnerTypeId;
+                    bool Example = Convert.ToBoolean(Request.Form["IsActive.Value"]);
+                    sourcingPartner.IsActive = model.IsActive;
+
+                    newData = new JavaScriptSerializer().Serialize(new WFM_SourcingPartner()
+                    {
+                        Id = sourcingPartner.Id,
+                        Name = sourcingPartner.Name,
+                        Mobile = sourcingPartner.Mobile,
+                        Email = sourcingPartner.Email,
+                        FixedLine = sourcingPartner.FixedLine,
+                        SourcingPartnerTypeId = sourcingPartner.SourcingPartnerTypeId,
+                        IsActive = sourcingPartner.IsActive
+                    });
                 }
-                catch (Exception ex)
+
+                sourcingPartnerService.SaveOrUpdate(sourcingPartner);
+
+                CommonService.SaveDataAudit(new DataAudit()
                 {
-                    TempData["Message"] = "<span id='flash-error'>Error.</span>" + ex.InnerException;
-                }
+                    Entity = "WFM_SourcingPartner",
+                    NewData = newData,
+                    OldData = oldData,
+                    UpdatedOn = DateTime.Now,
+                    UserId = new Guid(User.Identity.GetUserId())
+                });
+
+                TempData["Message"] = "<div id='flash-success'>Record Saved Successfully.</div>";
             }
+            catch (Exception ex)
+            {
+                TempData["Message"] = "<span id='flash-error'>Error.</span>" + ex.InnerException;
+            }
+
 
             return RedirectToAction("Index", "SourcingPartner");
         }
