@@ -1,10 +1,15 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using WFM.BAL.Enums;
 using WFM.BAL.Services;
 using WFM.BAL.ViewModels;
+using WFM.DAL;
+using WFM.UI.DF.Models;
 
 namespace WFM.UI.DF.Controllers
 {
@@ -23,6 +28,9 @@ namespace WFM.UI.DF.Controllers
         private readonly PriorityFrameworkService priorityFrameworkService = new PriorityFrameworkService();
         private readonly OrganizationService organizationService = new OrganizationService();
         private readonly ContactService contactService = new ContactService();
+        private readonly DivisionService divisionService = new DivisionService();
+        private readonly EmployeeService employeeService = new EmployeeService();
+        private readonly CommonDataService commonDataService = new CommonDataService();
         private readonly int projectTypeId = 0; // All types
 
         public SourcingController()
@@ -63,16 +71,7 @@ namespace WFM.UI.DF.Controllers
         {
             List<ProjectViewModel> projectsWFM = projectService.GetProjects(projectTypeId);
 
-            var ProjectTypes = projectsWFM.GroupBy(p => p.ProjectTypeName).ToList();
-
-            Dictionary<string, List<ProjectViewModel>> projectListPerType = new Dictionary<string, List<ProjectViewModel>>();
-
-            foreach (var ProjectType in ProjectTypes)
-            {
-                projectListPerType.Add(ProjectType.Key, ProjectType.ToList());
-            }
-
-            ViewBag.ProjectTypes = projectListPerType;
+            ViewBag.ProjectTypes = projectsWFM;
         }
 
 
@@ -83,7 +82,9 @@ namespace WFM.UI.DF.Controllers
             if (id != null)
             {
                 var project = projectService.GetProjectById(projectTypeId, id.Value);
-                return View(project);
+                ProjectViewModel projectView = project.Cast<ProjectViewModel>();
+                ViewBag.SubSectorList = GetSubSectorList(project.SectorId.Value);
+                return View(projectView);
             }
 
             return View();
@@ -96,14 +97,87 @@ namespace WFM.UI.DF.Controllers
             var documentsWithFields = documentService.GetDocumentsByProjectTypeWithFields(projectTypeId);
 
             ViewBag.SectorList = sectorService.GetProjectSectorParentList();
+            ViewBag.SubSectorList = "";
 
             ViewBag.Type1DocumentList = documents.Where(d => d.DocumentTabId == 1 && d.HasFields == false).OrderBy(d => d.DisplayOrder).ToList();
             ViewBag.StatusList = statusService.GetStatusList();
-            ViewBag.TypeList = projectTypeService.GetProjectTypeList();
+            ViewBag.ProjectTypeList = projectTypeService.GetProjectTypeList();
             ViewBag.MethodOfIntroductionList = methodOfIntroductionService.GetMethodOfIntroductionList();
             ViewBag.PriorityFrameworkList = priorityFrameworkService.GetPriorityFrameworkList();
             ViewBag.OrganizationList = organizationService.GetOrganizationList();
             ViewBag.ContactList = contactService.GetContactList();
+            ViewBag.DivisionList = divisionService.GetDivisionList();
+            ViewBag.EmployeeList = employeeService.GetEmployeeList();
+
+            ViewBag.TenderTypeList = commonDataService.GetCommonData((int)CommonDataType.TenderType);
+            ViewBag.TypeOfSaleList = commonDataService.GetCommonData((int)CommonDataType.TypeOfSale);
+            ViewBag.DocStatusList = commonDataService.GetCommonData((int)CommonDataType.DocStatus);
+            ViewBag.ContinentList = commonDataService.GetCommonData((int)CommonDataType.Continent);
+            ViewBag.PriorityList = commonDataService.GetCommonData((int)CommonDataType.Priority);
+            ViewBag.FileStatusList = commonDataService.GetCommonData((int)CommonDataType.FileStatus);
+            ViewBag.SLICCopyList = commonDataService.GetCommonData((int)CommonDataType.SLICCopy);
+            ViewBag.DocStatusExtendedList = commonDataService.GetCommonData((int)CommonDataType.DocStatusExtended);
+            ViewBag.SourceList = commonDataService.GetCommonData((int)CommonDataType.Source);
+            ViewBag.ProceedStatusList = commonDataService.GetCommonData((int)CommonDataType.ProceedStatus);
+            ViewBag.ProjectDivisionalStatusList = commonDataService.GetCommonData((int)CommonDataType.ProjectDivisionalStatus);
+            ViewBag.HotPickList = commonDataService.GetCommonData((int)CommonDataType.HotPick);
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveOrUpdate(FormCollection formCollection, WFM_Project model)
+        {
+            string newData = string.Empty, oldData = string.Empty;
+
+            try
+            {
+                int id = model.Id;
+                WFM_Project project = null;
+                WFM_Project oldProject = null;
+
+                project = model;
+                project.IsActive = true;
+                project.DateCreated = DateTime.Now;
+
+                if (formCollection["StartDate"] != "")
+                    project.StartDate = DateTime.Parse(formCollection["StartDate"]);
+                if (formCollection["ExpiaryDate"] != "")
+                    project.ExpiaryDate = DateTime.Parse(formCollection["ExpiaryDate"]);
+
+                if (formCollection["FileCreatedDate"] != "")
+                    project.FileCreatedDate = DateTime.Parse(formCollection["FileCreatedDate"]);
+                if (formCollection["DatePublished"] != "")
+                    project.DatePublished = DateTime.Parse(formCollection["DatePublished"]);
+
+                projectService.SaveOrUpdate(project);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
+            return RedirectToAction("Index", "Sourcing");
+        }
+
+
+        public string GetSubSectors(string id)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            int parentId = int.Parse(id);
+            List<BaseViewModel> SubSectorList = GetSubSectorList(parentId);
+            return js.Serialize(SubSectorList);
+        }
+
+        private List<BaseViewModel> GetSubSectorList(int parentId)
+        {
+            return sectorService.GetSubProjectSectorsByParentId(parentId).Select(s => new BaseViewModel()
+            {
+                Id = s.Id,
+                Name = s.Name
+            }).ToList();
         }
     }
 }

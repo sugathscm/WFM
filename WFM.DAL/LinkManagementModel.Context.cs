@@ -49,12 +49,10 @@ namespace WFM.DAL
         public virtual DbSet<WFM_Configuration> WFM_Configuration { get; set; }
         public virtual DbSet<WFM_Contact> WFM_Contact { get; set; }
         public virtual DbSet<WFM_Country> WFM_Country { get; set; }
-        public virtual DbSet<WFM_DataAudit> WFM_DataAudit { get; set; }
         public virtual DbSet<WFM_Document> WFM_Document { get; set; }
         public virtual DbSet<WFM_DocumentField> WFM_DocumentField { get; set; }
         public virtual DbSet<WFM_DocumentTab> WFM_DocumentTab { get; set; }
         public virtual DbSet<WFM_Employee> WFM_Employee { get; set; }
-        public virtual DbSet<WFM_LoginAudit> WFM_LoginAudit { get; set; }
         public virtual DbSet<WFM_Marketing> WFM_Marketing { get; set; }
         public virtual DbSet<WFM_MarketingSourcingPartner> WFM_MarketingSourcingPartner { get; set; }
         public virtual DbSet<WFM_Organization> WFM_Organization { get; set; }
@@ -73,9 +71,12 @@ namespace WFM.DAL
         public virtual DbSet<WFM_ProjectDocumentHistory> WFM_ProjectDocumentHistory { get; set; }
         public virtual DbSet<WFM_MethodOfIntroduction> WFM_MethodOfIntroduction { get; set; }
         public virtual DbSet<WFM_PriorityFramework> WFM_PriorityFramework { get; set; }
-        public virtual DbSet<WFM_Project> WFM_Project { get; set; }
         public virtual DbSet<WFM_Designation> WFM_Designation { get; set; }
         public virtual DbSet<WFM_Division> WFM_Division { get; set; }
+        public virtual DbSet<WFM_CommonData> WFM_CommonData { get; set; }
+        public virtual DbSet<WFM_DataAudit> WFM_DataAudit { get; set; }
+        public virtual DbSet<WFM_LoginAudit> WFM_LoginAudit { get; set; }
+        public virtual DbSet<WFM_Project> WFM_Project { get; set; }
     
         public virtual ObjectResult<GetDataAuditByUser_Result> GetDataAuditByUser(Nullable<System.Guid> userId)
         {

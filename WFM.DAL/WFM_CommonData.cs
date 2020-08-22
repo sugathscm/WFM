@@ -12,13 +12,11 @@ namespace WFM.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class WFM_DataAudit
+    public partial class WFM_CommonData
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
-        public string Entity { get; set; }
-        public string OldData { get; set; }
-        public string NewData { get; set; }
-        public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> Type { get; set; }
+        public Nullable<int> DisplayOrder { get; set; }
     }
 }

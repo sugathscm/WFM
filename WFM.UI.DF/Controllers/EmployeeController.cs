@@ -53,7 +53,7 @@ namespace WFM.UI.DF.Controllers
 
             var listData = designationService.GetDesignationList();
 
-            ViewBag.ListObject = new SelectList(listData, "Id", "Name");
+            ViewBag.DesignationList = new SelectList(listData, "Id", "Name");
 
             return View(employee);
         }
@@ -83,6 +83,7 @@ namespace WFM.UI.DF.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+
         public ActionResult SaveOrUpdate(WFM_Employee model)
         {
             string newData = string.Empty, oldData = string.Empty;

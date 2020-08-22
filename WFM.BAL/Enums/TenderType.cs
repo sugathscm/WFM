@@ -8,9 +8,9 @@ namespace WFM.BAL.Enums
 {
     public enum TenderType
     {
-        ICB,
-        NCB,
-        Limited,
-        SwissChallenge
+        ICB = 1,
+        NCB = 2,
+        Limited = 3,
+        SwissChallenge = 4
     }
 }

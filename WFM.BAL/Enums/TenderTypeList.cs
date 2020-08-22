@@ -10,21 +10,21 @@ namespace WFM.BAL.Enums
     public enum TenderTypeList
     {
         [Description("Stand-alone")]
-        StandAlone,
-        Unsolicited,
-        PPP,
+        StandAlone = 1,
+        Unsolicited = 2,
+        PPP = 3,
         [Description("JV with the State")]
-        JVWithTheState,
-        BOT,
-        BOOT,
-        BOO,
-        Supply,
-        EPCC,
+        JVWithTheState = 4,
+        BOT = 5,
+        BOOT = 6,
+        BOO = 7,
+        Supply = 8,
+        EPCC = 9,
         [Description("Turn-key")]
-        Turnkey,
-        Procurement,
-        Consultancy,
-        Investment,
-        EOI
+        Turnkey = 10,
+        Procurement = 11,
+        Consultancy = 12,
+        Investment = 13,
+        EOI = 14
     }
 }

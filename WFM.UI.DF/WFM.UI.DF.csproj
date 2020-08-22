@@ -174,10 +174,14 @@
     <Compile Include="Controllers\AccountUserController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DataAuditController.cs" />
     <Compile Include="Controllers\DesignationController.cs" />
     <Compile Include="Controllers\DivisionController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginAuditController.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\ProjectTypeController.cs" />
     <Compile Include="Controllers\PublicSectorNonTenderController.cs" />
     <Compile Include="Controllers\PrivateSectorController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -189,10 +193,12 @@
     <Compile Include="Controllers\PublicSectorTenderController.cs" />
     <Compile Include="Controllers\TenderDocumentSectionController.cs" />
     <Compile Include="Controllers\TenderDocumentTypeController.cs" />
-    <Compile Include="Extensions\ExtensionMethods.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ModelsView\OrganizationView.cs" />
+    <Compile Include="ModelsView\DataAuditViewModel.cs" />
+    <Compile Include="ModelsView\LoginAuditViewModel.cs" />
     <Compile Include="ModelsView\TenderDocumentSectionView.cs" />
     <Compile Include="ModelsView\ContactView.cs" />
     <Compile Include="ModelsView\EmployeeView.cs" />
@@ -721,9 +727,15 @@
     <Content Include="Views\PublicSectorNonTender\Index.cshtml" />
     <Content Include="Views\Sourcing\Details.cshtml" />
     <Content Include="Views\Division\Index.cshtml" />
+    <Content Include="Views\LoginAudit\Index.cshtml" />
+    <Content Include="Views\DataAudit\Index.cshtml" />
+    <Content Include="Views\Shared\_PageHeaderPartial.cshtml" />
+    <Content Include="Views\ProjectType\Index.cshtml" />
+    <Content Include="Views\Organization\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -36,7 +36,8 @@ namespace WFM.DAL
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
         public Nullable<int> StatusId { get; set; }
-        public Nullable<decimal> Value { get; set; }
+        public Nullable<decimal> LKRValue { get; set; }
+        public Nullable<decimal> USDValue { get; set; }
         public bool IsActive { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public Nullable<int> CurrentDocumentTabId { get; set; }
@@ -64,10 +65,35 @@ namespace WFM.DAL
         public Nullable<int> KeyContactPersonId3 { get; set; }
         public Nullable<bool> IsPresentedByOwner { get; set; }
         public Nullable<bool> IsProposedMethodOfEngagement { get; set; }
-        public string TenderType { get; set; }
+        public Nullable<int> TenderTypeId { get; set; }
         public string TenderRegistrationPreQualification { get; set; }
         public string TenderOthers { get; set; }
-        public string TenderTypeList { get; set; }
+        public Nullable<int> TypeOfSaleId { get; set; }
+        public Nullable<int> DivisionId { get; set; }
+        public string Requirement { get; set; }
+        public Nullable<int> RDDocsAvailableId { get; set; }
+        public string TaskId { get; set; }
+        public string List25 { get; set; }
+        public Nullable<int> ApprovedToGoAheadId { get; set; }
+        public Nullable<int> ContinentId { get; set; }
+        public string ProjectLocation { get; set; }
+        public Nullable<int> PriorityId { get; set; }
+        public Nullable<int> FileStatusId { get; set; }
+        public Nullable<System.DateTime> FileCreatedDate { get; set; }
+        public Nullable<int> SLICCopyId { get; set; }
+        public string OldFileId { get; set; }
+        public Nullable<int> AssigneeId { get; set; }
+        public Nullable<int> AvailabilityOfNDAId { get; set; }
+        public Nullable<int> AvailabilityOfMandateId { get; set; }
+        public string EvaluationScore { get; set; }
+        public string Rating { get; set; }
+        public string PriorityAccordingToRating { get; set; }
+        public string URL { get; set; }
+        public string Comment { get; set; }
+        public Nullable<int> SourceId { get; set; }
+        public Nullable<System.DateTime> DatePublished { get; set; }
+        public Nullable<int> ProjectDivisionalStatusId { get; set; }
+        public Nullable<int> HotPickId { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }
@@ -75,6 +101,7 @@ namespace WFM.DAL
         public virtual WFM_Contact WFM_Contact1 { get; set; }
         public virtual WFM_Contact WFM_Contact2 { get; set; }
         public virtual WFM_Contact WFM_Contact3 { get; set; }
+        public virtual WFM_Division WFM_Division { get; set; }
         public virtual WFM_DocumentTab WFM_DocumentTab { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WFM_Marketing> WFM_Marketing { get; set; }

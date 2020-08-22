@@ -14,9 +14,18 @@ namespace WFM.DAL
     
     public partial class WFM_Division
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public WFM_Division()
+        {
+            this.WFM_Project = new HashSet<WFM_Project>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WFM_Project> WFM_Project { get; set; }
     }
 }

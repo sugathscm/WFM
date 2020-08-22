@@ -15,7 +15,7 @@ namespace WFM.DAL
     public partial class WFM_LoginAudit
     {
         public int Id { get; set; }
-        public Nullable<System.Guid> UserId { get; set; }
+        public string UserId { get; set; }
         public string IPAddress { get; set; }
         public Nullable<System.DateTime> DateLogged { get; set; }
     }

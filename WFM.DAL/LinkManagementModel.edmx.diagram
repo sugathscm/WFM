@@ -20,19 +20,17 @@
         <EntityTypeShape EntityType="LinkManagementModel.PersonHistory" Width="1.5" PointX="21" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.PersonRelationship" Width="1.5" PointX="20.25" PointY="12.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.PersonRelationshipDetail" Width="1.5" PointX="22.5" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LinkManagementModel.RelationshipType" Width="1.5" PointX="20.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LinkManagementModel.RelationshipType" Width="2.125" PointX="19.625" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.SubOrganization" Width="1.5" PointX="15.75" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.Title" Width="1.5" PointX="15.75" PointY="17.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_BondType" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_Configuration" Width="1.5" PointX="6.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_Contact" Width="1.5" PointX="20" PointY="25" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_Country" Width="1.5" PointX="17.75" PointY="20.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LinkManagementModel.WFM_DataAudit" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_Document" Width="1.5" PointX="5.25" PointY="13.625" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_DocumentField" Width="1.5" PointX="7.5" PointY="21" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_DocumentTab" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_Employee" Width="1.5" PointX="18.5" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LinkManagementModel.WFM_LoginAudit" Width="1.5" PointX="2.75" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_Marketing" Width="1.5" PointX="13.5" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_MarketingSourcingPartner" Width="1.5" PointX="13.5" PointY="18" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_Organization" Width="1.5" PointX="6" PointY="8.5" IsExpanded="true" />
@@ -85,13 +83,20 @@
         <AssociationConnector Association="LinkManagementModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_MethodOfIntroduction" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_PriorityFramework" Width="1.5" PointX="7.375" PointY="14.125" />
-        <EntityTypeShape EntityType="LinkManagementModel.WFM_Project" Width="1.5" PointX="25.25" PointY="8.125" />
+        <EntityTypeShape EntityType="LinkManagementModel.WFM_Designation" Width="1.5" PointX="21.375" PointY="0.875" />
+        <EntityTypeShape EntityType="LinkManagementModel.WFM_Division" Width="1.5" PointX="13.375" PointY="21.75" />
+        <AssociationConnector Association="LinkManagementModel.FK_WFM_Employee_WFM_Designation" />
+        <EntityTypeShape EntityType="LinkManagementModel.WFM_CommonData" Width="1.5" PointX="0.75" PointY="22.75" />
+        <EntityTypeShape EntityType="LinkManagementModel.WFM_DataAudit" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="LinkManagementModel.WFM_LoginAudit" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="LinkManagementModel.WFM_Project" Width="1.5" PointX="25.25" PointY="5.625" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_AspNetUsers" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_AspNetUsers1" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_WFM_Contact" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_WFM_Contact1" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_WFM_Contact2" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_WFM_Contact3" />
+        <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_WFM_Division" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_WFM_DocumentTab" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_Marketing_WFM_Project" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_MarketingSourcingPartner_WFM_Project" />
@@ -106,9 +111,6 @@
         <AssociationConnector Association="LinkManagementModel.FK_WFM_ProjectDocumentFieldValue_WFM_Project" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_ProjectDocumentHistory_WFM_Project" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_ProjectDocumentTab_WFM_Project" />
-        <EntityTypeShape EntityType="LinkManagementModel.WFM_Designation" Width="1.5" PointX="21.375" PointY="0.875" />
-        <EntityTypeShape EntityType="LinkManagementModel.WFM_Division" Width="1.5" PointX="13.375" PointY="21.75" />
-        <AssociationConnector Association="LinkManagementModel.FK_WFM_Employee_WFM_Designation" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

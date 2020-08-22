@@ -145,6 +145,9 @@
     <Compile Include="WFM_BondType.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="WFM_CommonData.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="WFM_Configuration.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>

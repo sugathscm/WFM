@@ -1,1 +1,28 @@
 2020-05-03 20:13:32,741 [9] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : An error occurred while preparing the command definition. See the inner exception for details.
+2020-07-21 23:22:23,797 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-21 23:27:14,240 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-21 23:28:06,215 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-21 23:29:33,617 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-21 23:31:18,444 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-21 23:32:34,942 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : The ObjectContext instance has been disposed and can no longer be used for operations that require a connection.
+2020-07-21 23:32:57,688 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : The ObjectContext instance has been disposed and can no longer be used for operations that require a connection.
+2020-07-21 23:34:22,876 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : The ObjectContext instance has been disposed and can no longer be used for operations that require a connection.
+2020-07-21 23:35:59,132 [23] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : The ObjectContext instance has been disposed and can no longer be used for operations that require a connection.
+2020-07-21 23:37:35,887 [23] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-21 23:38:24,526 [23] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-21 23:49:02,164 [8] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-21 23:53:57,178 [8] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-21 23:57:12,402 [11] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-22 00:00:10,761 [11] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-22 00:04:21,894 [29] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-22 00:05:35,188 [29] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-22 00:13:49,686 [11] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-22 00:14:27,044 [33] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-22 00:14:27,073 [16] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-25 18:47:40,492 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-27 00:13:27,769 [7] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-27 00:16:30,501 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-27 00:19:44,202 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : The ObjectContext instance has been disposed and can no longer be used for operations that require a connection.
+2020-07-27 00:20:59,312 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-07-27 00:29:28,073 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.
+2020-08-06 07:44:46,948 [9] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Nullable object must have a value.

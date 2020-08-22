@@ -52,9 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\CommonDataType.cs" />
+    <Compile Include="Enums\DocStatus.cs" />
     <Compile Include="Enums\SourcingPartnerType.cs" />
     <Compile Include="Enums\TenderType.cs" />
     <Compile Include="Enums\TenderTypeList.cs" />
+    <Compile Include="Services\CommonDataService.cs" />
     <Compile Include="Services\CommonService.cs" />
     <Compile Include="Services\ContactService.cs" />
     <Compile Include="Services\CountryService.cs" />

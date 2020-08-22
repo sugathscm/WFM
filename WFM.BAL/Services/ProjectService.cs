@@ -47,34 +47,36 @@ namespace WFM.BAL.Services
                 {
                     Id = p.Id,
                     ProjectTypeId = p.ProjectTypeId,
+                    Name = p.Name,
                     ProjectTypeName = p.WFM_ProjectType.Name,
                     Code = p.Code,
-                    SectorId = p.SectorId.Value,
-                    SectorName = p.WFM_ProjectSector.Name,
-                    OrganizationId = p.OrganizationId.Value,
-                    OrganizationName = p.WFM_Organization.Name,
-                    SubSectorId = p.SubSectorId.Value,
-                    SubSectorName = p.WFM_ProjectSector1.Name,
-                    ExpiaryDate = p.ExpiaryDate.Value,
-                    StartDate = p.StartDate.Value,
+                    SectorId = (p.SectorId == null) ? 0 : p.SectorId.Value,
+                    SectorName = (p.SectorId == null) ? "" : p.WFM_ProjectSector.Name,
+                    OrganizationId = (p.OrganizationId == null) ? 0 : p.OrganizationId.Value,
+                    OrganizationName = (p.OrganizationId == null) ? "" : p.WFM_Organization.Name,
+                    SubSectorId = (p.SubSectorId == null) ? 0 : p.SubSectorId.Value,
+                    SubSectorName = (p.SubSectorId == null) ? "" : p.WFM_ProjectSector1.Name,
+                    ExpiaryDate = (p.ExpiaryDate== null) ? null: p.ExpiaryDate,
+                    StartDate = (p.StartDate == null) ? null : p.StartDate,
                     ShortDescription = p.ShortDescription,
-                    LongDescription = p.LongDescription,
+                    //LongDescription = p.LongDescription,
                     StatusId = p.StatusId.Value,
                     StatusName = p.WFM_ProjectStatus.Name,
-                    Value = p.Value.Value.ToString(),
+                    //LKRValue = p.LKRValue.Value.ToString(),
                     IsActive = p.IsActive,
-                    DateCreated = p.DateCreated.Value,
-                    DaysDue = (p.ExpiaryDate.Value - DateTime.Now).Days,
-                    DaysInCurrentTab = (DateTime.Now - p.CurrentDocumentTabDate.Value).Days,
-                    CurrentDocumentTabDate = p.CurrentDocumentTabDate.Value,
-                    CurrentDocumentTabId = p.CurrentDocumentTabId.Value,
-                    CurrentDocumentTabName = p.WFM_DocumentTab.Name,
+                    //DateCreated = p.DateCreated.Value,
+                    //DaysDue = (p.ExpiaryDate.Value - DateTime.Now).Days,
+                    //DaysInCurrentTab = (DateTime.Now - p.CurrentDocumentTabDate.Value).Days,
+                    //CurrentDocumentTabDate = p.CurrentDocumentTabDate.Value,
+                    //CurrentDocumentTabId = p.CurrentDocumentTabId.Value,
+                    //CurrentDocumentTabName = p.WFM_DocumentTab.Name,
                 });
 
                 return projects.Where(p => p.IsActive == true).ToList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                string error = ex.ToString();
                 throw;
             }
 
@@ -107,6 +109,22 @@ namespace WFM.BAL.Services
                         .Include("WFM_DocumentTab")
                         .Where(p => p.ProjectTypeId == projectTypeId && p.Id == id)
                         .SingleOrDefault();
+            }
+        }
+
+        public void SaveOrUpdate(WFM_Project project)
+        {
+            using (LinkManagementEntities entities = new LinkManagementEntities())
+            {
+                if (project.Id == 0)
+                {
+                    entities.WFM_Project.Add(project);
+                }
+                else
+                {
+                    entities.Entry(project).State = System.Data.Entity.EntityState.Modified;
+                }
+                entities.SaveChanges();
             }
         }
     }
