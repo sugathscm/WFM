@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -13,7 +14,7 @@ using WFM.UI.DF.Models;
 
 namespace WFM.UI.DF.Controllers
 {
-    public class SourcingController : Controller
+    public class SourcingController : BaseController
     {
         private ApplicationUserManager _userManager;
         private readonly ProjectService projectService = new ProjectService();
@@ -73,8 +74,7 @@ namespace WFM.UI.DF.Controllers
 
             ViewBag.ProjectTypes = projectsWFM;
         }
-
-
+        
         // GET: Sourcing
         public ActionResult Details(int? id)
         {
@@ -83,7 +83,10 @@ namespace WFM.UI.DF.Controllers
             {
                 var project = projectService.GetProjectById(projectTypeId, id.Value);
                 ProjectViewModel projectView = project.Cast<ProjectViewModel>();
-                ViewBag.SubSectorList = GetSubSectorList(project.SectorId.Value);
+                if (project.SectorId != null)
+                    ViewBag.SubSectorList = GetSubSectorList(project.SectorId.Value);
+                else
+                    ViewBag.SubSectorList = null;
                 return View(projectView);
             }
 
@@ -101,7 +104,7 @@ namespace WFM.UI.DF.Controllers
 
             ViewBag.Type1DocumentList = documents.Where(d => d.DocumentTabId == 1 && d.HasFields == false).OrderBy(d => d.DisplayOrder).ToList();
             ViewBag.StatusList = statusService.GetStatusList();
-            ViewBag.ProjectTypeList = projectTypeService.GetProjectTypeList();
+            ViewBag.ProjectTypeFullList = projectTypeService.GetProjectTypeList();
             ViewBag.MethodOfIntroductionList = methodOfIntroductionService.GetMethodOfIntroductionList();
             ViewBag.PriorityFrameworkList = priorityFrameworkService.GetPriorityFrameworkList();
             ViewBag.OrganizationList = organizationService.GetOrganizationList();
@@ -121,8 +124,10 @@ namespace WFM.UI.DF.Controllers
             ViewBag.ProceedStatusList = commonDataService.GetCommonData((int)CommonDataType.ProceedStatus);
             ViewBag.ProjectDivisionalStatusList = commonDataService.GetCommonData((int)CommonDataType.ProjectDivisionalStatus);
             ViewBag.HotPickList = commonDataService.GetCommonData((int)CommonDataType.HotPick);
-        }
 
+            ViewBag.ProjectTypeList = projectTypeService.GetProjectTypeList().Where(pt => pt.ShowInMenu == true);
+
+        }
 
         [HttpPost]
         [AllowAnonymous]
@@ -151,18 +156,21 @@ namespace WFM.UI.DF.Controllers
                 if (formCollection["DatePublished"] != "")
                     project.DatePublished = DateTime.Parse(formCollection["DatePublished"]);
 
+                if(project.Id == 0)
+                {
+                    project.Number = projectService.GetMaxNumber() + 1;
+                }
+
                 projectService.SaveOrUpdate(project);
             }
             catch (System.Exception)
             {
-
                 throw;
             }
 
             return RedirectToAction("Index", "Sourcing");
         }
-
-
+        
         public string GetSubSectors(string id)
         {
             JavaScriptSerializer js = new JavaScriptSerializer();

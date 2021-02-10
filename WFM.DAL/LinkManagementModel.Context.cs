@@ -45,7 +45,6 @@ namespace WFM.DAL
         public virtual DbSet<RelationshipType> RelationshipTypes { get; set; }
         public virtual DbSet<SubOrganization> SubOrganizations { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
-        public virtual DbSet<WFM_BondType> WFM_BondType { get; set; }
         public virtual DbSet<WFM_Configuration> WFM_Configuration { get; set; }
         public virtual DbSet<WFM_Contact> WFM_Contact { get; set; }
         public virtual DbSet<WFM_Country> WFM_Country { get; set; }
@@ -77,6 +76,7 @@ namespace WFM.DAL
         public virtual DbSet<WFM_DataAudit> WFM_DataAudit { get; set; }
         public virtual DbSet<WFM_LoginAudit> WFM_LoginAudit { get; set; }
         public virtual DbSet<WFM_Project> WFM_Project { get; set; }
+        public virtual DbSet<WFM_EmailTemplates> WFM_EmailTemplates { get; set; }
     
         public virtual ObjectResult<GetDataAuditByUser_Result> GetDataAuditByUser(Nullable<System.Guid> userId)
         {

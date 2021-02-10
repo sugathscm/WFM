@@ -73,57 +73,6 @@
                                     <input class="form-control" type="text" placeholder="Search..">
                                 </div>
                             </li>*@
-                        <li class="nav-item dropdown notification">
-                            <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
-                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
-                                <li>
-                                    <div class="notification-title"> Notification</div>
-                                    <div class="notification-list">
-                                        <div class="list-group">
-                                            <a href="#" class="list-group-item list-group-item-action active">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="~/assets/images/avatar-2.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block">
-                                                        <span class="notification-list-user-name">Jeremy Rakestraw</span>accepted your invitation to join the team.
-                                                        <div class="notification-date">2 min ago</div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="~/assets/images/avatar-3.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block">
-                                                        <span class="notification-list-user-name">John Abraham </span>is now following you
-                                                        <div class="notification-date">2 days ago</div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="~/assets/images/avatar-4.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block">
-                                                        <span class="notification-list-user-name">Monaan Pechi</span> is watching your main repository
-                                                        <div class="notification-date">2 min ago</div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-img"><img src="~/assets/images/avatar-5.jpg" alt="" class="user-avatar-md rounded-circle"></div>
-                                                    <div class="notification-list-user-block">
-                                                        <span class="notification-list-user-name">Jessica Caruso</span>accepted your invitation to join the team.
-                                                        <div class="notification-date">2 min ago</div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="list-footer"> <a href="#">View all notifications</a></div>
-                                </li>
-                            </ul>
-                        </li>
                         <li class="nav-item dropdown nav-user">
                             @Html.Partial("_LoginPartial")
                         </li>
@@ -158,14 +107,14 @@
                                             <a class="nav-link" href="~/DataAudit">Data Audit</a>
                                         </li>
                                         @*<li class="nav-item">
-                                                <a class="nav-link" href="#">Settings</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Audit Trail</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Message Centre</a>
-                                            </li>*@
+                        <a class="nav-link" href="#">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Audit Trail</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Message Centre</a>
+                    </li>*@
                                     </ul>
                                 </div>
                             </li>
@@ -174,8 +123,8 @@
                                 <div id="master" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         @*<li class="nav-item">
-                                                <a class="nav-link" href="~/CabinetPaper">Cabinet Papers</a>
-                                            </li>*@
+                        <a class="nav-link" href="~/CabinetPaper">Cabinet Papers</a>
+                    </li>*@
                                         <li class="nav-item">
                                             <a class="nav-link" href="~/Contact">Contact Management</a>
                                         </li>
@@ -204,11 +153,11 @@
                                             <a class="nav-link" href="~/SourcingPartner">Sourcing Partner Management</a>
                                         </li>
                                         @*<li class="nav-item">
-                                                <a class="nav-link" href="~/TenderDocumentSection">Tender Document Section</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="~/TenderDocumentType">Tender Document Type</a>
-                                            </li>*@
+                        <a class="nav-link" href="~/TenderDocumentSection">Tender Document Section</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/TenderDocumentType">Tender Document Type</a>
+                    </li>*@
                                         <li class="nav-item">
                                             <a class="nav-link" href="~/AccountUser">User Management</a>
                                         </li>
@@ -224,27 +173,36 @@
                             <li>
                                 <a class="nav-link" href="~/sourcing/details"><i class="fa fa-fw fa-file"></i>New Project</a>
                             </li>
-                            @*<li class="nav-divider">
-                                    Projects
-                                </li>
+                            <li class="nav-divider">
+                                Project Type
+                            </li>
+                            @foreach (var type in ViewBag.ProjectTypeList)
+                            {
                                 <li>
-                                    <a class="nav-link" href="~/PrivateSector"><i class="fa fa-fw fa-tachometer-alt"></i>Private Sector</a>
+                                    <a class="nav-link" href="~/@type.Path/Index/@type.Id"><i class="fa fa-fw fa-tachometer-alt"></i>@type.Name</a>
                                 </li>
-                                <li>
-                                    <a class="nav-link" href="~/PublicSectorTender"><i class="fa fa-fw fa-tachometer-alt"></i>Public Sector - Tender</a>
-                                </li>
-                                <li>
-                                    <a class="nav-link" href="~/PublicSectorNonTender"><i class="fa fa-fw fa-tachometer-alt"></i>Public Sector - Non Tender</a>
-                                </li>
-                                <li class="nav-divider">
-                                    History Data
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="~/Tenders/History"><i class="fa fa-fw fa-briefcase"></i>Tender List <span class="badge badge-success">6</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="~/Tenders/History"><i class="fa fa-fw fa-briefcase"></i>Inward Inquiry List <span class="badge badge-success">6</span></a>
-                                </li>*@
+                            }
+                            <li class="nav-divider">
+                                Reports
+                            </li>
+                            <li>
+                                <a class="nav-link" href="~/ProjectReports"><i class="fa fa-fw fa-file"></i>Project Reports</a>
+                            </li>
+                            @*<li>
+            <a class="nav-link" href="~/PublicSectorTender"><i class="fa fa-fw fa-tachometer-alt"></i>Public Sector - Tender</a>
+        </li>
+        <li>
+            <a class="nav-link" href="~/PublicSectorNonTender"><i class="fa fa-fw fa-tachometer-alt"></i>Public Sector - Non Tender</a>
+        </li>
+        <li class="nav-divider">
+            History Data
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="~/Tenders/History"><i class="fa fa-fw fa-briefcase"></i>Tender List <span class="badge badge-success">6</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="~/Tenders/History"><i class="fa fa-fw fa-briefcase"></i>Inward Inquiry List <span class="badge badge-success">6</span></a>
+        </li>*@
                         </ul>
                     </div>
                 </nav>

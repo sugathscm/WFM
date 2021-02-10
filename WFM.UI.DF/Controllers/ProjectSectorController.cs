@@ -14,7 +14,7 @@ using WFM.UI.DF.ModelsView;
 namespace WFM.UI.DF.Controllers
 {
     //[Authorize]
-    public class ProjectSectorController : Controller
+    public class ProjectSectorController : BaseController
     {
         private ApplicationUserManager _userManager;
         private readonly ProjectSectorService projectSectorService = new ProjectSectorService();
@@ -65,11 +65,11 @@ namespace WFM.UI.DF.Controllers
                     Id = item.Id,
                     IsActive = item.IsActive,
                     Name = item.Name,
-                    ParentName = (item.ParentId == 0) ? "" : list.Where(o => o.Id == item.ParentId).SingleOrDefault().Name
+                    ParentName = (item.ParentId == null || item.ParentId == 0) ? "" : list.Where(o => o.Id == item.ParentId).SingleOrDefault().Name
                 });
             }
 
-            return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = modelList.OrderBy(o => o.Name) }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

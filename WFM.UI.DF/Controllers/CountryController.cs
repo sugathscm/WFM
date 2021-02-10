@@ -12,7 +12,7 @@ using WFM.UI.DF.Models;
 namespace WFM.UI.DF.Controllers
 {
     //[Authorize]
-    public class CountryController : Controller
+    public class CountryController : BaseController
     {
         private ApplicationUserManager _userManager;
         private readonly CountryService countryService = new CountryService();

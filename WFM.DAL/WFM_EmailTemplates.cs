@@ -12,14 +12,13 @@ namespace WFM.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class WFM_BondType
+    public partial class WFM_EmailTemplates
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public bool IsActive { get; set; }
-        public Nullable<System.DateTime> DateCreated { get; set; }
-    
-        public virtual WFM_BondType WFM_BondType1 { get; set; }
-        public virtual WFM_BondType WFM_BondType2 { get; set; }
+        public string Action { get; set; }
+        public string Subject { get; set; }
+        public string Template { get; set; }
+        public string FromEmail { get; set; }
+        public string ToEmails { get; set; }
     }
 }

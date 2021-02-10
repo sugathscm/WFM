@@ -15,7 +15,7 @@ using WFM.UI.DF.ModelsView;
 
 namespace WFM.UI.DF.Controllers
 {
-    public class PrincipalController : Controller
+    public class PrincipalController : BaseController
     {
         private ApplicationUserManager _userManager;
         private readonly PrincipalService principalService = new PrincipalService();

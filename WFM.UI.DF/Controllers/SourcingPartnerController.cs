@@ -15,7 +15,7 @@ using WFM.UI.DF.ModelsView;
 
 namespace WFM.UI.DF.Controllers
 {
-    public class SourcingPartnerController : Controller
+    public class SourcingPartnerController : BaseController
     {
         private ApplicationUserManager _userManager;
         private readonly SourcingPartnerService sourcingPartnerService = new SourcingPartnerService();

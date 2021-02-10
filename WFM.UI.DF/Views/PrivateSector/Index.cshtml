@@ -23,7 +23,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 @*<li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>*@
+                                <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>*@
                             </ol>
                         </nav>
                     </div>
@@ -35,24 +35,20 @@
         <!-- ============================================================== -->
         <div class="row">
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-                <div style="width:25px;height:25px;border:1px solid #000;display: inline-block;" class="days_over_100"></div>
-                <div style="width: 100px; height: 25px; display: inline-block;"><p>Over 100</p></div>
+                <div style="width:25px;height:25px;border:1px solid #000;display: inline-block;" class="days_below_20"></div>
+                <div class="font-bold p-l-10" style="width: 100px; height: 35px; display: inline-block;vertical-align:middle"><p>Critical</p></div>
             </div>
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-                <div style="width:25px;height:25px;border:1px solid #000;display: inline-block;" class="days_over_50"></div>
-                <div style="width: 100px; height: 25px; display: inline-block;"><p>Over 50</p></div>
+                <div style="width:25px;height:25px;border:1px solid #000;display: inline-block;" class="days_below_60"></div>
+                <div class="font-bold p-l-10" style="width: 100px; height: 35px; display: inline-block;vertical-align:middle"><p>Not satisfying</p></div>
             </div>
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-                <div style="width:25px;height:25px;border:1px solid #000;display: inline-block;" class="days_over_25"></div>
-                <div style="width: 100px; height: 25px; display: inline-block;"><p>Over 25</p></div>
+                <div style="width:25px;height:25px;border:1px solid #000;display: inline-block;" class="days_below_80"></div>
+                <div class="font-bold p-l-10" style="width: 100px; height: 35px; display: inline-block;vertical-align:middle"><p>Can do it</p></div>
             </div>
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-                <div style="width:25px;height:25px;border:1px solid #000;display: inline-block;" class="days_over_15"></div>
-                <div style="width: 100px; height: 25px; display: inline-block;"><p>Over 15</p></div>
-            </div>
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-                <div style="width:25px;height:25px;border:1px solid #000;display: inline-block;" class="days_below_15"></div>
-                <div style="width: 100px; height: 25px; display: inline-block;"><p>Below 15</p></div>
+                <div style="width:25px;height:25px;border:1px solid #000;display: inline-block;" class="days_over_80"></div>
+                <div class="font-bold p-l-10" style="width: 100px; height: 35px; display: inline-block;vertical-align:middle"><p>Go for it</p></div>
             </div>
         </div>
         <div class="row">
@@ -64,12 +60,6 @@
                     Dictionary<string, List<ProjectViewModel>> projectListPerType = ViewBag.ProjectTypes;
                     foreach (var projectType in projectListPerType)
                     {
-                        <div>
-                            <div class="section-block">
-                                <h5 class="section-title">@projectType.Key List</h5>
-                            </div>
-                        </div>
-
                         var projectListPerStatus = projectType.Value.GroupBy(p => p.StatusName);
                         int i = -1;
                         int j = -1;
@@ -78,75 +68,94 @@
                                 @foreach (var projectStatus in projectListPerStatus)
                                 {
                                     i = i + 1;
-                                    <li class="nav-item">
-                                        <a class="nav-link active @(i == 0)? @Html.DisplayText("active") : @Html.DisplayText("")" id="home-tab-@projectStatus.Key.Replace(" ", "-")-@projectType.Key.Replace(" ", "-")" data-toggle="tab" href="#home-@projectStatus.Key.Replace(" ", "-")-@projectType.Key.Replace(" ", "-")" role="tab" aria-controls="home" aria-selected="true">@projectStatus.Key</a>
-                                    </li>
+                                    if (@projectStatus.Key != null)
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link active @(i == 0)? @Html.DisplayText("active") : @Html.DisplayText("")" id="home-tab-@projectStatus.Key.Replace(" ", "-")-@projectType.Key.Replace(" ", "-")" data-toggle="tab" href="#home-@projectStatus.Key.Replace(" ", "-")-@projectType.Key.Replace(" ", "-")" role="tab" aria-controls="home" aria-selected="true">@projectStatus.Key</a>
+                                        </li>
+                                    }
                                 }
                             </ul>
                             <div class="tab-content" id="myTabContent7">
                                 @foreach (var projectStatus in projectListPerStatus)
                                 {
                                     j = j + 1;
-                                    <div class="tab-pane fade show active @(j == 0)? @Html.DisplayText("active") : @Html.DisplayText("")" id="home-@projectStatus.Key.Replace(" ", "-")-@projectType.Key.Replace(" ", "-")" role="tabpanel" aria-labelledby="home-tab-@projectStatus.Key.Replace(" ", "-")-@projectType.Key.Replace(" ", "-")">
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="table-responsive">
-                                                        <table id="example" class="table table-striped table-bordered first">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Code</th>
-                                                                    <th>Organization</th>
-                                                                    <th>Sector : SubSector</th>
-                                                                    <th>Start Date</th>
-                                                                    <th>Expiary Date</th>
-                                                                    <th>Value</th>
-                                                                    <th>Days Due</th>
-                                                                    <th></th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @foreach (var project in projectStatus)
-                                                                {
-                                                                    string cssClass = "";
-                                                                    if (project.DaysDue > 100)
-                                                                    {
-                                                                        cssClass = "days_over_100";
-                                                                    }
-                                                                    else if (project.DaysDue > 50)
-                                                                    {
-                                                                        cssClass = "days_over_50";
-                                                                    }
-                                                                    else if (project.DaysDue > 25)
-                                                                    {
-                                                                        cssClass = "days_over_25";
-                                                                    }
-                                                                    else if (project.DaysDue > 15)
-                                                                    {
-                                                                        cssClass = "days_over_15";
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        cssClass = "days_below_15";
-                                                                    }
+                                    if (@projectStatus.Key != null)
+                                    {
+
+                                        <div class="tab-pane fade show active @(j == 0)? @Html.DisplayText("active") : @Html.DisplayText("")" id="home-@projectStatus.Key.Replace(" ", "-")-@projectType.Key.Replace(" ", "-")" role="tabpanel" aria-labelledby="home-tab-@projectStatus.Key.Replace(" ", "-")-@projectType.Key.Replace(" ", "-")">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table id="example" class="table table-striped table-bordered first">
+                                                                <thead>
                                                                     <tr>
-                                                                        <td class="@cssClass">@project.Code</td>
-                                                                        <td class="@cssClass">@project.OrganizationName</td>
-                                                                        <td class="@cssClass">@project.SectorName : @project.SubSectorName</td>
-                                                                        <td class="@cssClass">@project.StartDate</td>
-                                                                        <td class="@cssClass">@project.ExpiaryDate</td>
-                                                                        <td class="@cssClass">@project.Value</td>
-                                                                        <td class="@cssClass">@project.DaysDue</td>
-                                                                        <td><a class="btn btn-info" href="~/InwardInquiry/Details/@project.Id">Edit</a></td>
+                                                                        <th></th>
+                                                                        <th></th>
+                                                                        <th>File #</th>
+                                                                        <th style="width:10%">File Code</th>
+                                                                        <th style="width:50%">Project</th>
+                                                                        @*<th>Organization</th>
+                                                                        <th>Sector : SubSector</th>*@
+                                                                        <th style="width:8%">Start Date</th>
+                                                                        <th style="width:8%">Expiry Date</th>
+                                                                        @*<th>Value (LKR)</th>
+                                                                        <th>Days Due</th>*@
+                                                                        <th style="width:2%">S&amp;E (%)</th>
+                                                                        <th style="width:2%">R&amp;D (%)</th>
+                                                                        <th style="width:2%">Mkt (%)</th>
+                                                                        <th style="width:2%">Legal (%)</th>
+                                                                        <th style="width:2%">Final (%)</th>
                                                                     </tr>
-                                                                }
-                                                            </tbody>
-                                                        </table>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var project in projectStatus)
+                                                                    {
+                                                                        string cssClass = "";
+                                                                        if (project.FinalStatus < 20)
+                                                                        {
+                                                                            cssClass = "days_below_20";
+                                                                        }
+                                                                        else if (project.FinalStatus < 50)
+                                                                        {
+                                                                            cssClass = "days_below_60";
+                                                                        }
+                                                                        else if (project.FinalStatus < 80)
+                                                                        {
+                                                                            cssClass = "days_below_80";
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            cssClass = "days_over_80";
+                                                                        }
+                                                                        <tr>
+                                                                            <td><a class="btn btn-xs btn-primary" href="~/PrivateSector/Details/@project.Id">Edit</a></td>
+                                                                            <td><a class="btn btn-xs btn-warning" href="#">View</a></td>
+                                                                            <td class="@cssClass">@project.Number</td>
+                                                                            <td class="@cssClass" style="max-width:110px;word-wrap:break-word">@project.Code</td>
+                                                                            <td class="@cssClass">@project.Name</td>
+                                                                            @*<td class="@cssClass">@project.OrganizationName</td>
+                                                                            <td class="@cssClass">@project.SectorName : @project.SubSectorName</td>*@
+                                                                            <td class="@cssClass" style="white-space: nowrap">@project.StartDateString</td>
+                                                                            <td class="@cssClass" style="white-space: nowrap">@project.ExpiaryDate</td>
+                                                                            @*<td class="@cssClass">@project.LKRValue</td>
+                                                                            <td class="@cssClass">@project.DaysDue</td>*@
+                                                                            <td class="@cssClass" >@project.SEStatus</td>
+                                                                            <td class="@cssClass" >@project.RDStatus</td>
+                                                                            <td class="@cssClass" >@project.MktStatus</td>
+                                                                            <td class="@cssClass" >@project.LegalStatus</td>
+                                                                            <td class="@cssClass" >@project.FinalStatus</td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    }
                                 }
                             </div>
                         </div>

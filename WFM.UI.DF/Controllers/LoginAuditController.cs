@@ -9,7 +9,7 @@ using WFM.UI.DF.ModelsView;
 
 namespace WFM.UI.DF.Controllers
 {
-    public class LoginAuditController : Controller
+    public class LoginAuditController : BaseController
     {
         private ApplicationDbContext context;
     

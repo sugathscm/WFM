@@ -8,7 +8,7 @@ using WFM.BAL.ViewModels;
 
 namespace WFM.UI.DF.Controllers
 {
-    public class PrivateSectorController : Controller
+    public class PrivateSectorController : BaseController
     {
         private ApplicationUserManager _userManager;
         private readonly ProjectService projectService = new ProjectService();
@@ -17,7 +17,7 @@ namespace WFM.UI.DF.Controllers
         private readonly ProjectDocumentService projectDocumentService = new ProjectDocumentService();
         private readonly SourcingPartnerService sourcingPartnerService = new SourcingPartnerService();
         private readonly PrincipalService principalService = new PrincipalService();
-        private readonly int projectTypeId = 1;
+        private int projectTypeId = 7;
 
         public PrivateSectorController()
         {
@@ -39,8 +39,9 @@ namespace WFM.UI.DF.Controllers
             }
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
+            projectTypeId = id;
             PrepareDashboardProjectList();
 
             //CommonService.SaveLoginAudit(new LoginAudit()

@@ -12,7 +12,7 @@ using WFM.UI.DF.Models;
 namespace WFM.UI.DF.Controllers
 {
     //[Authorize]
-    public class DesignationController : Controller
+    public class DesignationController : BaseController
     {
         private ApplicationUserManager _userManager;
         private readonly DesignationService designationService = new DesignationService();

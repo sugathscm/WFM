@@ -9,11 +9,12 @@ using WFM.BAL.ViewModels;
 
 namespace WFM.UI.DF.Controllers
 {
-    //[Authorize]
-    public class HomeController : Controller
+    [Authorize]
+    public class HomeController : BaseController
     {
         private ApplicationUserManager _userManager;
         private readonly ProjectService projectService = new ProjectService();
+        private readonly ProjectTypeService projectTypeService = new ProjectTypeService();
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public HomeController()

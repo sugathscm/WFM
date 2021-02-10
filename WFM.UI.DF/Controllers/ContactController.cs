@@ -14,7 +14,7 @@ using WFM.UI.DF.ModelsView;
 
 namespace WFM.UI.DF.Controllers
 {
-    public class ContactController : Controller
+    public class ContactController : BaseController
     {
         private ApplicationUserManager _userManager;
         private readonly ContactService contactService = new ContactService();

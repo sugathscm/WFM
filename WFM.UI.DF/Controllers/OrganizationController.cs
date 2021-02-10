@@ -15,7 +15,7 @@ using WFM.UI.DF.ModelsView;
 namespace WFM.UI.DF.Controllers
 {
 
-    public class OrganizationController : Controller
+    public class OrganizationController : BaseController
     {
         private ApplicationUserManager _userManager;
         private readonly OrganizationService organizationService = new OrganizationService();

@@ -1,0 +1,73 @@
+﻿@model WFM.UI.DF.ModelsView.PTTReportViewModel
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 5px;
+            word-wrap: break-word;
+        }
+
+        .no-border {
+            border: 0px;
+        }
+    </style>
+
+    <div class="row m-10 col-xl-12 col-lg-12 col-md-12 col-sm-12" id="printThis">
+        <table>
+            <tr>
+                <td colspan="8" class="text-center">
+                    <h3>Project Transfer Tracker</h3>
+                </td>
+            </tr>
+            <tr>
+                <td class="font-bold">Code</td>
+                <td colspan="3"></td>
+                <td class="font-bold">Project</td>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td class="font-bold text-center" rowspan="2">Date</td>
+                <td class="font-bold text-center" colspan="3">From</td>
+                <td class="font-bold text-center" colspan="3">To</td>
+                <td class="font-bold text-center" rowspan="2">Document added</td>
+            </tr>
+            <tr>
+                <td class="font-bold text-center">Division</td>
+                <td class="font-bold text-center">Name</td>
+                <td class="font-bold text-center">Signature</td>
+                <td class="font-bold text-center">Division</td>
+                <td class="font-bold text-center">Name</td>
+                <td class="font-bold text-center">Signature</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="4" class="no-border text-center">
+                    <br /><br /><br /><br /><br />
+                    Checked By<br />
+                    Umadevi Jayarathne<br />
+                    Head of Operations
+                </td>
+                <td colspan="4" class="no-border text-center">
+                    <br /><br /><br /><br /><br />
+                    Checked By<br />
+                    Jurian Ondaatje<br />
+                    Chief of Operations
+                </td>
+            </tr>
+        </table>
+    </div>

@@ -7,11 +7,12 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using WFM.DAL;
 using WFM.UI.DF;
+using WFM.UI.DF.Controllers;
 using WFM.UI.DF.ModelsView;
 
 namespace WFM.UI.Controllers
 {
-    public class TenderDocumentSectionController : Controller
+    public class TenderDocumentSectionController : BaseController
     {
         private ApplicationUserManager _userManager;
 

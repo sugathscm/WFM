@@ -26,6 +26,8 @@ namespace WFM.DAL
         public string Name { get; set; }
         public bool IsActive { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
+        public Nullable<bool> ShowInMenu { get; set; }
+        public string Path { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WFM_Document> WFM_Document { get; set; }

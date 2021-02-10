@@ -142,9 +142,6 @@
     <Compile Include="Title.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="WFM_BondType.cs">
-      <DependentUpon>LinkManagementModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="WFM_CommonData.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
@@ -173,6 +170,9 @@
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WFM_DocumentTab.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_EmailTemplates.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WFM_Employee.cs">

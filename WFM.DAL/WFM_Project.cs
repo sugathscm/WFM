@@ -26,7 +26,7 @@ namespace WFM.DAL
         }
     
         public int Id { get; set; }
-        public int ProjectTypeId { get; set; }
+        public Nullable<int> ProjectTypeId { get; set; }
         public string Code { get; set; }
         public Nullable<int> OrganizationId { get; set; }
         public Nullable<int> SectorId { get; set; }
@@ -94,6 +94,8 @@ namespace WFM.DAL
         public Nullable<System.DateTime> DatePublished { get; set; }
         public Nullable<int> ProjectDivisionalStatusId { get; set; }
         public Nullable<int> HotPickId { get; set; }
+        public Nullable<int> Number { get; set; }
+        public Nullable<int> MainIntroducerId { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }
@@ -113,7 +115,6 @@ namespace WFM.DAL
         public virtual WFM_ProjectSector WFM_ProjectSector { get; set; }
         public virtual WFM_ProjectStatus WFM_ProjectStatus { get; set; }
         public virtual WFM_ProjectSector WFM_ProjectSector1 { get; set; }
-        public virtual WFM_ProjectType WFM_ProjectType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WFM_ProjectDocument> WFM_ProjectDocument { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -122,5 +123,6 @@ namespace WFM.DAL
         public virtual ICollection<WFM_ProjectDocumentHistory> WFM_ProjectDocumentHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WFM_ProjectDocumentTab> WFM_ProjectDocumentTab { get; set; }
+        public virtual WFM_ProjectType WFM_ProjectType { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using WFM.UI.DF.ModelsView;
 namespace WFM.UI.DF.Controllers
 {
     [Authorize(Roles = "Administrator")]
-    public class AccountUserController : Controller
+    public class AccountUserController : BaseController
     {
         private ApplicationDbContext context;
 

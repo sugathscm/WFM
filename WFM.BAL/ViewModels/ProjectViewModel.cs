@@ -11,6 +11,8 @@ namespace WFM.BAL.ViewModels
     public class ProjectViewModel
     {
         public int Id { get; set; }
+        public int Number { get; set; }
+
         [Required(ErrorMessage = "Please enter project type.")]
         public int ProjectTypeId { get; set; }
         [Required(ErrorMessage = "Please enter code prefix.")]
@@ -19,12 +21,15 @@ namespace WFM.BAL.ViewModels
         public Nullable<int> OrganizationId { get; set; }
         [Required(ErrorMessage = "Please enter sector.")]
         public Nullable<int> SectorId { get; set; }
-        [Required(ErrorMessage = "Please enter sub sector.")]
+
         public Nullable<int> SubSectorId { get; set; }
-        [Required(ErrorMessage = "Please enter expiary date.")]
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> ExpiaryDate { get; set; }
-        [Required(ErrorMessage = "Please enter start date.")]
+        [Required(ErrorMessage = "Please enter start date."), DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> StartDate { get; set; }
+        public string StartDateString { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
         [Required(ErrorMessage = "Please enter division.")]
@@ -133,5 +138,12 @@ namespace WFM.BAL.ViewModels
         public virtual ICollection<WFM_Marketing> WFM_Marketing { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WFM_MarketingSourcingPartner> WFM_MarketingSourcingPartner { get; set; }
+
+        public int SEStatus { get; set; }
+        public int RDStatus { get; set; }
+        public int MktStatus { get; set; }
+        public int LegalStatus { get; set; }
+        public int FinalStatus { get; set; }
+
     }
 }

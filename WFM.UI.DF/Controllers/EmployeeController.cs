@@ -14,7 +14,7 @@ using WFM.UI.DF.ModelsView;
 
 namespace WFM.UI.DF.Controllers
 {
-    public class EmployeeController : Controller
+    public class EmployeeController : BaseController
     {
         private ApplicationUserManager _userManager;
         private readonly EmployeeService employeeService = new EmployeeService();

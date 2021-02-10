@@ -12,7 +12,7 @@ using WFM.UI.DF.Models;
 namespace WFM.UI.DF.Controllers
 {
     //[Authorize]
-    public class DivisionController : Controller
+    public class DivisionController : BaseController
     {
         private ApplicationUserManager _userManager;
         private readonly DivisionService divisionService = new DivisionService();

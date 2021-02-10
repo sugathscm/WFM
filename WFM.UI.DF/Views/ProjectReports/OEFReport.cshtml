@@ -1,0 +1,479 @@
+﻿@model WFM.UI.DF.ModelsView.OEFReportViewModel
+
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin:20px;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        padding: 5px;
+        word-wrap: break-word;
+    }
+</style>
+
+<div class="row m-10" id="printThis">
+    <table id="form1-oef">
+        <tr>
+            <td colspan="5" class="text-center">
+                <h1>Opportunity/Project Evaluation Form</h1>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-center" width="5%">
+                1
+            </td>
+            <td class="font-bold" width="30%">
+                Date of entry
+            </td>
+            <td width="20%"></td>
+            <td width="25%">
+                Date of expiry
+            </td>
+            <td width="20%"></td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                2
+            </td>
+            <td class="font-bold">
+                Type of Project
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                3
+            </td>
+            <td class="font-bold">
+                File ID
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                4
+            </td>
+            <td class="font-bold">
+                Name of opportunity
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center" rowspan="5">
+                5
+            </td>
+            <td class="font-bold">
+                Short description on the Project Opportunity
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="font-bold">
+                (i) Sector
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="font-bold" rowspan="2">
+                (ii)  Value
+            </td>
+            <td>LKR</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>USD</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td class="font-bold">
+                (iii) The Project owner's expectations
+                (What is expected from us? Please fill in details in consultation with the project owner / proponent and legal division, if applicable)
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                6
+            </td>
+            <td class="font-bold">
+                If public, name of the line agency
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                7
+            </td>
+            <td class="font-bold">
+                If private, name of the entity / promoter
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center" rowspan="9">
+                8
+            </td>
+            <td class="font-bold" rowspan="9">
+                Details of the Project Owner / Principal / Agent *
+            </td>
+            <td>Name</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Designation</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Organisation</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Tel.</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Landline ( Home & Office)</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Fax</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Assistant's Contact No ( PA/ Driver etc.) :</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td class="text-center" rowspan="5">
+                9
+            </td>
+            <td class="font-bold" colspan="4">
+                Key contact person/s: (Please mention the names with abbreviations as appropriate)
+            </td>
+        </tr>
+        <tr>
+            <td class="font-bold">
+                (i)
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="font-bold">
+                (ii)
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="font-bold">
+                (iii)
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="font-bold">
+                Is the Project presented by the owner?
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                10
+            </td>
+            <td class="font-bold">
+                Introducers
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                11
+            </td>
+            <td class="font-bold">
+                Intended method of Introduction
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                12
+            </td>
+            <td class="font-bold">
+                Priority Framework
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">
+                13
+            </td>
+            <td class="font-bold">
+                Rationale for No.8
+            </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center" rowspan="2">
+                14
+            </td>
+            <td class="font-bold" rowspan="2">
+                Introducer's expectations
+            </td>
+            <td>External</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Internal</td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td class="text-center">15</td>
+            <td class="font-bold" colspan="4">Proposed method of engagement (Please type YES or NO in the framed cell)</td>
+        </tr>
+        <tr>
+            <td td class="text-center" rowspan="4">(i)</td>
+            <td class="font-bold" rowspan="4">Tender</td>
+            <td>ICB</td>
+            <td></td>
+            <td rowspan="4">Documentary Charges</td>
+        </tr>
+        <tr>
+            <td>NCB</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Limited</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Swiss Challenge</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-center">(ii)</td>
+            <td class="font-bold">Stand alone</td>
+            <td></td>
+            <td>(ix) <span class="font-bold">Supply</span></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-center">(iii)</td>
+            <td class="font-bold">Unsolicited</td>
+            <td></td>
+            <td>(x) <span class="font-bold">EPCC</span></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-center">(iv)</td>
+            <td class="font-bold">PPP</td>
+            <td></td>
+            <td>(xi) <span class="font-bold">Turn-key</span></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-center">(v)</td>
+            <td class="font-bold">JV with the State</td>
+            <td></td>
+            <td>(xii) <span class="font-bold">Procurement</span></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-center">(vi)</td>
+            <td class="font-bold">BOT</td>
+            <td></td>
+            <td>(xiii) <span class="font-bold">Consultancy</span></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-center">(vii)</td>
+            <td class="font-bold">BOOT</td>
+            <td></td>
+            <td>(xiv) <span class="font-bold">Investment</span></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-center">(viii)</td>
+            <td class="font-bold">BOO</td>
+            <td></td>
+            <td>(xv) <span class="font-bold">EOI</span></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-center">(xvi)</td>
+            <td class="font-bold">Registration/Pre-qualification</td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">(xvii)</td>
+            <td class="font-bold">Others; Please specify</td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">16</td>
+            <td class="font-bold">Verification of information to establish the Project existence</td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">17</td>
+            <td class="font-bold">Is a mandate available? If not, the potential to obtain. </td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">18</td>
+            <td class="font-bold">Recommended Implementer / Project Champion</td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center" rowspan="13">19</td>
+            <td class="font-bold" rowspan="13">Public Sector</td>
+            <td colspan="2">1. Advanced Tender document</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">2. Advanced RFP</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">3. Adanced PPP information</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">4. Published Tender Document</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">5. Published RFP</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">6. Published PPP information</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">7. Pre feasibility / feasibility / viability report</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">8. Project identification/ study report</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">9. Copy of the NPD submmission / approval</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">10. Documents related to creating ministerial budget lines</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">11. Cabinet / CCEM / OCEM papers</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">12. Line agency project consultancy report</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">13. Diagrams, Plans, Technical information etc</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-center" rowspan="17">20</td>
+            <td class="font-bold" rowspan="15">Private Sector</td>
+            <td colspan="2">1. Project Idea Note / proposal (Not required if Item 3 or 4 is available)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">2. Financial model</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">3. Pre feasibility / feasibility / viability report</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">4. Business Plan</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">5. Mandate</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">6. NDA / NCA</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">7. Consultancy agreement</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">8. Private sector project information sheet </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">9. Management  / audited accounts</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">10. Projected financials (Not required if Item 2 is available)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">11. Form 1, Form 20, BRC</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">12. Articles of association</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">13. Company profile/website</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">14. Annual report </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">15. Promoter's profile</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td rowspan="2" class="font-bold">Common Document</td>
+            <td colspan="2">1. Evaluation Report post processing through evaluation model</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">2. Exception approval report (if applicable)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-center">21</td>
+            <td class="font-bold">Other Documents Available</td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">22</td>
+            <td class="font-bold">Other involved parties</td>
+            <td colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="text-center">23</td>
+            <td class="font-bold">Companies</td>
+            <td colspan="3"></td>
+        </tr>
+    </table>
+</div>

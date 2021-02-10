@@ -1,0 +1,7 @@
+﻿
+@model List<WFM.UI.DF.Models.TenderDocumnet>
+
+@foreach (var document in Model)
+{
+    <a class="btn btn-primary" target="_blank" href="@Url.Content(@document.DocumentPath)">@document.Name</a><br />
+}

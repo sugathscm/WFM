@@ -9,7 +9,7 @@ using WFM.UI.DF.Models;
 
 namespace WFM.UI.DF.Controllers
 {
-    public class TenderDocumentTypeController : Controller
+    public class TenderDocumentTypeController : BaseController
     {
         // GET: WFM_TenderDocumentType
         public ActionResult Index(int? id)

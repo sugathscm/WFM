@@ -213,15 +213,6 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="DateCreated" Type="datetime" />
         </EntityType>
-        <EntityType Name="WFM_BondType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" />
-        </EntityType>
         <EntityType Name="WFM_CommonData">
           <Key>
             <PropertyRef Name="Id" />
@@ -325,6 +316,17 @@
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="ProjectTypeId" Type="int" />
         </EntityType>
+        <EntityType Name="WFM_EmailTemplates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Action" Type="nvarchar" MaxLength="500" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="500" />
+          <Property Name="Template" Type="nvarchar" MaxLength="500" />
+          <Property Name="FromEmail" Type="nvarchar" MaxLength="500" />
+          <Property Name="ToEmails" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="WFM_Employee">
           <Key>
             <PropertyRef Name="Id" />
@@ -382,7 +384,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="AddressLine1" Type="nvarchar" MaxLength="200" />
           <Property Name="AddressLine2" Type="nvarchar" MaxLength="200" />
           <Property Name="City" Type="nvarchar" MaxLength="25" />
@@ -435,7 +437,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProjectTypeId" Type="int" Nullable="false" />
+          <Property Name="ProjectTypeId" Type="int" />
           <Property Name="Code" Type="nvarchar(max)" />
           <Property Name="OrganizationId" Type="int" />
           <Property Name="SectorId" Type="int" />
@@ -465,7 +467,7 @@
           <Property Name="PrincipalId3" Type="int" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="128" />
-          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="MethodOfIntroductionId" Type="int" />
           <Property Name="PriorityFrameworkId" Type="int" />
           <Property Name="IsRationalForNo8" Type="bit" />
@@ -485,7 +487,7 @@
           <Property Name="List25" Type="nvarchar" MaxLength="50" />
           <Property Name="ApprovedToGoAheadId" Type="int" />
           <Property Name="ContinentId" Type="int" />
-          <Property Name="ProjectLocation" Type="nvarchar" MaxLength="250" />
+          <Property Name="ProjectLocation" Type="nvarchar" MaxLength="500" />
           <Property Name="PriorityId" Type="int" />
           <Property Name="FileStatusId" Type="int" />
           <Property Name="FileCreatedDate" Type="datetime" />
@@ -503,6 +505,8 @@
           <Property Name="DatePublished" Type="datetime" />
           <Property Name="ProjectDivisionalStatusId" Type="int" />
           <Property Name="HotPickId" Type="int" />
+          <Property Name="Number" Type="int" />
+          <Property Name="MainIntroducerId" Type="int" />
         </EntityType>
         <EntityType Name="WFM_ProjectDocument">
           <Key>
@@ -579,6 +583,8 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" />
+          <Property Name="ShowInMenu" Type="bit" />
+          <Property Name="Path" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="WFM_SourcingPartner">
           <Key>
@@ -883,18 +889,6 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_WFM_BondType_WFM_BondType">
-          <End Role="WFM_BondType" Type="Self.WFM_BondType" Multiplicity="1" />
-          <End Role="WFM_BondType1" Type="Self.WFM_BondType" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_BondType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_BondType1">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_WFM_Document_WFM_Document">
           <End Role="WFM_DocumentTab" Type="Self.WFM_DocumentTab" Multiplicity="0..1" />
           <End Role="WFM_Document" Type="Self.WFM_Document" Multiplicity="*" />
@@ -1024,186 +1018,6 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
             </Principal>
             <Dependent Role="WFM_MarketingSourcingPartner">
               <PropertyRef Name="SourcingPartnerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_AspNetUsers1">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="LastUpdatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_WFM_Contact">
-          <End Role="WFM_Contact" Type="Self.WFM_Contact" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_Contact">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="ContactId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_WFM_Contact1">
-          <End Role="WFM_Contact" Type="Self.WFM_Contact" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_Contact">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="KeyContactPersonId1" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_WFM_Contact2">
-          <End Role="WFM_Contact" Type="Self.WFM_Contact" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_Contact">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="KeyContactPersonId2" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_WFM_Contact3">
-          <End Role="WFM_Contact" Type="Self.WFM_Contact" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_Contact">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="KeyContactPersonId3" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_WFM_Division">
-          <End Role="WFM_Division" Type="Self.WFM_Division" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_Division">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="DivisionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_WFM_DocumentTab">
-          <End Role="WFM_DocumentTab" Type="Self.WFM_DocumentTab" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_DocumentTab">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="CurrentDocumentTabId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_WFM_MethodOfIntroduction">
-          <End Role="WFM_MethodOfIntroduction" Type="Self.WFM_MethodOfIntroduction" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_MethodOfIntroduction">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="MethodOfIntroductionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_WFM_Organization">
-          <End Role="WFM_Organization" Type="Self.WFM_Organization" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_Organization">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="OrganizationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_WFM_PriorityFramework">
-          <End Role="WFM_PriorityFramework" Type="Self.WFM_PriorityFramework" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_PriorityFramework">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="PriorityFrameworkId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_WFM_ProjectSector">
-          <End Role="WFM_ProjectSector" Type="Self.WFM_ProjectSector" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_ProjectSector">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="SectorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_WFM_ProjectStatus">
-          <End Role="WFM_ProjectStatus" Type="Self.WFM_ProjectStatus" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_ProjectStatus">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_WFM_ProjectSubSector">
-          <End Role="WFM_ProjectSector" Type="Self.WFM_ProjectSector" Multiplicity="0..1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_ProjectSector">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="SubSectorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Project_WFM_ProjectType">
-          <End Role="WFM_ProjectType" Type="Self.WFM_ProjectType" Multiplicity="1" />
-          <End Role="WFM_Project" Type="Self.WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_ProjectType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="ProjectTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1353,7 +1167,6 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <EntitySet Name="RelationshipType" EntityType="Self.RelationshipType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubOrganization" EntityType="Self.SubOrganization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Title" EntityType="Self.Title" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="WFM_BondType" EntityType="Self.WFM_BondType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_CommonData" EntityType="Self.WFM_CommonData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_Configuration" EntityType="Self.WFM_Configuration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_Contact" EntityType="Self.WFM_Contact" Schema="dbo" store:Type="Tables" />
@@ -1364,6 +1177,7 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <EntitySet Name="WFM_Document" EntityType="Self.WFM_Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_DocumentField" EntityType="Self.WFM_DocumentField" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_DocumentTab" EntityType="Self.WFM_DocumentTab" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WFM_EmailTemplates" EntityType="Self.WFM_EmailTemplates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_Employee" EntityType="Self.WFM_Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_LoginAudit" EntityType="Self.WFM_LoginAudit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_Marketing" EntityType="Self.WFM_Marketing" Schema="dbo" store:Type="Tables" />
@@ -1478,10 +1292,6 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
             <End Role="RelationshipType" EntitySet="RelationshipType" />
             <End Role="RelationshipType1" EntitySet="RelationshipType" />
           </AssociationSet>
-          <AssociationSet Name="FK_WFM_BondType_WFM_BondType" Association="Self.FK_WFM_BondType_WFM_BondType">
-            <End Role="WFM_BondType" EntitySet="WFM_BondType" />
-            <End Role="WFM_BondType1" EntitySet="WFM_BondType" />
-          </AssociationSet>
           <AssociationSet Name="FK_WFM_Document_WFM_Document" Association="Self.FK_WFM_Document_WFM_Document">
             <End Role="WFM_DocumentTab" EntitySet="WFM_DocumentTab" />
             <End Role="WFM_Document" EntitySet="WFM_Document" />
@@ -1525,66 +1335,6 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <AssociationSet Name="FK_WFM_MarketingSourcingPartner_WFM_SourcingPartner" Association="Self.FK_WFM_MarketingSourcingPartner_WFM_SourcingPartner">
             <End Role="WFM_SourcingPartner" EntitySet="WFM_SourcingPartner" />
             <End Role="WFM_MarketingSourcingPartner" EntitySet="WFM_MarketingSourcingPartner" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_AspNetUsers" Association="Self.FK_WFM_Project_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_AspNetUsers1" Association="Self.FK_WFM_Project_AspNetUsers1">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_Contact" Association="Self.FK_WFM_Project_WFM_Contact">
-            <End Role="WFM_Contact" EntitySet="WFM_Contact" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_Contact1" Association="Self.FK_WFM_Project_WFM_Contact1">
-            <End Role="WFM_Contact" EntitySet="WFM_Contact" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_Contact2" Association="Self.FK_WFM_Project_WFM_Contact2">
-            <End Role="WFM_Contact" EntitySet="WFM_Contact" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_Contact3" Association="Self.FK_WFM_Project_WFM_Contact3">
-            <End Role="WFM_Contact" EntitySet="WFM_Contact" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_Division" Association="Self.FK_WFM_Project_WFM_Division">
-            <End Role="WFM_Division" EntitySet="WFM_Division" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_DocumentTab" Association="Self.FK_WFM_Project_WFM_DocumentTab">
-            <End Role="WFM_DocumentTab" EntitySet="WFM_DocumentTab" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_MethodOfIntroduction" Association="Self.FK_WFM_Project_WFM_MethodOfIntroduction">
-            <End Role="WFM_MethodOfIntroduction" EntitySet="WFM_MethodOfIntroduction" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_Organization" Association="Self.FK_WFM_Project_WFM_Organization">
-            <End Role="WFM_Organization" EntitySet="WFM_Organization" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_PriorityFramework" Association="Self.FK_WFM_Project_WFM_PriorityFramework">
-            <End Role="WFM_PriorityFramework" EntitySet="WFM_PriorityFramework" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_ProjectSector" Association="Self.FK_WFM_Project_WFM_ProjectSector">
-            <End Role="WFM_ProjectSector" EntitySet="WFM_ProjectSector" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_ProjectStatus" Association="Self.FK_WFM_Project_WFM_ProjectStatus">
-            <End Role="WFM_ProjectStatus" EntitySet="WFM_ProjectStatus" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_ProjectSubSector" Association="Self.FK_WFM_Project_WFM_ProjectSubSector">
-            <End Role="WFM_ProjectSector" EntitySet="WFM_ProjectSector" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_ProjectType" Association="Self.FK_WFM_Project_WFM_ProjectType">
-            <End Role="WFM_ProjectType" EntitySet="WFM_ProjectType" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
           </AssociationSet>
           <AssociationSet Name="FK_WFM_ProjectDocument_WFM_Document" Association="Self.FK_WFM_ProjectDocument_WFM_Document">
             <End Role="WFM_Document" EntitySet="WFM_Document" />
@@ -1868,17 +1618,6 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <NavigationProperty Name="People" Relationship="Self.FK_Person_Title" FromRole="Title" ToRole="Person" />
           <NavigationProperty Name="PersonHistories" Relationship="Self.FK_PersonHistory_Title" FromRole="Title" ToRole="PersonHistory" />
         </EntityType>
-        <EntityType Name="WFM_BondType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="WFM_BondType1" Relationship="Self.FK_WFM_BondType_WFM_BondType" FromRole="WFM_BondType" ToRole="WFM_BondType1" />
-          <NavigationProperty Name="WFM_BondType2" Relationship="Self.FK_WFM_BondType_WFM_BondType" FromRole="WFM_BondType1" ToRole="WFM_BondType" />
-        </EntityType>
         <EntityType Name="WFM_Configuration">
           <Key>
             <PropertyRef Name="Id" />
@@ -2007,7 +1746,7 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AddressLine1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="AddressLine2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
@@ -2122,6 +1861,8 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <NavigationProperty Name="WFM_Document" Relationship="Self.FK_WFM_Document_WFM_ProjectType" FromRole="WFM_ProjectType" ToRole="WFM_Document" />
           <NavigationProperty Name="WFM_DocumentTab" Relationship="Self.FK_WFM_DocumentTab_WFM_ProjectType" FromRole="WFM_ProjectType" ToRole="WFM_DocumentTab" />
+          <Property Name="ShowInMenu" Type="Boolean" />
+          <Property Name="Path" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="WFM_Project" Relationship="LinkManagementModel.FK_WFM_Project_WFM_ProjectType" FromRole="WFM_ProjectType" ToRole="WFM_Project" />
         </EntityType>
         <EntityType Name="WFM_SourcingPartner">
@@ -2439,18 +2180,6 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_WFM_BondType_WFM_BondType">
-          <End Role="WFM_BondType" Type="Self.WFM_BondType" Multiplicity="1" />
-          <End Role="WFM_BondType1" Type="Self.WFM_BondType" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_BondType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_BondType1">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PrincipalContact_Contact">
           <End Role="WFM_Contact" Type="Self.WFM_Contact" Multiplicity="0..1" />
           <End Role="WFM_PrincipalContact" Type="Self.WFM_PrincipalContact" Multiplicity="*" />
@@ -2608,7 +2337,6 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <EntitySet Name="RelationshipTypes" EntityType="Self.RelationshipType" />
           <EntitySet Name="SubOrganizations" EntityType="Self.SubOrganization" />
           <EntitySet Name="Titles" EntityType="Self.Title" />
-          <EntitySet Name="WFM_BondType" EntityType="Self.WFM_BondType" />
           <EntitySet Name="WFM_Configuration" EntityType="Self.WFM_Configuration" />
           <EntitySet Name="WFM_Contact" EntityType="Self.WFM_Contact" />
           <EntitySet Name="WFM_Country" EntityType="Self.WFM_Country" />
@@ -2715,10 +2443,6 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <AssociationSet Name="FK_RelationshipType_RelationshipType" Association="Self.FK_RelationshipType_RelationshipType">
             <End Role="RelationshipType" EntitySet="RelationshipTypes" />
             <End Role="RelationshipType1" EntitySet="RelationshipTypes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_BondType_WFM_BondType" Association="Self.FK_WFM_BondType_WFM_BondType">
-            <End Role="WFM_BondType" EntitySet="WFM_BondType" />
-            <End Role="WFM_BondType1" EntitySet="WFM_BondType" />
           </AssociationSet>
           <AssociationSet Name="FK_PrincipalContact_Contact" Association="Self.FK_PrincipalContact_Contact">
             <End Role="WFM_Contact" EntitySet="WFM_Contact" />
@@ -2862,10 +2586,6 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
             <End Role="WFM_ProjectSector" EntitySet="WFM_ProjectSector" />
             <End Role="WFM_Project" EntitySet="WFM_Project" />
           </AssociationSet>
-          <AssociationSet Name="FK_WFM_Project_WFM_ProjectType" Association="LinkManagementModel.FK_WFM_Project_WFM_ProjectType">
-            <End Role="WFM_ProjectType" EntitySet="WFM_ProjectType" />
-            <End Role="WFM_Project" EntitySet="WFM_Project" />
-          </AssociationSet>
           <AssociationSet Name="FK_WFM_ProjectDocument_WFM_Project" Association="LinkManagementModel.FK_WFM_ProjectDocument_WFM_Project">
             <End Role="WFM_Project" EntitySet="WFM_Project" />
             <End Role="WFM_ProjectDocument" EntitySet="WFM_ProjectDocument" />
@@ -2882,6 +2602,11 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
             <End Role="WFM_Project" EntitySet="WFM_Project" />
             <End Role="WFM_ProjectDocumentTab" EntitySet="WFM_ProjectDocumentTab" />
           </AssociationSet>
+          <AssociationSet Name="FK_WFM_Project_WFM_ProjectType" Association="LinkManagementModel.FK_WFM_Project_WFM_ProjectType">
+            <End Role="WFM_ProjectType" EntitySet="WFM_ProjectType" />
+            <End Role="WFM_Project" EntitySet="WFM_Project" />
+          </AssociationSet>
+          <EntitySet Name="WFM_EmailTemplates" EntityType="LinkManagementModel.WFM_EmailTemplates" />
           </EntityContainer>
         <ComplexType Name="GetDataAuditByUser_Result">
           <Property Type="Guid" Name="UserId" Nullable="true" />
@@ -3040,7 +2765,7 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectTypeId" Type="Int32" />
           <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OrganizationId" Type="Int32" />
           <Property Name="SectorId" Type="Int32" />
@@ -3070,7 +2795,7 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <Property Name="PrincipalId3" Type="Int32" />
           <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="MethodOfIntroductionId" Type="Int32" />
           <Property Name="PriorityFrameworkId" Type="Int32" />
           <Property Name="IsRationalForNo8" Type="Boolean" />
@@ -3090,7 +2815,7 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <Property Name="List25" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ApprovedToGoAheadId" Type="Int32" />
           <Property Name="ContinentId" Type="Int32" />
-          <Property Name="ProjectLocation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectLocation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="PriorityId" Type="Int32" />
           <Property Name="FileStatusId" Type="Int32" />
           <Property Name="FileCreatedDate" Type="DateTime" Precision="3" />
@@ -3108,6 +2833,7 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <Property Name="DatePublished" Type="DateTime" Precision="3" />
           <Property Name="ProjectDivisionalStatusId" Type="Int32" />
           <Property Name="HotPickId" Type="Int32" />
+          <Property Name="Number" Type="Int32" />
           <NavigationProperty Name="AspNetUser" Relationship="LinkManagementModel.FK_WFM_Project_AspNetUsers" FromRole="WFM_Project" ToRole="AspNetUser" />
           <NavigationProperty Name="AspNetUser1" Relationship="LinkManagementModel.FK_WFM_Project_AspNetUsers1" FromRole="WFM_Project" ToRole="AspNetUser" />
           <NavigationProperty Name="WFM_Contact" Relationship="LinkManagementModel.FK_WFM_Project_WFM_Contact" FromRole="WFM_Project" ToRole="WFM_Contact" />
@@ -3124,11 +2850,12 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <NavigationProperty Name="WFM_ProjectSector" Relationship="LinkManagementModel.FK_WFM_Project_WFM_ProjectSector" FromRole="WFM_Project" ToRole="WFM_ProjectSector" />
           <NavigationProperty Name="WFM_ProjectStatus" Relationship="LinkManagementModel.FK_WFM_Project_WFM_ProjectStatus" FromRole="WFM_Project" ToRole="WFM_ProjectStatus" />
           <NavigationProperty Name="WFM_ProjectSector1" Relationship="LinkManagementModel.FK_WFM_Project_WFM_ProjectSubSector" FromRole="WFM_Project" ToRole="WFM_ProjectSector" />
-          <NavigationProperty Name="WFM_ProjectType" Relationship="LinkManagementModel.FK_WFM_Project_WFM_ProjectType" FromRole="WFM_Project" ToRole="WFM_ProjectType" />
           <NavigationProperty Name="WFM_ProjectDocument" Relationship="LinkManagementModel.FK_WFM_ProjectDocument_WFM_Project" FromRole="WFM_Project" ToRole="WFM_ProjectDocument" />
           <NavigationProperty Name="WFM_ProjectDocumentFieldValue" Relationship="LinkManagementModel.FK_WFM_ProjectDocumentFieldValue_WFM_Project" FromRole="WFM_Project" ToRole="WFM_ProjectDocumentFieldValue" />
           <NavigationProperty Name="WFM_ProjectDocumentHistory" Relationship="LinkManagementModel.FK_WFM_ProjectDocumentHistory_WFM_Project" FromRole="WFM_Project" ToRole="WFM_ProjectDocumentHistory" />
           <NavigationProperty Name="WFM_ProjectDocumentTab" Relationship="LinkManagementModel.FK_WFM_ProjectDocumentTab_WFM_Project" FromRole="WFM_Project" ToRole="WFM_ProjectDocumentTab" />
+          <NavigationProperty Name="WFM_ProjectType" Relationship="LinkManagementModel.FK_WFM_Project_WFM_ProjectType" FromRole="WFM_Project" ToRole="WFM_ProjectType" />
+          <Property Name="MainIntroducerId" Type="Int32" />
         </EntityType>
         <Association Name="FK_WFM_Project_AspNetUsers">
           <End Type="LinkManagementModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
@@ -3322,18 +3049,6 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_WFM_Project_WFM_ProjectType">
-          <End Type="LinkManagementModel.WFM_ProjectType" Role="WFM_ProjectType" Multiplicity="1" />
-          <End Type="LinkManagementModel.WFM_Project" Role="WFM_Project" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_ProjectType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Project">
-              <PropertyRef Name="ProjectTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_WFM_ProjectDocument_WFM_Project">
           <End Type="LinkManagementModel.WFM_Project" Role="WFM_Project" Multiplicity="1" />
           <End Type="LinkManagementModel.WFM_ProjectDocument" Role="WFM_ProjectDocument" Multiplicity="*" />
@@ -3382,6 +3097,29 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WFM_Project_WFM_ProjectType">
+          <End Type="LinkManagementModel.WFM_ProjectType" Role="WFM_ProjectType" Multiplicity="0..1" />
+          <End Type="LinkManagementModel.WFM_Project" Role="WFM_Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WFM_ProjectType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WFM_Project">
+              <PropertyRef Name="ProjectTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="WFM_EmailTemplates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Action" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Template" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FromEmail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ToEmails" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3596,16 +3334,6 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <EntitySetMapping Name="Titles">
             <EntityTypeMapping TypeName="LinkManagementModel.Title">
               <MappingFragment StoreEntitySet="Title">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WFM_BondType">
-            <EntityTypeMapping TypeName="LinkManagementModel.WFM_BondType">
-              <MappingFragment StoreEntitySet="WFM_BondType">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
@@ -3828,6 +3556,8 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <EntitySetMapping Name="WFM_ProjectType">
             <EntityTypeMapping TypeName="LinkManagementModel.WFM_ProjectType">
               <MappingFragment StoreEntitySet="WFM_ProjectType">
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="ShowInMenu" ColumnName="ShowInMenu" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
@@ -4072,6 +3802,8 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <EntitySetMapping Name="WFM_Project">
             <EntityTypeMapping TypeName="LinkManagementModel.WFM_Project">
               <MappingFragment StoreEntitySet="WFM_Project">
+                <ScalarProperty Name="MainIntroducerId" ColumnName="MainIntroducerId" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="HotPickId" ColumnName="HotPickId" />
                 <ScalarProperty Name="ProjectDivisionalStatusId" ColumnName="ProjectDivisionalStatusId" />
                 <ScalarProperty Name="DatePublished" ColumnName="DatePublished" />
@@ -4140,6 +3872,18 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
                 <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="ProjectTypeId" ColumnName="ProjectTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WFM_EmailTemplates">
+            <EntityTypeMapping TypeName="LinkManagementModel.WFM_EmailTemplates">
+              <MappingFragment StoreEntitySet="WFM_EmailTemplates">
+                <ScalarProperty Name="ToEmails" ColumnName="ToEmails" />
+                <ScalarProperty Name="FromEmail" ColumnName="FromEmail" />
+                <ScalarProperty Name="Template" ColumnName="Template" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

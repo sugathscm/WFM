@@ -8,7 +8,7 @@ using WFM.BAL.ViewModels;
 
 namespace WFM.UI.DF.Controllers
 {
-    public class PublicSectorNonTenderController : Controller
+    public class PublicSectorNonTenderController : BaseController
     {
         private ApplicationUserManager _userManager;
         private readonly ProjectService projectService = new ProjectService();

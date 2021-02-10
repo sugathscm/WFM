@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="49b90884a25049818eb7aab6c7b6b66c" Name="Diagram1" ZoomLevel="89">
+      <Diagram DiagramId="49b90884a25049818eb7aab6c7b6b66c" Name="Diagram1" ZoomLevel="66">
         <EntityTypeShape EntityType="LinkManagementModel.C__MigrationHistory" Width="1.5" PointX="2.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.AspNetRole" Width="1.5" PointX="9" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.AspNetUserClaim" Width="1.5" PointX="13.5" PointY="4" IsExpanded="true" />
@@ -23,7 +23,6 @@
         <EntityTypeShape EntityType="LinkManagementModel.RelationshipType" Width="2.125" PointX="19.625" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.SubOrganization" Width="1.5" PointX="15.75" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.Title" Width="1.5" PointX="15.75" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LinkManagementModel.WFM_BondType" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_Configuration" Width="1.5" PointX="6.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_Contact" Width="1.5" PointX="20" PointY="25" IsExpanded="true" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_Country" Width="1.5" PointX="17.75" PointY="20.375" IsExpanded="true" />
@@ -68,7 +67,6 @@
         <AssociationConnector Association="LinkManagementModel.FK_PersonRelationshipDetail_PersonRelationship" ManuallyRouted="false" />
         <AssociationConnector Association="LinkManagementModel.FK_PersonRelationshipDetail_RelationshipType" ManuallyRouted="false" />
         <AssociationConnector Association="LinkManagementModel.FK_RelationshipType_RelationshipType" ManuallyRouted="false" />
-        <AssociationConnector Association="LinkManagementModel.FK_WFM_BondType_WFM_BondType" ManuallyRouted="false" />
         <AssociationConnector Association="LinkManagementModel.FK_PrincipalContact_Contact" ManuallyRouted="false" />
         <AssociationConnector Association="LinkManagementModel.FK_dbo_Principal_dbo_Country_CountryId" ManuallyRouted="false" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_Document_WFM_Document" ManuallyRouted="false" />
@@ -106,11 +104,12 @@
         <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_WFM_ProjectSector" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_WFM_ProjectStatus" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_WFM_ProjectSubSector" />
-        <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_WFM_ProjectType" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_ProjectDocument_WFM_Project" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_ProjectDocumentFieldValue_WFM_Project" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_ProjectDocumentHistory_WFM_Project" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_ProjectDocumentTab_WFM_Project" />
+        <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_WFM_ProjectType" />
+        <EntityTypeShape EntityType="LinkManagementModel.WFM_EmailTemplates" Width="1.5" PointX="22.375" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
