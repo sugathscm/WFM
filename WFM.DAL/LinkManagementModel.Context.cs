@@ -137,5 +137,10 @@ namespace WFM.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetRelationshipText", iN_PersonIdParameter);
         }
+    
+        public virtual ObjectResult<GetDashboardData_Result> GetDashboardData()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboardData_Result>("GetDashboardData");
+        }
     }
 }

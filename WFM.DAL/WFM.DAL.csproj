@@ -78,6 +78,9 @@
     <Compile Include="Division.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetDashboardData_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetDataAuditByUser_Result.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>

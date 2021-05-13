@@ -8,6 +8,7 @@ using WFM.BAL.ViewModels;
 
 namespace WFM.UI.DF.Controllers
 {
+    [Authorize]
     public class PrivateSectorController : BaseController
     {
         private ApplicationUserManager _userManager;

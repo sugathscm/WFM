@@ -14,7 +14,7 @@ using WFM.UI.DF.ModelsView;
 
 namespace WFM.UI.DF.Controllers
 {
-
+    [Authorize]
     public class OrganizationController : BaseController
     {
         private ApplicationUserManager _userManager;

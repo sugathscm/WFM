@@ -115,6 +115,14 @@
                         </div>
                     </div>
                 </div>
+                <hr />
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0"><b>Sourcing Documents</b></div>
+                    @Html.Action("DisplayDocumentsPerTab", "PublicSectorTender", new { projectid = Model.Id, tabId = 1 })
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0"><b>R &amp; D Documents</b></div>
+                    @Html.Action("DisplayDocumentsPerTab", "PublicSectorTender", new { projectid = Model.Id, tabId = 2 })
+                </div>
+                <br />
             </div>
         </div>
         <div class="border border-primary bg-actual-white m-t-10">
@@ -128,7 +136,7 @@
                             <a class="nav-link active" id="sourcing-tab-justify" data-toggle="tab" href="#sourcing-justif" role="tab" aria-controls="sourcing" aria-selected="true">Sourcing Documents</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="randd-tab-justify" data-toggle="tab" href="#randd-justify" role="tab" aria-controls="randd" aria-selected="false">R and D - Finance</a>
+                            <a class="nav-link" id="randd-tab-justify" data-toggle="tab" href="#randd-justify" role="tab" aria-controls="randd" aria-selected="false">Research and Design/Finance</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="approval-tab-justify" data-toggle="tab" href="#approval-justify" role="tab" aria-controls="approval" aria-selected="false">Approval</a>
@@ -137,10 +145,10 @@
                             <a class="nav-link" id="marketing-tab-justify" data-toggle="tab" href="#marketing-justify" role="tab" aria-controls="marketing" aria-selected="false">Marketing</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="verification-tab-justify" data-toggle="tab" href="#verification-justify" role="tab" aria-controls="verification" aria-selected="false">Verification</a>
+                            <a class="nav-link" id="verification-tab-justify" data-toggle="tab" href="#verification-justify" role="tab" aria-controls="verification" aria-selected="false">Verification </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="legal-tab-justify" data-toggle="tab" href="#legal-justify" role="tab" aria-controls="legal" aria-selected="false">Legal Contracting</a>
+                            <a class="nav-link" id="legal-tab-justify" data-toggle="tab" href="#legal-justify" role="tab" aria-controls="legal" aria-selected="false">Legal</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="InwardInquiry">
@@ -188,11 +196,6 @@
                                 {
                                     @Html.HiddenFor(m => m.Id, new { id = "Id" })
                                     <div class="row">
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0"><b>Sourcing Documents</b></div>
-                                        @Html.Action("DisplayDocumentsPerTab", "PublicSectorTender", new { projectid = Model.Id, tabId = 1 })
-                                    </div>
-                                    <hr />
-                                    <div class="row">
                                         @{
                                             int j = 0;
                                             foreach (var document in ViewBag.Type2DocumentList as List<WFM_Document>)
@@ -202,9 +205,9 @@
                                                     <div class="form-group row">
                                                         <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@j . @Html.Raw(document.Name)</label>
                                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                                            <input type="file" required="" placeholder="" class="form-control" id="@document.Id">
+                                                            <input type="file" required="" placeholder="" class="form-control randd-file" id="@document.Id">
                                                         </div>
-                                                        <div class="col-lg-12 col-md-12 col-sm-12" id="sourcingdocs-@document.Id">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12" id="randddocs-@document.Id">
                                                             @Html.Action("DisplayDocuments", "PublicSectorTender", new { projectid = Model.Id, documentid = document.Id })
                                                         </div>
                                                     </div>
@@ -217,7 +220,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                                    <input type="button" value="Save" id="SaveSourcing" class="btn btn-primary" />
+                                                    <input type="button" value="Save" id="SaveRandD" class="btn btn-primary" />
                                                 </div>
                                             </div>
                                         </div>
@@ -225,16 +228,12 @@
                                 }
                             </div>
                         </div>
+
                         <div class="tab-pane fade" id="approval-justify" role="tabpanel" aria-labelledby="approval-tab-justify">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 @using (Html.BeginForm("SaveOrUpdate", "PublicSectorTender", FormMethod.Post, new { @class = "form-horizontal", @role = "form", enctype = "multipart/form-data" }))
                                 {
                                     @Html.HiddenFor(m => m.Id, new { id = "Id" })
-                                    <div class="row">
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0"><b>Sourcing Documents</b></div>
-                                        @Html.Action("DisplayDocumentsPerTab", "PublicSectorTender", new { projectid = Model.Id, tabId = 1 })
-                                    </div>
-                                    <hr />
                                     <div class="row">
                                         @{
                                             int k = 0;
@@ -274,7 +273,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
                                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                                    <button type="button" class="btn btn-primary float-left">Save</button>
+                                                    <button type="button" class="btn btn-primary float-left" id="SaveApproval">Save</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -287,11 +286,6 @@
                                 @using (Html.BeginForm("SaveOrUpdate", "PublicSectorTender", FormMethod.Post, new { @class = "form-horizontal", @role = "form", enctype = "multipart/form-data" }))
                                 {
                                     @Html.HiddenFor(m => m.Id, new { id = "Id" })
-                                    <div class="row">
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0"><b>Sourcing Documents</b></div>
-                                        @Html.Action("DisplayDocumentsPerTab", "PublicSectorTender", new { projectid = Model.Id, tabId = 1 })
-                                    </div>
-                                    <hr />
                                     <div class="row">
                                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
                                             <div class="form-group row">
@@ -318,7 +312,24 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div class="row">
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                            <div class="form-group row">
+                                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Sourcing Partners (External)</label>
+                                                <div class="col-lg-12 col-sm-12 ">
+                                                    @Html.DropDownListFor(m => m.PrincipalId2, new SelectList(ViewBag.SourcingPartners, "Id", "Name"), "Select Sourcing Partner", new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                            <div class="form-group row">
+                                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Sourcing Partners (Internal)</label>
+                                                <div class="col-lg-12 col-sm-12 ">
+                                                    @Html.DropDownListFor(m => m.PrincipalId3, new SelectList(ViewBag.SourcingPartners, "Id", "Name"), "Select Sourcing Partner", new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <hr />
                                     <div class="row">
                                         @{
@@ -368,11 +379,6 @@
                                 <form id="form" data-parsley-validate="" novalidate="">
                                     @Html.HiddenFor(m => m.Id, new { id = "Id" })
                                     <div class="row">
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0"><b>Sourcing Documents</b></div>
-                                        @Html.Action("DisplayDocumentsPerTab", "PublicSectorTender", new { projectid = Model.Id, tabId = 1 })
-                                    </div>
-                                    <hr />
-                                    <div class="row">
                                         <div class="col-md-4">
                                             <button type="button" class="btn btn-info btn-block">View Form 8B 1 & 2</button>
                                         </div>
@@ -399,11 +405,6 @@
                         <div class="tab-pane fade" id="legal-justify" role="tabpanel" aria-labelledby="legal-tab-justify">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 @Html.HiddenFor(m => m.Id, new { id = "Id" })
-                                <div class="row">
-                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0"><b>Sourcing Documents</b></div>
-                                    @Html.Action("DisplayDocumentsPerTab", "PublicSectorTender", new { projectid = Model.Id, tabId = 1 })
-                                </div>
-                                <hr />
                                 <form id="form" data-parsley-validate="" novalidate="">
                                     <div class="row">
                                         <div class="col-md-2 col-sm-2 col-2 mb-0">
@@ -562,14 +563,32 @@
         $(document).ready(function () {
 
             $('#SaveSourcing').click(function () {
-                var documentCount = 14;
+                SaveData();
+            });
+
+            $('#SaveRandD').click(function () {
+                SaveData();
+            });
+
+            function SaveData() {
+                var SourcingDocumentCount = 14;
                 // Create FormData object
                 var fileData = new FormData();
                 fileData.append("projectid", $("#Id").val());
 
                 // Looping over all files and add it to FormData object
-                for (var j = 0; j < documentCount; j++) {
+                for (var j = 0; j < SourcingDocumentCount; j++) {
                     var fileUpload = $(".sourcing-file").get(j);
+                    var files = fileUpload.files;
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append(fileUpload.id, files[i]);
+                    }
+                }
+
+                var RandDDocumentCount = 4;
+
+                for (var j = 0; j < RandDDocumentCount; j++) {
+                    var fileUpload = $(".randd-file").get(j);
                     var files = fileUpload.files;
                     for (var i = 0; i < files.length; i++) {
                         fileData.append(fileUpload.id, files[i]);
@@ -586,10 +605,16 @@
                     contentType: false,
                     success: function (result) {
                         alert(result);
-                        for (var j = 0; j < documentCount; j++) {
+                        for (var j = 0; j < SourcingDocumentCount; j++) {
                             var fileUpload = $(".sourcing-file").get(j);
                             $('#sourcingdocs-' + fileUpload.id).load("/PublicSectorTender/DisplayDocuments?projectid=" + $("#Id").val() + "&documentid=" + fileUpload.id);
                         }
+
+                        for (var j = 0; j < RandDDocumentCount; j++) {
+                            var fileUpload = $(".randd-file").get(j);
+                            $('#randddocs-' + fileUpload.id).load("/PublicSectorTender/DisplayDocuments?projectid=" + $("#Id").val() + "&documentid=" + fileUpload.id);
+                        }
+
                     },
                     error: function (err) {
                         alert(err.statusText);
@@ -597,33 +622,12 @@
                 });
 
                 $(".sourcing-file").val("");
-            });
+                $(".randd-file").val("");
+            }
 
-            $('#SectorId').select2({
+            $('select').select2({
                 selectOnClose: true
             });
-
-            $('#SubSectorId').select2({
-                selectOnClose: true
-            });
-
-            $('#StatusId').select2({
-                selectOnClose: true
-            });
-
-            $('#PrincipalId1').select2({
-                selectOnClose: true
-            });
-
-            $('#PrincipalId2').select2({
-                selectOnClose: true
-            });
-
-            $('#PrincipalId3').select2({
-                selectOnClose: true
-            });
-
-
         });
 
 

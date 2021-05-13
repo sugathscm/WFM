@@ -12,6 +12,7 @@ using WFM.UI.DF.ModelsView;
 
 namespace WFM.UI.Controllers
 {
+    [Authorize]
     public class TenderDocumentSectionController : BaseController
     {
         private ApplicationUserManager _userManager;

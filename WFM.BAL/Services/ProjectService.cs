@@ -249,6 +249,14 @@ namespace WFM.BAL.Services
             }
         }
 
+        public List<GetDashboardData_Result> GetDashboardData()
+        {
+            using (LinkManagementEntities entities = new LinkManagementEntities())
+            {
+                return entities.GetDashboardData().ToList();
+            }
+        }
+
         public int GetMaxNumber()
         {
             using (LinkManagementEntities entities = new LinkManagementEntities())

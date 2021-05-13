@@ -14,6 +14,7 @@ using WFM.UI.DF.ModelsView;
 
 namespace WFM.UI.DF.Controllers
 {
+    [Authorize]
     public class ContactController : BaseController
     {
         private ApplicationUserManager _userManager;

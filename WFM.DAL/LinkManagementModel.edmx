@@ -287,7 +287,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="HasFields" Type="bit" />
           <Property Name="DateCreated" Type="datetime" />
@@ -1129,6 +1129,7 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetDashboardData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetDataAuditByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -2607,6 +2608,7 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
             <End Role="WFM_Project" EntitySet="WFM_Project" />
           </AssociationSet>
           <EntitySet Name="WFM_EmailTemplates" EntityType="LinkManagementModel.WFM_EmailTemplates" />
+          <FunctionImport Name="GetDashboardData" ReturnType="Collection(LinkManagementModel.GetDashboardData_Result)" />
           </EntityContainer>
         <ComplexType Name="GetDataAuditByUser_Result">
           <Property Type="Guid" Name="UserId" Nullable="true" />
@@ -3120,6 +3122,12 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <Property Name="FromEmail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ToEmails" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="GetDashboardData_Result">
+          <Property Type="Int32" Name="COU" Nullable="true" />
+          <Property Type="Int32" Name="TypeId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="TabName" Nullable="true" MaxLength="50" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3888,6 +3896,16 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetDashboardData" FunctionName="LinkManagementModel.Store.GetDashboardData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LinkManagementModel.GetDashboardData_Result">
+                <ScalarProperty Name="COU" ColumnName="COU" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TabName" ColumnName="TabName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -7,10 +7,12 @@ using System.Web;
 using System.Web.Mvc;
 using WFM.BAL.Services;
 using WFM.BAL.ViewModels;
+using WFM.DAL;
 using WFM.UI.DF.Models;
 
 namespace WFM.UI.DF.Controllers
 {
+    [Authorize]
     public class PublicSectorTenderController : BaseController
     {
         private ApplicationUserManager _userManager;
@@ -80,6 +82,10 @@ namespace WFM.UI.DF.Controllers
             if (id != null)
             {
                 var project = projectService.GetProjectById(projectTypeId, id.Value);
+                ViewBag.Principals = principalService.GetPrincipalList();
+                ViewBag.SourcingPartners = sourcingPartnerService.GetSourdingPartnerList();
+
+
                 return View(project);
             }
 
@@ -184,7 +190,7 @@ namespace WFM.UI.DF.Controllers
             List<TenderDocumnet> docs = new List<TenderDocumnet>();
 
             var documents = documentService.GetDocumentsByProjectType(projectTypeId);
-            List<DAL.WFM_Document> documentList = documents.Where(d => d.DocumentTabId == 1 && d.HasFields == false).OrderBy(d => d.DisplayOrder).ToList();
+            List<WFM_Document> documentList = documents.Where(d => d.DocumentTabId == tabId && d.HasFields == false).OrderBy(d => d.DisplayOrder).ToList();
 
             foreach(var document in documentList)
             {

@@ -15,6 +15,7 @@ using WFM.UI.DF.ModelsView;
 
 namespace WFM.UI.DF.Controllers
 {
+    [Authorize]
     public class SourcingPartnerController : BaseController
     {
         private ApplicationUserManager _userManager;

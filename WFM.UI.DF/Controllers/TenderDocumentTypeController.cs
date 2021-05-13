@@ -9,6 +9,7 @@ using WFM.UI.DF.Models;
 
 namespace WFM.UI.DF.Controllers
 {
+    [Authorize]
     public class TenderDocumentTypeController : BaseController
     {
         // GET: WFM_TenderDocumentType

@@ -44,3 +44,8 @@
 2021-02-07 11:12:59,930 [9] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : The ObjectContext instance has been disposed and can no longer be used for operations that require a connection.
 2021-02-07 13:18:23,636 [56] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : The ObjectContext instance has been disposed and can no longer be used for operations that require a connection.
 2021-02-07 13:25:32,533 [55] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : The ObjectContext instance has been disposed and can no longer be used for operations that require a connection.
+2021-02-19 23:48:51,032 [9] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : The data reader is incompatible with the specified 'LinkManagementModel.GetDashboardData_Result'. A member of the type, 'TabId', does not have a corresponding column in the data reader with the same name.
+2021-02-19 23:50:12,915 [8] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : The data reader is incompatible with the specified 'LinkManagementModel.GetDashboardData_Result'. A member of the type, 'TabId', does not have a corresponding column in the data reader with the same name.
+2021-02-20 07:32:10,763 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Object reference not set to an instance of an object.
+2021-02-20 07:32:52,072 [10] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : Object reference not set to an instance of an object.
+2021-04-19 23:37:53,043 [11] ERROR WFM.UI.DF.Controllers.HomeController - Error in loading projects : An error occurred while executing the command definition. See the inner exception for details.

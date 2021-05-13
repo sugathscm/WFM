@@ -56,24 +56,80 @@ namespace WFM.UI.DF.Controllers
         {
             try
             {
-                List<ProjectViewModel> projectsWFM = projectService.GetProjects(0);
+                //List<ProjectViewModel> projectsWFM = projectService.GetProjects(0);
 
-                var ProjectTypes = projectsWFM.GroupBy(p => p.ProjectTypeName).ToList();
+                //var ProjectTypes = projectsWFM.GroupBy(p => p.ProjectTypeName).ToList();
 
-                Dictionary<string, List<ProjectViewModel>> projectListPerType = new Dictionary<string, List<ProjectViewModel>>();
+                //Dictionary<string, List<ProjectViewModel>> projectListPerType = new Dictionary<string, List<ProjectViewModel>>();
 
-                foreach (var ProjectType in ProjectTypes)
+                //foreach (var ProjectType in ProjectTypes)
+                //{
+                //    projectListPerType.Add(ProjectType.Key, ProjectType.ToList());
+                //}
+
+                //ViewBag.ProjectTypes = projectListPerType;
+
+                List<Dictionary<string, List<string>>> dashboardDataList = new List<Dictionary<string, List<string>>>();
+
+                CommonDataService commonDataService = new CommonDataService();
+                List<DAL.WFM_CommonData> divisionalStatusList = commonDataService.GetCommonData(12);
+                var projectTypes = projectTypeService.GetProjectTypeList().Where(p => p.ShowInMenu == true).ToList();
+
+                Dictionary<string, List<string>> dashboardData = new Dictionary<string, List<string>>();
+                List<string> data = new List<string>();
+
+                foreach (var commonData in divisionalStatusList)
                 {
-                    projectListPerType.Add(ProjectType.Key, ProjectType.ToList());
+                    data.Add(commonData.Name);
+                }
+                data.Add("Total");
+                dashboardData.Add("H", data);
+                dashboardDataList.Add(dashboardData);
+
+                var actualDashboardData = projectService.GetDashboardData();
+                var typeList = actualDashboardData.Select(t => t.Name).Distinct();
+
+                foreach (var type in typeList)
+                {
+                    data = new List<string>();
+
+                    data.Add(type);
+
+                    var typeDataList = actualDashboardData.Where(d => d.Name == type).ToList();
+                    int total = 0;
+
+                    foreach (var commonData in divisionalStatusList)
+                    {
+                        var value = typeDataList.Where(d => d.Name == type && d.TabName == commonData.Name).FirstOrDefault();
+                        if (value == null)
+                        {
+                            data.Add("0");
+                        }
+                        else
+                        {
+                            total++;
+                            data.Add(value.COU.ToString());
+                        }                            
+                    }
+
+                    var projectType = projectTypes.Where(p => p.Name == type).FirstOrDefault();
+
+                    if (projectType != null)
+                        data.Add("<a href='/" + projectType.Path + "/Index/" + projectType.Id + "'>" + total.ToString() + "</a>");
+                    else
+                        data.Add(total.ToString());
+
+                    dashboardData.Add(type, data);
                 }
 
-                ViewBag.ProjectTypes = projectListPerType;
+
+                ViewBag.DataList = dashboardDataList;
+                ViewBag.TypeList = typeList;
             }
             catch (System.Exception ex)
             {
                 log.Error("Error in loading projects : " + ex.Message);
             }
-
         }
 
         public ActionResult About()

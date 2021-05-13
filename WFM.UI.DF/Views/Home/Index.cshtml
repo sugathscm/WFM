@@ -1,5 +1,5 @@
 ﻿@using WFM.BAL.ViewModels;
-
+@using WFM.DAL;
 @{
     ViewBag.Title = "Home Page";
 }
@@ -66,34 +66,28 @@
             <table id="customers">
                 <tr>
                     <th></th>
-                    <th width="12%">Sourcing</th>
-                    <th width="12%">R and D - Finance</th>
-                    <th width="12%">Approval</th>
-                    <th width="12%">Marketing</th>
-                    <th width="12%">Verification</th>
-                    <th width="12%">Legal Contracting</th>
-                    <th width="12%">Total</th>
+                    @foreach (var data in ViewBag.DataList)
+                    {
+                        foreach (var cell in @data["H"])
+                        {
+                            <th width="11%">@cell</th>
+                        }
+                    }
                 </tr>
-                <tr>
-                    <td>Tender</td>
-                    <td>0</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>Private Project</td>
-                    <td>5</td>
-                    <td>3</td>
-                    <td>3</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>17</td>
-                </tr>
+
+
+                @foreach (var type in ViewBag.TypeList)
+                {
+                    <tr>
+                        @foreach (var data in ViewBag.DataList)
+                        {
+                            foreach (var cell in @data[type])
+                            {
+                                <td>@Html.Raw(cell)</td>
+                            }
+                        }
+                    </tr>
+                }
             </table>
         </div>
     </div>
