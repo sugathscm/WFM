@@ -19,7 +19,7 @@
                 { "data": "Mobile" },
                 { "data": "Email" },
                 { "data": "FixedLine" },
-                { "data": "SourcingPartnerType" },
+                { "data": "SourcingPartnerTypeName" },
                 {
                     "data": "IsActive",
                     "render": function (data, type, full, meta) {
@@ -65,7 +65,7 @@
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
                             <label class="control-label" for="SourcingPartnerType">Sourcing Partner Type</label>
-                            @Html.DropDownListFor(model => model.SourcingPartnerTypeId, new SelectList(Enum.GetValues(typeof(WFM.BAL.Enums.SourcingPartnerType))), "Select TYpe")
+                            @Html.DropDownListFor(model => model.SourcingPartnerTypeId, new SelectList(ViewBag.TypeList, "Id", "Name"), "Sourcing Partner Type")
                         </div>
                     </div>
                     <div class="form-row">

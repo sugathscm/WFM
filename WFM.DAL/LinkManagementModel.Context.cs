@@ -77,6 +77,8 @@ namespace WFM.DAL
         public virtual DbSet<WFM_LoginAudit> WFM_LoginAudit { get; set; }
         public virtual DbSet<WFM_Project> WFM_Project { get; set; }
         public virtual DbSet<WFM_EmailTemplates> WFM_EmailTemplates { get; set; }
+        public virtual DbSet<WFM_Form12B> WFM_Form12B { get; set; }
+        public virtual DbSet<WFM_Form8B> WFM_Form8B { get; set; }
     
         public virtual ObjectResult<GetDataAuditByUser_Result> GetDataAuditByUser(Nullable<System.Guid> userId)
         {

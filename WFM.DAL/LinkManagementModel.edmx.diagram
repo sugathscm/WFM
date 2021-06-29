@@ -110,6 +110,8 @@
         <AssociationConnector Association="LinkManagementModel.FK_WFM_ProjectDocumentTab_WFM_Project" />
         <AssociationConnector Association="LinkManagementModel.FK_WFM_Project_WFM_ProjectType" />
         <EntityTypeShape EntityType="LinkManagementModel.WFM_EmailTemplates" Width="1.5" PointX="22.375" PointY="15.75" />
+        <EntityTypeShape EntityType="LinkManagementModel.WFM_Form12B" Width="1.5" PointX="23.375" PointY="0.75" />
+        <EntityTypeShape EntityType="LinkManagementModel.WFM_Form8B" Width="1.5" PointX="15.375" PointY="23.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

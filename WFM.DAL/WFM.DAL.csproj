@@ -181,6 +181,12 @@
     <Compile Include="WFM_Employee.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="WFM_Form12B.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_Form8B.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="WFM_LoginAudit.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>

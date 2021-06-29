@@ -19,6 +19,7 @@ namespace WFM.UI.DF.ModelsView
         [Display(Name = "Active")]
         public bool IsActive { get; set; } = true;
         public int? SourcingPartnerType { get; set; }
+        public string SourcingPartnerTypeName { get; set; }
 
     }
 }

@@ -11,6 +11,7 @@ using WFM.BAL.Enums;
 using WFM.BAL.Services;
 using WFM.DAL;
 using WFM.UI.DF;
+using WFM.UI.DF.Models;
 using WFM.UI.DF.ModelsView;
 
 namespace WFM.UI.DF.Controllers
@@ -52,6 +53,19 @@ namespace WFM.UI.DF.Controllers
                 sourcingPartner = sourcingPartnerService.GetSourdingPartnerById(id);
             }
 
+            List<BaseViewModel> types = new List<BaseViewModel>();
+
+            var typeList = Enum.GetValues(typeof(SourcingPartnerType));
+
+            int i = 0;
+
+            foreach(var type in typeList)
+            {
+                types.Add(new BaseViewModel() { Id = ++i, Name = type.ToString() });
+            }
+
+            ViewBag.TypeList = types;
+
             return View(sourcingPartner);
         }
 
@@ -69,7 +83,7 @@ namespace WFM.UI.DF.Controllers
                     Mobile = item.Mobile,
                     Email = item.Email,
                     FixedLine = item.FixedLine,
-                    SourcingPartnerType = item.SourcingPartnerTypeId,
+                    SourcingPartnerTypeName = Enum.GetName(typeof(SourcingPartnerType), item.SourcingPartnerTypeId),
                 });
             }
             return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);

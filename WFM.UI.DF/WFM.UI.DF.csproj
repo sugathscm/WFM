@@ -200,6 +200,8 @@
     </Compile>
     <Compile Include="ModelsView\EvalReportViewModel.cs" />
     <Compile Include="ModelsView\FileNotesReportViewModel.cs" />
+    <Compile Include="ModelsView\Form12BViewModel.cs" />
+    <Compile Include="ModelsView\Form8BViewModel.cs" />
     <Compile Include="ModelsView\LabelReportViewModel.cs" />
     <Compile Include="ModelsView\OEFReportViewModel.cs" />
     <Compile Include="ModelsView\OrganizationView.cs" />
@@ -750,6 +752,8 @@
     <Content Include="Views\PublicSectorTender\DisplayDocumentsPerTab.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\PublicSectorTender\_Form8B.cshtml" />
+    <Content Include="Views\PublicSectorTender\_Form12.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -759,7 +763,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

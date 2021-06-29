@@ -8,7 +8,7 @@ namespace WFM.BAL.Enums
 {
     public enum SourcingPartnerType
     {
-        Internal,
-        External
+        Internal = 1,
+        External = 2
     }
 }

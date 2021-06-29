@@ -342,6 +342,72 @@
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" />
         </EntityType>
+        <EntityType Name="WFM_Form12B">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="NameOfRequestingParty" Type="nvarchar" MaxLength="500" />
+          <Property Name="DivisionId" Type="int" />
+          <Property Name="DateOfRequest" Type="datetime" />
+          <Property Name="ShortDescriptionOfTheReasonForPayment" Type="nvarchar" MaxLength="500" />
+          <Property Name="ScopeOfWork" Type="nvarchar" MaxLength="250" />
+          <Property Name="ReceivedAndApprovedQuotation" Type="nvarchar" MaxLength="500" />
+          <Property Name="InvoiceReferenceNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="RecommendationByDivisionalHead" Type="nvarchar" MaxLength="250" />
+          <Property Name="SDMailTrail" Type="nvarchar" MaxLength="150" />
+          <Property Name="SDApprovedQuotation" Type="nvarchar" MaxLength="150" />
+          <Property Name="SDAgreedScope" Type="nvarchar" MaxLength="150" />
+          <Property Name="ApprovedAndCertifiedInvoiceAttached" Type="nvarchar" MaxLength="150" />
+          <Property Name="FormDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WFM_Form8B">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="RequestedBy" Type="nvarchar" MaxLength="500" />
+          <Property Name="DesignationId" Type="int" />
+          <Property Name="DivisionId" Type="int" />
+          <Property Name="ReferenceNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateOfRequest" Type="datetime" />
+          <Property Name="ProjectSectorId" Type="int" />
+          <Property Name="DescriptionOfTheProject" Type="nvarchar(max)" />
+          <Property Name="TotalProjectValue" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CompanyRepresentingCCC" Type="nvarchar" MaxLength="500" />
+          <Property Name="RoleToBePlayedByCCC" Type="nvarchar" MaxLength="50" />
+          <Property Name="NameOfSignatoryCCC" Type="nvarchar" MaxLength="250" />
+          <Property Name="DesignationOfSignatoryCCC" Type="nvarchar" MaxLength="150" />
+          <Property Name="OtherPartyName" Type="nvarchar" MaxLength="500" />
+          <Property Name="OtherPartyRegNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="OtherPartyAddress" Type="nvarchar" MaxLength="250" />
+          <Property Name="OtherPartyEmail" Type="nvarchar" MaxLength="150" />
+          <Property Name="RoleToBePlayedByOtherParty" Type="nvarchar(max)" />
+          <Property Name="NameOfSignatoryOtherParty" Type="nvarchar" MaxLength="250" />
+          <Property Name="DesignationOfSignatoryOtherParty" Type="nvarchar" MaxLength="150" />
+          <Property Name="OtherPartyName1" Type="nvarchar" MaxLength="500" />
+          <Property Name="OtherPartyRegNo1" Type="nvarchar" MaxLength="500" />
+          <Property Name="OtherPartyAddress1" Type="nvarchar" MaxLength="500" />
+          <Property Name="OtherPartyEmail1" Type="nvarchar" MaxLength="500" />
+          <Property Name="OtherPartyLegalDocument1" Type="nvarchar" MaxLength="500" />
+          <Property Name="OtherPartyLegalDocument2" Type="nvarchar" MaxLength="500" />
+          <Property Name="OtherPartyLegalDocument3" Type="nvarchar" MaxLength="500" />
+          <Property Name="MethodOfRemunerationToCCC" Type="nvarchar(max)" />
+          <Property Name="LegalFacilitation1" Type="nvarchar" MaxLength="250" />
+          <Property Name="LegalFacilitation2" Type="nvarchar" MaxLength="250" />
+          <Property Name="LegalFacilitation3" Type="nvarchar" MaxLength="250" />
+          <Property Name="LegalFacilitation4" Type="nvarchar" MaxLength="250" />
+          <Property Name="LegalFacilitation5" Type="nvarchar" MaxLength="250" />
+          <Property Name="LegalFacilitation6" Type="nvarchar" MaxLength="250" />
+          <Property Name="LegalFacilitation7" Type="nvarchar" MaxLength="250" />
+          <Property Name="LegalFacilitation8" Type="nvarchar" MaxLength="250" />
+          <Property Name="LegalFacilitation9" Type="nvarchar" MaxLength="250" />
+          <Property Name="LegalFacilitation10" Type="nvarchar" MaxLength="250" />
+          <Property Name="ValidityPeriodOfTheAgreement" Type="nvarchar" MaxLength="150" />
+          <Property Name="FormDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="WFM_LoginAudit">
           <Key>
             <PropertyRef Name="Id" />
@@ -1180,6 +1246,8 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <EntitySet Name="WFM_DocumentTab" EntityType="Self.WFM_DocumentTab" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_EmailTemplates" EntityType="Self.WFM_EmailTemplates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_Employee" EntityType="Self.WFM_Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WFM_Form12B" EntityType="Self.WFM_Form12B" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WFM_Form8B" EntityType="Self.WFM_Form8B" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_LoginAudit" EntityType="Self.WFM_LoginAudit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_Marketing" EntityType="Self.WFM_Marketing" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_MarketingSourcingPartner" EntityType="Self.WFM_MarketingSourcingPartner" Schema="dbo" store:Type="Tables" />
@@ -2609,6 +2677,8 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           </AssociationSet>
           <EntitySet Name="WFM_EmailTemplates" EntityType="LinkManagementModel.WFM_EmailTemplates" />
           <FunctionImport Name="GetDashboardData" ReturnType="Collection(LinkManagementModel.GetDashboardData_Result)" />
+          <EntitySet Name="WFM_Form12B" EntityType="LinkManagementModel.WFM_Form12B" />
+          <EntitySet Name="WFM_Form8B" EntityType="LinkManagementModel.WFM_Form8B" />
           </EntityContainer>
         <ComplexType Name="GetDataAuditByUser_Result">
           <Property Type="Guid" Name="UserId" Nullable="true" />
@@ -3128,6 +3198,72 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
           <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="TabName" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="WFM_Form12B">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="NameOfRequestingParty" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DivisionId" Type="Int32" />
+          <Property Name="DateOfRequest" Type="DateTime" Precision="3" />
+          <Property Name="ShortDescriptionOfTheReasonForPayment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ScopeOfWork" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ReceivedAndApprovedQuotation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceReferenceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RecommendationByDivisionalHead" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SDMailTrail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SDApprovedQuotation" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SDAgreedScope" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedAndCertifiedInvoiceAttached" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FormDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="WFM_Form8B">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="RequestedBy" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DesignationId" Type="Int32" />
+          <Property Name="DivisionId" Type="Int32" />
+          <Property Name="ReferenceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfRequest" Type="DateTime" Precision="3" />
+          <Property Name="ProjectSectorId" Type="Int32" />
+          <Property Name="DescriptionOfTheProject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TotalProjectValue" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CompanyRepresentingCCC" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RoleToBePlayedByCCC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NameOfSignatoryCCC" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DesignationOfSignatoryCCC" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="OtherPartyName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OtherPartyRegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OtherPartyAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="OtherPartyEmail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="RoleToBePlayedByOtherParty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NameOfSignatoryOtherParty" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DesignationOfSignatoryOtherParty" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="OtherPartyName1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OtherPartyRegNo1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OtherPartyAddress1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OtherPartyEmail1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OtherPartyLegalDocument1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OtherPartyLegalDocument2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OtherPartyLegalDocument3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MethodOfRemunerationToCCC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LegalFacilitation1" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LegalFacilitation2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LegalFacilitation3" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LegalFacilitation4" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LegalFacilitation5" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LegalFacilitation6" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LegalFacilitation7" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LegalFacilitation8" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LegalFacilitation9" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LegalFacilitation10" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ValidityPeriodOfTheAgreement" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FormDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3906,6 +4042,74 @@ warning 6002: The table/view 'LinkManagement.dbo.WFM_ProjectDocumentHistory' doe
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="WFM_Form12B">
+            <EntityTypeMapping TypeName="LinkManagementModel.WFM_Form12B">
+              <MappingFragment StoreEntitySet="WFM_Form12B">
+                <ScalarProperty Name="FormDate" ColumnName="FormDate" />
+                <ScalarProperty Name="ApprovedAndCertifiedInvoiceAttached" ColumnName="ApprovedAndCertifiedInvoiceAttached" />
+                <ScalarProperty Name="SDAgreedScope" ColumnName="SDAgreedScope" />
+                <ScalarProperty Name="SDApprovedQuotation" ColumnName="SDApprovedQuotation" />
+                <ScalarProperty Name="SDMailTrail" ColumnName="SDMailTrail" />
+                <ScalarProperty Name="RecommendationByDivisionalHead" ColumnName="RecommendationByDivisionalHead" />
+                <ScalarProperty Name="InvoiceReferenceNo" ColumnName="InvoiceReferenceNo" />
+                <ScalarProperty Name="ReceivedAndApprovedQuotation" ColumnName="ReceivedAndApprovedQuotation" />
+                <ScalarProperty Name="ScopeOfWork" ColumnName="ScopeOfWork" />
+                <ScalarProperty Name="ShortDescriptionOfTheReasonForPayment" ColumnName="ShortDescriptionOfTheReasonForPayment" />
+                <ScalarProperty Name="DateOfRequest" ColumnName="DateOfRequest" />
+                <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+                <ScalarProperty Name="NameOfRequestingParty" ColumnName="NameOfRequestingParty" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WFM_Form8B">
+            <EntityTypeMapping TypeName="LinkManagementModel.WFM_Form8B">
+              <MappingFragment StoreEntitySet="WFM_Form8B">
+                <ScalarProperty Name="FormDate" ColumnName="FormDate" />
+                <ScalarProperty Name="ValidityPeriodOfTheAgreement" ColumnName="ValidityPeriodOfTheAgreement" />
+                <ScalarProperty Name="LegalFacilitation10" ColumnName="LegalFacilitation10" />
+                <ScalarProperty Name="LegalFacilitation9" ColumnName="LegalFacilitation9" />
+                <ScalarProperty Name="LegalFacilitation8" ColumnName="LegalFacilitation8" />
+                <ScalarProperty Name="LegalFacilitation7" ColumnName="LegalFacilitation7" />
+                <ScalarProperty Name="LegalFacilitation6" ColumnName="LegalFacilitation6" />
+                <ScalarProperty Name="LegalFacilitation5" ColumnName="LegalFacilitation5" />
+                <ScalarProperty Name="LegalFacilitation4" ColumnName="LegalFacilitation4" />
+                <ScalarProperty Name="LegalFacilitation3" ColumnName="LegalFacilitation3" />
+                <ScalarProperty Name="LegalFacilitation2" ColumnName="LegalFacilitation2" />
+                <ScalarProperty Name="LegalFacilitation1" ColumnName="LegalFacilitation1" />
+                <ScalarProperty Name="MethodOfRemunerationToCCC" ColumnName="MethodOfRemunerationToCCC" />
+                <ScalarProperty Name="OtherPartyLegalDocument3" ColumnName="OtherPartyLegalDocument3" />
+                <ScalarProperty Name="OtherPartyLegalDocument2" ColumnName="OtherPartyLegalDocument2" />
+                <ScalarProperty Name="OtherPartyLegalDocument1" ColumnName="OtherPartyLegalDocument1" />
+                <ScalarProperty Name="OtherPartyEmail1" ColumnName="OtherPartyEmail1" />
+                <ScalarProperty Name="OtherPartyAddress1" ColumnName="OtherPartyAddress1" />
+                <ScalarProperty Name="OtherPartyRegNo1" ColumnName="OtherPartyRegNo1" />
+                <ScalarProperty Name="OtherPartyName1" ColumnName="OtherPartyName1" />
+                <ScalarProperty Name="DesignationOfSignatoryOtherParty" ColumnName="DesignationOfSignatoryOtherParty" />
+                <ScalarProperty Name="NameOfSignatoryOtherParty" ColumnName="NameOfSignatoryOtherParty" />
+                <ScalarProperty Name="RoleToBePlayedByOtherParty" ColumnName="RoleToBePlayedByOtherParty" />
+                <ScalarProperty Name="OtherPartyEmail" ColumnName="OtherPartyEmail" />
+                <ScalarProperty Name="OtherPartyAddress" ColumnName="OtherPartyAddress" />
+                <ScalarProperty Name="OtherPartyRegNo" ColumnName="OtherPartyRegNo" />
+                <ScalarProperty Name="OtherPartyName" ColumnName="OtherPartyName" />
+                <ScalarProperty Name="DesignationOfSignatoryCCC" ColumnName="DesignationOfSignatoryCCC" />
+                <ScalarProperty Name="NameOfSignatoryCCC" ColumnName="NameOfSignatoryCCC" />
+                <ScalarProperty Name="RoleToBePlayedByCCC" ColumnName="RoleToBePlayedByCCC" />
+                <ScalarProperty Name="CompanyRepresentingCCC" ColumnName="CompanyRepresentingCCC" />
+                <ScalarProperty Name="TotalProjectValue" ColumnName="TotalProjectValue" />
+                <ScalarProperty Name="DescriptionOfTheProject" ColumnName="DescriptionOfTheProject" />
+                <ScalarProperty Name="ProjectSectorId" ColumnName="ProjectSectorId" />
+                <ScalarProperty Name="DateOfRequest" ColumnName="DateOfRequest" />
+                <ScalarProperty Name="ReferenceNo" ColumnName="ReferenceNo" />
+                <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+                <ScalarProperty Name="RequestedBy" ColumnName="RequestedBy" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

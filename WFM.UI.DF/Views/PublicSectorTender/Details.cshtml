@@ -357,8 +357,11 @@
                                         }
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-12">
-
+                                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12 mb-0">
+                                            <button type="button" class="btn btn-primary float-left" id="form8BButton">Form 8B</button>
+                                        </div>
+                                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12 mb-0">
+                                            <button type="button" class="btn btn-primary float-left" id="form12Button">Form 12</button>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -547,89 +550,137 @@
                     </div>
                 </div>
             </div>
-
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
-
         </div>
     </div>
 </div>
+<div class="modal" id="form8BModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Form 8b – Request for Legal Assistance</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                @Html.Partial("_Form8B")
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="form12Modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Form 12</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                @Html.Partial("_Form12")
+            </div>
+        </div>
+    </div>
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
-        $(document).ready(function () {
+}
 
-            $('#SaveSourcing').click(function () {
-                SaveData();
-            });
+<script>
+    $(document).ready(function () {
 
-            $('#SaveRandD').click(function () {
-                SaveData();
-            });
+        $('#form8BButton').click(function () {
+            $('#form8BModal').modal('show');
+        });
+        $('#form12Button').click(function () {
+            $('#form12Modal').modal('show');
+        });
 
-            function SaveData() {
-                var SourcingDocumentCount = 14;
-                // Create FormData object
-                var fileData = new FormData();
-                fileData.append("projectid", $("#Id").val());
+        $('#SaveSourcing').click(function () {
+            SaveData();
+        });
 
-                // Looping over all files and add it to FormData object
-                for (var j = 0; j < SourcingDocumentCount; j++) {
-                    var fileUpload = $(".sourcing-file").get(j);
-                    var files = fileUpload.files;
-                    for (var i = 0; i < files.length; i++) {
-                        fileData.append(fileUpload.id, files[i]);
-                    }
+        $('#SaveRandD').click(function () {
+            SaveData();
+        });
+
+        function SaveData() {
+            var SourcingDocumentCount = 14;
+            // Create FormData object
+            var fileData = new FormData();
+            fileData.append("projectid", $("#Id").val());
+
+            // Looping over all files and add it to FormData object
+            for (var j = 0; j < SourcingDocumentCount; j++) {
+                var fileUpload = $(".sourcing-file").get(j);
+                var files = fileUpload.files;
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(fileUpload.id, files[i]);
                 }
-
-                var RandDDocumentCount = 4;
-
-                for (var j = 0; j < RandDDocumentCount; j++) {
-                    var fileUpload = $(".randd-file").get(j);
-                    var files = fileUpload.files;
-                    for (var i = 0; i < files.length; i++) {
-                        fileData.append(fileUpload.id, files[i]);
-                    }
-                }
-
-                $.ajax({
-                    url: "/PublicSectorTender/SaveOrUpdate",
-                    type: "POST",
-                    data: fileData,
-                    cache: false,
-                    async: false,
-                    processData: false,
-                    contentType: false,
-                    success: function (result) {
-                        alert(result);
-                        for (var j = 0; j < SourcingDocumentCount; j++) {
-                            var fileUpload = $(".sourcing-file").get(j);
-                            $('#sourcingdocs-' + fileUpload.id).load("/PublicSectorTender/DisplayDocuments?projectid=" + $("#Id").val() + "&documentid=" + fileUpload.id);
-                        }
-
-                        for (var j = 0; j < RandDDocumentCount; j++) {
-                            var fileUpload = $(".randd-file").get(j);
-                            $('#randddocs-' + fileUpload.id).load("/PublicSectorTender/DisplayDocuments?projectid=" + $("#Id").val() + "&documentid=" + fileUpload.id);
-                        }
-
-                    },
-                    error: function (err) {
-                        alert(err.statusText);
-                    }
-                });
-
-                $(".sourcing-file").val("");
-                $(".randd-file").val("");
             }
 
-            $('select').select2({
-                selectOnClose: true
+            var RandDDocumentCount = 4;
+
+            for (var j = 0; j < RandDDocumentCount; j++) {
+                var fileUpload = $(".randd-file").get(j);
+                var files = fileUpload.files;
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(fileUpload.id, files[i]);
+                }
+            }
+
+            $.ajax({
+                url: "/PublicSectorTender/SaveOrUpdate",
+                type: "POST",
+                data: fileData,
+                cache: false,
+                async: false,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    alert(result);
+                    for (var j = 0; j < SourcingDocumentCount; j++) {
+                        var fileUpload = $(".sourcing-file").get(j);
+                        $('#sourcingdocs-' + fileUpload.id).load("/PublicSectorTender/DisplayDocuments?projectid=" + $("#Id").val() + "&documentid=" + fileUpload.id);
+                    }
+
+                    for (var j = 0; j < RandDDocumentCount; j++) {
+                        var fileUpload = $(".randd-file").get(j);
+                        $('#randddocs-' + fileUpload.id).load("/PublicSectorTender/DisplayDocuments?projectid=" + $("#Id").val() + "&documentid=" + fileUpload.id);
+                    }
+
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
             });
+
+            $(".sourcing-file").val("");
+            $(".randd-file").val("");
+        }
+
+        $('select').select2({
+            selectOnClose: true
         });
 
 
-    </script>
-}
+    });
+
+    function PrintReport(id) {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("Form8B", "PublicSectorTender")',
+            data: { id: id },
+            success: function (data) {
+                $('#Preview').html(data);
+                $('#reportModal').modal('show');
+            }
+        })
+    }
+</script>

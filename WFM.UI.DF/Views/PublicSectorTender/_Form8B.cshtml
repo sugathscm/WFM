@@ -1,0 +1,367 @@
+﻿@using WFM.UI.DF.ModelsView
+@model Form8BViewModel
+
+
+@using (Html.BeginForm("SaveOrUpdate", "Report", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id, new { @name = "Id" })
+    <div class="row">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- pageheader  -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- end pageheader  -->
+                <!-- ============================================================== -->
+                <div class="border border-primary bg-actual-white">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
+                        <p>
+                            Note - It is mandatory that all legal documents signed with any outside entity should be processed through
+                            this form and essentially through Head of Legal with the written authorization of MD/BV. Any deviations
+                            are not acceptable to the company and shall amount to intentional noncompliance of Company procedures.
+                        </p>
+                        <div class="row form-group">
+                            <label class="col-md-3 control-label" for="Requested by"><b>1.</b>&emsp;Requested by(Full name)</label>
+                            <div class="col-md-1"><b>:</b></div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" />
+                                @Html.TextBoxFor(m => m.RequestedBy, new { @placeholder = "", @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-3 control-label" for="Designation"><b>2.</b>&emsp;Designation</label>
+                            <div class="col-md-1"><b>:</b></div>
+                            <div class="col-md-8">
+                                @Html.DropDownList("DesignationId", new SelectList(ViewBag.DesignationList, "Id", "Name"), "Select Designation", new { @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-3 control-label" for="Division"><b>3.</b>&emsp;Division</label>
+                            <div class="col-md-1"><b>:</b></div>
+                            <div class="col-md-8">
+                                @Html.DropDownList("DivisionId", new SelectList(ViewBag.DivisionList, "Id", "Name"), "Select Division", new { @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-3 control-label" for="Reference No/File No"><b>4.</b>&emsp;Reference No/File No</label>
+                            <div class="col-md-1"><b>:</b></div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.ReferenceNo, new { @placeholder = "", @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-3 control-label" for="Date of Request"><b>5.</b>&emsp;Date of Request</label>
+                            <div class="col-md-1"><b>:</b></div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.DateOfRequest, new { @placeholder = "", @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-3 control-label" for="Project Sector"><b>6.</b>&emsp;Project Sector.</label>
+                            <div class="col-md-1"><b>:</b></div>
+                            <div class="col-md-8">
+                                @Html.DropDownList("ProjectSectorId", new SelectList(ViewBag.ProjectSectorList, "Id", "Name"), "Select Division", new { @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-12 control-label" for="Complete accurate description of the Project">
+                                <b>7.</b>&emsp;Complete accurate description of the Project<b>:</b>&nbsp;(To be given using the official professional terminology) :
+                            </label>
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(m => m.DescriptionOfTheProject, new { @placeholder = "", @class = "form-control", @required = "required", @rows = 3 })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-3 control-label" for="Total Project Value"><b>8.</b>&emsp;Total Project Value.</label>
+                            <div class="col-md-1"><b>:</b></div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.TotalProjectValue, new { @placeholder = "", @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-11 control-label" for="The Company engaged"><b>9.</b>&emsp;The Company engaged representing CCC group :</label>
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(m => m.CompanyRepresentingCCC, new { @placeholder = "", @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-12 control-label" for="The role to be played"><b>10.</b>&emsp;The role to be played by our (CCC) company as its obligations which will be the basis for the requested legal draft/ document :</label>
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(m => m.RoleToBePlayedByCCC, new { @placeholder = "", @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-12 control-label" for="Name and Designation"><b>11.</b>&emsp;Name of signatory from CCC side :</label>
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(m => m.NameOfSignatoryCCC, new { @placeholder = "", @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-12 control-label" for="Name and Designation"><b>11.</b>&emsp;Designation of signatory from CCC side :</label>
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(m => m.DesignationOfSignatoryCCC, new { @placeholder = "", @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-12 control-label" for="Details of the other"><b>12.</b>&emsp;Details of the other outside party involved:</label>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-3 control-label" for="Name">&emsp;&emsp;Name</label>
+                            <div class="col-md-1"><b>:</b></div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.OtherPartyName, new { @placeholder = "", @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-3 control-label" for="Reg No if a company">&emsp;&emsp;Reg No if a company</label>
+                            <div class="col-md-1"><b>:</b></div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.OtherPartyRegNo, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-3 control-label" for="Registered address">&emsp;&emsp;Registered address</label>
+                            <div class="col-md-1"><b>:</b></div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.OtherPartyAddress, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-3 control-label" for="Email">&emsp;&emsp;Email</label>
+                            <div class="col-md-1"><b>:</b></div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.OtherPartyEmail, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-12 control-label" for="The “Role” played by the other company"><b>13.</b>&emsp;The “Role” played by the other company and its obligations which will be the basis for the requested legal draft/ document :</label>
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(m => m.RoleToBePlayedByOtherParty, new { @placeholder = "", @class = "form-control", @required = "required", @rows = 3 })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-12 control-label" for="Name and Designation"><b>14.</b>&emsp;Name and Designation of signatory from other Company/party´s side :</label>
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(m => m.OtherPartyName1, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-12 control-label" for="Details of the other"><b>15.</b>&emsp;If there is or are more than single outside party involved, please indicate their details &obligations;</label>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-1"></div>
+                            <label class="col-md-11 control-label" for="Email"><b>i.</b>&emsp;Other Party/ies details :</label>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-11">
+                                @Html.TextBoxFor(m => m.OtherPartyEmail1, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-1"></div>
+                            <label class="col-md-2 control-label" for="Email"><b>ii.</b>&emsp;Address</label>
+                            <div class="col-md-1"><b>:</b></div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.OtherPartyAddress1, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-1"></div>
+                            <label class="col-md-11 control-label" for="Email"><b>iii.</b>&emsp;Registration Number/s etc :</label>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-11">
+                                @Html.TextBoxFor(m => m.OtherPartyRegNo1, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-1"></div>
+                            <label class="col-md-11 control-label" for="Email"><b>iv.</b>&emsp;Obligations of such other parties to be included I legal document :</label>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-1" style="text-align: right;"><b>a)</b></div>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.OtherPartyLegalDocument1, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-1" style="text-align: right;"><b>b)</b></div>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.OtherPartyLegalDocument2, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-1" style="text-align: right;"><b>c)</b></div>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.OtherPartyLegalDocument3, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-12 control-label" for="The “Role” played by the other company">
+                                <b>16.</b>&emsp;The method of remuneration to CCC,
+                                percentages or amounts, terms and conditions and payment trigger points ; :
+                            </label>
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(m => m.MethodOfRemunerationToCCC, new { @placeholder = "", @class = "form-control", @rows = 3 })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-12 control-label" for="Details of the other">
+                                <b>17.</b>&emsp;Other matters of direct importance (if any)
+                                for legal analysis or subsequent legal facilitation:
+                            </label>
+                        </div>
+                        <div class="row form-group">
+                            <!-- <div class="col-md-1"></div> -->
+                            <div class="col-md-1" style="text-align: right;"><b>i)</b></div>
+                            <div class="col-md-11">
+                                @Html.TextBoxFor(m => m.LegalFacilitation1, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <!-- <div class="col-md-1"></div> -->
+                            <div class="col-md-1" style="text-align: right;"><b>ii)</b></div>
+                            <div class="col-md-11">
+                                @Html.TextBoxFor(m => m.LegalFacilitation2, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <!-- <div class="col-md-1"></div> -->
+                            <div class="col-md-1" style="text-align: right;"><b>iii)</b></div>
+                            <div class="col-md-11">
+                                @Html.TextBoxFor(m => m.LegalFacilitation3, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <!-- <div class="col-md-1"></div> -->
+                            <div class="col-md-1" style="text-align: right;"><b>iv)</b></div>
+                            <div class="col-md-11">
+                                @Html.TextBoxFor(m => m.LegalFacilitation4, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <!-- <div class="col-md-1"></div> -->
+                            <div class="col-md-1" style="text-align: right;"><b>v)</b></div>
+                            <div class="col-md-11">
+                                @Html.TextBoxFor(m => m.LegalFacilitation5, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <!-- <div class="col-md-1"></div> -->
+                            <div class="col-md-1" style="text-align: right;"><b>vi)</b></div>
+                            <div class="col-md-11">
+                                @Html.TextBoxFor(m => m.LegalFacilitation6, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <!-- <div class="col-md-1"></div> -->
+                            <div class="col-md-1" style="text-align: right;"><b>vii)</b></div>
+                            <div class="col-md-11">
+                                @Html.TextBoxFor(m => m.LegalFacilitation7, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <!-- <div class="col-md-1"></div> -->
+                            <div class="col-md-1" style="text-align: right;"><b>viii)</b></div>
+                            <div class="col-md-11">
+                                @Html.TextBoxFor(m => m.LegalFacilitation8, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <!-- <div class="col-md-1"></div> -->
+                            <div class="col-md-1" style="text-align: right;"><b>ix)</b></div>
+                            <div class="col-md-11">
+                                @Html.TextBoxFor(m => m.LegalFacilitation9, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <!-- <div class="col-md-1"></div> -->
+                            <div class="col-md-1" style="text-align: right;"><b>x)</b></div>
+                            <div class="col-md-11">
+                                @Html.TextBoxFor(m => m.LegalFacilitation10, new { @placeholder = "", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-12 control-label" for="Details of the other">
+                                <b>18.</b>&emsp;If an agreement or legally
+                                binding document is requested, the Validity Period of the Agreement:
+                                @Html.TextBoxFor(m => m.ValidityPeriodOfTheAgreement, new { @placeholder = "", @class = "form-control" })
+                            </label>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-12 control-label" for="Details of the other"><b>19.</b>&emsp;DECLARATION:</label>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-12 form-label">
+                                Wehereby endorse the contents of this request to be accurate and comprehensive for the purposes of
+                                intended legal facilitation and do hereby take full responsibility for any failure on my part
+                                to disclose or submit all critical information that should have been submitted for the legal facilitation.
+                            </p>
+                        </div>
+                        <br />
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" />
+                                <b>Signature of the official requesting</b>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" />
+                                <b>Signature of the Divisional Head reporting to MD</b>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <!-- <div class="col-md-1"></div> -->
+                            <label class="col-md-1 control-label" style="text-align: right;"><b>20.</b>&emsp;</label>
+                            <!-- <div class="col-md-1" style="text-align: right;"><b>20.</b></div> -->
+                            <div class="col-md-6">
+                                <textarea class="form-control" rows="4"></textarea>
+                            </div>
+                            <div class="col-md-1">
+                                <b> Date: </b>
+                            </div>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.FormDate, new { @class = "form-control", @placeholder = "MM/DD/YYYY", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <!-- <div class="col-md-1"></div> -->
+                            <label class="col-md-1 control-label" style="text-align: right;"></label>
+                            <!-- <div class="col-md-1" style="text-align: right;"><b>20.</b></div> -->
+                            <div class="col-md-6">
+                                <b> Approved by (MD) </b>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                <input type="file" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="file" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="file" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                <input type="file" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="file" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="file" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+

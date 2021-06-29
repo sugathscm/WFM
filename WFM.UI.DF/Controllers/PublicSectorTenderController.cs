@@ -9,6 +9,7 @@ using WFM.BAL.Services;
 using WFM.BAL.ViewModels;
 using WFM.DAL;
 using WFM.UI.DF.Models;
+using WFM.UI.DF.ModelsView;
 
 namespace WFM.UI.DF.Controllers
 {
@@ -22,6 +23,9 @@ namespace WFM.UI.DF.Controllers
         private readonly ProjectDocumentService projectDocumentService = new ProjectDocumentService();
         private readonly SourcingPartnerService sourcingPartnerService = new SourcingPartnerService();
         private readonly PrincipalService principalService = new PrincipalService();
+        private readonly DesignationService designationService = new DesignationService();
+        private readonly DivisionService divisionService = new DivisionService();
+        private readonly ProjectSectorService projectSectorService = new ProjectSectorService();
         private int projectTypeId = 4;
 
         public PublicSectorTenderController()
@@ -84,6 +88,9 @@ namespace WFM.UI.DF.Controllers
                 var project = projectService.GetProjectById(projectTypeId, id.Value);
                 ViewBag.Principals = principalService.GetPrincipalList();
                 ViewBag.SourcingPartners = sourcingPartnerService.GetSourdingPartnerList();
+                ViewBag.DesignationList = designationService.GetDesignationList();
+                ViewBag.DivisionList = divisionService.GetDivisionList();
+                ViewBag.ProjectSectorList = projectSectorService.GetProjectSectorList();
 
 
                 return View(project);
@@ -153,7 +160,7 @@ namespace WFM.UI.DF.Controllers
                         }
                         //DisplayDocuments(int.Parse(id), int.Parse(file.DocumentTypeId), 0);
                     }
-                    
+
                     return Json("File Uploaded Successfully!");
                 }
                 catch (Exception ex)
@@ -192,7 +199,7 @@ namespace WFM.UI.DF.Controllers
             var documents = documentService.GetDocumentsByProjectType(projectTypeId);
             List<WFM_Document> documentList = documents.Where(d => d.DocumentTabId == tabId && d.HasFields == false).OrderBy(d => d.DisplayOrder).ToList();
 
-            foreach(var document in documentList)
+            foreach (var document in documentList)
             {
                 string path = Path.Combine(Server.MapPath("~/Docs/" + projectid + "/" + document.Id));
                 if (Directory.Exists(path))
@@ -204,9 +211,20 @@ namespace WFM.UI.DF.Controllers
                         docs.Add(new TenderDocumnet() { DocumentPath = "../../Docs/" + projectid + "/" + document.Id + "/" + filename, Name = filename });
                     }
                 }
-            }        
+            }
 
             return PartialView("~/Views/PublicSectorTender/DisplayDocumentsPerTab.cshtml", docs);
+        }
+
+        public ActionResult Form8B(int id)
+        {
+            Form8BViewModel form8BViewModel = new Form8BViewModel();
+            //Report model = reportService.GetReportById(id);
+
+            //SetData(reportViewModel, model, true);
+            //reportViewModel.Patient = patientService.GetPatientById(model.PatientId);
+
+            return PartialView("_Form8B", form8BViewModel);
         }
 
     }
