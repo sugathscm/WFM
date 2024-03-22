@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 using WFM.DAL;
 
 namespace WFM.BAL.ViewModels
@@ -108,7 +108,7 @@ namespace WFM.BAL.ViewModels
         public virtual WFM_ProjectSector WFM_ProjectSector { get; set; }
         public virtual WFM_ProjectStatus WFM_ProjectStatus { get; set; }
         public virtual WFM_ProjectSector WFM_ProjectSector1 { get; set; }
-        
+
         public string ProjectTypeName { get; set; }
         public string OrganizationName { get; set; }
         public string SectorName { get; set; }
@@ -146,4 +146,5 @@ namespace WFM.BAL.ViewModels
         public int FinalStatus { get; set; }
 
     }
+
 }

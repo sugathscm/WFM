@@ -6,10 +6,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WFM.BAL.Services;
-using WFM.BAL.ViewModels;
 using WFM.DAL;
 using WFM.UI.DF.Models;
+using WFM.BAL.ViewModels;
 using WFM.UI.DF.ModelsView;
+using WFM.BAL.Helpers;
 
 namespace WFM.UI.DF.Controllers
 {
@@ -26,6 +27,9 @@ namespace WFM.UI.DF.Controllers
         private readonly DesignationService designationService = new DesignationService();
         private readonly DivisionService divisionService = new DivisionService();
         private readonly ProjectSectorService projectSectorService = new ProjectSectorService();
+        private readonly PublicSectorTenderService publicSectorTenderService = new PublicSectorTenderService();
+        private readonly GenericService genericService = new GenericService();
+
         private int projectTypeId = 4;
 
         public PublicSectorTenderController()
@@ -91,9 +95,44 @@ namespace WFM.UI.DF.Controllers
                 ViewBag.DesignationList = designationService.GetDesignationList();
                 ViewBag.DivisionList = divisionService.GetDivisionList();
                 ViewBag.ProjectSectorList = projectSectorService.GetProjectSectorList();
+                ViewBag.DesignationList = designationService.GetDesignationList();
 
+                ProjectTenderViewModel projectTenderViewModel = new ProjectTenderViewModel();
+                PropertyCopier<WFM_Project, ProjectTenderViewModel>.Copy(project, projectTenderViewModel);
+                
+                WFM_Form8B wFM_Form8B = genericService.GetList<WFM_Form8B>().Where(f => f.ProjectId == id).FirstOrDefault();
+                if(wFM_Form8B == null)
+                {
+                    projectTenderViewModel.Form8BViewModel = new Form8BViewModel();
+                    projectTenderViewModel.Form8BGenerated = false;
+                }
+                else
+                {
+                    Form8BViewModel form8BViewModel = new Form8BViewModel();
+                    PropertyCopier<WFM_Form8B, Form8BViewModel>.Copy(wFM_Form8B, form8BViewModel);
+                    form8BViewModel.Form8BId = wFM_Form8B.Id;
+                    wFM_Form8B.ProjectId = id;
+                    projectTenderViewModel.Form8BViewModel = form8BViewModel;
+                    projectTenderViewModel.Form8BGenerated = true;
+                }
 
-                return View(project);
+                WFM_Form12B wFM_Form12B = genericService.GetList<WFM_Form12B>().Where(f => f.ProjectId == id).FirstOrDefault();
+                if (wFM_Form12B == null)
+                {
+                    projectTenderViewModel.Form12ViewModel = new Form12ViewModel();
+                    projectTenderViewModel.Form12Generated = false;
+                }
+                else
+                {
+                    Form12ViewModel form12ViewModel = new Form12ViewModel();
+                    PropertyCopier<WFM_Form12B, Form12ViewModel>.Copy(wFM_Form12B, form12ViewModel);
+                    form12ViewModel.Form12Id = wFM_Form12B.Id;
+                    wFM_Form12B.ProjectId = id;
+                    projectTenderViewModel.Form12ViewModel = form12ViewModel;
+                    projectTenderViewModel.Form12Generated = true;
+                }
+
+                return View(projectTenderViewModel);
             }
 
             return View();
@@ -216,16 +255,76 @@ namespace WFM.UI.DF.Controllers
             return PartialView("~/Views/PublicSectorTender/DisplayDocumentsPerTab.cshtml", docs);
         }
 
-        public ActionResult Form8B(int id)
+        //public ActionResult Form8B(int id)
+        //{
+        //    Form8BViewModel form8BViewModel = new Form8BViewModel();
+        //    //Report model = reportService.GetReportById(id);
+
+        //    //SetData(reportViewModel, model, true);
+        //    //reportViewModel.Patient = patientService.GetPatientById(model.PatientId);
+        //    ViewBag.DesignationList = designationService.GetDesignationList();
+        //    ViewBag.DivisionList = divisionService.GetDivisionList();
+        //    return PartialView("_Form8B");
+        //}
+
+        public ActionResult SaveOrUpdateForm8B(Form8BViewModel formCollection)
         {
-            Form8BViewModel form8BViewModel = new Form8BViewModel();
-            //Report model = reportService.GetReportById(id);
+            WFM_Form8B wFM_Form8B = new WFM_Form8B();
+            
+            PropertyCopier<Form8BViewModel, WFM_Form8B>.Copy(formCollection, wFM_Form8B);
 
-            //SetData(reportViewModel, model, true);
-            //reportViewModel.Patient = patientService.GetPatientById(model.PatientId);
+            if (wFM_Form8B.ProjectId == null)
+            {
+                wFM_Form8B.ProjectId = wFM_Form8B.Id;
+                wFM_Form8B.Id = 0;
+            }
+            else
+            {
+                wFM_Form8B.Id = formCollection.Form8BId;
+            }
+            publicSectorTenderService.SaveOrUpdate(wFM_Form8B);
 
-            return PartialView("_Form8B", form8BViewModel);
+            if (Request.Files.Count > 0)
+            {
+
+            }
+
+            return Json("File Uploaded Successfully!");
         }
 
+        public ActionResult SaveOrUpdateForm12(Form12ViewModel formCollection)
+        {
+            WFM_Form12B wFM_Form12B = new WFM_Form12B();
+
+            PropertyCopier<Form12ViewModel, WFM_Form12B>.Copy(formCollection, wFM_Form12B);
+
+            if (wFM_Form12B.ProjectId == null)
+            {
+                wFM_Form12B.ProjectId = wFM_Form12B.Id;
+                wFM_Form12B.Id = 0;
+            }
+            else
+            {
+                wFM_Form12B.Id = formCollection.Form12Id;
+            }
+            publicSectorTenderService.SaveOrUpdate(wFM_Form12B);
+
+            if (Request.Files.Count > 0)
+            {
+
+            }
+
+            return Json("File Uploaded Successfully!");
+        }
+
+        public Form8BViewModel GetForm8B(int? id)
+        {
+            Form8BViewModel form8BViewModel = new Form8BViewModel();
+
+            WFM_Form8B wFM_Form8B = genericService.GetList<WFM_Form8B>().Where(f8 => f8.Id == id).FirstOrDefault();
+            PropertyCopier<WFM_Form8B, Form8BViewModel>.Copy(wFM_Form8B, form8BViewModel);
+
+            return form8BViewModel;
+        }
     }
 }

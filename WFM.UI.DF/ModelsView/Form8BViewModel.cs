@@ -8,6 +8,7 @@ namespace WFM.UI.DF.ModelsView
     public class Form8BViewModel
     {
         public int Id { get; set; }
+        public int Form8BId { get; set; }
         public Nullable<int> ProjectId { get; set; }
         public string RequestedBy { get; set; }
         public Nullable<int> DesignationId { get; set; }

@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WFM.UI.DF</RootNamespace>
     <AssemblyName>WFM.UI.DF</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,16 +52,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -105,6 +104,7 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -200,13 +200,14 @@
     </Compile>
     <Compile Include="ModelsView\EvalReportViewModel.cs" />
     <Compile Include="ModelsView\FileNotesReportViewModel.cs" />
-    <Compile Include="ModelsView\Form12BViewModel.cs" />
+    <Compile Include="ModelsView\Form12ViewModel.cs" />
     <Compile Include="ModelsView\Form8BViewModel.cs" />
     <Compile Include="ModelsView\LabelReportViewModel.cs" />
     <Compile Include="ModelsView\OEFReportViewModel.cs" />
     <Compile Include="ModelsView\OrganizationView.cs" />
     <Compile Include="ModelsView\DataAuditViewModel.cs" />
     <Compile Include="ModelsView\LoginAuditViewModel.cs" />
+    <Compile Include="ModelsView\ProjectTenderViewModel.cs" />
     <Compile Include="ModelsView\PTTReportViewModel.cs" />
     <Compile Include="ModelsView\TAFReportViewModel.cs" />
     <Compile Include="ModelsView\TenderDocumentSectionView.cs" />
@@ -273,6 +274,7 @@
     <Content Include="assets\libs\js\google_map.js" />
     <Content Include="assets\libs\js\jvectormap.custom.js" />
     <Content Include="assets\libs\js\main-js.js" />
+    <Content Include="assets\libs\js\printThis.js" />
     <Content Include="assets\vendor\bootstrap-colorpicker\%40claviska\jquery-minicolors\jquery.minicolors.css" />
     <Content Include="assets\vendor\bootstrap-colorpicker\%40claviska\jquery-minicolors\jquery.minicolors.min.js" />
     <Content Include="assets\vendor\bootstrap-colorpicker\%40claviska\jquery-minicolors\jquery.minicolors.png" />
@@ -754,6 +756,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\PublicSectorTender\_Form8B.cshtml" />
     <Content Include="Views\PublicSectorTender\_Form12.cshtml" />
+    <Content Include="Views\PublicSectorTender\_PrintForm8B.cshtml" />
+    <Content Include="Views\PublicSectorTender\_PrintForm12.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

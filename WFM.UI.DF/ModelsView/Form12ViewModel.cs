@@ -5,9 +5,10 @@ using System.Web;
 
 namespace WFM.UI.DF.ModelsView
 {
-    public partial class Form12BViewModel
+    public partial class Form12ViewModel
     {
         public int Id { get; set; }
+        public int Form12Id { get; set; }
         public Nullable<int> ProjectId { get; set; }
         public string NameOfRequestingParty { get; set; }
         public Nullable<int> DivisionId { get; set; }

@@ -308,6 +308,7 @@ select.form-control {
     padding-right: 15px;
     border: 1px solid #d2d2e4;
     border-radius: 2px;
+    width:100%!important;
 }
 
 textarea.form-control {
@@ -6830,6 +6831,9 @@ Media Query
         border-right: transparent !important;
     }
 
+    .modal-lg {
+        max-width: 1000px !important;
+    }
 }
 
 
