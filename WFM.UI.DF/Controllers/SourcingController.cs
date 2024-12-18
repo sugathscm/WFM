@@ -38,6 +38,7 @@ namespace WFM.UI.DF.Controllers
         public SourcingController()
         {
         }
+
         public SourcingController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
@@ -57,21 +58,25 @@ namespace WFM.UI.DF.Controllers
 
         public ActionResult Index()
         {
-            PrepareDashboardProjectList();
-
-            //CommonService.SaveLoginAudit(new LoginAudit()
-            //{
-            //    DateLogged = DateTime.Now,
-            //    UserId = new Guid(User.Identity.GetUserId()),
-            //    IPAddress = Request.UserHostAddress
-            //});
+            //PrepareDashboardProjectList();
+            LoadControls();
 
             return View();
         }
 
+        public ActionResult GetList(int? StatusId, int? TypeId, int? SectorId, int? OrganizationId, int? StageId, int? Id)
+        {
+            var list = projectService.GetProjectList(StatusId, TypeId, SectorId, OrganizationId, StageId, Id);
+
+            JsonResult jsonResult = new JsonResult();
+            jsonResult.MaxJsonLength = int.MaxValue;
+            jsonResult = Json(new { data = list }, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
         private void PrepareDashboardProjectList()
         {
-            List<ProjectViewModel> projectsWFM = projectService.GetProjects(projectTypeId);
+            List<ProjectViewModel> projectsWFM = projectService.GetProjects(projectTypeId, true);
 
             ViewBag.ProjectTypes = projectsWFM;
         }
@@ -80,14 +85,18 @@ namespace WFM.UI.DF.Controllers
         public ActionResult Details(int? id)
         {
             LoadControls();
+
             if (id != null)
             {
                 var project = projectService.GetProjectById(projectTypeId, id.Value);
+
                 ProjectViewModel projectView = project.Cast<ProjectViewModel>();
+
                 if (project.SectorId != null)
                     ViewBag.SubSectorList = GetSubSectorList(project.SectorId.Value);
                 else
                     ViewBag.SubSectorList = null;
+
                 return View(projectView);
             }
 
@@ -141,7 +150,7 @@ namespace WFM.UI.DF.Controllers
             {
                 int id = model.Id;
                 WFM_Project project = null;
-                WFM_Project oldProject = null;
+                //WFM_Project oldProject = null;
 
                 project = model;
                 project.IsActive = true;
@@ -156,17 +165,19 @@ namespace WFM.UI.DF.Controllers
                     project.FileCreatedDate = DateTime.Parse(formCollection["FileCreatedDate"]);
                 if (formCollection["DatePublished"] != "")
                     project.DatePublished = DateTime.Parse(formCollection["DatePublished"]);
+                if (formCollection["PreBidMeetingDate"] != "")
+                    project.PreBidMeetingDate = DateTime.Parse(formCollection["PreBidMeetingDate"]);
 
-                if(project.Id == 0)
-                {
-                    project.Number = projectService.GetMaxNumber() + 1;
-                }
-
+                //if(project.Id == 0)
+                //{
+                //    project.Number = projectService.GetMaxNumber() + 1;
+                //}
+                project.CurrentDocumentTabId = 1;
                 projectService.SaveOrUpdate(project);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                throw;
+                string error = ex.ToString();
             }
 
             return RedirectToAction("Index", "Sourcing");

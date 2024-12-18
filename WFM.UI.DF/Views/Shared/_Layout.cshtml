@@ -8,29 +8,45 @@
         @Scripts.Render("~/bundles/modernizr")*@
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.min.css" />
+
     <link rel="stylesheet" href="~/assets/vendor/fonts/circular-std/style.css" />
-    <link rel="stylesheet" href="~/assets/libs/css/style-light.css" />
-    <link rel="stylesheet" href="~/assets/vendor/fonts/fontawesome/css/fontawesome-all.css" />
+    @*<link rel="stylesheet" href="~/assets/vendor/fonts/fontawesome/css/fontawesome-all.css" />*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="~/assets/vendor/fonts/flag-icon-css/flag-icon.min.css" />
+
     <link rel="stylesheet" href="~/assets/vendor/charts/chartist-bundle/chartist.css" />
     <link rel="stylesheet" href="~/assets/vendor/charts/morris-bundle/morris.css" />
-    <link rel="stylesheet" href="~/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="~/assets/vendor/charts/c3charts/c3.css" />
-    <link rel="stylesheet" href="~/assets/vendor/fonts/flag-icon-css/flag-icon.min.css" />
+
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.min.css" />
+
     <link rel="stylesheet" href="~/assets/vendor/datatables/css/dataTables.bootstrap4.css" />
     <link rel="stylesheet" href="~/assets/vendor/datatables/css/buttons.bootstrap4.css" />
     <link rel="stylesheet" href="~/assets/vendor/datatables/css/select.bootstrap4.css" />
     <link rel="stylesheet" href="~/assets/vendor/datatables/css/fixedHeader.bootstrap4.css" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" />
     <link rel="stylesheet" href="~/assets/libs/css/main.css" />
+    <link rel="stylesheet" href="~/assets/libs/css/index.css" />
+
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <script src="~/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    @*<script src="~/Scripts/bootstrap-wysiwyg.js"></script>*@
+    @*<script src="~/assets/vendor/jquery/jquery-3.3.1.min.js"></script>*@
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="~/Scripts/bootstrap-wysiwyg.js"></script>
-    <link rel="stylesheet" href="~/assets/libs/css/index.css" />
-    <!-- bootstap bundle js -->
     <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+
+    <link rel="stylesheet" href="~/assets/libs/css/style-light.css" version="1.12" />
+
 </head>
 <body>
     @*<div class="navbar navbar-inverse navbar-fixed-top">
@@ -62,7 +78,7 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="~/home">WFM</a>
+                <a class="navbar-brand" href="~/home">WORKFLOW MANAGEMENT SYSTEM</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -92,12 +108,101 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav flex-column">
+                            <li>
+                                <a class="nav-link" href="~/home"><i class="fa fa-fw fa-tachometer-alt"></i>Dashboard</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#tasks" aria-controls="tasks"><i class="fa fa-fw fa-tasks"></i>Task Management <span class="badge badge-success">6</span></a>
+                                <div id="tasks" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li>
+                                            <a class="nav-link" href="~/TaskTracker"><i class="fa fa-fw fa-tasks"></i>Task List</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/TaskTracker/details"><i class="fa fa-fw fa-file"></i>New Task</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#meetings" aria-controls="meetings"><i class="fa fa-fw fa-users"></i>Meeting Management <span class="badge badge-success">6</span></a>
+                                <div id="meetings" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li>
+                                            <a class="nav-link" href="~/Meeting"><i class="fa fa-fw fa-users"></i>Meeting List</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/Meeting/details"><i class="fa fa-fw fa-file"></i>New Meeting</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#projects" aria-controls="projects"><i class="fa fa-fw fa-briefcase"></i>Project Management <span class="badge badge-success">6</span></a>
+                                <div id="projects" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li>
+                                            <a class="nav-link" href="~/Sourcing"><i class="fa fa-fw fa-briefcase"></i>Project List</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/Sourcing/details"><i class="fa fa-fw fa-briefcase-medical"></i>New Project</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            @*<li class="nav-item">
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#project-types" aria-controls="project-types">
+                                        <i class="fa fa-fw fa-folder-open"></i>Project Types <span class="badge badge-success">6</span>
+                                    </a>
+                                    <div id="project-types" class="collapse submenu" style="">
+                                        <ul class="nav flex-column">
+                                            @foreach (var type in ViewBag.ProjectTypeList)
+                                            {
+                                                <li>
+                                                    <a class="nav-link" href="~/@type.Path/Index/@type.Id"><i class="fa fa-fw fa-briefcase"></i>@type.Name</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </li>*@
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#tools" aria-controls="tools"><i class="fa fa-fw fa-tools"></i>Tools <span class="badge badge-success">6</span></a>
+                                <div id="tools" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li>
+                                            <a class="nav-link" href="~/TaskTracker"><i class="fa fa-fw fa-tasks"></i>Task Tracker</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/VCP/IFPEmail"><i class="fa fa-fw fa-envelope"></i>VCP Email</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/MeetingNote"><i class="fa fa-fw fa-users"></i>Meeting Note</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/FileNote"><i class="fa fa-fw fa-sticky-note"></i>File Note</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#reports" aria-controls="reports"><i class="fa fa-fw fa-file-lines"></i>Reports <span class="badge badge-success">6</span></a>
+                                <div id="reports" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li>
+                                            <a class="nav-link" href="~/Reports/TaskStatusReport"><i class="fa-solid fa-file-contract"></i>Task Status Report</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/Reports/TaskScheduleReport"><i class="fa-solid fa-file-lines"></i>Task Schedule Report</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                             <li class="nav-divider">
                                 Administration
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="~/home"><i class="fa fa-fw fa-tachometer-alt"></i>Dashboard <span class="badge badge-success">6</span></a>
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-cogs"></i>Administration <span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa-solid fa-user-tie"></i>Administration <span class="badge badge-success">6</span></a>
                                 <div id="submenu-1" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
@@ -106,15 +211,6 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="~/DataAudit">Data Audit</a>
                                         </li>
-                                        @*<li class="nav-item">
-                                                <a class="nav-link" href="#">Settings</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Audit Trail</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Message Centre</a>
-                                            </li>*@
                                     </ul>
                                 </div>
                             </li>
@@ -122,9 +218,6 @@
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#master" aria-controls="master"><i class="fa fa-fw fa-folder-open"></i>Master Files <span class="badge badge-success">6</span></a>
                                 <div id="master" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
-                                        @*<li class="nav-item">
-                                                <a class="nav-link" href="~/CabinetPaper">Cabinet Papers</a>
-                                            </li>*@
                                         <li class="nav-item">
                                             <a class="nav-link" href="~/Contact">Contact Management</a>
                                         </li>
@@ -144,6 +237,9 @@
                                             <a class="nav-link" href="~/Employee">Employee Management</a>
                                         </li>
                                         <li class="nav-item">
+                                            <a class="nav-link" href="~/MeetingType">Meeting Type Management</a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a class="nav-link" href="~/Principal">Principal Management</a>
                                         </li>
                                         <li class="nav-item">
@@ -152,57 +248,15 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="~/SourcingPartner">Sourcing Partner Management</a>
                                         </li>
-                                        @*<li class="nav-item">
-                                                <a class="nav-link" href="~/TenderDocumentSection">Tender Document Section</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="~/TenderDocumentType">Tender Document Type</a>
-                                            </li>*@
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/VCP">VCP</a>
+                                        </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="~/AccountUser">User Management</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            <li class="nav-divider">
-                                Projects
-                            </li>
-                            <li>
-                                <a class="nav-link" href="~/sourcing"><i class="fa fa-fw fa-briefcase"></i>Project List</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="~/sourcing/details"><i class="fa fa-fw fa-file"></i>New Project</a>
-                            </li>
-                            <li class="nav-divider">
-                                Project Type
-                            </li>
-                            @foreach (var type in ViewBag.ProjectTypeList)
-                            {
-                                <li>
-                                    <a class="nav-link" href="~/@type.Path/Index/@type.Id"><i class="fa fa-fw fa-tachometer-alt"></i>@type.Name</a>
-                                </li>
-                            }
-                            <li class="nav-divider">
-                                Reports
-                            </li>
-                            <li>
-                                <a class="nav-link" href="~/ProjectReports"><i class="fa fa-fw fa-file"></i>Project Reports</a>
-                            </li>
-                            @*<li>
-                                    <a class="nav-link" href="~/PublicSectorTender"><i class="fa fa-fw fa-tachometer-alt"></i>Public Sector - Tender</a>
-                                </li>
-                                <li>
-                                    <a class="nav-link" href="~/PublicSectorNonTender"><i class="fa fa-fw fa-tachometer-alt"></i>Public Sector - Non Tender</a>
-                                </li>
-                                <li class="nav-divider">
-                                    History Data
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="~/Tenders/History"><i class="fa fa-fw fa-briefcase"></i>Tender List <span class="badge badge-success">6</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="~/Tenders/History"><i class="fa fa-fw fa-briefcase"></i>Inward Inquiry List <span class="badge badge-success">6</span></a>
-                                </li>*@
                         </ul>
                     </div>
                 </nav>
@@ -253,10 +307,21 @@
     <script src="~/assets/vendor/charts/morris-bundle/raphael.min.js"></script>
     <script src="~/assets/vendor/charts/morris-bundle/morris.js"></script>
     <!-- chart c3 js -->
+
+
     <script src="~/assets/libs/js/dataTables.min.js"></script>
     <script src="~/assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
     <script src="~/assets/vendor/datatables/js/data-table.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+
     <script src="~/assets/libs/js/printThis.js"></script>
     @RenderSection("scripts", required: false)
 </body>

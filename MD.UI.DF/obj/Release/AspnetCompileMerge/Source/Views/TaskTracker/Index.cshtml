@@ -1,0 +1,98 @@
+﻿
+@model WFM.UI.DF.ModelsView.TaskTrackerViewModel
+
+@{
+    ViewBag.Title = "Task";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#List').DataTable({
+            "paging": true,
+
+            "ajax": {
+                "url": "/TaskTracker/GetList",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "strCreatedDate" },
+                { "data": "TaskType" },
+                { "data": "TaskDescription" },
+                { "data": "ProjectCode" },
+                {
+                    "data": "Id", "searchable": false, "ordering": false,
+                    "render": function (data, type, full, meta) {
+                        return '<a class="btn btn-info" href="/TaskTracker/Details/' + data + '">Edit</a>';
+                    }
+                },
+                {
+                    "data": "Id", "searchable": false, "ordering": false,
+                    "render": function (data, type, full, meta) {
+                        return '<a class="btn btn-info" href="/TaskTracker/Details/' + data + '">Updates</a>';
+                    }
+                },
+                {
+                    "data": "Id", "searchable": false, "ordering": false,
+                    "render": function (data, type, full, meta) {
+                        return '<a class="btn btn-info" href="/TaskTracker/Details/' + data + '">Documents</a>';
+                    }
+                },
+            ]
+        });
+    });
+</script>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <div class="row">
+            <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12">
+                <div class="pagetitle">
+                    <h1>@ViewBag.Title Tracker</h1>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 pull-right">
+                <div class="csc-btn float-end">
+                    <a class="cta-sm ml-2 btn btn-outline-success" href="/TaskTracker/Details">New Task</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 pull-right">
+                @if (TempData["Message"] != null)
+                {
+                    @Html.Raw(TempData["Message"])
+                }
+            </div>
+        </div>
+        <div class="border border-primary bg-actual-white">
+            <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10 m-t-10">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-t-20">
+
+                    <div class="table-responsive">
+                        <table id="List" class="table table-striped table-bordered first">
+                            <thead>
+                                <tr>
+                                    <th style="width:10%">Created Date</th>
+                                    <th style="width:10%">Type</th>
+                                    <th style="width:50%">Description</th>
+                                    <th style="width:20%">Project</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+    </script>
+}

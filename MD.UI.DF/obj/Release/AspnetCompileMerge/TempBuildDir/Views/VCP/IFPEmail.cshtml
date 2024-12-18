@@ -1,0 +1,51 @@
+﻿@model WFM.UI.DF.ModelsView.EmailModelView
+@{
+    ViewBag.Title = "Email Management";
+}
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        @Html.Partial("_PageHeaderPartial")
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="border border-primary bg-actual-white">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
+                @using (Html.BeginForm("SendEmail", "VCP", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    <div class="row m-t-5">
+                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 mb-2">
+                            @Html.LabelFor(m => m.Subject, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Subject, new { @class = "form-control" })
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+                            @Html.LabelFor(m => m.Attachment, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Attachment, new { type = "file", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row m-t-5">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+                            @Html.LabelFor(m => m.Body, new { @class = "control-label" })
+                            @Html.TextAreaFor(m => m.Body, new { @class = "form-control", rows = "5" })
+                        </div>
+                    </div>
+                    <div class="row m-t-5">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                            @Html.LabelFor(m => m.CC, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.CC, new { @class = "form-control" })
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                            @Html.LabelFor(m => m.BCC, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.BCC, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Send" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,290 @@
+﻿@model WFM.UI.DF.ModelsView.TaskTrackerViewModel
+@{
+    ViewBag.Title = "Task";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('select').select2({
+            width: '100%',
+            selectOnClose: true
+        });
+
+        $('.search').on('click', function () {
+            LoadTasks();
+        });
+
+        $('#List').on('click', '.updates', function () {
+            var $row = $(this).closest('tr');
+            var rowData = table.row($row).data();
+            var id = rowData["Id"];
+
+            var route = '@Url.Action("Update", "TaskTracker")/' + id;
+            console.log(route);
+
+            $('#viewpartial').load(route);
+            $('#UpdatesModal').modal('show');
+        });
+
+        $('#List').on('click', '.documents', function () {
+            var $row = $(this).closest('tr');
+            var rowData = table.row($row).data();
+            var id = rowData["Id"];
+
+            var route = '@Url.Action("Documents", "TaskTracker")/' + id;
+            console.log(route);
+
+            $('#viewpartial').load(route);
+            $('#DocumentsModal').modal('show');
+        });
+
+        $('#btnImport').on('click', function () {
+            ImportTasks();
+        });
+    });
+
+    function LoadTasks() {
+        $('#List').DataTable().destroy();
+        table = $('#List').DataTable({
+            "paging": true,
+
+            "ajax": {
+                "url": "/TaskTracker/GetList",
+                "type": "POST",
+                "datatype": "json",
+                "data": {
+                    "StatusId": $("#StatusId").val(),
+                    "ProjectId": $("#ProjectId").val(),
+                    "MeetingId": $("#MeetingId").val(),
+                    "TaskTypeId": $("#TaskTypeId").val(),
+                    "AssigneeId": $("#AssigneeId").val(),
+                    "PriorityId": $("#PriorityId").val(),
+                }
+            },
+            "createdRow": function (row, data, index) {
+                $(row).addClass(data["ST"]);
+            },
+            order: [[0, 'desc']],
+            "columns": [
+                { "data": "Id" },
+                { "data": "strCreatedDate" },
+                { "data": "Priority" },
+                { "data": "TaskCategory" },
+                { "data": "TaskDescription" },
+                { "data": "CurrentProgressNote" },
+              /*  { "data": "strDueDate" },*/
+                { "data": "DR" },
+                {
+                    "data": "Id", "searchable": false, "ordering": false,
+                    "render": function (data, type, full, meta) {
+                        return '<a target="_blank" title="view"  class="btn btn-xs" href="/TaskTracker/View/' + data + '"><img src = "/assets/images/grid/s.png" width="30" /></a>';
+                    }
+                },
+                {
+                    "data": "Id", "searchable": false, "ordering": false,
+
+                    "render": function (data, type, full, meta) {
+                        if (full["StatusId"] != 3)
+                            return '<a title="edit" class="btn btn-xs" href="/TaskTracker/Details/' + data + '"><img src = "/assets/images/grid/e.png" width="30" /></a>';
+                        else
+                            return '';
+                    }
+                },
+            ]
+        });
+    }
+
+    function ImportTasks() {
+        var formFiles = $("#formFiles").get(0).files;
+        var files = new Array();
+
+        var formData = new FormData();
+        var files = formFiles;
+
+        // Looping over all files and add it to FormData object
+        for (var i = 0; i < files.length; i++) {
+            formData.append(files[i].name, files[i]);
+        }
+
+        $.ajax({
+            url: '/TaskTracker/ImportTasks',
+            data: formData,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data.Status === 1) {
+                    LoadTasks();
+                } else {
+                    alert("Failed to Import due to " + data.Message);
+                }
+                $("#overlay").fadeOut(200);
+            }
+        });
+    }
+</script>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <div class="row mb-1">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="pagetitle">
+                    <h3>@ViewBag.Title Tracker</h3>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 text-right">
+                <div class="csc-btn float-end">
+                    <input class="form-control" type="file" name="formFiles" id="formFiles" multiple="multiple" />
+                </div>
+            </div>
+            <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-12 text-right">
+                <div class="csc-btn float-end">
+                    <input class="btn btn-warning" id="btnImport" type="submit" value="Import" />
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 text-right">
+                <div class="csc-btn float-end">
+                    <a class="cta-sm ml-2 btn btn-primary" href="/TaskTracker/Details">New Task</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 pull-right">
+                @if (TempData["Message"] != null)
+                {
+                    @Html.Raw(TempData["Message"])
+                }
+            </div>
+        </div>
+        <div class="border border-primary bg-actual-white">
+            <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10 m-t-10">
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-0">
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-12 col-form-label text-small">Task Type</label>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @Html.DropDownListFor(m => m.TaskTypeId, new SelectList(ViewBag.TaskTypeList, "Id", "Name"), "Select Task Type", new { @class = "form-select" })
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-xl-1 col-lg-1 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-12 col-form-label text-small">Bus. Unit</label>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                @Html.DropDownListFor(m => m.TaskTrackerCategoryId, new SelectList(ViewBag.TaskTrackerCategoryList, "Id", "Name"), "Select Business Unit", new { @class = "form-select" })
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-0">
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-12 col-form-label text-small">Project</label>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @Html.DropDownListFor(m => m.ProjectId, new SelectList(ViewBag.ProjectList, "Id", "Name"), "No Related Project", new { @class = "form-select" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-0">
+                    <div class="form-group row">
+                        <label class="col-12 col-sm-12 col-form-label text-small">Meeting</label>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @Html.DropDownListFor(m => m.MeetingId, new SelectList(ViewBag.MeetingList, "Id", "Name"), "No Related Meeting", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-0">
+                    <div class="form-group row">
+                        <label class="col-lg-12 col-sm-12 col-form-label text-small">Assignee</label>
+                        <div class="col-lg-12 col-sm-12">
+                            @Html.DropDownListFor(m => m.AssigneeId, new SelectList(ViewBag.EmployeeList, "Id", "Name"), "Select Assignee", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-0">
+                    <div class="form-group row">
+                        <label class="col-lg-12 col-sm-12 col-form-label text-small">Status</label>
+                        <div class="col-lg-12 col-sm-12">
+                            @Html.DropDownListFor(m => m.StatusId, new SelectList(ViewBag.TaskTrackerStatusList, "Id", "Name"), "Select Status", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-0">
+                    <div class="form-group row">
+                        <label class="col-lg-12 col-sm-12 col-form-label text-small">Priority</label>
+                        <div class="col-lg-12 col-sm-12">
+                            @Html.DropDownListFor(m => m.PriorityId, new SelectList(ViewBag.PriorityList, "Id", "Name"), "Select Priority", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-12 mb-2">
+                    <div class="form-group row">
+                        <label class="col-lg-12 col-sm-12 col-form-label text-small">&nbsp;</label>
+                        <div class="col-lg-12 col-sm-12">
+                            <button class="cta-sm ml-2 btn btn-sm search btn-success" type="button">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10 m-t-10">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-t-20">
+                    <div class="table-responsive">
+                        <table id="List" class="table table-striped table-bordered first">
+                            <thead>
+                                <tr>
+                                    <th style="width:5%">#</th>
+                                    <th style="width:10%">Assigned<br />[Due Date]</th>
+                                    <th style="width:10%">Priority<br />[Status]</th>
+                                    <th style="width:10%">BU<br />[Type]</th>
+                                    <th style="width:30%">[Project]<br />Description</th>
+                                    <th style="width:30%">[Scheduled Date]<br />Current Progress Note</th>
+                                    <th style="width:5%">DR</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="UpdatesModal" tabindex="-1">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Updates</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="viewpartial"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DocumentsModal" tabindex="-1">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Task Documents</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="viewpartial"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+    </script>
+}

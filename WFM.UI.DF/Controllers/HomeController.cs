@@ -6,6 +6,22 @@ using System.Web;
 using System.Web.Mvc;
 using WFM.BAL.Services;
 using WFM.BAL.ViewModels;
+using WFM.DAL;
+using System.Net;
+using System.Net.Mail;
+using System.Configuration;
+using System.Net.Configuration;
+using WFM.UI.DF.ModelsView;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Drawing;
+using System.Runtime.Remoting.Lifetime;
+using System.Threading.Tasks;
+using System.Web.Helpers;
+using System.Web.Services.Description;
+using System;
+using WFM.BAL.Enums;
+using Microsoft.AspNet.Identity;
 
 namespace WFM.UI.DF.Controllers
 {
@@ -15,7 +31,14 @@ namespace WFM.UI.DF.Controllers
         private ApplicationUserManager _userManager;
         private readonly ProjectService projectService = new ProjectService();
         private readonly ProjectTypeService projectTypeService = new ProjectTypeService();
+        private readonly VCPService vCPService = new VCPService();
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly TaskTrackerService taskTrackerService = new TaskTrackerService();
+        private readonly CommonDataService commonDataService = new CommonDataService();
+        private readonly MeetingTypeService meetingService = new MeetingTypeService();
+        private readonly EmployeeService employeeService = new EmployeeService();
+        private readonly TaskTypeService taskTypeService = new TaskTypeService();
+        private readonly TaskTrackerCategoryService taskTrackerCategoryService = new TaskTrackerCategoryService();
 
         public HomeController()
         {
@@ -40,16 +63,49 @@ namespace WFM.UI.DF.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.ProjectList = projectService.GetProjects(0);
+            ViewBag.PriorityList = commonDataService.GetCommonData((int)CommonDataType.Priority);
+            ViewBag.MeetingList = meetingService.GetMeetingList();
+            ViewBag.EmployeeList = employeeService.GetEmployeeList();
+            ViewBag.TaskTypeList = taskTypeService.GetTaskTypeList();
+            ViewBag.TaskTrackerCategoryList = taskTrackerCategoryService.GetTaskTrackerCategoryList();
+            ViewBag.TaskTrackerStatusList = taskTrackerService.GetTaskStatusList();
+
             PrepareDashboardProjectList();
 
-            //CommonService.SaveLoginAudit(new LoginAudit()
-            //{
-            //    DateLogged = DateTime.Now,
-            //    UserId = new Guid(User.Identity.GetUserId()),
-            //    IPAddress = Request.UserHostAddress
-            //});
+            var UserId = User.Identity.GetUserId();
+            var empId = employeeService.GetEmployeeByUserId(UserId);
+
+            if (empId != null)
+            {
+                ViewBag.EmployeeId = empId.Id;
+            }
 
             return View();
+        }
+
+        public ActionResult GetList(
+            int? StatusId, int? ProjectId,
+            int? MeetingId, int? TaskTypeId,
+            int? AssigneeId, int? PriorityId, int? Id)
+        {
+            var UserId = User.Identity.GetUserId();
+            var empId = employeeService.GetEmployeeByUserId(UserId);
+            if (empId != null)
+            {
+                AssigneeId = empId.Id;
+            }
+
+            List<GetTaskList_Result> modelList = new List<GetTaskList_Result>();
+
+            modelList = taskTrackerService.GetTaskList(StatusId, ProjectId, MeetingId, TaskTypeId, AssigneeId, Id).ToList();
+            if ((PriorityId > 0) || (PriorityId != null))
+                modelList = modelList.Where(t => t.PriorityId == PriorityId).ToList();
+
+            JsonResult jsonResult = new JsonResult();
+            jsonResult.MaxJsonLength = int.MaxValue;
+            jsonResult = Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
+            return jsonResult;
         }
 
         private void PrepareDashboardProjectList()
@@ -109,7 +165,7 @@ namespace WFM.UI.DF.Controllers
                         {
                             total++;
                             data.Add(value.COU.ToString());
-                        }                            
+                        }
                     }
 
                     var projectType = projectTypes.Where(p => p.Name == type).FirstOrDefault();

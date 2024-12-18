@@ -56,7 +56,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Expiary Date</label>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Submission Date</label>
                                 <div class="col-lg-12 col-sm-12">
                                     @Html.TextBoxFor(m => m.ExpiaryDate, new { @class = "form-control", @placeholder = "MM/DD/YYYY" })
                                 </div>
@@ -143,29 +143,29 @@
                             </div>
                         </div>
                         @*<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
-                        <div class="form-group row">
-                            <label class="col-12 col-sm-12 col-form-label text-small">Task Id</label>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                @Html.TextBoxFor(m => m.TaskId, new { @placeholder = "", @class = "form-control" })
-                            </div>
-                        </div>
+                <div class="form-group row">
+                    <label class="col-12 col-sm-12 col-form-label text-small">Task Id</label>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        @Html.TextBoxFor(m => m.TaskId, new { @placeholder = "", @class = "form-control" })
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
-                        <div class="form-group row">
-                            <label class="col-12 col-sm-12 col-form-label text-small">25 List</label>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                @Html.TextBoxFor(m => m.List25, new { @placeholder = "", @class = "form-control" })
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                <div class="form-group row">
+                    <label class="col-12 col-sm-12 col-form-label text-small">25 List</label>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        @Html.TextBoxFor(m => m.List25, new { @placeholder = "", @class = "form-control" })
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
-                        <div class="form-group row">
-                            <label class="col-lg-12 col-sm-12 col-form-label text-small">Proceed?</label>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                @Html.DropDownListFor(m => m.ApprovedToGoAheadId, new SelectList(ViewBag.ProceedStatusList, "Id", "Name"), "Select Proceed Status", new { @class = "form-control" })
-                            </div>
-                        </div>
-                    </div>*@
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                <div class="form-group row">
+                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Proceed?</label>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        @Html.DropDownListFor(m => m.ApprovedToGoAheadId, new SelectList(ViewBag.ProceedStatusList, "Id", "Name"), "Select Proceed Status", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>*@
                         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-12 col-sm-12 col-form-label text-small">Organization</label>
@@ -216,22 +216,6 @@
                                 </div>
                             </div>
                         </div>
-                        @*<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
-                        <div class="form-group row">
-                            <label class="col-lg-12 col-sm-12 col-form-label text-small">Second Copy Issued?</label>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                @Html.DropDownListFor(m => m.SLICCopyId, new SelectList(ViewBag.SLICCopyList, "Id", "Name"), "Select SLIC Copy", new { @class = "form-control" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
-                        <div class="form-group row">
-                            <label class="col-12 col-sm-12 col-form-label text-small">Old File Id</label>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                @Html.TextBoxFor(m => m.OldFileId, new { @placeholder = "", @class = "form-control" })
-                            </div>
-                        </div>
-                    </div>*@
                     </div>
                     <div class="row">
                         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
@@ -367,6 +351,59 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Pre-Bid Meeting Date</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.TextBoxFor(m => m.PreBidMeetingDate, new { @class = "form-control", @placeholder = "MM/DD/YYYY" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Bid Bond Amount</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.TextBoxFor(m => m.BidBondAmount, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Tender Doc. Collection Fee</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.TextBoxFor(m => m.TenderDocCollectionFee, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Tender Extension Times</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                                    @Html.TextBoxFor(m => m.TenderExtensionTimes, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Pre-Bid Participants</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.TextAreaFor(m => m.PrebidParticipants, new { @placeholder = "", @class = "form-control", @rows = 3 })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Past Bidders</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.TextAreaFor(m => m.PastBidders, new { @placeholder = "", @class = "form-control", @rows = 3 })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-12 col-sm-12 col-form-label text-small">Comment</label>
@@ -378,23 +415,23 @@
                     </div>
 
                     @*<div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
-                        <div class="form-group row">
-                            <label class="col-12 col-sm-12 col-form-label text-small">Tender</label>
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
-                                @Html.DropDownListFor(m => m.TenderTypeId, new SelectList(ViewBag.TenderTypeList, "Id", "Name"), "Select Tender Type", new { @class = "form-control" })
-                            </div>
-                        </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                <div class="form-group row">
+                    <label class="col-12 col-sm-12 col-form-label text-small">Tender</label>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                        @Html.DropDownListFor(m => m.TenderTypeId, new SelectList(ViewBag.TenderTypeList, "Id", "Name"), "Select Tender Type", new { @class = "form-control" })
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
-                        <div class="form-group row">
-                            <label class="col-12 col-sm-12 col-form-label text-small"> -</label>
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
-                                @Html.DropDownListFor(m => m.TypeOfSaleId, new SelectList(ViewBag.TypeOfSaleList, "Id", "Name"), "Select Type Of Sale", new { @class = "form-control" })
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                <div class="form-group row">
+                    <label class="col-12 col-sm-12 col-form-label text-small"> -</label>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-lg-6">
+                        @Html.DropDownListFor(m => m.TypeOfSaleId, new SelectList(ViewBag.TypeOfSaleList, "Id", "Name"), "Select Type Of Sale", new { @class = "form-control" })
                     </div>
-                </div>*@
+                </div>
+            </div>
+        </div>*@
                     <div class="row">
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
@@ -406,7 +443,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                </div>
         </div>
     </div>
 }

@@ -1,0 +1,10 @@
+﻿
+@model List<WFM.UI.DF.Models.TenderDocumnet>
+
+@foreach (var document in Model)
+{
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-0">
+        <a class="btn btn-sm btn-primary m-t-10" target="_blank" href="@Url.Content(@document.DocumentPath)">@document.Name</a>
+        @*<a class="btn btn-sm btn-danger m-t-10 remove " href="#" onclick="removeDoc(@document.DocumentTypeId)">X</a>*@
+    </div>
+}

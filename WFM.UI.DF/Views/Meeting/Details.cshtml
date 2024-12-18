@@ -1,0 +1,107 @@
+﻿@model WFM.UI.DF.ModelsView.MeetingViewModel
+
+@{
+    ViewBag.Title = "New Meeting";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        @Html.Partial("_PageHeaderPartial")
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="border border-primary bg-actual-white">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
+                @using (Html.BeginForm("SaveOrUpdate", "Meeting", FormMethod.Post, new { @class = "needs-validation", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.HiddenFor(m => m.Id, new { @name = "Id" })
+                <div class="form-row">
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <label class="control-label"><span style="color:red">Meeting Type&nbsp;*</span></label>
+                        @Html.DropDownListFor(m => m.MeetingTypeId, new SelectList(ViewBag.MeetingTypeList, "Id", "Topic"), "Select Meeting", new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        <label class="control-label">Project</label>
+                        @Html.DropDownListFor(m => m.ProjectId, new SelectList(ViewBag.ProjectList, "Id", "Name"),"Business Development")
+                    </div>
+                    <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-12 mb-2">
+                        <label class="control-label"><span style="color:red">Date&nbsp;*</span></label>
+                        @Html.TextBoxFor(m => m.Date, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                        @Html.LabelFor(m => m.Location, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Location, new { @class = "form-control" })
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                        <label class="control-label"><span style="color:red">External Participants&nbsp;*</span></label>
+                        @Html.TextAreaFor(m => m.ExternalParticipants, new { @class = "form-control", rows = "3", required = "required" })
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                        <label class="control-label">KPI's</label>
+                        @Html.TextAreaFor(m => m.KPI, new { @class = "form-control", rows = "3" })
+                    </div>
+                    @*<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+            <label class="control-label">Remarks</label>
+            @Html.TextAreaFor(m => m.Remarks, new { @class = "form-control", rows = "2" })
+        </div>*@
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                        <label class="control-label"><span style="color:red">Internal Participants&nbsp;*</span></label>
+                        @Html.DropDownListFor(m => m.InternalParticipants, new SelectList(ViewBag.EmployeeList, "Id ", "Name"), htmlAttributes: new
+                   {
+                       @class = "js-example-placeholder-multiple col-sm-12 form-select form-control validate",
+                       @multiple = "multiple",
+                       id = "AssigneeDropDownList",
+                       required = "required"
+                   })
+                    </div>
+
+                    <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-12 mb-2">
+                        <label class="control-label">KPI Achieved</label>
+                        @Html.CheckBoxFor(m => m.KPIAchieved, new { @class = "form-control" })
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-0">
+                        <label class="control-label">Documents</label>
+                        <input type="file" name="postedFiles" multiple="multiple" class="form-control" />
+                    </div>
+                    <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-12 ">
+                        <label>&nbsp;</label><br />
+                        <input type="submit" class="btn btn-success" value="Save" />
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $('#Date').datepicker({
+            uiLibrary: 'bootstrap',
+            "dateFormat": "mm/dd/yy"
+        });
+
+        $('select').select2({
+            width: '100%',
+            selectOnClose: true
+        });
+    </script>
+}
+
+

@@ -23,7 +23,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 @*<li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>*@
+                                    <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>*@
                             </ol>
                         </nav>
                     </div>
@@ -87,20 +87,21 @@
                                                                 <tr>
                                                                     <th></th>
                                                                     <th></th>
-                                                                    <th>File #</th>
-                                                                    <th style="width:10%">File Code</th>
+                                                                    @*<th>File #</th>*@
+                                                                    <th style="width:20%">File Code</th>
                                                                     <th style="width:50%">Project</th>
                                                                     @*<th>Organization</th>
-                                                                    <th>Sector : SubSector</th>*@
+                                                                        <th>Sector : SubSector</th>*@
                                                                     <th style="width:8%">Start Date</th>
                                                                     <th style="width:8%">Expiry Date</th>
+                                                                    <th>DR</th>
                                                                     @*<th>Value (LKR)</th>
-                                                                    <th>Days Due</th>*@
-                                                                    <th style="width:2%">S&amp;E (%)</th>
-                                                                    <th style="width:2%">R&amp;D (%)</th>
-                                                                    <th style="width:2%">Mkt (%)</th>
-                                                                    <th style="width:2%">HOO (%)</th>
-                                                                    <th style="width:2%">Final (%)</th>
+                                                                        <th>Days Due</th>*@
+                                                                    @*<th style="width:2%">S&amp;E (%)</th>
+                                                                        <th style="width:2%">R&amp;D (%)</th>
+                                                                        <th style="width:2%">Mkt (%)</th>
+                                                                        <th style="width:2%">HOO (%)</th>
+                                                                        <th style="width:2%">Final (%)</th>*@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -124,22 +125,23 @@
                                                                         cssClass = "days_over_80";
                                                                     }
                                                                     <tr>
-                                                                        <td><a class="btn btn-xs btn-primary" href="~/PublicSectorTender/Details/@project.Id">Edit</a></td>
+                                                                        <td><a class="btn btn-xs btn-primary" href="~/PublicSectorTender/Details/@project.Id" target="_blank">Progress</a></td>
                                                                         <td><a class="btn btn-xs btn-warning" href="#">View</a></td>
-                                                                        <td class="@cssClass">@project.Number</td>
+                                                                        @*<td class="@cssClass">@project.Number</td>*@
                                                                         <td class="@cssClass" style="max-width:110px;word-wrap:break-word">@project.Code</td>
                                                                         <td class="@cssClass">@project.Name</td>
                                                                         @*<td class="@cssClass">@project.OrganizationName</td>
-                                                                        <td class="@cssClass">@project.SectorName : @project.SubSectorName</td>*@
+                                                                            <td class="@cssClass">@project.SectorName : @project.SubSectorName</td>*@
                                                                         <td class="@cssClass" style="white-space: nowrap">@project.StartDateString</td>
-                                                                        <td class="@cssClass" style="white-space: nowrap">@project.ExpiaryDate</td>
+                                                                        <td class="@cssClass" style="white-space: nowrap">@project.ExpiaryDateString</td>
+                                                                        <td class="@cssClass" style="white-space: nowrap">@project.DR</td>
                                                                         @*<td class="@cssClass">@project.LKRValue</td>
-                                                                        <td class="@cssClass">@project.DaysDue</td>*@
-                                                                        <td class="@cssClass" >@project.SEStatus</td>
-                                                                        <td class="@cssClass" >@project.RDStatus</td>
-                                                                        <td class="@cssClass" >@project.MktStatus</td>
-                                                                        <td class="@cssClass" >@project.LegalStatus</td>
-                                                                        <td class="@cssClass" >@project.FinalStatus</td>
+                                                                            <td class="@cssClass">@project.DaysDue</td>*@
+                                                                        @*<td class="@cssClass" >@project.SEStatus</td>
+                                                                            <td class="@cssClass" >@project.RDStatus</td>
+                                                                            <td class="@cssClass" >@project.MktStatus</td>
+                                                                            <td class="@cssClass" >@project.LegalStatus</td>
+                                                                            <td class="@cssClass" >@project.FinalStatus</td>*@
                                                                     </tr>
                                                                 }
                                                             </tbody>

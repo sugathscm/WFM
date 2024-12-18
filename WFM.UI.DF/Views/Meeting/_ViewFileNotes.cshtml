@@ -1,0 +1,23 @@
+﻿@model List<WFM.UI.DF.Models.FileNoteViewModel>
+
+<div class="row p-2">
+    <table class="table table-striped table-bordered first">
+        <caption style="caption-side:top;background-color:#aaa;color:#000;"><h5>File Notes</h5></caption>
+        <tr>
+            <th class="ml-2" style="width:10%">Date</th>
+            <th class="ml-2" style="width:15%">Given By</th>
+            <th class="ml-2" style="width:15%">Taken By</th>
+            <th class="ml-2" style="width:60%">Note</th>
+        </tr>
+        @foreach (var item in @Model)
+        {
+            <tr>
+                <td class="ml-2">@item.DateString</td>
+                <td class="ml-2">@item.NoteGivenByName</td>
+                <td class="ml-2">@item.NoteTakenByName</td>
+                <td class="ml-2 text-justify">@item.Note</td>
+            </tr>
+        }
+    </table>
+</div>
+

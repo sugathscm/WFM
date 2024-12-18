@@ -52,9 +52,9 @@ namespace WFM.UI.DF.Controllers
                 employee = employeeService.GetEmployeeById(id);
             }
 
-            var listData = designationService.GetDesignationList();
+            //var listData = designationService.GetDesignationList();
 
-            ViewBag.DesignationList = new SelectList(listData, "Id", "Name");
+            ViewBag.DesignationList = designationService.GetDesignationList();
 
             return View(employee);
         }
@@ -158,6 +158,8 @@ namespace WFM.UI.DF.Controllers
                     UpdatedOn = DateTime.Now,
                     UserId = new Guid(User.Identity.GetUserId())
                 });
+
+                employeeService.SaveOrUpdate(employee);
 
                 TempData["Message"] = "<div id='flash-success'>Record Saved Successfully.</div>";
             }

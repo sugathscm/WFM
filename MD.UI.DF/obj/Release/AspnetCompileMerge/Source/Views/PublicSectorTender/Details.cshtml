@@ -1,0 +1,809 @@
+﻿@model ProjectTenderViewModel
+@using WFM.UI.DF.ModelsView
+@using WFM.DAL
+@{
+    ViewBag.Title = "Tender";
+}
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    @if (Model == null)
+                    {
+                        <h2 class="pageheader-title">@ViewBag.Title</h2>
+                    }
+                    else
+                    {
+                        <h3 class="pageheader-title">Project Code - @Html.DisplayFor(m => m.Code)</h3>
+                    }
+                </div>
+            </div>
+        </div>        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        @if (Model != null)
+        {
+            <div class="border border-primary bg-actual-white">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Project Code</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.Code)">
+                                </div>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Company</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_Organization.Name)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Sector &amp; Sub Sector</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_ProjectSector.Name)-@Html.DisplayFor(m => m.WFM_ProjectSector1.Name)">
+                                </div>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Value</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.LKRValue)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Start Date</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.StartDate)">
+                                </div>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Expiary Date</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.ExpiaryDate)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Last Updated Date</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.CurrentDocumentTabDate)">
+                                </div>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Last Updated By</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.LastUpdatedBy)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Name of the opportunity</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.Name)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Status</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_ProjectStatus.Name)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Current Tab</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_DocumentTab.Name)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 con-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group row">
+                                <label for="ProjectDescription" class="col-lg-12 col-sm-12 col-form-label text-small">Time Line Information</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="progress mb-3" style=" margin-top: 10px!important;">
+                                        <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0"><b>Sourcing Documents</b></div>
+                        @Html.Action("DisplayDocumentsPerTab", "PublicSectorTender", new { projectid = Model.Id, tabId = 1 })
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0"><b>R &amp; D Documents</b></div>
+                        @Html.Action("DisplayDocumentsPerTab", "PublicSectorTender", new { projectid = Model.Id, tabId = 2 })
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div class="border border-primary bg-actual-white m-t-10">
+                <!-- ============================================================== -->
+                <!-- justified tabs  -->
+                <!-- ============================================================== -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10 m-t-10">
+                    <div class="tab-regular">
+                        <ul class="nav nav-tabs nav-fill" id="myTab7" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="sourcing-tab-justify" data-toggle="tab" href="#sourcing-justif" role="tab" aria-controls="sourcing" aria-selected="true">Sourcing Documents</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="randd-tab-justify" data-toggle="tab" href="#randd-justify" role="tab" aria-controls="randd" aria-selected="false">Research and Design/Finance</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="approval-tab-justify" data-toggle="tab" href="#approval-justify" role="tab" aria-controls="approval" aria-selected="false">Approval</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="marketing-tab-justify" data-toggle="tab" href="#marketing-justify" role="tab" aria-controls="marketing" aria-selected="false">Marketing</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="verification-tab-justify" data-toggle="tab" href="#verification-justify" role="tab" aria-controls="verification" aria-selected="false">Verification </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="legal-tab-justify" data-toggle="tab" href="#legal-justify" role="tab" aria-controls="legal" aria-selected="false">Legal</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="InwardInquiry">
+                            <div class="tab-pane fade show active" id="sourcing-justif" role="tabpanel" aria-labelledby="sourcing-tab-justify">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    @using (Html.BeginForm("SaveOrUpdate", "PublicSectorTender", FormMethod.Post, new { @class = "form-horizontal", @role = "form", enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.HiddenFor(m => m.Id, new { id = "Id" })
+                                        <div class="row">
+                                            @{
+                                                int i = 0;
+                                                foreach (var document in ViewBag.Type1DocumentList as List<WFM_Document>)
+                                                {
+                                                    i = i + 1;
+                                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-0">
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@i . @Html.Raw(document.Name)</label>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                <input type="file" placeholder="" class="form-control sourcing-file" id="@document.Id" name="@document.Id">
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" id="sourcingdocs-@document.Id">
+                                                                @Html.Action("DisplayDocuments", "PublicSectorTender", new { projectid = Model.Id, documentid = document.Id })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="button" value="Save" id="SaveSourcing" class="btn btn-success" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="randd-justify" role="tabpanel" aria-labelledby="randd-tab-justify">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    @using (Html.BeginForm("SaveOrUpdate", "PublicSectorTender", FormMethod.Post, new { @class = "form-horizontal", @role = "form", enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.HiddenFor(m => m.Id, new { id = "Id" })
+                                        <div class="row">
+                                            @{
+                                                int j = 0;
+                                                foreach (var document in ViewBag.Type2DocumentList as List<WFM_Document>)
+                                                {
+                                                    j = j + 1;
+                                                    <div class="col-xl-4 col-lg-4 col-md-3 col-sm-12 col-12 mb-0">
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@j . @Html.Raw(document.Name)</label>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                <input type="file" required="" placeholder="" class="form-control randd-file" id="@document.Id">
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12" id="randddocs-@document.Id">
+                                                                @Html.Action("DisplayDocuments", "PublicSectorTender", new { projectid = Model.Id, documentid = document.Id })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="button" value="Save" id="SaveRandD" class="btn btn-success" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="approval-justify" role="tabpanel" aria-labelledby="approval-tab-justify">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    @using (Html.BeginForm("SaveOrUpdate", "PublicSectorTender", FormMethod.Post, new { @class = "form-horizontal", @role = "form", enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.HiddenFor(m => m.Id, new { id = "Id" })
+                                        <div class="row">
+                                            @{
+                                                int k = 0;
+                                                foreach (var document in ViewBag.Type2ProjectDocumentList as List<WFM_ProjectDocument>)
+                                                {
+                                                    k = k + 1;
+                                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-0">
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@k . @Html.Raw(document.WFM_Document.Name) <small>Version - @document.Version</small></label>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                <button class="btn"><i class="fa fa-eye"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12 con-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="form-group row">
+                                                    <div class="col-3 col-lg-3">
+                                                        <label class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Approve</span>
+                                                        </label>
+                                                        <label class="custom-control custom-radio custom-control-inline">
+                                                            <input type="radio" name="radio-inline" checked="" class="custom-control-input"><span class="custom-control-label">Reject</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-9 col-lg-9">
+                                                        <input id="reason" type="text" required="" data-parsley-type="" placeholder="Reason" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="button" value="Save" id="SaveApproval" class="btn btn-success" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="marketing-justify" role="tabpanel" aria-labelledby="marketing-tab-justify">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    @using (Html.BeginForm("SaveOrUpdate", "PublicSectorTender", FormMethod.Post, new { @class = "form-horizontal", @role = "form", enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.HiddenFor(m => m.Id, new { id = "Id" })
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Principal 1</label>
+                                                    <div class="col-lg-12 col-sm-12 ">
+                                                        @Html.DropDownListFor(m => m.PrincipalId1, new SelectList(ViewBag.Principals, "Id", "Name"), "Select Principal", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Principal 2</label>
+                                                    <div class="col-lg-12 col-sm-12 ">
+                                                        @Html.DropDownListFor(m => m.PrincipalId2, new SelectList(ViewBag.Principals, "Id", "Name"), "Select Principal", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Principal 3</label>
+                                                    <div class="col-lg-12 col-sm-12 ">
+                                                        @Html.DropDownListFor(m => m.PrincipalId3, new SelectList(ViewBag.Principals, "Id", "Name"), "Select Principal", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Sourcing Partners (External)</label>
+                                                    <div class="col-lg-12 col-sm-12 ">
+                                                        @Html.DropDownListFor(m => m.PrincipalId2, new SelectList(ViewBag.SourcingPartners, "Id", "Name"), "Select Sourcing Partner", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Sourcing Partners (Internal)</label>
+                                                    <div class="col-lg-12 col-sm-12 ">
+                                                        @Html.DropDownListFor(m => m.PrincipalId3, new SelectList(ViewBag.SourcingPartners, "Id", "Name"), "Select Sourcing Partner", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            @{
+                                                int l = 0;
+                                                foreach (var document in ViewBag.Form8B as List<WFM_Document>)
+                                                {
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-0">
+                                                        <div class="form-group row">
+                                                            <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@Html.Raw(document.Name)</label>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                @foreach (var field in document.WFM_DocumentField.ToList() as List<WFM_DocumentField>)
+                                                                {
+                                                                    l = l + 1;
+                                                                    <div class="form-group row">
+                                                                        <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@l . @Html.Raw(field.FieldName)</label>
+                                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                            <input id="@field.Id" type="text" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12 mb-0">
+                                                <button type="button" class="btn btn-warning float-left" id="form8BButton">Form 8B</button>
+                                            </div>
+                                            @if (Model.Form8BGenerated)
+                                            {
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12 mb-0">
+                                                    <button type="button" class="btn btn-warning float-left" id="form8BViewButton">View Form 8B</button>
+                                                </div>
+                                            }
+                                            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12 mb-0">
+                                                <button type="button" class="btn btn-warning float-left" id="form12Button">Form 12</button>
+                                            </div>
+                                            @if (Model.Form12Generated)
+                                            {
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12 mb-0">
+                                                    <button type="button" class="btn btn-warning float-left" id="form12ViewButton">View Form 12</button>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="button" value="Save" id="SaveMarketing" class="btn btn-success" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="verification-justify" role="tabpanel" aria-labelledby="verification-tab-justify">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <form id="form" data-parsley-validate="" novalidate="">
+                                        @Html.HiddenFor(m => m.Id, new { id = "Id" })
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <button type="button" class="btn btn-info btn-block">View Form 8B 1 & 2</button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="button" class="btn btn-info btn-block">View Form 12</button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="button" class="btn btn-info btn-block">View Mandate</button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="button" value="Save" id="SaveVerification" class="btn btn-success" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="legal-justify" role="tabpanel" aria-labelledby="legal-tab-justify">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    @Html.HiddenFor(m => m.Id, new { id = "Id" })
+                                    <form id="form" data-parsley-validate="" novalidate="">
+                                        <div class="row">
+                                            <div class="col-md-2 col-sm-2 col-2 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="button" value="Agree" id="SaveVerification" class="btn btn-success" />
+                                                        <input type="button" value="Reject" id="SaveVerification" class="btn btn-danger" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end justified tabs  -->
+                <!-- ============================================================== -->
+            </div>
+
+        }
+        <div class="border border-primary bg-actual-white m-t-10">
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Messages</h4>
+                        <div id="messages"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-12 mb-0">
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">1. Project Idea Note / proposal (Not required if Item 3 or 4 is available)</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">2. Financial model</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">3. Pre feasibility / feasibility / viability report</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div><div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">4. Business Plan</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">5. Mandate</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">6. NDA / NCA</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">7. Consultancy agreement</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">8. Private sector project >information sheet </label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">9. Management / audited accounts</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">10. Projected financials (Not required if Item 2 is available)</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">11. Form 1, Form 20, BRC</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">12. Articles of association</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">13. Company profile/website</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">14. Annual report (3 years of audited financial stats)</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-8 col-form-label text-small">15. Promoter's profile</label>
+                            <div class="col-12 col-sm-4 col-lg-4">
+                                <button type="button" class="btn btn-primary btn-block">View</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="form8BModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Form 8b – Request for Legal Assistance</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                @{
+                    Html.RenderPartial("_Form8B", Model.Form8BViewModel);
+                }
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="form12Modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Form 12</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                @Html.Partial("_Form12", Model.Form12ViewModel)
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="PrintForm8BModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Form 8B - View</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="Preview">
+                @Html.Partial("_PrintForm8B", Model.Form8BViewModel);
+            </div>
+            <div class="modal-footer">
+                <button id="btnPrintForm8B" type="button" class="btn btn-primary">Print</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="PrintForm12" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Form 12 - View</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="Preview">
+                @Html.Partial("_PrintForm12", Model.Form12ViewModel)
+            </div>
+            <div class="modal-footer">
+                <button id="btnPrintForm12" type="button" class="btn btn-primary">Print</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}       
+
+<script>
+    $(document).ready(function () {
+
+        $('#form8BButton').click(function () {
+            $('#form8BModal').modal('show');
+        });
+
+        $('#form12Button').click(function () {
+            $('#form12Modal').modal('show');
+        });
+
+        $('#SaveSourcing').click(function () {
+            SaveData();
+        });
+
+        $('#SaveApproval').click(function () {
+            SaveData();
+        });
+
+        $('#SaveRandD').click(function () {
+            SaveData();
+        });
+
+        $('#SaveMarketing').click(function () {
+            SaveData();
+        });
+
+        function SaveData() {
+            var SourcingDocumentCount = 14;
+            // Create FormData object
+            var fileData = new FormData();
+            fileData.append("projectid", $("#Id").val());
+
+            // Looping over all files and add it to FormData object
+            for (var j = 0; j < SourcingDocumentCount; j++) {
+                var fileUpload = $(".sourcing-file").get(j);
+                var files = fileUpload.files;
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(fileUpload.id, files[i]);
+                }
+            }
+
+            var RandDDocumentCount = 4;
+
+            for (var j = 0; j < RandDDocumentCount; j++) {
+                var fileUpload = $(".randd-file").get(j);
+                var files = fileUpload.files;
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(fileUpload.id, files[i]);
+                }
+            }
+
+            $.ajax({
+                url: "/PublicSectorTender/SaveOrUpdate",
+                type: "POST",
+                data: fileData,
+                cache: false,
+                async: false,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    alert(result);
+                    for (var j = 0; j < SourcingDocumentCount; j++) {
+                        var fileUpload = $(".sourcing-file").get(j);
+                        $('#sourcingdocs-' + fileUpload.id).load("/PublicSectorTender/DisplayDocuments?projectid=" + $("#Id").val() + "&documentid=" + fileUpload.id);
+                    }
+
+                    for (var j = 0; j < RandDDocumentCount; j++) {
+                        var fileUpload = $(".randd-file").get(j);
+                        $('#randddocs-' + fileUpload.id).load("/PublicSectorTender/DisplayDocuments?projectid=" + $("#Id").val() + "&documentid=" + fileUpload.id);
+                    }
+
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+
+            $(".sourcing-file").val("");
+            $(".randd-file").val("");
+        }
+
+        $('select').select2({
+            selectOnClose: true
+        });
+
+        //$('#btnPrintForm8B').click(function () {
+        //    SaveForm8B();
+        //});
+
+        //$('#btnPrintForm12').click(function () {
+        //    SaveForm12();
+        //});
+    });
+
+    function SaveForm8B() {
+        $.ajax({
+            url: "/PublicSectorTender/SaveOrUpdateForm8B",
+            type: "POST",
+            data: null,
+            cache: false,
+            async: false,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                alert(result);
+
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });
+    }
+
+    function SaveForm12() {
+        $.ajax({
+            url: "/PublicSectorTender/SaveOrUpdateForm12",
+            type: "POST",
+            data: null,
+            cache: false,
+            async: false,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                alert(result);
+
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });
+    }
+
+    $('#form8BViewButton').click(function () {
+        id = $('#Form8BId').val();
+         $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetForm8B", "PublicSectorTender")',
+            data: { id: id },
+            success: function (data) {
+                $('#_PrintForm8B').html(data);
+                $('#PrintForm8BModal').modal('show');
+            }
+        })        
+    });
+
+
+
+</script>

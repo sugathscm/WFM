@@ -1,0 +1,95 @@
+﻿body {
+    /*    padding-top: 50px;
+    padding-bottom: 20px;*/
+    background-color:lightblue;
+    /*background-image: url( '/Images/sl.png' );
+    background-repeat: repeat;
+    background-position: center;
+    background-size: auto;*/
+    font-size: 0.8rem;
+}
+th.dt-center, td.dt-center {
+    text-align: center;
+}
+table.dataTable {
+    width: 100% !important;
+}
+
+.datatable-scroll {
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+element.style {
+}
+
+.modal.show .modal-dialog {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+}
+
+@media (min-width: 992px) 
+{
+    .modal-lg {
+        max-width: 1000px !important;
+    }
+}
+.form-control {
+    display: block;
+    /*    width: 100% !important;*/
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: .750rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-clip: padding-box;
+    color: #768192;
+    background-color: #fff;
+    border: 1px solid #d8dbe0;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.wrapword {
+    white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+    white-space: -webkit-pre-wrap; /* Chrome & Safari */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    white-space: pre-wrap; /* CSS3 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    word-break: break-all;
+    white-space: normal;
+}
+
+.text-blue{
+    color: blue;
+}
+
+.border-blue{
+    border:2px solid blue;
+}
+
+.bg-yellow{
+    background-color:lightgoldenrodyellow;
+}

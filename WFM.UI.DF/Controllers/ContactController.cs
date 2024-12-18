@@ -62,6 +62,7 @@ namespace WFM.UI.DF.Controllers
                 var list = contactService.GetContactList();
 
                 List<ContactView> modelList = new List<ContactView>();
+
                 foreach (var item in list)
                 {
                     modelList.Add(new ContactView()
@@ -76,6 +77,7 @@ namespace WFM.UI.DF.Controllers
                         DesignationName = (item.DesignationId == 0) ? "" : entities.WFM_Designation.Where(o => o.Id == item.DesignationId).SingleOrDefault().Name,
                     });
                 }
+
                 return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
             }
         }

@@ -1,0 +1,293 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Work Flow Management System</title>
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="~/assets/vendor/fonts/circular-std/style.css" />
+    <link rel="stylesheet" href="~/assets/vendor/fonts/fontawesome/css/fontawesome-all.css" />
+    <link rel="stylesheet" href="~/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="~/assets/vendor/fonts/flag-icon-css/flag-icon.min.css" />
+
+    <link rel="stylesheet" href="~/assets/vendor/charts/chartist-bundle/chartist.css" />
+    <link rel="stylesheet" href="~/assets/vendor/charts/morris-bundle/morris.css" />
+    <link rel="stylesheet" href="~/assets/vendor/charts/c3charts/c3.css" />
+
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="~/assets/vendor/datatables/css/dataTables.bootstrap4.css" />
+    <link rel="stylesheet" href="~/assets/vendor/datatables/css/buttons.bootstrap4.css" />
+    <link rel="stylesheet" href="~/assets/vendor/datatables/css/select.bootstrap4.css" />
+    <link rel="stylesheet" href="~/assets/vendor/datatables/css/fixedHeader.bootstrap4.css" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="~/assets/libs/css/main.css" />
+    <link rel="stylesheet" href="~/assets/libs/css/index.css" />
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    @*<script src="~/Scripts/bootstrap-wysiwyg.js"></script>*@
+
+    <script src="~/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="~/assets/libs/css/style-light.css" />
+
+</head>
+<body>
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>*@
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+        <!-- ============================================================== -->
+        <!-- navbar -->
+        <!-- ============================================================== -->
+        <div class="dashboard-header">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top">
+                <a class="navbar-brand" href="~/home">WFM</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-right-top">
+                        @*<li class="nav-item">
+                                <div id="custom-search" class="top-search-bar">
+                                    <input class="form-control" type="text" placeholder="Search..">
+                                </div>
+                            </li>*@
+                        <li class="nav-item dropdown nav-user">
+                            @Html.Partial("_LoginPartial")
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- ============================================================== -->
+        <!-- left sidebar -->
+        <!-- ============================================================== -->
+        <div class="nav-left-sidebar sidebar-dark">
+            <div class="menu-list">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav flex-column">
+                            <li class="nav-divider">
+                                Administration
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="~/home"><i class="fa fa-fw fa-tachometer-alt"></i>Dashboard <span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-cogs"></i>Administration <span class="badge badge-success">6</span></a>
+                                <div id="submenu-1" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/LoginAudit">Login Audit</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/DataAudit">Data Audit</a>
+                                        </li>
+                                        @*<li class="nav-item">
+                        <a class="nav-link" href="#">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Audit Trail</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Message Centre</a>
+                    </li>*@
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#master" aria-controls="master"><i class="fa fa-fw fa-folder-open"></i>Master Files <span class="badge badge-success">6</span></a>
+                                <div id="master" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        @*<li class="nav-item">
+                        <a class="nav-link" href="~/CabinetPaper">Cabinet Papers</a>
+                    </li>*@
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/Contact">Contact Management</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/Country">Country Management</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/Organization">Organization Management</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/Designation">Designation Management</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/Division">Division Management</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/Employee">Employee Management</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/Principal">Principal Management</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/ProjectSector">Project Sector Management</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/SourcingPartner">Sourcing Partner Management</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/VCP">VCP</a>
+                                        </li>
+                                        @*<li class="nav-item">
+                        <a class="nav-link" href="~/TenderDocumentSection">Tender Document Section</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/TenderDocumentType">Tender Document Type</a>
+                    </li>*@
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="~/AccountUser">User Management</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-divider">
+                                Tools
+                            </li>
+                            <li>
+                                <a class="nav-link" href="~/TaskTracker"><i class="fa fa-fw fa-briefcase"></i>Task Tracker</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="~/VCP/IFPEmail"><i class="fa fa-fw fa-briefcase"></i>VCP Email</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="~/Meeting"><i class="fa fa-fw fa-briefcase"></i>Meeting</a>
+                            </li>
+                            @*<li>
+            <a class="nav-link" href="~/sourcing/details"><i class="fa fa-fw fa-file"></i>New Project</a>
+        </li>*@
+
+                            <li class="nav-divider">
+                                Projects
+                            </li>
+                            <li>
+                                <a class="nav-link" href="~/sourcing"><i class="fa fa-fw fa-briefcase"></i>Project List</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" href="~/sourcing/details"><i class="fa fa-fw fa-file"></i>New Project</a>
+                            </li>
+                            <li class="nav-divider">
+                                Project Type
+                            </li>
+                            @foreach (var type in ViewBag.ProjectTypeList)
+                            {
+                                <li>
+                                    <a class="nav-link" href="~/@type.Path/Index/@type.Id"><i class="fa fa-fw fa-tachometer-alt"></i>@type.Name</a>
+                                </li>
+                            }
+                            <li class="nav-divider">
+                                Reports
+                            </li>
+                            <li>
+                                <a class="nav-link" href="~/ProjectReports"><i class="fa fa-fw fa-file"></i>Project Reports</a>
+                            </li>
+                            @*<li>
+            <a class="nav-link" href="~/PublicSectorTender"><i class="fa fa-fw fa-tachometer-alt"></i>Public Sector - Tender</a>
+        </li>
+        <li>
+            <a class="nav-link" href="~/PublicSectorNonTender"><i class="fa fa-fw fa-tachometer-alt"></i>Public Sector - Non Tender</a>
+        </li>
+        <li class="nav-divider">
+            History Data
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="~/Tenders/History"><i class="fa fa-fw fa-briefcase"></i>Tender List <span class="badge badge-success">6</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="~/Tenders/History"><i class="fa fa-fw fa-briefcase"></i>Inward Inquiry List <span class="badge badge-success">6</span></a>
+        </li>*@
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end left sidebar -->
+        <!-- ============================================================== -->
+        <div class="dashboard-wrapper">
+            @RenderBody()
+            <hr />
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <div class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            Copyright © 2020 Chelina Capital Cooperation. All rights reserved.
+                        </div>
+                        @*<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="text-md-right footer-links d-none d-sm-block">
+                                    <a href="javascript: void(0);">About</a>
+                                    <a href="javascript: void(0);">Support</a>
+                                    <a href="javascript: void(0);">Contact Us</a>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end footer -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+    <!-- slimscroll js -->
+    <script src="~/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <!-- main js -->
+    <script src="~/assets/libs/js/main-js.js"></script>
+    <!-- chart chartist js -->
+    <script src="~/assets/vendor/charts/chartist-bundle/chartist.min.js"></script>
+    <!-- sparkline js -->
+    <script src="~/assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
+    <!-- morris js -->
+    <script src="~/assets/vendor/charts/morris-bundle/raphael.min.js"></script>
+    <script src="~/assets/vendor/charts/morris-bundle/morris.js"></script>
+    <!-- chart c3 js -->
+    
+
+    <script src="~/assets/libs/js/dataTables.min.js"></script>
+    <script src="~/assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/assets/vendor/datatables/js/data-table.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/js/printThis.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

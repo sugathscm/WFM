@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using WFM.DAL;
 
@@ -144,6 +141,18 @@ namespace WFM.BAL.ViewModels
         public int MktStatus { get; set; }
         public int LegalStatus { get; set; }
         public int FinalStatus { get; set; }
+        public string ExpiaryDateString { get; set; }
+
+        public Nullable<System.DateTime> PreBidMeetingDate { get; set; }
+        public Nullable<System.DateTime> TenderSubmissionDate { get; set; }
+        public Nullable<decimal> BidBondAmount { get; set; }
+        public Nullable<decimal> TenderDocCollectionFee { get; set; }
+        public Nullable<int> TenderExtensionTimes { get; set; }
+        public string PrebidParticipants { get; set; }
+        public string PastBidders { get; set; }
+
+        public int DR {  get; set; }
+
 
     }
 

@@ -2,7 +2,7 @@
 @using WFM.UI.DF.ModelsView
 @using WFM.DAL
 @{
-    ViewBag.Title = "Tender";
+    ViewBag.Title = Html.DisplayFor(m => m.Code);
 }
 
 <div class="dashboard-ecommerce">
@@ -13,13 +13,45 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
+                    <input type="hidden" value="@ViewBag.DaysRemaining" id="DaysRemaining" />
                     @if (Model == null)
                     {
-                        <h2 class="pageheader-title">@ViewBag.Title</h2>
+                        <h4 class="pageheader-title">@ViewBag.Title</h4>
                     }
                     else
                     {
-                        <h3 class="pageheader-title">Project Code - @Html.DisplayFor(m => m.Code)</h3>
+                        <h4 class="@ViewBag.DaysRemainingClass">@Html.DisplayFor(m => m.Code) - @Html.DisplayFor(m => m.Name) (Days Remaining - @ViewBag.DR)</h4>
+                    }
+                    @{
+                        string cssClass = "";
+                        if (Model.CurrentDocumentTabId == 1)
+                        {
+                            cssClass = "Sourcing";
+                        }
+                        else if (Model.CurrentDocumentTabId == 2)
+                        {
+                            cssClass = "RandD";
+                        }
+                        else if (Model.CurrentDocumentTabId == 3)
+                        {
+                            cssClass = "Marketing";
+                        }
+                        else if (Model.CurrentDocumentTabId == 4)
+                        {
+                            cssClass = "PreImp";
+                        }
+                        else if (Model.CurrentDocumentTabId == 5)
+                        {
+                            cssClass = "Implementation";
+                        }
+                        else if (Model.CurrentDocumentTabId == 6)
+                        {
+                            cssClass = "Monitization";
+                        }
+                        else
+                        {
+                            cssClass = "";
+                        }
                     }
                 </div>
             </div>
@@ -28,91 +60,125 @@
         <!-- ============================================================== -->
         @if (Model != null)
         {
-            <div class="border border-primary bg-actual-white">
+            <div class="border border-primary @cssClass">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
                     <div class="row">
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Project Code</label>
-                                <div class="col-lg-12 col-sm-12">
-                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.Code)">
-                                </div>
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Company</label>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Company/Client</label>
                                 <div class="col-lg-12 col-sm-12">
                                     <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_Organization.Name)">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-lg-12 col-sm-12 col-form-label text-small">Sector &amp; Sub Sector</label>
                                 <div class="col-lg-12 col-sm-12">
                                     <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_ProjectSector.Name)-@Html.DisplayFor(m => m.WFM_ProjectSector1.Name)">
                                 </div>
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Value</label>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Published Date</label>
                                 <div class="col-lg-12 col-sm-12">
-                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.LKRValue)">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.strDatePublished)">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Start Date</label>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Pre-Bid Meeting Date</label>
                                 <div class="col-lg-12 col-sm-12">
-                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.StartDate)">
-                                </div>
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Expiary Date</label>
-                                <div class="col-lg-12 col-sm-12">
-                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.ExpiaryDate)">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.strPreBidMeetingDate)">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Last Updated Date</label>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Submission Date</label>
                                 <div class="col-lg-12 col-sm-12">
-                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.CurrentDocumentTabDate)">
-                                </div>
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Last Updated By</label>
-                                <div class="col-lg-12 col-sm-12">
-                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.LastUpdatedBy)">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.strExpiaryDate)">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Name of the opportunity</label>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Doc. Collection Fee</label>
                                 <div class="col-lg-12 col-sm-12">
-                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.Name)">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.strTenderDocCollectionFee)">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Status</label>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Value (LKR)</label>
                                 <div class="col-lg-12 col-sm-12">
-                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_ProjectStatus.Name)">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.strLKRValue)">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Current Tab</label>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Value (USD)</label>
                                 <div class="col-lg-12 col-sm-12">
-                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_DocumentTab.Name)">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.strUSDValue)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Bid Bond Amount</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.BidBondAmount)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Location</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.ProjectLocation)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Foreign or Local</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.ContinentName)">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @*<div class="row">
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                                <div class="form-group row">
+                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Status</label>
+                                    <div class="col-lg-12 col-sm-12">
+                                        <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_ProjectStatus.Name)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                                <div class="form-group row">
+                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Current Tab</label>
+                                    <div class="col-lg-12 col-sm-12">
+                                        <input id="ProjectCode" type="text" class="form-control" disabled value="@Html.DisplayFor(m => m.WFM_DocumentTab.Name)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
                     <div class="row">
                         <div class="col-xl-12 con-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group row">
                                 <label for="ProjectDescription" class="col-lg-12 col-sm-12 col-form-label text-small">Time Line Information</label>
                                 <div class="col-lg-12 col-sm-12">
                                     <div class="progress mb-3" style=" margin-top: 10px!important;">
-                                        <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+                                        <div class="progress-bar daysremaining" role="progressbar" id="lblDaysRemaining" aria-valuenow="@ViewBag.DaysRemaining" aria-valuemin="0" aria-valuemax="100">@ViewBag.DaysRemaining %</div>
                                     </div>
                                 </div>
                             </div>
@@ -139,19 +205,25 @@
                                 <a class="nav-link active" id="sourcing-tab-justify" data-toggle="tab" href="#sourcing-justif" role="tab" aria-controls="sourcing" aria-selected="true">Sourcing Documents</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="randd-tab-justify" data-toggle="tab" href="#randd-justify" role="tab" aria-controls="randd" aria-selected="false">Research and Design/Finance</a>
+                                <a class="nav-link" id="randd-tab-justify" data-toggle="tab" href="#randd-justify" role="tab" aria-controls="randd" aria-selected="false">Research and Design</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="approval-tab-justify" data-toggle="tab" href="#approval-justify" role="tab" aria-controls="approval" aria-selected="false">Approval</a>
-                            </li>
+                            @*<li class="nav-item">
+                                    <a class="nav-link" id="approval-tab-justify" data-toggle="tab" href="#approval-justify" role="tab" aria-controls="approval" aria-selected="false">Approval</a>
+                                </li>*@
                             <li class="nav-item">
                                 <a class="nav-link" id="marketing-tab-justify" data-toggle="tab" href="#marketing-justify" role="tab" aria-controls="marketing" aria-selected="false">Marketing</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="verification-tab-justify" data-toggle="tab" href="#verification-justify" role="tab" aria-controls="verification" aria-selected="false">Verification </a>
+                                <a class="nav-link" id="verification-tab-justify" data-toggle="tab" href="#verification-justify" role="tab" aria-controls="verification" aria-selected="false">Pre-Implementation </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="legal-tab-justify" data-toggle="tab" href="#legal-justify" role="tab" aria-controls="legal" aria-selected="false">Legal</a>
+                                <a class="nav-link" id="legal-tab-justify" data-toggle="tab" href="#legal-justify" role="tab" aria-controls="legal" aria-selected="false">Implementation</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="legal-tab-justify" data-toggle="tab" href="#legal-justify" role="tab" aria-controls="legal" aria-selected="false">Monetization</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="legal-tab-justify" data-toggle="tab" href="#legal-justify" role="tab" aria-controls="legal" aria-selected="false">Closure</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="InwardInquiry">
@@ -173,7 +245,14 @@
                                                                 <input type="file" placeholder="" class="form-control sourcing-file" id="@document.Id" name="@document.Id">
                                                             </div>
                                                             <div class="col-lg-12 col-md-12 col-sm-12" id="sourcingdocs-@document.Id">
-                                                                @Html.Action("DisplayDocuments", "PublicSectorTender", new { projectid = Model.Id, documentid = document.Id })
+                                                                <div class="c-sidebar-brand-full">
+                                                                    <span class="font-3xl font-weight-bolder text-light-red">
+                                                                        @Html.Action("DisplayDocuments", "PublicSectorTender", new { projectid = Model.Id, documentid = document.Id })
+                                                                    </span>
+                                                                    <span class="font-3xl font-weight-normal ml-2">
+                                                                        <a href="#">X</a>
+                                                                    </span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -208,7 +287,8 @@
                                                         <div class="form-group row">
                                                             <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small">@j . @Html.Raw(document.Name)</label>
                                                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                                                <input type="file" required="" placeholder="" class="form-control randd-file" id="@document.Id">
+                                                                @*<input type="file" required="" placeholder="" class="form-control randd-file" id="@document.Id">*@
+                                                                <input type="file" required="" placeholder="" class="form-control randd-file valid" id="@document.Id" wfd-id="id33" aria-describedby="@document.Id-error" aria-invalid="false">
                                                             </div>
                                                             <div class="col-lg-12 col-md-12 col-sm-12" id="randddocs-@document.Id">
                                                                 @Html.Action("DisplayDocuments", "PublicSectorTender", new { projectid = Model.Id, documentid = document.Id })
@@ -448,16 +528,39 @@
 
         }
         <div class="border border-primary bg-actual-white m-t-10">
-
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
                 <div class="row">
                     <div class="col-12">
-                        <h4>Messages</h4>
-                        <div id="messages"></div>
+                        <h4>File Notes</h4>
+                        @{
+                            Html.RenderPartial("_ViewFileNotes", Model.FileNotes);
+                        }
                     </div>
                 </div>
             </div>
         </div>
+        <div class="border border-primary bg-actual-white m-t-10">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Tasks</h4>
+                        @{
+                            Html.RenderPartial("_ViewTasks", Model.Tasks);
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="border border-primary bg-actual-white m-t-10">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>Messages</h4>
+                            <div id="messages"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
     </div>
 </div>
 
@@ -656,10 +759,19 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}       
+}
 
 <script>
     $(document).ready(function () {
+        var dr = $('#DaysRemaining').val();
+        $('.daysremaining').val(dr);
+        var lblStatus = document.getElementById("lblDaysRemaining");
+        lblStatus.style.width = dr + "%";
+
+        if (dr < 50) {
+            lblStatus.className = "progress-bar daysremaining Progress-Critical";
+            //lblStatus.style.backgroundColor = "#FF0000";
+        }
 
         $('#form8BButton').click(function () {
             $('#form8BModal').modal('show');
@@ -801,7 +913,7 @@
                 $('#_PrintForm8B').html(data);
                 $('#PrintForm8BModal').modal('show');
             }
-        })        
+        })
     });
 
 

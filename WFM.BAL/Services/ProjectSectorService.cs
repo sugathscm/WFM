@@ -30,7 +30,7 @@ namespace WFM.BAL.Services
         {
             using (LinkManagementEntities entities = new LinkManagementEntities())
             {
-                return entities.WFM_ProjectSector.Where(s => s.IsActive == true && s.ParentId == 0).ToList();
+                return entities.WFM_ProjectSector.Where(s => s.IsActive == true && s.ParentId == 0).OrderBy(o => o.Name).ToList();
             }
         }
 

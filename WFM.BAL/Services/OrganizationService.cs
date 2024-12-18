@@ -17,7 +17,7 @@ namespace WFM.BAL.Services
         {
             using (LinkManagementEntities entities = new LinkManagementEntities())
             {
-                return entities.WFM_Organization.Where(s => s.IsActive == true).ToList();
+                return entities.WFM_Organization.Where(s => s.IsActive == true).OrderBy(o => o.Name).ToList();
             }
         }
 

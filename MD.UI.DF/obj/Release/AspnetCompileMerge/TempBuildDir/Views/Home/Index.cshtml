@@ -1,0 +1,94 @@
+﻿@using WFM.BAL.ViewModels;
+@using WFM.DAL;
+@{
+    ViewBag.Title = "Home Page";
+}
+<script src="//datatables.net/download/build/nightly/jquery.dataTables.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var table = $('#example').DataTable();
+    });
+</script>
+
+<style>
+    #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #0e0c28;
+            color: white;
+        }
+</style>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Project Dashboard</h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                @*<li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>*@
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            @*<table id="customers">
+                <tr>
+                    <th></th>
+                    @foreach (var data in ViewBag.DataList)
+                    {
+                        foreach (var cell in @data["H"])
+                        {
+                            <th width="11%">@cell</th>
+                        }
+                    }
+                </tr>
+
+
+                @foreach (var type in ViewBag.TypeList)
+                {
+                    <tr>
+                        @foreach (var data in ViewBag.DataList)
+                        {
+                            foreach (var cell in @data[type])
+                            {
+                                <td>@Html.Raw(cell)</td>
+                            }
+                        }
+                    </tr>
+                }
+            </table>*@
+        </div>
+    </div>
+</div>

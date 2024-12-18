@@ -15,6 +15,14 @@ namespace WFM.BAL.Services
     {
         EmailTemplateService emailTemplateService = new EmailTemplateService();
 
+        public List<GetProjectList_Result> GetProjectList(int? StatusId, int? TypeId, int? SectorId, int? OrganizationId, int? StageId, int? Id)
+        {
+            using (LinkManagementEntities entities = new LinkManagementEntities())
+            {
+                return entities.GetProjectList(StatusId, TypeId, SectorId, OrganizationId, StageId, Id).ToList();
+            }
+        }
+
         public List<ProjectViewModel> GetProjects(int projectTypeId)
         {
             Dictionary<string, int> SESMarks = new Dictionary<string, int>(){
@@ -92,6 +100,7 @@ namespace WFM.BAL.Services
                     var MktStatus = 0;// StatusValues("SES", p, SESMarks);
                     var LegalStatus = 0;// StatusValues("SES", p, SESMarks);
                     proj = p;
+                    var dr = (p.ExpiaryDate != null) ? (p.ExpiaryDate - DateTime.Today).Value.Days : 0;
 
                     projectViewList.Add(new ProjectViewModel
                     {
@@ -109,6 +118,7 @@ namespace WFM.BAL.Services
                         //SubSectorName = (p.SubSectorId == null) ? "" : p.WFM_ProjectSector1.Name,
                         SubSectorName = "",
                         ExpiaryDate = (p.ExpiaryDate == null) ? null : p.ExpiaryDate,
+                        ExpiaryDateString = (p.ExpiaryDate == null) ? null : p.ExpiaryDate.Value.ToString("dd-MMM-yyyy"),
                         StartDate = (p.StartDate == null) ? null : p.StartDate,
                         StartDateString = (p.StartDate == null) ? null : p.StartDate.Value.ToString("dd-MMM-yyyy"),
                         ShortDescription = p.ShortDescription,
@@ -127,15 +137,150 @@ namespace WFM.BAL.Services
                         RDStatus = 0,
                         MktStatus = 0,
                         LegalStatus = 0,
-                        FinalStatus = SEStatus
+                        FinalStatus = SEStatus,
+                        DR = (dr < 0) ? 0 : dr,
+                        TenderDocCollectionFee = (p.TenderDocCollectionFee != null) ? p.TenderDocCollectionFee : 0,
+                        CurrentDocumentTabId = p.CurrentDocumentTabId
                     });
                 }
+                return projectViewList.Where(o => o.ProjectTypeName != "").Where(o => o.ProjectTypeName != "<Select>").OrderBy(o => o.Number).OrderBy(p => p.ExpiaryDate).ToList();
 
-                return projectViewList.Where(o => o.ProjectTypeName != "").Where(o => o.ProjectTypeName != "<Select>").OrderBy(o => o.Number).ToList();
             }
             catch (Exception ex)
             {
+                string error = proj.Id + " " + ex.ToString();
+                throw;
+            }
+        }
 
+        public List<ProjectViewModel> GetProjects(int projectTypeId, bool isCurrent)
+        {
+            Dictionary<string, int> SESMarks = new Dictionary<string, int>(){
+                {"Code", 5},
+                {"StartDate", 5},
+                {"ExpiaryDate", 5},
+                {"DivisionId", 1},
+                {"ProjectTypeId", 5},
+                {"SectorId", 5},
+                {"SubSectorId", 5},
+                {"ShortDescription", 5},
+                {"Requirement", 5},
+                {"RDDocsAvailableId", 5},
+                {"OrganizationId", 2},
+                {"ContinentId", 2},
+                {"PriorityId", 2},
+                {"ProjectLocation", 2},
+                {"FileStatusId", 2},
+                {"FileCreatedDate", 2},
+                {"LKRValue", 2},
+                {"USDValue", 2},
+                {"ContactId", 2},
+                {"KeyContactPersonId1", 2},
+                {"KeyContactPersonId2", 2},
+                {"AssigneeId", 2},
+                {"AvailabilityOfNDAId", 2},
+                {"AvailabilityOfMandateId", 2},
+                {"EvaluationScore", 2},
+                {"Rating", 2},
+                {"PriorityAccordingToRating", 2},
+                {"SourceId", 2},
+                {"DatePublished", 2},
+                {"URL", 2},
+                {"ProjectDivisionalStatusId", 2},
+                {"HotPickId", 2},
+                {"Comment", 2},
+            };
+            var proj = new WFM_Project();
+
+            try
+            {
+                var projectList = new List<WFM_Project>();
+                var projectViewList = new List<ProjectViewModel>();
+
+                using (LinkManagementEntities entities = new LinkManagementEntities())
+                {
+                    if (projectTypeId == 0)
+                    {
+                        projectList = entities.WFM_Project
+                            .Include("WFM_ProjectType")
+                            .Include("WFM_Organization")
+                            .Include("WFM_ProjectSector")
+                            .Include("WFM_ProjectSector1")
+                            .Include("WFM_ProjectStatus")
+                            //.Include("WFM_DocumentTab")
+                            .ToList();
+                    }
+                    else
+                    {
+                        projectList = entities.WFM_Project
+                            .Include("WFM_ProjectType")
+                            .Include("WFM_Organization")
+                            .Include("WFM_ProjectSector")
+                            .Include("WFM_ProjectSector1")
+                            .Include("WFM_ProjectStatus")
+                            //.Include("WFM_DocumentTab")
+                            .Where(p => p.ProjectTypeId == projectTypeId).ToList();
+                    }
+                }
+
+                foreach (var p in projectList)
+                {
+                    var SEStatus = StatusValues("SES", p, SESMarks);
+                    var RDStatus = 0;// StatusValues("SES", p, SESMarks);
+                    var MktStatus = 0;// StatusValues("SES", p, SESMarks);
+                    var LegalStatus = 0;// StatusValues("SES", p, SESMarks);
+                    proj = p;
+                    var dr = (p.ExpiaryDate != null) ? (p.ExpiaryDate - DateTime.Today).Value.Days : 0;
+
+                    projectViewList.Add(new ProjectViewModel
+                    {
+                        Number = (p.Number == null) ? 0 : p.Number.Value,
+                        Id = p.Id,
+                        ProjectTypeId = (p.ProjectTypeId == null) ? 0 : p.ProjectTypeId.Value,
+                        Name = p.Name,
+                        ProjectTypeName = (p.ProjectTypeId == null) ? "" : p.WFM_ProjectType.Name,
+                        Code = p.Code.Substring(p.Code.Length - 4, 4) + "\n" + ((p.StatusId == null) ? null : p.WFM_ProjectStatus.Name),
+                        SectorId = (p.SectorId == null) ? 0 : p.SectorId.Value,
+                        SectorName = (p.SectorId == null) ? "" : p.WFM_ProjectSector.Name,
+                        OrganizationId = (p.OrganizationId == null) ? 0 : p.OrganizationId.Value,
+                        OrganizationName = (p.OrganizationId == null) ? "" : p.WFM_Organization.Name,
+                        SubSectorId = (p.SubSectorId == null) ? 0 : p.SubSectorId.Value,
+                        //SubSectorName = (p.SubSectorId == null) ? "" : p.WFM_ProjectSector1.Name,
+                        SubSectorName = "",
+                        ExpiaryDate = (p.ExpiaryDate == null) ? null : p.ExpiaryDate,
+                        ExpiaryDateString = (p.ExpiaryDate == null) ? null : p.ExpiaryDate.Value.ToString("dd-MMM-yyyy"),
+                        StartDate = (p.StartDate == null) ? null : p.StartDate,
+                        StartDateString = (p.StartDate == null) ? null : p.StartDate.Value.ToString("dd-MMM-yyyy"),
+                        ShortDescription = p.ShortDescription,
+                        ////LongDescription = p.LongDescription,
+                        StatusId = p.StatusId,
+                        StatusName = (p.StatusId == null) ? null : p.WFM_ProjectStatus.Name,
+                        ////LKRValue = p.LKRValue.Value.ToString(),
+                        //IsActive = p.IsActive,
+                        ////DateCreated = p.DateCreated.Value,
+                        ////DaysDue = (p.ExpiaryDate.Value - DateTime.Now).Days,
+                        ////DaysInCurrentTab = (DateTime.Now - p.CurrentDocumentTabDate.Value).Days,
+                        ////CurrentDocumentTabDate = p.CurrentDocumentTabDate.Value,
+                        ////CurrentDocumentTabId = p.CurrentDocumentTabId.Value,
+                        ////CurrentDocumentTabName = p.WFM_DocumentTab.Name,
+                        SEStatus = SEStatus,
+                        RDStatus = 0,
+                        MktStatus = 0,
+                        LegalStatus = 0,
+                        FinalStatus = SEStatus,
+                        DR = (dr < 0) ? 0 : dr,
+                        TenderDocCollectionFee = (p.TenderDocCollectionFee != null) ? p.TenderDocCollectionFee : 0,
+                        CurrentDocumentTabId = p.CurrentDocumentTabId
+                    });
+                }
+                //if (isCurrent)
+                //    return projectViewList.Where(o => o.ProjectTypeName != "").Where(o => o.ProjectTypeName != "<Select>" && o.DR > 0).OrderBy(o => o.Number).OrderBy(p => p.ExpiaryDate).ToList();
+                //else
+                //    return projectViewList.Where(o => o.ProjectTypeName != "").Where(o => o.ProjectTypeName != "<Select>" && o.DR == 0).OrderBy(o => o.Number).OrderBy(p => p.ExpiaryDate).ToList();
+                return projectViewList.Where(o => o.ProjectTypeName != "").Where(o => o.ProjectTypeName != "<Select>").OrderBy(o => o.Number).OrderBy(p => p.ExpiaryDate).ToList();
+            }
+            catch (Exception ex)
+            {
                 string error = proj.Id + " " + ex.ToString();
                 throw;
             }
@@ -180,7 +325,7 @@ namespace WFM.BAL.Services
             return (int)percentage;
         }
 
-        public WFM_Project GetProjectById(int projectTypeId, int id)
+        public WFM_Project GetProjectById(int? projectTypeId, int? id)
         {
             using (LinkManagementEntities entities = new LinkManagementEntities())
             {
@@ -213,40 +358,47 @@ namespace WFM.BAL.Services
         public void SaveOrUpdate(WFM_Project project)
         {
             bool isNew = true;
-
-            using (LinkManagementEntities entities = new LinkManagementEntities())
+            try
             {
-                if (project.Id == 0)
+                using (LinkManagementEntities entities = new LinkManagementEntities())
                 {
-                    project.CurrentDocumentTabId = 1;
+                    if (project.Id == 0)
+                    {
+                        project.CurrentDocumentTabId = 1;
 
-                    entities.WFM_Project.Add(project);
-                }
-                else
-                {
-                    isNew = false;
-                    entities.Entry(project).State = System.Data.Entity.EntityState.Modified;
-                }
-                entities.SaveChanges();
+                        entities.WFM_Project.Add(project);
+                    }
+                    else
+                    {
+                        isNew = false;
+                        entities.Entry(project).State = System.Data.Entity.EntityState.Modified;
+                    }
+                    entities.SaveChanges();
 
-                //if (isNew)
-                //{
-                //    WFM_EmailTemplates wFM_EmailTemplate = emailTemplateService.GetEmailTemplateById(1);
-                //    var body = wFM_EmailTemplate.Template.Replace("[CODE]", project.Code).Replace("[NAME]", project.Name).Replace("[SECTOR]", "");
-                //    var message = new MailMessage
-                //    {
-                //        From = new MailAddress(wFM_EmailTemplate.FromEmail)
-                //    };
-                //    string[] ToEmails = wFM_EmailTemplate.ToEmails.Split(',');
-                //    foreach(string email in ToEmails)
-                //    {
-                //        message.To.Add(new MailAddress(email));
-                //    }                    
-                //    message.Subject = wFM_EmailTemplate.Subject.Replace("[Project Code]", project.Code);
-                //    message.Body = string.Format(body);
-                //    EmailHelper.SendEmail(message);
-                //}
+                    //if (isNew)
+                    //{
+                    //    WFM_EmailTemplates wFM_EmailTemplate = emailTemplateService.GetEmailTemplateById(1);
+                    //    var body = wFM_EmailTemplate.Template.Replace("[CODE]", project.Code).Replace("[NAME]", project.Name).Replace("[SECTOR]", "");
+                    //    var message = new MailMessage
+                    //    {
+                    //        From = new MailAddress(wFM_EmailTemplate.FromEmail)
+                    //    };
+                    //    string[] ToEmails = wFM_EmailTemplate.ToEmails.Split(',');
+                    //    foreach(string email in ToEmails)
+                    //    {
+                    //        message.To.Add(new MailAddress(email));
+                    //    }                    
+                    //    message.Subject = wFM_EmailTemplate.Subject.Replace("[Project Code]", project.Code);
+                    //    message.Body = string.Format(body);
+                    //    EmailHelper.SendEmail(message);
+                    //}
+                }
             }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+
         }
 
         public List<GetDashboardData_Result> GetDashboardData()
@@ -264,6 +416,14 @@ namespace WFM.BAL.Services
                 return entities.WFM_Project.Max(p => p.Number).Value;
             }
 
+        }
+
+        public WFM_Project GetProjectByCode(string code)
+        {
+            using (LinkManagementEntities entities = new LinkManagementEntities())
+            {
+                return entities.WFM_Project.Where(p => p.Code.Substring(p.Code.Length-4, 4) == code).SingleOrDefault();
+            }
         }
     }
 }

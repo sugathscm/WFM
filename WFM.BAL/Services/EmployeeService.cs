@@ -23,6 +23,30 @@ namespace WFM.BAL.Services
             }
         }
 
+        public WFM_Employee GetEmployeeByUserId(string userId)
+        {
+            using (LinkManagementEntities entities = new LinkManagementEntities())
+            {
+                return entities.WFM_Employee.Where(s => s.UserId == userId).SingleOrDefault();
+            }
+        }
+
+        public WFM_Employee GetEmployeeByCode(string code)
+        {
+            using (LinkManagementEntities entities = new LinkManagementEntities())
+            {
+                return entities.WFM_Employee.Where(s => s.Code == code).SingleOrDefault();
+            }
+        }
+
+        public List<WFM_Employee> GetEmployeeByIdList(List<int?> idList)
+        {
+            using (LinkManagementEntities entities = new LinkManagementEntities())
+            {
+                return entities.WFM_Employee.Where(s => idList.Contains(s.Id)).ToList();
+            }
+        }
+
         public void SaveOrUpdate(WFM_Employee designation)
         {
             using (LinkManagementEntities entities = new LinkManagementEntities())

@@ -26,6 +26,7 @@ namespace WFM.UI.DF.Controllers
         public PrincipalController()
         {
         }
+
         public PrincipalController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;

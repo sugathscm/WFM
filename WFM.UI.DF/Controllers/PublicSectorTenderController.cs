@@ -11,6 +11,7 @@ using WFM.UI.DF.Models;
 using WFM.BAL.ViewModels;
 using WFM.UI.DF.ModelsView;
 using WFM.BAL.Helpers;
+using WFM.BAL.Enums;
 
 namespace WFM.UI.DF.Controllers
 {
@@ -29,12 +30,18 @@ namespace WFM.UI.DF.Controllers
         private readonly ProjectSectorService projectSectorService = new ProjectSectorService();
         private readonly PublicSectorTenderService publicSectorTenderService = new PublicSectorTenderService();
         private readonly GenericService genericService = new GenericService();
+        private readonly FileNoteService fileNoteService = new FileNoteService();
+        private readonly MeetingService meetingService = new MeetingService();
+        private readonly EmployeeService employeeService = new EmployeeService();
+        private readonly TaskTrackerService taskTrackerService = new TaskTrackerService();
+        private readonly CommonDataService commonDataService = new CommonDataService();
 
         private int projectTypeId = 4;
 
         public PublicSectorTenderController()
         {
         }
+
         public PublicSectorTenderController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
@@ -63,8 +70,8 @@ namespace WFM.UI.DF.Controllers
             //    UserId = new Guid(User.Identity.GetUserId()),
             //    IPAddress = Request.UserHostAddress
             //});
-
-            return View();
+            ProjectTenderViewModel projectTenderViewModel = new ProjectTenderViewModel();
+            return View(projectTenderViewModel);
         }
 
         private void PrepareDashboardProjectList()
@@ -87,9 +94,10 @@ namespace WFM.UI.DF.Controllers
         public ActionResult Details(int? id)
         {
             LoadControls();
+
             if (id != null)
             {
-                var project = projectService.GetProjectById(projectTypeId, id.Value);
+                var project = projectService.GetProjectById(0, id.Value);
                 ViewBag.Principals = principalService.GetPrincipalList();
                 ViewBag.SourcingPartners = sourcingPartnerService.GetSourdingPartnerList();
                 ViewBag.DesignationList = designationService.GetDesignationList();
@@ -97,9 +105,38 @@ namespace WFM.UI.DF.Controllers
                 ViewBag.ProjectSectorList = projectSectorService.GetProjectSectorList();
                 ViewBag.DesignationList = designationService.GetDesignationList();
 
+                double daysRemaining = 0;
+
+                if(project.DatePublished != null)
+                {
+                    double rd = (project.ExpiaryDate - DateTime.Today).Value.Days;
+                    double td = (project.ExpiaryDate - project.StartDate).Value.Days;
+
+                    if(rd > 0)
+                    {
+                        daysRemaining = ((double)(rd / td) * 100);
+                        if (daysRemaining < 50)
+                            ViewBag.DaysRemainingClass = "Progress-Critical-C";
+                        else
+                            ViewBag.DaysRemainingClass = "Progress-Critical-N";
+                    }
+                }
+
+                ViewBag.DaysRemaining = (int)daysRemaining;
+                ViewBag.DR = (project.ExpiaryDate - DateTime.Today).Value.Days;
+
                 ProjectTenderViewModel projectTenderViewModel = new ProjectTenderViewModel();
                 PropertyCopier<WFM_Project, ProjectTenderViewModel>.Copy(project, projectTenderViewModel);
-                
+
+                projectTenderViewModel.strDatePublished = (project.DatePublished != null) ? project.DatePublished.Value.ToString("dd/MM/yyyy") : "";
+                projectTenderViewModel.Code = projectTenderViewModel.Code.Substring(projectTenderViewModel.Code.Length-4, 4);
+                projectTenderViewModel.strExpiaryDate = (project.ExpiaryDate != null) ? project.ExpiaryDate.Value.ToString("dd/MM/yyyy") : "";
+                projectTenderViewModel.strPreBidMeetingDate = (project.PreBidMeetingDate != null) ? project.PreBidMeetingDate.Value.ToString("dd/MM/yyyy") : "";
+                projectTenderViewModel.strTenderDocCollectionFee = (project.TenderDocCollectionFee != null) ? project.TenderDocCollectionFee.Value.ToString("#,###,###.00") : "";
+                projectTenderViewModel.strLKRValue = (project.LKRValue != null) ? project.LKRValue.Value.ToString("#,###,###.00") : "";
+                projectTenderViewModel.strUSDValue = (project.USDValue != null) ? project.USDValue.Value.ToString("#,###,###.00") : "";
+                projectTenderViewModel.ContinentName = (project.ContinentId != null) ? commonDataService.GetCommonData((int)CommonDataType.Continent).Where(p => p.Id == project.ContinentId).FirstOrDefault().Name : "";
+
                 WFM_Form8B wFM_Form8B = genericService.GetList<WFM_Form8B>().Where(f => f.ProjectId == id).FirstOrDefault();
                 if(wFM_Form8B == null)
                 {
@@ -131,6 +168,58 @@ namespace WFM.UI.DF.Controllers
                     projectTenderViewModel.Form12ViewModel = form12ViewModel;
                     projectTenderViewModel.Form12Generated = true;
                 }
+
+                List<WFM_FileNote> list = fileNoteService.GetFileNoteList().Where(p => p.ProjectId == id).ToList();
+
+                List<FileNoteViewModel> fileNoteList = new List<FileNoteViewModel>();
+
+                foreach (WFM_FileNote fileNote in list)
+                {
+
+
+                    var projectCode = string.Empty;
+                    try
+                    {
+                        projectCode = projectService.GetProjectById(project.ProjectTypeId, fileNote.ProjectId.Value).Code;
+                        projectCode = projectCode.Substring(projectCode.Length - 4);
+                    }
+                    catch (Exception)
+                    {
+                        projectCode = "";
+                    }
+
+                    var meetingName = string.Empty;
+                    try
+                    {
+                        meetingName = meetingService.GetMeetingById(fileNote.MeetingId).Name;
+                    }
+                    catch (Exception)
+                    {
+                        meetingName = "";
+                    }
+
+                    fileNoteList.Add(new FileNoteViewModel
+                    {
+                        Id = fileNote.Id,
+                        Date = fileNote.Date,
+                        MeetingId = fileNote.MeetingId,
+                        ProjectId = fileNote.ProjectId,
+                        NoteGivenBy = fileNote.NoteGivenBy,
+                        NoteTakenBy = fileNote.NoteTakenBy,
+                        Note = fileNote.Note,
+                        DateString = fileNote.Date.Value.ToString("dd/mm/yyyy"),
+                        ProjectName = projectCode,
+                        MeetingName = meetingName,
+                        NoteTakenByName = employeeService.GetEmployeeById(fileNote.NoteTakenBy).Name,
+                        NoteGivenByName = employeeService.GetEmployeeById(fileNote.NoteGivenBy).Name,
+                    });
+                }
+
+                projectTenderViewModel.FileNotes = fileNoteList;
+
+                var tasks = taskTrackerService.GetTaskList(null, id, null, null, null, null);
+
+                projectTenderViewModel.Tasks = tasks;
 
                 return View(projectTenderViewModel);
             }
@@ -224,7 +313,9 @@ namespace WFM.UI.DF.Controllers
                 foreach (var file in fileInfoList)
                 {
                     string filename = Path.GetFileName(file);
-                    docs.Add(new TenderDocumnet() { DocumentPath = "../../Docs/" + projectid + "/" + documentid + "/" + filename, Name = filename });
+                    string extension = Path.GetExtension(file);
+                    var displayFilename = (filename.Length > 31) ? filename.Substring(0, 30) : filename;
+                    docs.Add(new TenderDocumnet() { DocumentPath = "../../Docs/" + projectid + "/" + documentid + "/" + filename, Name = displayFilename + "..."+ extension });
                 }
             }
 
@@ -247,7 +338,9 @@ namespace WFM.UI.DF.Controllers
                     foreach (var file in fileInfoList)
                     {
                         string filename = Path.GetFileName(file);
-                        docs.Add(new TenderDocumnet() { DocumentPath = "../../Docs/" + projectid + "/" + document.Id + "/" + filename, Name = filename });
+                        string extension = Path.GetExtension(file);
+                        var displayFilename = (filename.Length > 31) ? filename.Substring(0, 30) : filename;
+                        docs.Add(new TenderDocumnet() { DocumentPath = "../../Docs/" + projectid + "/" + document.Id + "/" + filename, Name = displayFilename + "..." + extension });
                     }
                 }
             }

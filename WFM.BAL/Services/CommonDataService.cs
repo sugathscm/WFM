@@ -16,5 +16,22 @@ namespace WFM.BAL.Services
                 return entities.WFM_CommonData.Where(o => o.Type == type).OrderBy(o => o.DisplayOrder).ToList();
             }
         }
+
+        public WFM_CommonData GetCommonDataById(int? id)
+        {
+            using (LinkManagementEntities entities = new LinkManagementEntities())
+            {
+                return entities.WFM_CommonData.Where(o => o.Id == id).SingleOrDefault();
+            }
+        }
+
+        public WFM_CommonData GetCommonDataByName(string name)
+        {
+            using (LinkManagementEntities entities = new LinkManagementEntities())
+            {
+                return entities.WFM_CommonData.Where(o => o.Name == name).SingleOrDefault();
+            }
+        }
+
     }
 }
