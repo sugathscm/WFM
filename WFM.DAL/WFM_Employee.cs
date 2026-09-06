@@ -15,7 +15,8 @@ namespace WFM.DAL
     public partial class WFM_Employee
     {
         public int Id { get; set; }
-        public string Title { get; set; }
+        public int Title { get; set; }
+        public int TitleId { get; set; }
         public string Name { get; set; }
         public string Mobile { get; set; }
         public string FixedLine { get; set; }

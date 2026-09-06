@@ -67,15 +67,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ResourceData.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\BidNoBidDecisionService.cs" />
     <Compile Include="Services\CommonDataService.cs" />
+    <Compile Include="Services\ConfigurationService.cs" />
+    <Compile Include="Services\QAScoreService.cs" />
+    <Compile Include="Services\GateControlService.cs" />
+    <Compile Include="Services\ProposalOutcomeService.cs" />
+    <Compile Include="Services\RecommendStatusService.cs" />
+    <Compile Include="Services\BidRecommendationService.cs" />
     <Compile Include="Services\CommonService.cs" />
     <Compile Include="Services\ContactService.cs" />
     <Compile Include="Services\CountryService.cs" />
+    <Compile Include="Services\Title.cs" />
     <Compile Include="Services\DesignationService.cs" />
     <Compile Include="Services\MDMinistryService.cs" />
     <Compile Include="Services\MeetingNoteService.cs" />
     <Compile Include="Services\FileNoteService.cs" />
     <Compile Include="Services\MeetingService.cs" />
+    <Compile Include="Services\MDMemberService.cs" />
     <Compile Include="Services\ProjectStageService.cs" />
     <Compile Include="Services\TaskTrackerCategoryService.cs" />
     <Compile Include="Services\TaskTypeService.cs" />

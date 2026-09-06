@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.UI.WebControls;
 using WFM.BAL.Enums;
 using WFM.BAL.Helpers;
 using WFM.BAL.Services;
@@ -35,6 +36,7 @@ namespace WFM.UI.DF.Controllers
         private readonly EmployeeService employeeService = new EmployeeService();
         private readonly TaskTypeService taskTypeService = new TaskTypeService();
         private readonly TaskTrackerCategoryService taskTrackerCategoryService = new TaskTrackerCategoryService();
+        private readonly DivisionService divideService = new DivisionService();
 
         // GET: TaskTracker
         public TaskTrackerController()
@@ -64,7 +66,7 @@ namespace WFM.UI.DF.Controllers
             var clientDate = CommonService.GetClientDate(Request);
             ViewBag.ProjectList = projectService.GetProjects(0);
             ViewBag.PriorityList = commonDataService.GetCommonData((int)CommonDataType.Priority);
-            ViewBag.MeetingList = meetingService.GetMeetingList(null,null,null,null,null);
+            ViewBag.MeetingList = meetingService.GetMeetingList(null, null, null, null, null);
             ViewBag.EmployeeList = employeeService.GetEmployeeList();
             ViewBag.TaskTypeList = taskTypeService.GetTaskTypeList();
             ViewBag.TaskTrackerCategoryList = taskTrackerCategoryService.GetTaskTrackerCategoryList();
@@ -78,12 +80,14 @@ namespace WFM.UI.DF.Controllers
             ViewBag.Id = id;
 
             var taskViewModel = new TaskTrackerViewModel();
+            var employeeList = employeeService.GetEmployeeList().ToList();
+
             ViewBag.ProjectList = projectService.GetProjects(0);
             ViewBag.PriorityList = commonDataService.GetCommonData((int)CommonDataType.Priority);
-            ViewBag.MeetingList = meetingService.GetMeetingList(null,null,null,null,null);
-            ViewBag.EmployeeList = employeeService.GetEmployeeList();
+            ViewBag.MeetingList = meetingService.GetMeetingList(null, null, null, null, null);
+            ViewBag.EmployeeList = employeeList;
             ViewBag.TaskTypeList = taskTypeService.GetTaskTypeList();
-            ViewBag.TaskTrackerCategoryList = taskTrackerCategoryService.GetTaskTrackerCategoryList();
+            ViewBag.TaskTrackerCategoryList = divideService.GetDivisionList();
 
             List<SelectListItem> StatusList = new List<SelectListItem>();
             StatusList.Add(new SelectListItem() { Text = "Not Started", Value = "1" });
@@ -118,8 +122,8 @@ namespace WFM.UI.DF.Controllers
 
             if (id != null)
             {
-                var task = taskTrackerService.GetTaskById(id);
-                //var task = taskTrackerService.GetTaskList(null, null, null, null, null, id).FirstOrDefault();
+                //var task = taskTrackerService.GetTaskById(id);
+                var task = taskTrackerService.GetTaskList(null, null, null, null, null, id).FirstOrDefault();
                 taskViewModel = new TaskTrackerViewModel()
                 {
                     ProjectId = task.ProjectId,
@@ -127,7 +131,9 @@ namespace WFM.UI.DF.Controllers
                     MeetingId = task.MeetingId,
                     DateOfMeeting = task.DateOfMeeting,
                     TaskDescription = task.TaskDescription,
+                    TaskDescriptionDB = task.TaskDescriptionDB,
                     CurrentProgressNote = task.CurrentProgressNote,
+                    CurrentProgressNoteView = task.CurrentProgressNoteView,
                     AddToAgenda = task.AddToAgenda,
                     PriorityId = task.PriorityId,
                     AuthorityId = task.AuthorityId,
@@ -141,12 +147,12 @@ namespace WFM.UI.DF.Controllers
                     TaskTypeId = task.TaskTypeId,
                     StatusId = task.StatusId,
                     TaskTrackerCategoryId = task.TaskTrackerCategoryId,
-                    AssigneeIds = "",//task.AssigneeIds,
-                    Assignees = "",//task.Assignees,
-                    ScheduleDate = task.ScheduleDate,
+                    AssigneeIdList = (task.AssigneeIds != null)?task.AssigneeIds.Select(x => (int?)x).ToList():null,
+                    Assignees = task.Assignees,
+                    ScheduleDate = task.scheduleDate,
                     ScheduleTimeHrs = (task.ScheduleTime != null) ? task.ScheduleTime.Value.Hour : 0,
                     ScheduleTimeMins = (task.ScheduleTime != null) ? task.ScheduleTime.Value.Minute : 0,
-                    NoOfHrs = task.NoOfHrs,
+                    NoOfHrs = task.NoofHrs,
                 };
 
                 List<TaskTrackerDocument> docs = new List<TaskTrackerDocument>();
@@ -181,7 +187,7 @@ namespace WFM.UI.DF.Controllers
             var taskViewModel = new TaskTrackerViewModel();
             ViewBag.ProjectList = projectService.GetProjects(0);
             ViewBag.PriorityList = commonDataService.GetCommonData((int)CommonDataType.Priority);
-            ViewBag.MeetingList = meetingService.GetMeetingList(null,null,null,null,null);
+            ViewBag.MeetingList = meetingService.GetMeetingList(null, null, null, null, null);
             ViewBag.EmployeeList = employeeService.GetEmployeeList();
             ViewBag.TaskTypeList = taskTypeService.GetTaskTypeList();
             ViewBag.TaskTrackerCategoryList = taskTrackerCategoryService.GetTaskTrackerCategoryList();
@@ -368,7 +374,7 @@ namespace WFM.UI.DF.Controllers
                 for (int i = 0; i < 7; i++)
                 {
                     DateTime dateTime = DateTime.Parse(FromDate).AddDays(i);
-                    
+
                     if (dateTime == today.Date)
                     {
                         sbTable.Append("<td style=\"width:14%!important\" class='today'>" + DateTime.Parse(FromDate).AddDays(i).ToString("dd/MM/yyyy")
@@ -416,7 +422,6 @@ namespace WFM.UI.DF.Controllers
 
                 sbTable.Append("</table>");
             }
-
 
             return PartialView("~/Views/TaskTracker/ScheduleDate.cshtml", sbTable.ToString());
         }
@@ -473,7 +478,7 @@ namespace WFM.UI.DF.Controllers
                                 //MeetingTypeId = model.MeetingTypeId,
                                 AddToAgendaMeetingId = model.AddToAgendaMeetingId,
                                 DateOfMeeting = model.DateOfMeeting,
-                                TaskDescription = "[RT]-" + model.TaskDescription,
+                                TaskDescription = "[RT]-" + model.TaskDescriptionDB,
                                 CurrentProgressNote = model.CurrentProgressNote,
                                 PriorityId = model.PriorityId,
                                 AuthorityId = model.AuthorityId,
@@ -513,7 +518,7 @@ namespace WFM.UI.DF.Controllers
                             MeetingId = model.MeetingId,
                             AddToAgendaMeetingId = model.AddToAgendaMeetingId,
                             DateOfMeeting = model.DateOfMeeting,
-                            TaskDescription = model.TaskDescription,
+                            TaskDescription = model.TaskDescriptionDB,
                             CurrentProgressNote = model.CurrentProgressNote,
                             PriorityId = model.PriorityId,
                             AuthorityId = model.AuthorityId,
@@ -542,7 +547,7 @@ namespace WFM.UI.DF.Controllers
                 else
                 {
                     if (model.ScheduleDate != null)
-                        scheduleTime = Convert.ToDateTime(model.ScheduleDate.Value.ToString("MM/dd/yyyy") + " " + model.ScheduleTimeHrs + ":" + model.ScheduleTimeMins + ":00");
+                        scheduleTime = Convert.ToDateTime(model.ScheduleDate.Value.ToString("MM/dd/yyyy"));
                     else
                         scheduleTime = null;
 
@@ -552,7 +557,7 @@ namespace WFM.UI.DF.Controllers
                     taskTracker.ProjectCode = model.ProjectCode;
                     taskTracker.MeetingId = model.MeetingId;
                     taskTracker.DateOfMeeting = model.DateOfMeeting;
-                    taskTracker.TaskDescription = model.TaskDescription;
+                    taskTracker.TaskDescription = model.TaskDescriptionDB;
                     taskTracker.CurrentProgressNote = model.CurrentProgressNote;
                     taskTracker.AddToAgendaMeetingId = model.AddToAgendaMeetingId;
                     taskTracker.PriorityId = model.PriorityId;
@@ -582,7 +587,7 @@ namespace WFM.UI.DF.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Message"] = "<span id='flash-error'>Error.</span>" + ex.InnerException;
+                TempData["Message"] = "<span id='flash-error'>Error.</span>" + ex.Message;
             }
 
 
@@ -636,7 +641,7 @@ namespace WFM.UI.DF.Controllers
                     "</tr>";
                 body += "<tr>" +
                     "<th style='padding:5px'>Category</th>" +
-                    "<td style='padding:5px'>" + ((taskTracker.TaskTrackerCategoryId == null) ? "" : taskTrackerCategoryService.GetTaskTrackerCategoryById(taskTracker.TaskTrackerCategoryId).Name) + "</td>" +
+                    "<td style='padding:5px'>" + ((taskTracker.TaskTrackerCategoryId == null) ? "" : divideService.GetDivisionById(taskTracker.TaskTrackerCategoryId).Name) + "</td>" +
                     "</tr>";
                 body += "<tr>" +
                     "<th style='padding:5px'>Priority</th>" +
@@ -690,7 +695,7 @@ namespace WFM.UI.DF.Controllers
                             CommonService.SendEmail(smtpSection,
                                 employee.Email,
                                 ccList,
-                                "sugath.office@gmail.com",
+                                "info@emlconsultants.com",
                                 "TTS-" + taskTracker.Id.ToString("0000") + " ~ [" + status + "] : " + taskTracker.TaskDescription,
                                 body);
                     }
@@ -771,7 +776,7 @@ namespace WFM.UI.DF.Controllers
             DataTable dtSheet1 = new DataTable();
             string message = null;
 
-            string invoiceNo = null;
+            string taskDescription = null;
 
             try
             {
@@ -813,6 +818,8 @@ namespace WFM.UI.DF.Controllers
                         List<WFM_TaskTracker> taskTrackerList = new List<WFM_TaskTracker>();
                         DateTime? scheduleTime = null;
                         DateTime? scheduleDate = null;
+                        DateTime? assignDate = null;
+                        DateTime? dueDate = null;
                         var clientDate = CommonService.GetClientDate(Request);
 
                         int? projectId = null;
@@ -821,12 +828,13 @@ namespace WFM.UI.DF.Controllers
                         int? priorityId = null;
                         int? authorityId = null;
                         int? typeId = null;
+                        int? noOfDays = null;
 
                         foreach (DataRow dr in dtSheet1.Rows)
                         {
                             try
                             {
-                                scheduleTime = Convert.ToDateTime(dr["ScheduleDate"].ToString()).AddHours(int.Parse(dr["ScheduleTimeHrs"].ToString()));// + " " +  + ":" + dr["ScheduleTimeMins"].ToString() + ":00");
+                                scheduleTime = null; // Convert.ToDateTime(dr["ScheduleDate"].ToString());//.AddHours(int.Parse(dr["ScheduleTimeHrs"].ToString()));// + " " +  + ":" + dr["ScheduleTimeMins"].ToString() + ":00");
                             }
                             catch (Exception)
                             {
@@ -835,12 +843,50 @@ namespace WFM.UI.DF.Controllers
 
                             try
                             {
+                                assignDate = Convert.ToDateTime(dr["DateOfAssignment"].ToString());
+                            }
+                            catch (Exception)
+                            {
+                                assignDate = null;
+                            }
+
+                            try
+                            {
                                 scheduleDate = Convert.ToDateTime(dr["ScheduleDate"].ToString());
                             }
                             catch (Exception)
                             {
-
                                 scheduleDate = null;
+                            }
+
+                            try
+                            {
+                                dueDate = Convert.ToDateTime(dr["DueDate"].ToString());
+                            }
+                            catch (Exception)
+                            {
+                                dueDate = null;
+                            }
+
+                            try
+                            {
+                                noOfDays = int.Parse(dr["NoOfDays"].ToString());
+                            }
+                            catch (Exception)
+                            {
+                                noOfDays = null;
+                            }
+
+                            try
+                            {
+                                if (string.IsNullOrEmpty(dueDate?.ToString()))
+                                {
+                                    dueDate = scheduleDate.Value.AddDays(noOfDays.Value);
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                dueDate = null;
                             }
 
                             try
@@ -864,7 +910,7 @@ namespace WFM.UI.DF.Controllers
 
                             try
                             {
-                                categoryId = taskTrackerCategoryService.GetTaskTrackerCategoryByName(dr["BU"].ToString()).Id;
+                                categoryId = divideService.GetDivisionByName(dr["Division"].ToString()).Id;
                             }
                             catch (Exception)
                             {
@@ -882,7 +928,7 @@ namespace WFM.UI.DF.Controllers
 
                             try
                             {
-                                authorityId = employeeService.GetEmployeeByCode(dr["Authority"].ToString()).Id;
+                                authorityId = employeeService.GetEmployeeByCode(dr["AuthorityEmployeeCode"].ToString()).Id;
                             }
                             catch (Exception)
                             {
@@ -898,54 +944,65 @@ namespace WFM.UI.DF.Controllers
                                 typeId = null;
                             }
 
-                            taskTracker = new WFM_TaskTracker
+                            taskDescription = dr["Description"].ToString();
+
+                            if(!string.IsNullOrEmpty(taskDescription))
                             {
-                                ProjectId = projectId,
-                                ProjectCode = null, //dr["ProjectCode"].ToString(),
-                                MeetingId = meetingId,
-                                AddToAgendaMeetingId = null,
-                                DateOfMeeting = Convert.ToDateTime(dr["DateOfMeeting"].ToString()),
-                                TaskDescription = dr["Description"].ToString(),
-                                CurrentProgressNote = "",
-                                PriorityId = priorityId,
-                                AuthorityId = authorityId,
-                                AssigneeId = null,
-                                DateOfAssignment = Convert.ToDateTime(dr["DateOfAssignment"].ToString()),
-                                DueDate = Convert.ToDateTime(dr["DueDate"].ToString()),
-                                StatusId = 1,
-                                CreatedBy = userId,
-                                CreatedDate = clientDate,
-                                TaskTypeId = typeId,
-                                TaskTrackerCategoryId = categoryId,
-                                ScheduleDate = scheduleDate,
-                                ScheduleTime = scheduleTime,
-                                NoOfHrs = dr["NoOfHrs"].ToString(),
-                                ActuallyStartedDate = null
-                            };
-
-                            taskTrackerService.SaveOrUpdate(taskTracker);
-
-                            foreach (var assignee in dr["Assignees"].ToString().Split(','))
-                            {
-                                int assigneeId = employeeService.GetEmployeeByCode(assignee).Id;
-
-                                taskTrackerService.SaveOrUpdate(new WFM_TaskTrackerAssignee()
+                                taskTracker = new WFM_TaskTracker
                                 {
-                                    TaskTrackerId = taskTracker.Id,
-                                    EmployeeId = assigneeId
-                                });
+                                    ProjectId = projectId,
+                                    ProjectCode = null, //dr["ProjectCode"].ToString(),
+                                    MeetingId = meetingId,
+                                    AddToAgendaMeetingId = null,
+                                    DateOfMeeting = null, //Convert.ToDateTime(dr["DateOfMeeting"].ToString()),
+                                    TaskDescription = dr["Description"].ToString(),
+                                    CurrentProgressNote = "",
+                                    PriorityId = priorityId,
+                                    AuthorityId = authorityId,
+                                    AssigneeId = null,
+                                    DateOfAssignment = assignDate,
+                                    DueDate = dueDate,
+                                    StatusId = 1,
+                                    CreatedBy = userId,
+                                    CreatedDate = clientDate,
+                                    TaskTypeId = typeId,
+                                    TaskTrackerCategoryId = categoryId,
+                                    ScheduleDate = scheduleDate,
+                                    ScheduleTime = scheduleTime,
+                                    NoOfHrs = null, //dr["NoOfHrs"].ToString(),
+                                    ActuallyStartedDate = null
+                                };//
+
+                                taskTrackerService.SaveOrUpdate(taskTracker);
+
+                                foreach (var assignee in dr["AssigneesEmployeeCodes"].ToString().Split(','))
+                                {
+                                    try
+                                    {
+                                        int assigneeId = employeeService.GetEmployeeByCode(assignee).Id;
+
+                                        taskTrackerService.SaveOrUpdate(new WFM_TaskTrackerAssignee()
+                                        {
+                                            TaskTrackerId = taskTracker.Id,
+                                            EmployeeId = assigneeId
+                                        });
+                                    }
+                                    catch (Exception)
+                                    {
+                                    }
+                                }
+                                //UpdateTaskDetails(taskTracker, model, smtpSection, userName);
                             }
-                            //UpdateTaskDetails(taskTracker, model, smtpSection, userName);
                         }
                     }
                     catch (Exception ex)
                     {
-                        message += string.Format("\n{0}-{2}-Error: {1}", file.FileName, ex.InnerException, invoiceNo);
+                        message += string.Format("\n{0}-{2}-Error: {1}", file.FileName, ex.InnerException, taskDescription);
                     }
                 }
 
                 //message = "File Imported Successfully";
-
+                //Request.Files.
                 return Json(new { Status = 1, Message = message });
             }
             catch (Exception ex)
@@ -953,6 +1010,5 @@ namespace WFM.UI.DF.Controllers
                 return Json(new { Status = 0, Message = ex.Message });
             }
         }
-
     }
 }

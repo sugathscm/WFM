@@ -169,10 +169,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountUserController.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\MinistryController.cs" />
+    <Compile Include="Controllers\RelationshipController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -207,7 +210,9 @@
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\FileNoteViewModel.cs" />
     <Compile Include="ModelsView\MeetingViewModel.cs" />
+    <Compile Include="Models\MemberViewModel.cs" />
     <Compile Include="Models\MinistryViewModels.cs" />
+    <Compile Include="Models\RelationshipViewModels.cs" />
     <Compile Include="Models\TenderDocumnet.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -786,6 +791,10 @@
     <Content Include="Scripts\jquery-3.7.1.min.map" />
     <Content Include="Views\Home\Email.cshtml" />
     <Content Include="Views\Ministry\View.cshtml" />
+    <Content Include="Views\Administration\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdministration.cshtml" />
+    <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Relationship\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -796,7 +805,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\Member\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

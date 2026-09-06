@@ -15,8 +15,9 @@
                 "datatype": "json"
             },
             "columns": [
-                { "data": "Title" },
+                { "data": "TitleName" },
                 { "data": "Name" },
+                { "data": "Code" },
                 { "data": "Mobile" },
                 { "data": "Email" },
                 { "data": "FixedLine" },
@@ -61,21 +62,17 @@
                     @Html.ValidationSummary("", new { @class = "text-danger" })
                     @Html.HiddenFor(m => m.Id, new { @name = "Id" })
                     <div class="form-row">
-                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 ">
-                            @Html.LabelFor(m => m.Title, new { @class = "control-label" })
-                            @Html.DropDownList("Title", new List<SelectListItem>
-                            {
-                            new SelectListItem{ Text="Mr.", Value = "Mr." },
-                            new SelectListItem{ Text="Ms.", Value = "Ms." },
-                            new SelectListItem{ Text="Mrs.", Value = "Mrs." },
-                            new SelectListItem{ Text="Miss.", Value = "Miss." },
-                            new SelectListItem{ Text="Dr.", Value = "Dr." },
-                            new SelectListItem{ Text="Rev.", Value = "Rev." }
-                            }, "Title", new { @class = "form-control" })
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 ">
+                            <label class="control-label" for="Title">Title</label>
+                            @Html.DropDownListFor(m => m.TitleId, new SelectList(ViewBag.TitleList, "Id", "Name"), "Select Title", new { @class = "form-control form-select" })
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
                             @Html.LabelFor(m => m.Name, new { @class = "control-label" })
                             @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                        </div>
+                        <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-12 ">
+                            @Html.LabelFor(m => m.Code, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
                             <label class="control-label" for="Designation">Designation</label>
@@ -118,6 +115,7 @@
                             <tr>
                                 <th>Title</th>
                                 <th>Name</th>
+                                <th>Code</th>
                                 <th>Mobile</th>
                                 <th>Email</th>
                                 <th>Fixed Line</th>
@@ -140,7 +138,7 @@
             selectOnClose: true
         });
 
-        $('#Title').select2({
+        $('#TitleId').select2({
             selectOnClose: true
         });
     </script>

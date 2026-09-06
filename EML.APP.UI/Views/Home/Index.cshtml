@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="card">
+    <div class="card-header text-center">
+        <a href="~/Home">
+            <img class="logo-img" src="~/assets/images/logo.png" alt="logo" width="100">
+        </a>
+    </div>
+    <br />
+    <div class="text-center row">
+        <div class="col-lg-3">
+        </div>
+        <div class="col-lg-6">
+            <a role="button" target="_blank" href="https://ruwnan-001-site3.stempurl.com" class="btn btn-primary btn-lg btn-block wfm" style="font-size:1.5rem!important">WORK FLOW MANAGEMENT</a>
+            <br />
+            <br />
+            <a role="button" target="_blank" href="https://ruwnan-001-site18.stempurl.com" class="btn btn-success btn-lg btn-block" style="font-size:1.5rem!important">RELATIONSHIP MANAGEMENT</a>
+            @*<br />
+                <a role="button" target="_blank" href="https://prm.emlconsultants.com/" class="btn btn-warning btn-lg btn-block disabled" style="font-size:1.5rem!important">RESOURCE MANAGEMENT</a>*@
+            <br />
+            <br />
+        </div>
+        <div class="col-lg-3">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('.wfm').on('click', function () {
+        @Url.Action("Workflow", "Home");
+    });
+
+});
+
+
+</script>

@@ -119,38 +119,80 @@
                                             <a class="nav-link" href="~/TaskTracker"><i class="fa fa-fw fa-tasks"></i>Task List</a>
                                         </li>
                                         <li>
-                                            <a class="nav-link" href="~/TaskTracker/details"><i class="fa fa-fw fa-file"></i>New Task</a>
+                                            <a class="nav-link" href="~/TaskTracker/Details"><i class="fa fa-fw fa-file"></i>New Task</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            @*<li class="nav-item ">
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#meetings" aria-controls="meetings"><i class="fa fa-fw fa-users"></i>Meeting Management <span class="badge badge-success">6</span></a>
+                                    <div id="meetings" class="collapse submenu" style="">
+                                        <ul class="nav flex-column">
+                                            <li>
+                                                <a class="nav-link" href="~/Meeting"><i class="fa fa-fw fa-users"></i>Meeting List</a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="~/Meeting/Details"><i class="fa fa-fw fa-file"></i>New Meeting</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>*@
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#Opportunity" aria-controls="Opportunity"><i class="fa fa-fw fa-briefcase"></i>Opportunity Management <span class="badge badge-success">6</span></a>
+                                <div id="Opportunity" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li>
+                                            <a class="nav-link" href="~/Opportunity"><i class="fa fa-fw fa-briefcase"></i>Opportunity List</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/Opportunity/Details"><i class="fa fa-fw fa-briefcase-medical"></i>New Opportunity</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/BidNoBid"><i class="fa fa-fw fa-clipboard-check"></i>Bid / No-Bid List</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/QAScore"><i class="fa fa-fw fa-clipboard-list"></i>QA Score List</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/GateControl"><i class="fa fa-fw fa-door-open"></i>Gate Control List</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/BidRecommendation"><i class="fa fa-fw fa-thumbs-up"></i>Bid Recommendation List</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#meetings" aria-controls="meetings"><i class="fa fa-fw fa-users"></i>Meeting Management <span class="badge badge-success">6</span></a>
-                                <div id="meetings" class="collapse submenu" style="">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#Proposal" aria-controls="Proposal"><i class="fa fa-fw fa-briefcase"></i>Proposal Management <span class="badge badge-success">6</span></a>
+                                <div id="Proposal" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li>
-                                            <a class="nav-link" href="~/Meeting"><i class="fa fa-fw fa-users"></i>Meeting List</a>
+                                            <a class="nav-link" href="~/Proposal"><i class="fa fa-fw fa-briefcase"></i>Proposal List</a>
                                         </li>
                                         <li>
-                                            <a class="nav-link" href="~/Meeting/details"><i class="fa fa-fw fa-file"></i>New Meeting</a>
+                                            <a class="nav-link" href="~/AlertEngine"><i class="fa fa-fw fa-bell"></i>Deadline Alert Engine</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/WinLossDashboard"><i class="fa fa-fw fa-chart-pie"></i>Win / Loss Dashboard</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" href="~/ProposalAnalysis"><i class="fa fa-fw fa-chart-bar"></i>Analysis</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#Project" aria-controls="Project"><i class="fa fa-fw fa-briefcase"></i>Project Management <span class="badge badge-success">6</span></a>
+                                <div id="Project" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li>
+                                            <a class="nav-link" href="~/Project"><i class="fa fa-fw fa-briefcase"></i>Project List</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
 
-                            <li class="nav-item ">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#projects" aria-controls="projects"><i class="fa fa-fw fa-briefcase"></i>Project Management <span class="badge badge-success">6</span></a>
-                                <div id="projects" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li>
-                                            <a class="nav-link" href="~/Sourcing"><i class="fa fa-fw fa-briefcase"></i>Project List</a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" href="~/Sourcing/details"><i class="fa fa-fw fa-briefcase-medical"></i>New Project</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+
                             @*<li class="nav-item">
                                     <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#project-types" aria-controls="project-types">
                                         <i class="fa fa-fw fa-folder-open"></i>Project Types <span class="badge badge-success">6</span>
@@ -198,65 +240,77 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="nav-divider">
-                                Administration
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa-solid fa-user-tie"></i>Administration <span class="badge badge-success">6</span></a>
-                                <div id="submenu-1" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/LoginAudit">Login Audit</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/DataAudit">Data Audit</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#master" aria-controls="master"><i class="fa fa-fw fa-folder-open"></i>Master Files <span class="badge badge-success">6</span></a>
-                                <div id="master" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/Contact">Contact Management</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/Country">Country Management</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/Organization">Organization Management</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/Designation">Designation Management</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/Division">Division Management</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/Employee">Employee Management</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/MeetingType">Meeting Type Management</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/Principal">Principal Management</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/ProjectSector">Project Sector Management</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/SourcingPartner">Sourcing Partner Management</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/VCP">VCP</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="~/AccountUser">User Management</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+
+                            @{
+                                if (User.IsInRole("Administrator"))
+                                {
+                                    <li class="nav-item ">
+                                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#master" aria-controls="master"><i class="fa fa-fw fa-folder-open"></i>Master Files <span class="badge badge-success">6</span></a>
+                                        <div id="master" class="collapse submenu" style="">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/Contact">Contact Management</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/Country">Country Management</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/Organization">Organization Management</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/Designation">Designation Management</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/Division">Division Management</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/Employee">Employee Management</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/MeetingType">Meeting Type Management</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/Principal">Principal Management</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/ProjectSector">Project Sector Management</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/RecommendStatus">Recommend Status Management</a>
+                                                </li>
+                                                @*<li class="nav-item">
+                                                        <a class="nav-link" href="~/SourcingPartner">Sourcing Partner Management</a>
+                                                    </li>*@
+                                                @*<li class="nav-item">
+                                                        <a class="nav-link" href="~/VCP">VCP</a>
+                                                    </li>*@
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/AccountUser">User Management</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-divider">
+                                        Administration
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa-solid fa-user-tie"></i>Administration <span class="badge badge-success">6</span></a>
+                                        <div id="submenu-1" class="collapse submenu" style="">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/LoginAudit">Login Audit</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/DataAudit">Data Audit</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="~/ControlSettings">Control Settings</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                }
+                            }
                         </ul>
                     </div>
                 </nav>
@@ -275,7 +329,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            Copyright © 2020 Chelina Capital Cooperation. All rights reserved.
+                            Copyright © 2026 EML Consultants PLC. All rights reserved.
                         </div>
                         @*<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="text-md-right footer-links d-none d-sm-block">

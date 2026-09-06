@@ -64,10 +64,25 @@
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.4\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.3.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.3.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.3.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.3.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Routing.Abstractions, Version=2.3.9.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Routing.Abstractions.2.3.9\lib\netstandard2.0\Microsoft.AspNetCore.Routing.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Primitives, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.8.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.3.9.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.3.9\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
@@ -102,10 +117,26 @@
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.0\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -170,6 +201,17 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BidNoBidController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\ProposalController.cs" />
+    <Compile Include="Controllers\AlertEngineController.cs" />
+    <Compile Include="Controllers\WinLossDashboardController.cs" />
+    <Compile Include="Controllers\ProposalAnalysisController.cs" />
+    <Compile Include="Controllers\QAScoreController.cs" />
+    <Compile Include="Controllers\GateControlController.cs" />
+    <Compile Include="Controllers\RecommendStatusController.cs" />
+    <Compile Include="Controllers\BidRecommendationController.cs" />
+    <Compile Include="Controllers\ControlSettingsController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DataAuditController.cs" />
@@ -192,7 +234,7 @@
     <Compile Include="Controllers\PrincipalController.cs" />
     <Compile Include="Controllers\ProjectSectorController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
-    <Compile Include="Controllers\SourcingController.cs" />
+    <Compile Include="Controllers\OpportunityController.cs" />
     <Compile Include="Controllers\SourcingPartnerController.cs" />
     <Compile Include="Controllers\PublicSectorTenderController.cs" />
     <Compile Include="Controllers\TaskTrackerController.cs" />
@@ -202,6 +244,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ModelsView\BidNoBidDecisionViewModel.cs" />
+    <Compile Include="ModelsView\QAScoreViewModel.cs" />
+    <Compile Include="ModelsView\GateControlViewModel.cs" />
+    <Compile Include="ModelsView\ProposalOutcomeViewModel.cs" />
+    <Compile Include="ModelsView\BidRecommendationViewModel.cs" />
+    <Compile Include="ModelsView\ControlSettingsViewModel.cs" />
     <Compile Include="ModelsView\EmailModelView.cs" />
     <Compile Include="ModelsView\EvalReportViewModel.cs" />
     <Compile Include="ModelsView\FileNotesReportViewModel.cs" />
@@ -233,6 +281,8 @@
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\FileNoteViewModel.cs" />
     <Compile Include="ModelsView\MeetingViewModel.cs" />
+    <Compile Include="Models\ProjectPortfolioViewModel.cs" />
+    <Compile Include="Models\ProposalManagementViewModel.cs" />
     <Compile Include="Models\TenderDocumnet.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -777,9 +827,9 @@
     <Content Include="Views\SourcingPartner\Index.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\TenderDocumentSection\Index.cshtml" />
-    <Content Include="Views\Sourcing\Index.cshtml" />
+    <Content Include="Views\Opportunity\Index.cshtml" />
     <Content Include="Views\PublicSectorNonTender\Index.cshtml" />
-    <Content Include="Views\Sourcing\Details.cshtml" />
+    <Content Include="Views\Opportunity\Details.cshtml" />
     <Content Include="Views\Division\Index.cshtml" />
     <Content Include="Views\LoginAudit\Index.cshtml" />
     <Content Include="Views\DataAudit\Index.cshtml" />
@@ -802,7 +852,7 @@
     </Content>
     <Content Include="Views\PublicSectorTender\DisplayDocumentsPerTab.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\MyTasks.cshtml" />
     <Content Include="Views\PublicSectorTender\_Form8B.cshtml" />
     <Content Include="Views\PublicSectorTender\_Form12.cshtml" />
     <Content Include="Views\PublicSectorTender\_PrintForm8B.cshtml" />
@@ -841,6 +891,24 @@
     <Content Include="Views\Meeting\_ViewMeetingNotes.cshtml" />
     <Content Include="Views\MeetingNote\Index.cshtml" />
     <Content Include="Views\Meeting\Agenda.cshtml" />
+    <Content Include="Views\AccountUser\Register.cshtml" />
+    <Content Include="Views\Shared\_LayoutRegister.cshtml" />
+    <Content Include="Views\AccountUser\ResetPassword.cshtml" />
+    <Content Include="Views\Account\RegisterEdit.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\_ProposalManagement.cshtml" />
+    <Content Include="Views\Home\_ProjectManagement.cshtml" />
+    <Content Include="Views\BidNoBid\Index.cshtml" />
+    <Content Include="Views\GateControl\Index.cshtml" />
+    <Content Include="Views\QAScore\Index.cshtml" />
+    <Content Include="Views\BidRecommendation\Index.cshtml" />
+    <Content Include="Views\RecommendStatus\Index.cshtml" />
+    <Content Include="Views\Proposal\Index.cshtml" />
+    <Content Include="Views\AlertEngine\Index.cshtml" />
+    <Content Include="Views\WinLossDashboard\Index.cshtml" />
+    <Content Include="Views\ProposalAnalysis\Index.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

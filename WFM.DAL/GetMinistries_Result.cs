@@ -38,5 +38,8 @@ namespace WFM.DAL
         public string Description { get; set; }
         public string DeputyMinisterProfiles { get; set; }
         public string MinistrySecrateryProfiles { get; set; }
+        public string MinisterRelated { get; set; }
+        public string DeputyMinisterRelated { get; set; }
+        public string MinistrySecrateryRelated { get; set; }
     }
 }

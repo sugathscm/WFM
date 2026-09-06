@@ -15,7 +15,9 @@ namespace WFM.UI.DF.ModelsView
         public Nullable<int> AddToAgendaMeetingId { get; set; }
         public Nullable<System.DateTime> DateOfMeeting { get; set; }
         public string TaskDescription { get; set; }
+        public string TaskDescriptionDB { get; set; }
         public string CurrentProgressNote { get; set; }
+        public string CurrentProgressNoteView { get; set; }
         public Nullable<bool> AddToAgenda { get; set; }
         public Nullable<int> PriorityId { get; set; }
         public Nullable<int> AuthorityId { get; set; }

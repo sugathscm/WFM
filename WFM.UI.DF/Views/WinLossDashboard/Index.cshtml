@@ -1,0 +1,150 @@
+@{
+    ViewBag.Title = "Win / Loss Dashboard";
+}
+
+<script src="~/Scripts/chart.min.js"></script>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">@ViewBag.Title</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="border border-primary bg-actual-white p-3 m-b-20">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Decided</th>
+                                <th>Won</th>
+                                <th>Lost</th>
+                                <th>Win rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@ViewBag.Decided</td>
+                                <td>@ViewBag.Won</td>
+                                <td>@ViewBag.Lost</td>
+                                <td>@ViewBag.WinRate%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h5 class="m-t-20">Value analysis (LKR '000)</h5>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th style="width:60%">Metric</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>Value won</td>
+                            <td>@ViewBag.ValueWon.ToString("N0")</td>
+                        </tr>
+                        <tr>
+                            <td>Value lost</td>
+                            <td>@ViewBag.ValueLost.ToString("N0")</td>
+                        </tr>
+                        <tr>
+                            <td>Value pending</td>
+                            <td>@ViewBag.ValuePending.ToString("N0")</td>
+                        </tr>
+                        <tr>
+                            <td>Value shortlisted</td>
+                            <td>@ViewBag.ValueShortlisted.ToString("N0")</td>
+                        </tr>
+                    </table>
+
+                    <h5 class="m-t-20">Outcome breakdown</h5>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th style="width:60%">Outcome</th>
+                            <th>Count</th>
+                        </tr>
+                        <tr><td>Won</td><td>@ViewBag.OutcomeWon</td></tr>
+                        <tr><td>Lost</td><td>@ViewBag.OutcomeLost</td></tr>
+                        <tr><td>Shortlisted</td><td>@ViewBag.OutcomeShortlisted</td></tr>
+                        <tr><td>Pending</td><td>@ViewBag.OutcomePending</td></tr>
+                        <tr><td>Withdrawn</td><td>@ViewBag.OutcomeWithdrawn</td></tr>
+                    </table>
+
+                    <h5 class="m-t-20">Loss reasons</h5>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th style="width:60%">Reason</th>
+                            <th>Count</th>
+                        </tr>
+                        @{
+                            string[] lossReasonLabels = ViewBag.LossReasonLabels;
+                            List<int> lossReasonCounts = ViewBag.LossReasonCounts;
+                        }
+                        @for (int i = 0; i < lossReasonLabels.Length; i++)
+                        {
+                            <tr><td>@lossReasonLabels[i]</td><td>@lossReasonCounts[i]</td></tr>
+                        }
+                    </table>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="border border-primary bg-actual-white p-3 m-b-20">
+                    <h5>Outcome breakdown</h5>
+                    <canvas id="outcomeChart" height="220"></canvas>
+                </div>
+                <div class="border border-primary bg-actual-white p-3">
+                    <h5>Loss reasons</h5>
+                    <canvas id="lossReasonChart" height="220"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var outcomeCtx = document.getElementById('outcomeChart').getContext('2d');
+        new Chart(outcomeCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Won', 'Lost', 'Shortlisted', 'Pending', 'Withdrawn'],
+                datasets: [{
+                    data: [@ViewBag.OutcomeWon, @ViewBag.OutcomeLost, @ViewBag.OutcomeShortlisted, @ViewBag.OutcomePending, @ViewBag.OutcomeWithdrawn],
+                    backgroundColor: ['#16a36c', '#df3838', '#5969ff', '#b0b0b0', '#e58b00']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        var lossReasonLabels = @Html.Raw(Json.Encode(ViewBag.LossReasonLabels));
+        var lossReasonCounts = @Html.Raw(Json.Encode(ViewBag.LossReasonCounts));
+
+        var lossCtx = document.getElementById('lossReasonChart').getContext('2d');
+        new Chart(lossCtx, {
+            type: 'bar',
+            data: {
+                labels: lossReasonLabels,
+                datasets: [{
+                    label: 'Losses',
+                    data: lossReasonCounts,
+                    backgroundColor: '#5969ff'
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { beginAtZero: true, ticks: { precision: 0 } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    });
+</script>

@@ -20,6 +20,7 @@ namespace WFM.UI.DF.Controllers
         private ApplicationUserManager _userManager;
         private readonly EmployeeService employeeService = new EmployeeService();
         private readonly DesignationService designationService = new DesignationService();
+        private readonly TitleService titleService = new TitleService();
 
         public EmployeeController()
         {
@@ -50,19 +51,20 @@ namespace WFM.UI.DF.Controllers
             if (id != null)
             {
                 employee = employeeService.GetEmployeeById(id);
+                employee.TitleId = employee.Title;
             }
 
             //var listData = designationService.GetDesignationList();
 
             ViewBag.DesignationList = designationService.GetDesignationList();
+            ViewBag.TitleList = titleService.GetTitleList();
 
             return View(employee);
         }
 
         public ActionResult GetList()
         {
-
-            var list = employeeService.GetEmployeeList();
+            var list = employeeService.GetAllEmployeeList();
             List<EmployeeView> modelList = new List<EmployeeView>();
             foreach (var item in list)
             {
@@ -72,10 +74,12 @@ namespace WFM.UI.DF.Controllers
                     IsActive = item.IsActive,
                     Title = item.Title,
                     Name = item.Name,
+                    Code = item.Code,
                     Mobile = item.Mobile,
                     Email = item.Email,
                     FixedLine = item.FixedLine,
                     DesignationName = (item.DesignationId == 0) ? "" : designationService.GetDesignationById(item.DesignationId).Name,
+                    TitleName = (item.Title == 0) ? "" : titleService.GetTitleById(item.Title).Name,
                 });
             }
             return Json(new { data = modelList }, JsonRequestBehavior.AllowGet);
@@ -98,8 +102,9 @@ namespace WFM.UI.DF.Controllers
                 {
                     employee = new WFM_Employee
                     {
-                        Title = model.Title,
+                        Title = model.TitleId,
                         Name = model.Name,
+                        Code = model.Code,
                         Mobile = model.Mobile,
                         Email = model.Email,
                         FixedLine = model.FixedLine,
@@ -121,6 +126,7 @@ namespace WFM.UI.DF.Controllers
                         Id = oldEmployee.Id,
                         Title = oldEmployee.Title,
                         Name = oldEmployee.Name,
+                        Code = oldEmployee.Code,
                         Mobile = oldEmployee.Mobile,
                         Email = oldEmployee.Email,
                         FixedLine = oldEmployee.FixedLine,
@@ -128,8 +134,9 @@ namespace WFM.UI.DF.Controllers
                         IsActive = oldEmployee.IsActive
                     });
 
-                    employee.Title = model.Title;
+                    employee.Title = model.TitleId;
                     employee.Name = model.Name;
+                    employee.Code = model.Code;
                     employee.Mobile = model.Mobile;
                     employee.Email = model.Email;
                     employee.FixedLine = model.FixedLine;
@@ -140,7 +147,7 @@ namespace WFM.UI.DF.Controllers
                     newData = new JavaScriptSerializer().Serialize(new WFM_Employee()
                     {
                         Id = employee.Id,
-                        Title = employee.Title,
+                        Title = employee.TitleId,
                         Name = employee.Name,
                         Mobile = employee.Mobile,
                         Email = employee.Email,

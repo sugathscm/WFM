@@ -51,7 +51,6 @@ namespace WFM.DAL
         public virtual DbSet<WFM_Document> WFM_Document { get; set; }
         public virtual DbSet<WFM_DocumentField> WFM_DocumentField { get; set; }
         public virtual DbSet<WFM_DocumentTab> WFM_DocumentTab { get; set; }
-        public virtual DbSet<WFM_Employee> WFM_Employee { get; set; }
         public virtual DbSet<WFM_Marketing> WFM_Marketing { get; set; }
         public virtual DbSet<WFM_MarketingSourcingPartner> WFM_MarketingSourcingPartner { get; set; }
         public virtual DbSet<WFM_Organization> WFM_Organization { get; set; }
@@ -79,6 +78,12 @@ namespace WFM.DAL
         public virtual DbSet<WFM_EmailTemplates> WFM_EmailTemplates { get; set; }
         public virtual DbSet<WFM_Form12B> WFM_Form12B { get; set; }
         public virtual DbSet<WFM_Form8B> WFM_Form8B { get; set; }
+        public virtual DbSet<WFM_BidNoBidDecision> WFM_BidNoBidDecision { get; set; }
+        public virtual DbSet<WFM_QAScore> WFM_QAScore { get; set; }
+        public virtual DbSet<WFM_GateControl> WFM_GateControl { get; set; }
+        public virtual DbSet<WFM_RecommendStatus> WFM_RecommendStatus { get; set; }
+        public virtual DbSet<WFM_BidRecommendation> WFM_BidRecommendation { get; set; }
+        public virtual DbSet<WFM_ProposalOutcome> WFM_ProposalOutcome { get; set; }
         public virtual DbSet<WFM_BondType> WFM_BondType { get; set; }
         public virtual DbSet<WFM_Company> WFM_Company { get; set; }
         public virtual DbSet<WFM_VCP> WFM_VCP { get; set; }
@@ -100,6 +105,8 @@ namespace WFM.DAL
         public virtual DbSet<MD_InstituteMember> MD_InstituteMember { get; set; }
         public virtual DbSet<MD_Member> MD_Member { get; set; }
         public virtual DbSet<MD_Institute> MD_Institute { get; set; }
+        public virtual DbSet<MD_MemberRelationship> MD_MemberRelationship { get; set; }
+        public virtual DbSet<WFM_Employee> WFM_Employee { get; set; }
     
         public virtual ObjectResult<GetDataAuditByUser_Result> GetDataAuditByUser(Nullable<System.Guid> userId)
         {
@@ -282,6 +289,15 @@ namespace WFM.DAL
                 new ObjectParameter("InstituteId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetMinistryLineAgencies_Result>("GetMinistryLineAgencies", statusIdParameter, instituteIdParameter);
+        }
+    
+        public virtual ObjectResult<GetRelationshipMembersByMember_Result> GetRelationshipMembersByMember(Nullable<int> memberID)
+        {
+            var memberIDParameter = memberID.HasValue ?
+                new ObjectParameter("MemberID", memberID) :
+                new ObjectParameter("MemberID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetRelationshipMembersByMember_Result>("GetRelationshipMembersByMember", memberIDParameter);
         }
     }
 }

@@ -14,6 +14,11 @@ namespace WFM.UI.DF.ModelsView
         public Form12ViewModel Form12ViewModel { get; set; }
         public bool Form8BGenerated { get; set; }
         public bool Form12Generated { get; set; }
+        public BidNoBidDecisionViewModel BidNoBidDecisionViewModel { get; set; }
+        public QAScoreViewModel QAScoreViewModel { get; set; }
+        public GateControlViewModel GateControlViewModel { get; set; }
+        public BidRecommendationViewModel BidRecommendationViewModel { get; set; }
+        public ProposalOutcomeViewModel ProposalOutcomeViewModel { get; set; }
 
         public List<FileNoteViewModel> FileNotes { get; set; }
         public List<GetTaskList_Result> Tasks { get; set; }

@@ -111,6 +111,9 @@
     <Compile Include="GetRelationshipListReport_Result.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetRelationshipMembersByMember_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetTaskList_Result.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
@@ -145,6 +148,9 @@
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MD_Member.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MD_MemberRelationship.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Organization.cs">
@@ -217,6 +223,9 @@
     <Compile Include="WFM_Employee.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="WFM_BidNoBidDecision.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="WFM_FileNote.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
@@ -227,6 +236,21 @@
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WFM_Location.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_GateControl.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_RecommendStatus.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_ProposalOutcome.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_BidRecommendation.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_QAScore.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WFM_LoginAudit.cs">

@@ -8,9 +8,10 @@ namespace WFM.UI.DF.ModelsView
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Title { get; set; }
+        public int? Title { get; set; }
         [Required, MaxLength(100)]
         public string Name { get; set; }
+        public string Code { get; set; }
         [MaxLength(50)]
         public string Mobile { get; set; }
         [MaxLength(50)]
@@ -19,6 +20,7 @@ namespace WFM.UI.DF.ModelsView
         public string FixedLine { get; set; }
 
         public string DesignationName { get; set; }
+        public string TitleName { get; set; }
 
         [Display(Name = "Active")]
         public bool IsActive { get; set; } = true;

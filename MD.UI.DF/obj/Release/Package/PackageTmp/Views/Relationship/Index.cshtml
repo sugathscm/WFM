@@ -1,0 +1,119 @@
+﻿@model WFM.UI.DF.Models.RelationshipViewModel
+@{
+    Layout = "../Shared/_LayoutAdministration.cshtml";
+    ViewBag.Title = "Relationship";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.add').on("click", function () {
+            //alert($("#RelatedPeople").val());
+            $("#RelatedPeople").val($("#RelatedPeople").val() + "," + $("#RelatedMemberId").val());
+            $("#people").html($("#people").html() + "," + $("#RelatedMemberId option:selected").text());
+        });
+    });
+
+    function LoadMinistries() {
+        $('#List').DataTable().destroy();
+        table = $('#List').DataTable({
+            "paging": true,
+            "scrollX": false,
+            "order": [
+                [0, 'asc']
+            ],
+            "ajax": {
+                "url": "/Relationship/GetListByPerson",
+                "type": "POST",
+                "datatype": "json",
+                "data": {
+                    "personId": "",
+                }
+            },
+            "columns": [
+                { "data": "Id" },
+                {
+                    "data": "Id", "className": "dt-center", "targets": "_all",
+                    "render": function (data, type, full, meta) {
+                        return '<a style="width: 200px" target="_blank" href="/Ministry/View/' + data + '"><b>' + full["Name"] + "</b></a>"
+                            + '<br /><br />'
+                            + '<a href=' + full["Web"] + ' target="_blank"><img src="/Images/www.png" alt="" width="20" /></a>&nbsp;&nbsp;'
+                            + '<a href=' + full["GeoLocation"] + ' target="_blank"><img src="/Images/map.png" alt="" width="13" /></a>';
+                    }
+                },
+                {
+                    "data": "MinisterId", "className": "dt-center", "targets": "_all",
+                    "render": function (data, type, full, meta) {
+                        return '<img src="/Images/Member/' + data + '.png" width="90" height="90"/></a><br />' + full["Minister"] + '<br />' + full["MinisterProfiles"];
+                    }
+                },
+                {
+                    "data": "DeputyMinisterId", "className": "dt-center", "targets": "_all",
+                    "render": function (data, type, full, meta) {
+                        if (data != null)
+                            return '<img src="/Images/Member/' + data + '.png" width="90" height="90" /></a><br />' + full["DeputyMinister"] + '<br />' + full["DeputyMinisterProfiles"];
+                        else
+                            return '';
+                    }
+                },
+                {
+                    "data": "MinistrySecrateryId", "className": "dt-center", "targets": "_all",
+                    "render": function (data, type, full, meta) {
+                        if (data != null)
+                            return '<img src="/Images/Member/' + data + '.png" width="90" height="90"/></a><br />' + full["MinistrySecratery"] + '<br />' + full["MinistrySecrateryProfiles"];
+                        else
+                            return '';
+                    }
+                },
+            ]
+        });
+    }
+</script>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        @using (Html.BeginForm("SaveOrUpdateRelationship", "Relationship", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            @Html.HiddenFor(m => m.Id, new { @name = "Id" })
+            <input type="hidden" id="RelatedPeople" />
+            <div class="row">
+                <input type="hidden" id="jsonList" name="JSONRelationshipList" />
+                @Html.LabelFor(m => m.MemberId, new { @class = "col-md-2 control-label" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(m => m.MemberId, new SelectList(ViewBag.MemberList, "Id", "Name"), "Select Person", new { @class = "form-control form-select personrelationship" })
+                </div>
+            </div>
+            <div class="row mt-1">
+                <label class="col-md-2 control-label">Related Person</label>
+                <div class="col-md-3">
+                    @Html.DropDownListFor(m => m.RelatedMemberId, new SelectList(ViewBag.MemberList, "Id", "Name"), "Select Person", new { @class = "form-control form-select personrelationship" })
+                </div>
+                <div class="col-md-3">
+                    <input type="button" class="btn btn-primary add" value="Add Relationship" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                   <table width="100%">
+                       <tr>
+                           <th>Related Person</th>
+                       </tr>
+                       <tr>
+                          <td>
+                              <div id="people">
+
+                              </div>
+                          </td>
+                       </tr>
+                   </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <input type="submit" class="btn btn-success" value="Save" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

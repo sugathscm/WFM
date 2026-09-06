@@ -52,5 +52,7 @@ namespace WFM.DAL
         public Nullable<System.DateTime> scheduleDate { get; set; }
         public Nullable<System.DateTime> ScheduleTime { get; set; }
         public string NoofHrs { get; set; }
+        public string TaskDescriptionDB { get; set; }
+        public string CurrentProgressNoteView { get; set; }
     }
 }

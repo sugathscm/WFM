@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using WFM.BAL.Services;
 using WFM.UI.DF;
 using WFM.UI.DF.Models;
 
@@ -19,15 +20,16 @@ namespace WFM.UI.DF.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private readonly EmployeeService _employeeService = new EmployeeService();
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+
         }
 
         public ApplicationSignInManager SignInManager
@@ -36,9 +38,9 @@ namespace WFM.UI.DF.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -77,7 +79,22 @@ namespace WFM.UI.DF.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = new SignInStatus();
+
+            var existingUser = UserManager.FindByEmail(model.Email);
+            if (existingUser != null && existingUser.LockoutEnabled)
+            {
+                result = SignInStatus.Failure;
+                model = null;
+                ModelState.AddModelError("", "Your account has been deactivated. Please contact the administrator.");
+                //return View("Lockout");
+            }
+            else
+            {
+                result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                
+            }
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -122,7 +139,7 @@ namespace WFM.UI.DF.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -139,49 +156,179 @@ namespace WFM.UI.DF.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string id)
         {
             RegisterViewModel model = new RegisterViewModel();
             var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
             var roleMngr = new RoleManager<IdentityRole>(roleStore);
             var roles = roleMngr.Roles.ToList();
             model.Roles = new SelectList(roles);
+            model.Employees = new SelectList(_employeeService.GetEmployeeList(), "Id", "Name");
+            if (id != null)
+            {
+                var user = UserManager.FindById(id);
+                model.Email = user.Email;
+                model.RoleId = user.Roles.SingleOrDefault().RoleId;
+                var employee = _employeeService.GetEmployeeByUserId(id);
+                model.EmployeeId = employee.Id.ToString();
+            }
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult RegisterEdit(string id)
+        {
+            RegisterEditViewModel model = new RegisterEditViewModel();
+            var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+            var roleMngr = new RoleManager<IdentityRole>(roleStore);
+            var roles = roleMngr.Roles.ToList();
+            model.Roles = new SelectList(roles);
+            model.Employees = new SelectList(_employeeService.GetEmployeeList(), "Id", "Name");
+            if (id != null)
+            {
+                var user = UserManager.FindById(id);
+                model.Email = user.Email;
+                model.RoleId = user.Roles.SingleOrDefault().RoleId;
+                var employee = _employeeService.GetEmployeeByUserId(id);
+                model.EmployeeId = employee.Id.ToString();
+            }
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ChangePassword(string id)
+        {
+            RegisterEditViewModel model = new RegisterEditViewModel();
+            var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+            var roleMngr = new RoleManager<IdentityRole>(roleStore);
+            var roles = roleMngr.Roles.ToList();
+            model.Roles = new SelectList(roles);
+            model.Employees = new SelectList(_employeeService.GetEmployeeList(), "Id", "Name");
+            if (id != null)
+            {
+                var user = UserManager.FindById(id);
+                model.Email = user.Email;
+                model.RoleId = user.Roles.SingleOrDefault().RoleId;
+                var employee = _employeeService.GetEmployeeByUserId(id);
+                model.EmployeeId = employee.Id.ToString();
+            }
+
             return View(model);
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                var roleMngr = new RoleManager<IdentityRole>(roleStore);
+
+                var existingUser = UserManager.FindByEmail(model.Email);
+                if (existingUser != null)
                 {
-                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    var result = await UserManager.RemoveFromRolesAsync(existingUser.Id, UserManager.GetRoles(existingUser.Id).ToArray());
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-                    var roleMngr = new RoleManager<IdentityRole>(roleStore);
                     IdentityRole identityRole = roleMngr.FindById(model.RoleId);
-                    UserManager.AddToRole(user.Id, identityRole.Name);
-                    return RedirectToAction("Index", "AccountUser");
+                    UserManager.AddToRole(existingUser.Id, identityRole.Name);
+
+                    var employee = _employeeService.GetEmployeeById(Convert.ToInt32(model.EmployeeId));
+                    employee.UserId = existingUser.Id;
+                    _employeeService.SaveOrUpdate(employee);
                 }
-                AddErrors(result);
+                else
+                {
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        user.LockoutEnabled = false;
+                        await UserManager.UpdateAsync(user);
+                        IdentityRole identityRole = roleMngr.FindById(model.RoleId);
+                        UserManager.AddToRole(user.Id, identityRole.Name);
+                        var employee = _employeeService.GetEmployeeById(Convert.ToInt32(model.EmployeeId));
+                        employee.UserId = user.Id;
+                        _employeeService.SaveOrUpdate(employee);
+                    }
+                }
+
+                return RedirectToAction("Index", "AccountUser");
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterEdit(RegisterEditViewModel model)
+        {
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors });
+            if (ModelState.IsValid)
+            {
+                var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                var roleMngr = new RoleManager<IdentityRole>(roleStore);
+
+                var existingUser = UserManager.FindByEmail(model.Email);
+                if (existingUser != null)
+                {
+                    var result = await UserManager.RemoveFromRolesAsync(existingUser.Id, UserManager.GetRoles(existingUser.Id).ToArray());
+
+                    IdentityRole identityRole = roleMngr.FindById(model.RoleId);
+                    UserManager.AddToRole(existingUser.Id, identityRole.Name);
+
+                    if (!string.IsNullOrEmpty(model.Password))
+                    {
+                        var token = await UserManager.GeneratePasswordResetTokenAsync(existingUser.Id);
+                        var passwordResult = await UserManager.ResetPasswordAsync(existingUser.Id, token, model.Password);
+                    }
+
+                    var oldEmployee = _employeeService.GetEmployeeByUserId(existingUser.Id);
+                    oldEmployee.UserId = null;
+                    _employeeService.SaveOrUpdate(oldEmployee);
+
+                    var employee = _employeeService.GetEmployeeById(Convert.ToInt32(model.EmployeeId));
+                    employee.UserId = existingUser.Id;
+                    _employeeService.SaveOrUpdate(employee);
+                }
+            }
+
+            return RedirectToAction("Index", "AccountUser");
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangePassword(RegisterEditViewModel model)
+        {
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors });
+            if (ModelState.IsValid)
+            {
+                var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                var roleMngr = new RoleManager<IdentityRole>(roleStore);
+
+                var existingUser = UserManager.FindByEmail(model.Email);
+                if (existingUser != null)
+                {
+                    if (!string.IsNullOrEmpty(model.Password))
+                    {
+                        var token = await UserManager.GeneratePasswordResetTokenAsync(existingUser.Id);
+                        var passwordResult = await UserManager.ResetPasswordAsync(existingUser.Id, token, model.Password);
+                    }
+                }
+            }
+
+            return RedirectToAction("Index", "AccountUser");
+        }
+
 
         //
         // GET: /Account/ConfirmEmail

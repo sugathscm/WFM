@@ -1,27 +1,29 @@
 ﻿using log4net;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Configuration;
+using System.Net.Mail;
+using System.Runtime.Remoting.Lifetime;
+using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.Services.Description;
+using WFM.BAL.Enums;
 using WFM.BAL.Services;
 using WFM.BAL.ViewModels;
 using WFM.DAL;
-using System.Net;
-using System.Net.Mail;
-using System.Configuration;
-using System.Net.Configuration;
+using WFM.UI.DF.Models;
 using WFM.UI.DF.ModelsView;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System.Drawing;
-using System.Runtime.Remoting.Lifetime;
-using System.Threading.Tasks;
-using System.Web.Helpers;
-using System.Web.Services.Description;
-using System;
-using WFM.BAL.Enums;
-using Microsoft.AspNet.Identity;
+using static WFM.UI.DF.Models.ProposalManagementViewModel;
 
 namespace WFM.UI.DF.Controllers
 {
@@ -61,7 +63,7 @@ namespace WFM.UI.DF.Controllers
             }
         }
 
-        public ActionResult Index()
+        public ActionResult MyTasks()
         {
             ViewBag.ProjectList = projectService.GetProjects(0);
             ViewBag.PriorityList = commonDataService.GetCommonData((int)CommonDataType.Priority);
@@ -200,6 +202,114 @@ namespace WFM.UI.DF.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Index()
+        {
+            var model = new ProposalManagementViewModel
+            {
+                Pipeline = new ProposalPipelineViewModel
+                {
+                    EoiSubmitted = 12,
+                    Shortlisted = 7,
+                    RfpStage = 9,
+                    Awarded = 4
+                },
+
+                Tracking = new ProposalTrackingViewModel
+                {
+                    Submitted = 7,
+                    Ongoing = 5,
+                    InPreparation = 3,
+                    Won = 4,
+                    Lost = 3,
+                    Rfi = 2,
+                    Rfp = 3
+                },
+
+                Risks = new List<ProposalRiskViewModel>
+                {
+                    new ProposalRiskViewModel
+                    {
+                        Title = "Lack of Expert Team",
+                        Description = "Both - No qualified expert mapped to a required position",
+                        Count = 4,
+                        Percentage = 85,
+                        Color = "purple"
+                    },
+
+                    new ProposalRiskViewModel
+                    {
+                        Title = "Methodology Submission Delay",
+                        Description = "Ongoing - Methodology document still in draft / missing past plan",
+                        Count = 4,
+                        Percentage = 65,
+                        Color = "orange"
+                    },
+
+                    new ProposalRiskViewModel
+                    {
+                        Title = "Financial Proposal Weakness",
+                        Description = "Submitted - Pricing scored low / uncompetitive vs winners",
+                        Count = 2,
+                        Percentage = 45,
+                        Color = "red"
+                    },
+
+                    new ProposalRiskViewModel
+                    {
+                        Title = "Technical Proposal Weakness",
+                        Description = "Submitted - Technical score below qualification threshold",
+                        Count = 1,
+                        Percentage = 30,
+                        Color = "blue"
+                    }
+                },
+
+                Projects = new ProjectPortfolioViewModel
+                {
+                    Delayed = 2,
+                    NeedsAttention = 4,
+                    OnTrack = 4,
+
+                    Categories = new List<ProjectCategoryViewModel>
+                    {
+                        new ProjectCategoryViewModel
+                        {
+                            Name = "Engineering",
+                            Delayed = 0,
+                            Attention = 1,
+                            OnTrack = 2
+                        },
+
+                        new ProjectCategoryViewModel
+                        {
+                            Name = "Environment",
+                            Delayed = 0,
+                            Attention = 1,
+                            OnTrack = 2
+                        },
+
+                        new ProjectCategoryViewModel
+                        {
+                            Name = "Social & Urban Dev.",
+                            Delayed = 1,
+                            Attention = 1,
+                            OnTrack = 1
+                        },
+
+                        new ProjectCategoryViewModel
+                        {
+                            Name = "Hydrology & Water",
+                            Delayed = 0,
+                            Attention = 1,
+                            OnTrack = 2
+                        }
+                    }
+                }
+            };
+
+            return View(model);
         }
     }
 }

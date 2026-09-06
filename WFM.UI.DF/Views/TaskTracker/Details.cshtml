@@ -13,13 +13,13 @@
             <div class="row mb-1">
                 <div class="col-xl-8 col-lg-8 col-md-11 col-sm-12 col-12">
                     <div class="pagetitle">
-                        @if (String.IsNullOrEmpty(@Model.TaskDescription))
+                        @if (String.IsNullOrEmpty(@Model.TaskDescriptionDB))
                         {
                             <h3>New @ViewBag.Title</h3>
                         }
                         else
                         {
-                            <h3>@Model.TaskDescription</h3>
+                            <h3>@Model.TaskDescriptionDB</h3>
                         }
                     </div>
                 </div>
@@ -46,15 +46,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
-                                <label class="col-12 col-sm-12 col-form-label text-small"><span style="color:red">Business Unit&nbsp;*</span></label>
+                                <label class="col-12 col-sm-12 col-form-label text-small"><span style="color:red">Division&nbsp;*</span></label>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                    @Html.DropDownListFor(m => m.TaskTrackerCategoryId, new SelectList(ViewBag.TaskTrackerCategoryList, "Id", "Name"), "Select Business Unit", new { @class = "form-select", required = "required" })
+                                    @Html.DropDownListFor(m => m.TaskTrackerCategoryId, new SelectList(ViewBag.TaskTrackerCategoryList, "Id", "Name"), "Select Division", new { @class = "form-select", required = "required" })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-12 col-sm-12 col-form-label text-small">Project</label>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
@@ -62,14 +62,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
-                            <div class="form-group row">
-                                <label class="col-12 col-sm-12 col-form-label text-small">Meeting</label>
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    @Html.DropDownListFor(m => m.MeetingId, new SelectList(ViewBag.MeetingList, "Id", "Name"), "No Related Meeting", new { @class = "form-control" })
+                        @*<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                                <div class="form-group row">
+                                    <label class="col-12 col-sm-12 col-form-label text-small">Meeting</label>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        @Html.DropDownListFor(m => m.MeetingId, new SelectList(ViewBag.MeetingList, "Id", "Name"), "No Related Meeting", new { @class = "form-control" })
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div>*@
                         <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-lg-12 col-sm-12 col-form-label text-small">Priority</label>
@@ -78,19 +78,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
-                            <div class="form-group row">
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Add to Agenda</label>
-                                <div class="col-lg-12 col-sm-12">
-                                    @Html.DropDownListFor(m => m.AddToAgendaMeetingId, new SelectList(ViewBag.MeetingList, "Id", "Name"), "No Related Meeting", new { @class = "form-control" })
+                        @*<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                                <div class="form-group row">
+                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Add to Agenda</label>
+                                    <div class="col-lg-12 col-sm-12">
+                                        @Html.DropDownListFor(m => m.AddToAgendaMeetingId, new SelectList(ViewBag.MeetingList, "Id", "Name"), "No Related Meeting", new { @class = "form-control" })
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div>*@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-12 col-sm-12 col-form-label text-small"><span style="color:red">Task Description&nbsp;*</span></label>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                    @Html.TextAreaFor(m => m.TaskDescription, new { @class = "form-control validate", @rows = "2", required = "required" })
+                                    @Html.TextAreaFor(m => m.TaskDescriptionDB, new { @class = "form-control validate", @rows = "2", required = "required" })
                                 </div>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-lg-12 col-sm-12 col-form-label text-small"><span style="color:red"> the Authority of&nbsp;*</span></label>
                                 <div class="col-lg-12 col-sm-12">
@@ -112,19 +112,19 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Assignee @Html.DisplayFor(a => a.Assignees)</label>
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Assignee - <span style="color:blue"><i>@Html.DisplayFor(a => a.Assignees)</i></span></label>
                                 <div class="col-lg-12 col-sm-12">
                                     @*@Html.DropDownListFor(m => m.AssigneeId, new SelectList(ViewBag.EmployeeList, "Id", "Name"), "Select Assignee", new { @class = "form-control" })*@
                                     @Html.DropDownListFor(m => m.AssigneeIdList, new SelectList(ViewBag.EmployeeList, "Id ", "Name"), "Select Assignee", htmlAttributes: new
-                               {
-                                   @class = "js-example-placeholder-multiple col-sm-12 form-select form-control validate",
-                                   @multiple = "multiple",
-                                   id = "AssigneeDropDownList"
-                               })
+                                       {
+                                           @class = "js-example-placeholder-multiple col-sm-12 form-select form-control validate",
+                                           @multiple = "multiple",
+                                           id = "AssigneeDropDownList"
+                                       })
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-12 col-sm-12 col-form-label text-small">Email to</label>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
@@ -132,7 +132,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-lg-12 col-sm-12 col-form-label text-small"><span style="color:red">Date of Assignment&nbsp;*</span></label>
                                 <div class="col-lg-12 col-sm-12">
@@ -140,15 +140,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
-                            <div class="form-group row">
-                                <label class="col-lg-12 col-sm-12 col-form-label text-small"><span style="color:red">Due Date&nbsp;*</span></label>
-                                <div class="col-lg-12 col-sm-12 ">
-                                    @Html.TextBoxFor(m => m.DueDate, new { @class = "form-control", @placeholder = "MM/DD/YYYY", required = "required" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-lg-12 col-sm-12 col-form-label text-small"><span style="color:red">Schdule Date</span></label>
                                 <div class="col-lg-12 col-sm-12 ">
@@ -156,22 +148,30 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-1 col-lg-1 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small"><span style="color:red">Due Date&nbsp;*</span></label>
+                                <div class="col-lg-12 col-sm-12 ">
+                                    @Html.TextBoxFor(m => m.DueDate, new { @class = "form-control", @placeholder = "MM/DD/YYYY", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-xl-1 col-lg-1 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-lg-12 col-sm-12 col-form-label text-small"><span style="color:red">Hrs(24)</span></label>
                                 <div class="col-lg-12 col-sm-12 ">
-                                    @Html.TextBoxFor(m => m.ScheduleTimeHrs, new { @class = "form-control", required = "required" })
+                                    @Html.TextBoxFor(m => m.ScheduleTimeHrs, new { @class = "form-control", required = "required" })-->
                                     @*@Html.DropDownListFor(m => m.ScheduleTimeHrs, new SelectList(ViewBag.ScheduleTimeHrs, "Value", "Text"), "Select Hrs", new { @class = "form-control" })*@
-                                </div>
+                                <!--</div>
                             </div>
                         </div>
                         <div class="col-xl-1 col-lg-1 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-lg-12 col-sm-12 col-form-label text-small"><span style="color:red">Mins</span></label>
                                 <div class="col-lg-12 col-sm-12 ">
-                                    @Html.TextBoxFor(m => m.ScheduleTimeMins, new { @class = "form-control", required = "required" })
+                                    @Html.TextBoxFor(m => m.ScheduleTimeMins, new { @class = "form-control", required = "required" })-->
                                     @*@Html.DropDownListFor(m => m.ScheduleTimeMins, new SelectList(ViewBag.ScheduleTimeMins, "Value", "Text"), "Select Mins", new { @class = "form-control" })*@
-                                </div>
+                                <!--</div>
                             </div>
                         </div>
                         <div class="col-xl-1 col-lg-1 col-md-6 col-sm-12 col-12 mb-0">
@@ -181,7 +181,7 @@
                                     @Html.TextBoxFor(m => m.NoOfHrs, new { @class = "form-control" })
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-lg-12 col-sm-12 col-form-label text-small">Status</label>
@@ -190,14 +190,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        @*<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-lg-12 col-sm-12 col-form-label text-small">Meeting Date</label>
                                 <div class="col-lg-12 col-sm-12">
                                     @Html.TextBoxFor(m => m.ActuallyStartedDate, new { @class = "form-control", @placeholder = "MM/DD/YYYY" })
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                         @*<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
                                 <div class="form-group row">
                                     <label class="col-lg-12 col-sm-12 col-form-label text-small">Actual Completed Date</label>
@@ -222,7 +222,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
                             <div class="form-group row">
                                 <label class="col-lg-12 col-sm-12 col-form-label text-small">Frequency</label>
                                 <div class="col-lg-12 col-sm-12">

@@ -7095,9 +7095,18 @@ select.form-control:not([size]):not([multiple]) {
 .In-Progress {
     background-color: lemonchiffon !important;
 }
+.Active {
+    background-color: #73d96c !important;
+}
 
 .Not-Relavent {
     background-color: lightblue !important;
+}
+.On-Hold {
+    background-color: #ffc750 !important;
+}
+.Completed {
+    background-color: #7492f2 !important;
 }
 
 hr {
@@ -7192,6 +7201,18 @@ caption {
 }
 .Progress-Critical-N {
     color: blue;
+}
+.Progress-Attention {
+    background-color: #e58b00;
+}
+.Progress-Attention-C {
+    color: #e58b00;
+}
+.Progress-OnTrack {
+    background-color: #16a36c;
+}
+.Progress-OnTrack-C {
+    color: #16a36c;
 }
 
 

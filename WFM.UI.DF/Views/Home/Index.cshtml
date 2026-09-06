@@ -1,7 +1,316 @@
-﻿@model WFM.UI.DF.ModelsView.TaskTrackerViewModel
+﻿@model WFM.UI.DF.Models.ProposalManagementViewModel
 @{
-    ViewBag.Title = "My Tasks";
+    ViewBag.Title = "Dashboard";
 }
+
+<style>
+*{box-sizing:border-box}
+/*body{
+    margin:0;
+    padding:20px;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#fff;
+    color:#202124;
+}*/
+.dashboard{
+    max-width:1180px;
+    margin:auto;
+}
+.top-grid{
+    display:grid;
+    grid-template-columns: 1fr 1.35fr;
+    gap:10px;
+    align-items:start;
+}
+.card{
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 1px 2px rgba(0,0,0,.02);
+}
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:7px;
+}
+.card-header h2{
+    margin:0;
+    font-size:24px;
+    line-height:1.1;
+    letter-spacing:-.5px;
+}
+.menu{
+    color:#888;
+    font-size:20px;
+    letter-spacing:3px;
+}
+.section-title{
+    font-size:11px;
+    font-weight:700;
+    margin:5px 0 7px;
+}
+
+/* Proposal pipeline */
+.pipeline{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    margin-bottom:8px;
+    overflow:hidden;
+    border-radius:4px;
+}
+.pipe{
+    height:40px;
+    padding:4px 8px;
+    position:relative;
+    background:#e8edf3;
+}
+.pipe:nth-child(2){background:#e5eaf0}
+.pipe:nth-child(3){background:#e3edf2}
+.pipe:nth-child(4){background:#d2f0e5}
+.pipe:not(:last-child):after{
+    content:"";
+    position:absolute;
+    right:-10px;
+    top:0;
+    z-index:2;
+    border-top:15.5px solid transparent;
+    border-bottom:15.5px solid transparent;
+    border-left:10px solid #e8edf3;
+}
+.pipe:nth-child(2):after{border-left-color:#e5eaf0}
+.pipe:nth-child(3):after{border-left-color:#e3edf2}
+.pipe strong{
+    display:block;
+    font-size:11px;
+}
+.pipe small{
+    font-size:6px;
+    color:#68727d;
+}
+
+/* Tracking */
+.track-labels{
+    display:flex;
+    justify-content:space-between;
+    font-size:7px;
+    color:#777;
+    margin-bottom:3px;
+}
+.track-bar{
+    display:flex;
+    height:13px;
+    overflow:hidden;
+    border-radius:4px;
+    margin-bottom:11px;
+}
+.track-bar span{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:7px;
+    font-weight:600;
+}
+.won{background:#22a36c}
+.lost{background:#e34a4a}
+.rfi{background:#e78b00}
+.rfp{background:#2868d5}
+
+/* Risks */
+.risks{
+    width:100%;
+}
+.risk{
+    display:grid;
+    grid-template-columns:24px 1fr 20px;
+    gap:7px;
+    align-items:center;
+    border:1px solid #eee;
+    border-radius:7px;
+    padding:6px 7px;
+    margin-bottom:6px;
+    min-height:39px;
+}
+.risk-icon{
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:9px;
+}
+.purple{color:#8052e7;background:#f4efff}
+.orange{color:#db8a08;background:#fff6e7}
+.red{color:#e24a4a;background:#fff0f0}
+.blue{color:#1694b5;background:#eaf8fc}
+.risk-title{
+    font-size:8px;
+    font-weight:700;
+}
+.risk-desc{
+    font-size:6.5px;
+    color:#777;
+    margin:2px 0 4px;
+}
+.risk-line{
+    height:3px;
+    background:#e9edf0;
+    border-radius:3px;
+    overflow:hidden;
+}
+.risk-line span{display:block;height:100%}
+.risk-score{
+    font-size:9px;
+    font-weight:700;
+    text-align:right;
+}
+.purple-line{background:#824ce8}
+.orange-line{background:#e18a00}
+.red-line{background:#df4545}
+.blue-line{background:#1298bd}
+
+/* Project Management */
+.portfolio{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+    margin-bottom:12px;
+}
+.status{
+    position:relative;
+    height:51px;
+    padding:6px 9px;
+    border:1px solid #eee;
+    border-radius:9px;
+}
+.status.delayed{background:linear-gradient(135deg,#fff0f0,#fff)}
+.status.attention{background:linear-gradient(135deg,#fff7e7,#fff)}
+.status.ontrack{background:linear-gradient(135deg,#eaf8f2,#fff)}
+.status-number{
+    font-size:20px;
+    font-weight:600;
+    line-height:20px;
+}
+.delayed .status-number{color:#e33c3c}
+.attention .status-number{color:#d78900}
+.ontrack .status-number{color:#159b68}
+.status-label{
+    font-size:7px;
+    color:#777;
+    margin-top:3px;
+}
+.dot{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    display:inline-block;
+    margin-right:3px;
+}
+.status-arrow{
+    position:absolute;
+    top:7px;
+    right:8px;
+    font-size:10px;
+    color:#aaa;
+}
+.delayed .dot{background:#e33c3c}
+.attention .dot{background:#d78900}
+.ontrack .dot{background:#159b68}
+
+.category{
+    display:grid;
+    grid-template-columns:115px 1fr 20px;
+    align-items:center;
+    gap:7px;
+    height:25px;
+}
+.category-name{
+    font-size:9px;
+    font-weight:600;
+    white-space:nowrap;
+}
+.cat-dot{
+    width:7px;
+    height:7px;
+    border-radius:2px;
+    display:inline-block;
+    margin-right:5px;
+}
+.engineering{background:#2563eb}
+.environment{background:#16a34a}
+.social{background:#eab308}
+.hydrology{background:#0891b2}
+.cat-bar{
+    display:flex;
+    height:16px;
+    overflow:hidden;
+    border-radius:4px;
+    background:#eee;
+}
+.cat-bar span{height:100%}
+.bar-attention{background:#e58b00}
+.bar-delayed{background:#df3838}
+.bar-ontrack{background:#16a36c}
+.total{
+    font-size:9px;
+    font-weight:700;
+    text-align:right;
+}
+.legend{
+    border-top:1px solid #eee;
+    margin-top:8px;
+    padding-top:8px;
+    display:flex;
+    gap:12px;
+    font-size:7px;
+    color:#777;
+}
+.legend i{
+    display:inline-block;
+    width:7px;
+    height:7px;
+    border-radius:2px;
+    margin-right:3px;
+}
+
+/* Upcoming */
+.upcoming{
+    margin-top:8px;
+    margin-left:35%;
+    width:65%;
+    min-height:100px;
+}
+.upcoming h3{
+    margin:0;
+    display:inline-block;
+    padding:13px 20px;
+    border:1px solid #e1e1e1;
+    border-radius:22px;
+    font-size:15px;
+    font-weight:600;
+}
+.click{
+    color:#0000bb;
+    font-size:11px;
+    text-align:center;
+    margin-bottom:2px;
+}
+
+@*/* Responsive */
+@media(max-width:850px){
+    .top-grid{grid-template-columns:1fr}
+    .upcoming{margin-left:0;width:100%}
+}
+@media(max-width:500px){
+    body{padding:10px}
+    .card{padding:14px}
+    .card-header h2{font-size:20px}
+    .category{grid-template-columns:105px 1fr 18px}
+}*@
+</style>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -83,7 +392,7 @@
 
                     "render": function (data, type, full, meta) {
                         if (full["StatusId"] != 3)
-                            return '<a title="edit" class="btn btn-xs" href="/TaskTracker/Details/' + data + '"><img src = "/assets/images/grid/e.png" width="30" /></a>';
+                            return '@if (User.IsInRole("Administrator") || User.IsInRole("Editor")) {<a title="edit" class="btn btn-xs" href="/TaskTracker/Details/' + data + '"><img src = "/assets/images/grid/e.png" width="30" /></a>}';
                         else
                             return '';
                     }
@@ -98,7 +407,7 @@
         <div class="row mb-1">
             <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12">
                 <div class="pagetitle">
-                    <h3>@ViewBag.Title Management</h3>
+                    <h3>@ViewBag.Title</h3>
                 </div>
             </div>
         </div>
@@ -112,146 +421,41 @@
         </div>
         <input type="hidden" id="EmployeeId" value="@ViewBag.EmployeeId" />
         <div class="border border-primary bg-actual-white">
-            <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10 m-t-10">
-                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
-                    <div class="form-group row">
-                        <label class="col-12 col-sm-12 col-form-label text-small">Task Type</label>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            @Html.DropDownListFor(m => m.TaskTypeId, new SelectList(ViewBag.TaskTypeList, "Id", "Name"), "Select Task Type", new { @class = "form-select" })
-                        </div>
-                    </div>
-                </div>
-                @*<div class="col-xl-1 col-lg-1 col-md-6 col-sm-12 col-12 mb-0">
-                    <div class="form-group row">
-                        <label class="col-12 col-sm-12 col-form-label text-small">Bus. Unit</label>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            @Html.DropDownListFor(m => m.TaskTrackerCategoryId, new SelectList(ViewBag.TaskTrackerCategoryList, "Id", "Name"), "Select Business Unit", new { @class = "form-select" })
-                        </div>
-                    </div>
-                </div>*@
-                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
-                    <div class="form-group row">
-                        <label class="col-12 col-sm-12 col-form-label text-small">Project</label>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            @Html.DropDownListFor(m => m.ProjectId, new SelectList(ViewBag.ProjectList, "Id", "Name"), "No Related Project", new { @class = "form-select" })
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
-                    <div class="form-group row">
-                        <label class="col-12 col-sm-12 col-form-label text-small">Meeting</label>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            @Html.DropDownListFor(m => m.MeetingId, new SelectList(ViewBag.MeetingList, "Id", "Topic"), "No Related Meeting", new { @class = "form-control" })
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
-                    <div class="form-group row">
-                        <label class="col-lg-12 col-sm-12 col-form-label text-small">Assignee</label>
-                        <div class="col-lg-12 col-sm-12">
-                            @Html.DropDownListFor(m => m.AssigneeId, new SelectList(ViewBag.EmployeeList, "Id", "Name"), "Select Assignee", new { @class = "form-control" })
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
-                    <div class="form-group row">
-                        <label class="col-lg-12 col-sm-12 col-form-label text-small">Status</label>
-                        <div class="col-lg-12 col-sm-12">
-                            @Html.DropDownListFor(m => m.StatusId, new SelectList(ViewBag.TaskTrackerStatusList, "Id", "Name"), "Select Status", new { @class = "form-control" })
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-1 col-lg-1 col-md-6 col-sm-12 col-12 mb-0">
-                    <div class="form-group row">
-                        <label class="col-lg-12 col-sm-12 col-form-label text-small">Priority</label>
-                        <div class="col-lg-12 col-sm-12">
-                            @Html.DropDownListFor(m => m.PriorityId, new SelectList(ViewBag.PriorityList, "Id", "Name"), "Select Priority", new { @class = "form-control" })
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-12 mb-2">
-                    <div class="form-group row">
-                        <label class="col-lg-12 col-sm-12 col-form-label text-small">&nbsp;</label>
-                        <div class="col-lg-12 col-sm-12">
-                            <button class="cta-sm ml-2 btn btn-sm btn-success search" type="button">Search</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @*<div class="dashboard">*@
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="top-grid mt-3">
+                        <!-- ================= PROPOSAL MANAGEMENT ================= -->
 
-            <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10 m-t-10">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-t-20">
-                    <div class="table-responsive">
-                        <table id="List" class="table table-striped table-bordered first" width="100%">
-                            <thead>
-                                <tr>
-                                    <th style="width:5%">#</th>
-                                    <th style="width:10%">Assigned<br />[Due Date]</th>
-                                    <th style="width:10%">Priority<br />[Status]</th>
-                                    <th style="width:10%">BU<br />[Type]</th>
-                                    <th style="width:30%">[Project]<br />Description</th>
-                                    <th style="width:30%">[Scheduled Date]<br />Current Progress Note</th>
-                                    @*<th style="width:7%">Due Date</th>*@
-                                    <th style="width:5%">DR</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                        </table>
+                        @Html.Partial("_ProposalManagement", Model)
+                        <!-- ================= PROJECT MANAGEMENT ================= -->
+
+                        @Html.Partial("_ProjectManagement", Model.Projects)
                     </div>
+                    <!-- ================= UPCOMING DEADLINES ================= -->
+                    <div class="upcoming">
+                        <div class="click">Click this</div>
+                        <h3>Up-Coming Deadlines</h3>
+                    </div>
+
                 </div>
             </div>
-        </div>
     </div>
 </div>
 
-<div class="modal fade" id="UpdatesModal" tabindex="-1">
-    <div class="modal-dialog  modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Updates</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div id="viewpartial"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="DocumentsModal" tabindex="-1">
-    <div class="modal-dialog  modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Task Documents</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div id="viewpartial"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
 
 <script>
-     $(document).ready(function () {
-         $('#AssigneeId').select2().val($('#EmployeeId').val());
-         $("#AssigneeId").select2().trigger('change');
-         if ($.isNumeric($('#EmployeeId').val())) {
-             $("#AssigneeId").select2("enable", true);
-         }
-         else {
-             $("#AssigneeId").select2("enable", false);
-         }
+    $(document).ready(function () {
+        $('#AssigneeId').select2().val($('#EmployeeId').val());
+        $("#AssigneeId").select2().trigger('change');
+        if ($.isNumeric($('#EmployeeId').val())) {
+            $("#AssigneeId").select2("enable", true);
+        }
+        else {
+            $("#AssigneeId").select2("enable", false);
+        }
     });
 </script>

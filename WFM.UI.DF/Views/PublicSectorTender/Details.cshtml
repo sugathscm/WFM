@@ -205,6 +205,21 @@
                                 <a class="nav-link active" id="sourcing-tab-justify" data-toggle="tab" href="#sourcing-justif" role="tab" aria-controls="sourcing" aria-selected="true">Sourcing Documents</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" id="bidnobid-tab-justify" data-toggle="tab" href="#bidnobid-justify" role="tab" aria-controls="bidnobid" aria-selected="false">Bid / No-Bid Decision</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="qascore-tab-justify" data-toggle="tab" href="#qascore-justify" role="tab" aria-controls="qascore" aria-selected="false">QA Score</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="gatecontrol-tab-justify" data-toggle="tab" href="#gatecontrol-justify" role="tab" aria-controls="gatecontrol" aria-selected="false">Gate Control</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="bidrecommendation-tab-justify" data-toggle="tab" href="#bidrecommendation-justify" role="tab" aria-controls="bidrecommendation" aria-selected="false">Bid Recommendation</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="proposaloutcome-tab-justify" data-toggle="tab" href="#proposaloutcome-justify" role="tab" aria-controls="proposaloutcome" aria-selected="false">Win/Loss Outcome</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" id="randd-tab-justify" data-toggle="tab" href="#randd-justify" role="tab" aria-controls="randd" aria-selected="false">Research and Design</a>
                             </li>
                             @*<li class="nav-item">
@@ -265,6 +280,500 @@
                                                     <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
                                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                                         <input type="button" value="Save" id="SaveSourcing" class="btn btn-success" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="bidnobid-justify" role="tabpanel" aria-labelledby="bidnobid-tab-justify">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    @using (Html.BeginForm("SaveOrUpdateBidNoBid", "PublicSectorTender", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(m => m.BidNoBidDecisionViewModel.Id)
+                                        @Html.HiddenFor(m => m.BidNoBidDecisionViewModel.ProjectId)
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Strategic Fit /20</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.BidNoBidDecisionViewModel.StrategicFit, new { @class = "form-control bidnobid-score", type = "number", min = 0, max = 20 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Win Probability /20</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.BidNoBidDecisionViewModel.WinProbability, new { @class = "form-control bidnobid-score", type = "number", min = 0, max = 20 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Tech Capability /20</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.BidNoBidDecisionViewModel.TechCapability, new { @class = "form-control bidnobid-score", type = "number", min = 0, max = 20 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Resource /15</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.BidNoBidDecisionViewModel.Resource, new { @class = "form-control bidnobid-score", type = "number", min = 0, max = 15 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Profitability /10</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.BidNoBidDecisionViewModel.Profitability, new { @class = "form-control bidnobid-score", type = "number", min = 0, max = 10 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Client Relationship /10</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.BidNoBidDecisionViewModel.ClientRelationship, new { @class = "form-control bidnobid-score", type = "number", min = 0, max = 10 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Risks /5</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.BidNoBidDecisionViewModel.Risks, new { @class = "form-control bidnobid-score", type = "number", min = 0, max = 5 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Total /100</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.BidNoBidDecisionViewModel.Total, new { @class = "form-control", id = "bidnobid-total", @readonly = "readonly" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Decision</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.BidNoBidDecisionViewModel.Decision, new SelectList(new[] { "GO", "NO-BID / REVIEW" }), "Select Decision", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-9 col-lg-9 col-md-8 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Notes</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextAreaFor(m => m.BidNoBidDecisionViewModel.Notes, new { @class = "form-control", @rows = 2 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="submit" value="Save" id="SaveBidNoBid" class="btn btn-success" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="qascore-justify" role="tabpanel" aria-labelledby="qascore-tab-justify">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    @using (Html.BeginForm("SaveOrUpdateQAScore", "PublicSectorTender", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(m => m.QAScoreViewModel.Id)
+                                        @Html.HiddenFor(m => m.QAScoreViewModel.ProjectId)
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">RFP / TOR Compliance /20</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.QAScoreViewModel.RfpTorCompliance, new { @class = "form-control qascore-score", type = "number", min = 0, max = 20 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Methodology & Approach /15</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.QAScoreViewModel.MethodologyApproach, new { @class = "form-control qascore-score", type = "number", min = 0, max = 15 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Key Experts & CV /20</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.QAScoreViewModel.KeyExpertsCv, new { @class = "form-control qascore-score", type = "number", min = 0, max = 20 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Relevant Experience /10</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.QAScoreViewModel.RelevantExperience, new { @class = "form-control qascore-score", type = "number", min = 0, max = 10 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Work Plan & Deliverables /10</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.QAScoreViewModel.WorkPlanDeliverables, new { @class = "form-control qascore-score", type = "number", min = 0, max = 10 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">All Mandatory Attachments /5</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.QAScoreViewModel.MandatoryAttachments, new { @class = "form-control qascore-score", type = "number", min = 0, max = 5 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Financial Competitiveness /10</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.QAScoreViewModel.FinancialCompetitiveness, new { @class = "form-control qascore-score", type = "number", min = 0, max = 10 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Proposal Quality /5</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.QAScoreViewModel.ProposalQuality, new { @class = "form-control qascore-score", type = "number", min = 0, max = 5 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Final QC & Submission Readiness /5</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.QAScoreViewModel.FinalQcSubmissionReadiness, new { @class = "form-control qascore-score", type = "number", min = 0, max = 5 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Total /100</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.QAScoreViewModel.Total, new { @class = "form-control", id = "qascore-total", @readonly = "readonly" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Decision</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.QAScoreViewModel.Decision, new SelectList(new[] { "GO", "REVIEW" }), "Select Decision", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-9 col-lg-9 col-md-8 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Notes</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextAreaFor(m => m.QAScoreViewModel.Notes, new { @class = "form-control", @rows = 2 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="submit" value="Save" id="SaveQAScore" class="btn btn-success" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="gatecontrol-justify" role="tabpanel" aria-labelledby="gatecontrol-tab-justify">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    @{
+                                        var yesNoList = new SelectList(new[] {
+                                            new SelectListItem() { Text = "Yes", Value = "true" },
+                                            new SelectListItem() { Text = "No", Value = "false" }
+                                        }, "Value", "Text");
+                                    }
+                                    @using (Html.BeginForm("SaveOrUpdateGateControl", "PublicSectorTender", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(m => m.GateControlViewModel.Id)
+                                        @Html.HiddenFor(m => m.GateControlViewModel.ProjectId)
+                                        <div class="row">
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">QG1 Bid</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.GateControlViewModel.QG1Bid, yesNoList, "-- Select --", new { @class = "form-control gate-flag", @style = "width: 100%;" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">QG2 Kickoff</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.GateControlViewModel.QG2Kickoff, yesNoList, "-- Select --", new { @class = "form-control gate-flag", @style = "width: 100%;" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">QG3 50%</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.GateControlViewModel.QG3Fifty, yesNoList, "-- Select --", new { @class = "form-control gate-flag", @style = "width: 100%;" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">QG4 90%</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.GateControlViewModel.QG4Ninety, yesNoList, "-- Select --", new { @class = "form-control gate-flag", @style = "width: 100%;" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">QG5 Approve</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.GateControlViewModel.QG5Approve, yesNoList, "-- Select --", new { @class = "form-control gate-flag", @style = "width: 100%;" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">QG6 Submit</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.GateControlViewModel.QG6Submit, yesNoList, "-- Select --", new { @class = "form-control gate-flag", @style = "width: 100%;" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Gates Done</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        <input type="text" class="form-control" id="gates-done" readonly value="@Model.GateControlViewModel.GatesDone" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">% Complete</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        <input type="text" class="form-control" id="gates-percent" readonly value="@Model.GateControlViewModel.PercentComplete" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Current Stage</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        <input type="text" class="form-control" id="gates-stage" readonly value="@Model.GateControlViewModel.CurrentStage" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="submit" value="Save" id="SaveGateControl" class="btn btn-success" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="bidrecommendation-justify" role="tabpanel" aria-labelledby="bidrecommendation-tab-justify">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    @using (Html.BeginForm("SaveOrUpdateBidRecommendation", "PublicSectorTender", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(m => m.BidRecommendationViewModel.Id)
+                                        @Html.HiddenFor(m => m.BidRecommendationViewModel.ProjectId)
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Consortium / JV</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.BidRecommendationViewModel.ConsortiumJV, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Source</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.BidRecommendationViewModel.Source, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Strategic Fit</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.BidRecommendationViewModel.StrategicFit, new SelectList(new[] { "High", "Medium", "Low" }), "-- Select --", new { @class = "form-control", @style = "width: 100%;" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Eligible?</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.BidRecommendationViewModel.Eligible, yesNoList, "-- Select --", new { @class = "form-control", @style = "width: 100%;" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Recommend</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.BidRecommendationViewModel.RecommendStatusId, new SelectList(ViewBag.RecommendStatusList, "Id", "Name"), "-- Select --", new { @class = "form-control", @style = "width: 100%;" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="submit" value="Save" id="SaveBidRecommendation" class="btn btn-success" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="proposaloutcome-justify" role="tabpanel" aria-labelledby="proposaloutcome-tab-justify">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    @using (Html.BeginForm("SaveOrUpdateProposalOutcome", "PublicSectorTender", FormMethod.Post, new { @class = "form-horizontal", @role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(m => m.ProposalOutcomeViewModel.Id)
+                                        @Html.HiddenFor(m => m.ProposalOutcomeViewModel.ProjectId)
+                                        <div class="row">
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Outcome</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.ProposalOutcomeViewModel.Outcome, new SelectList(new[] { "Won", "Lost", "Shortlisted", "Pending", "Withdrawn" }), "-- Select --", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Result Date</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.ProposalOutcomeViewModel.ResultDate, "{0:MM/dd/yyyy}", new { @class = "form-control", @placeholder = "MM/DD/YYYY" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Winning Consultant</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.ProposalOutcomeViewModel.WinningConsultant, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Technical Score</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.ProposalOutcomeViewModel.TechnicalScore, new { @class = "form-control proposaloutcome-score", type = "number", min = 0 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Financial Score</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.ProposalOutcomeViewModel.FinancialScore, new { @class = "form-control proposaloutcome-score", type = "number", min = 0 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-1 col-lg-1 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Total Score</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.ProposalOutcomeViewModel.TotalScore, new { @class = "form-control", id = "proposaloutcome-total", @readonly = "readonly" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Main Reason for Loss</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.DropDownListFor(m => m.ProposalOutcomeViewModel.ReasonForLoss, new SelectList(new[] { "Price", "Technical score", "Experience", "Team", "Late/non-compliant", "Client relationship", "Lost to incumbent" }), "-- Select --", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Action Owner</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.ProposalOutcomeViewModel.ActionOwner, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Lesson Learned</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextAreaFor(m => m.ProposalOutcomeViewModel.LessonLearned, new { @class = "form-control", @rows = 2 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Follow-up Action</label>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        @Html.TextAreaFor(m => m.ProposalOutcomeViewModel.FollowUpAction, new { @class = "form-control", @rows = 2 })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-md-12 col-sm-12 col-form-label text-small"></label>
+                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                        <input type="submit" value="Save" id="SaveProposalOutcome" class="btn btn-success" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -372,17 +881,17 @@
                                         <div class="row">
                                             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
                                                 <div class="form-group row">
-                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Principal 1</label>
+                                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Principal</label>
                                                     <div class="col-lg-12 col-sm-12 ">
-                                                        @Html.DropDownListFor(m => m.PrincipalId1, new SelectList(ViewBag.Principals, "Id", "Name"), "Select Principal", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(m => m.PrincipalId1, new SelectList(ViewBag.Principals, "Id", "Name"), "Select Principal", new { @class = "form-control", @style = "width: 100%;" })
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
+                                            @*<div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
                                                 <div class="form-group row">
                                                     <label class="col-lg-12 col-sm-12 col-form-label text-small">Principal 2</label>
                                                     <div class="col-lg-12 col-sm-12 ">
-                                                        @Html.DropDownListFor(m => m.PrincipalId2, new SelectList(ViewBag.Principals, "Id", "Name"), "Select Principal", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(m => m.PrincipalId2, new SelectList(ViewBag.Principals, "Id", "Name"), "Select Principal", new { @class = "form-control", @style = "width: 100%;" })
                                                     </div>
                                                 </div>
                                             </div>
@@ -390,17 +899,17 @@
                                                 <div class="form-group row">
                                                     <label class="col-lg-12 col-sm-12 col-form-label text-small">Principal 3</label>
                                                     <div class="col-lg-12 col-sm-12 ">
-                                                        @Html.DropDownListFor(m => m.PrincipalId3, new SelectList(ViewBag.Principals, "Id", "Name"), "Select Principal", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(m => m.PrincipalId3, new SelectList(ViewBag.Principals, "Id", "Name"), "Select Principal", new { @class = "form-control", @style = "width: 100%;" })
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
+                                            </div>*@
+                                        @*</div>
+                                        <div class="row">*@
                                             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 mb-0">
                                                 <div class="form-group row">
                                                     <label class="col-lg-12 col-sm-12 col-form-label text-small">Sourcing Partners (External)</label>
                                                     <div class="col-lg-12 col-sm-12 ">
-                                                        @Html.DropDownListFor(m => m.PrincipalId2, new SelectList(ViewBag.SourcingPartners, "Id", "Name"), "Select Sourcing Partner", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(m => m.PrincipalId2, new SelectList(ViewBag.SourcingPartners, "Id", "Name"), "Select Sourcing Partner", new { @class = "form-control", @style = "width: 100%;" })
                                                     </div>
                                                 </div>
                                             </div>
@@ -408,7 +917,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-lg-12 col-sm-12 col-form-label text-small">Sourcing Partners (Internal)</label>
                                                     <div class="col-lg-12 col-sm-12 ">
-                                                        @Html.DropDownListFor(m => m.PrincipalId3, new SelectList(ViewBag.SourcingPartners, "Id", "Name"), "Select Sourcing Partner", new { @class = "form-control" })
+                                                        @Html.DropDownListFor(m => m.PrincipalId3, new SelectList(ViewBag.SourcingPartners, "Id", "Name"), "Select Sourcing Partner", new { @class = "form-control", @style = "width: 100%;" })
                                                     </div>
                                                 </div>
                                             </div>
@@ -527,7 +1036,7 @@
             </div>
 
         }
-        <div class="border border-primary bg-actual-white m-t-10">
+        @*<div class="border border-primary bg-actual-white m-t-10">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
                 <div class="row">
                     <div class="col-12">
@@ -550,7 +1059,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
         @*<div class="border border-primary bg-actual-white m-t-10">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
                     <div class="row">
@@ -768,9 +1277,15 @@
         var lblStatus = document.getElementById("lblDaysRemaining");
         lblStatus.style.width = dr + "%";
 
-        if (dr < 50) {
+        var healthOnTrackAt = @ViewBag.HealthOnTrackAt;
+        var healthAttentionAt = @ViewBag.HealthAttentionAt;
+
+        if (dr < healthAttentionAt) {
             lblStatus.className = "progress-bar daysremaining Progress-Critical";
-            //lblStatus.style.backgroundColor = "#FF0000";
+        } else if (dr < healthOnTrackAt) {
+            lblStatus.className = "progress-bar daysremaining Progress-Attention";
+        } else {
+            lblStatus.className = "progress-bar daysremaining Progress-OnTrack";
         }
 
         $('#form8BButton').click(function () {
@@ -853,8 +1368,84 @@
         }
 
         $('select').select2({
-            selectOnClose: true
+            selectOnClose: true,            
         });
+
+        function clampScoreField() {
+            var max = parseInt($(this).attr('max'));
+            var min = parseInt($(this).attr('min')) || 0;
+            var val = parseInt($(this).val());
+            if (isNaN(val)) return;
+            if (val > max) $(this).val(max);
+            else if (val < min) $(this).val(min);
+        }
+
+        $('.bidnobid-score, .qascore-score').on('change blur', clampScoreField);
+
+        var bidGoThreshold = @ViewBag.BidGoThreshold;
+        var bidNoBidDecisionField = $('#BidNoBidDecisionViewModel_Decision');
+        var bidNoBidDecisionManual = (bidNoBidDecisionField.val() !== "" && bidNoBidDecisionField.val() !== null);
+
+        bidNoBidDecisionField.on('select2:select', function () {
+            bidNoBidDecisionManual = true;
+        });
+
+        function calculateBidNoBidTotal() {
+            var total = 0;
+            $('.bidnobid-score').each(function () {
+                total += parseInt($(this).val()) || 0;
+            });
+            $('#bidnobid-total').val(total);
+
+            if (!bidNoBidDecisionManual) {
+                var suggested = (total >= bidGoThreshold) ? "GO" : "NO-BID / REVIEW";
+                bidNoBidDecisionField.val(suggested).trigger('change');
+            }
+        }
+
+        $('.bidnobid-score').on('change keyup', calculateBidNoBidTotal);
+        calculateBidNoBidTotal();
+
+        function calculateQAScoreTotal() {
+            var total = 0;
+            $('.qascore-score').each(function () {
+                total += parseInt($(this).val()) || 0;
+            });
+            $('#qascore-total').val(total);
+        }
+
+        $('.qascore-score').on('change keyup', calculateQAScoreTotal);
+        calculateQAScoreTotal();
+
+        var gateLabels = ["Bid", "Kickoff", "50%", "90%", "Approve", "Submit"];
+
+        function calculateGateControl() {
+            var gatesDone = 0;
+            var currentStage = "";
+            $('.gate-flag').each(function (index) {
+                if ($(this).val() == "true") {
+                    gatesDone++;
+                    currentStage = "Gate" + (index + 1) + " " + gateLabels[index];
+                }
+            });
+            $('#gates-done').val(gatesDone);
+            $('#gates-percent').val(Math.round(gatesDone / 6 * 100));
+            $('#gates-stage').val(currentStage);
+        }
+
+        $('.gate-flag').on('change', calculateGateControl);
+        calculateGateControl();
+
+        function calculateProposalOutcomeTotal() {
+            var total = 0;
+            $('.proposaloutcome-score').each(function () {
+                total += parseInt($(this).val()) || 0;
+            });
+            $('#proposaloutcome-total').val(total);
+        }
+
+        $('.proposaloutcome-score').on('change keyup', calculateProposalOutcomeTotal);
+        calculateProposalOutcomeTotal();
 
         //$('#btnPrintForm8B').click(function () {
         //    SaveForm8B();

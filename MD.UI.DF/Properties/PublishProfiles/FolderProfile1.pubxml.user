@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>D:\CCC\Workflow Management System\Publish-MD</_PublishTargetUrl>
-    <History>True|2024-12-05T05:02:37.3612103Z||;False|2024-12-04T09:29:46.6900497+05:30||;True|2024-12-04T08:52:54.6453714+05:30||;</History>
+    <History>True|2024-12-25T15:04:15.0081831Z||;True|2024-12-05T10:32:37.3612103+05:30||;False|2024-12-04T09:29:46.6900497+05:30||;True|2024-12-04T08:52:54.6453714+05:30||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -133,7 +133,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/13/2020 14:57:28</publishTime>
     </File>
     <File Include="assets/libs/css/style-light.css">
-      <publishTime>12/03/2024 23:22:59</publishTime>
+      <publishTime>12/25/2024 17:15:07</publishTime>
     </File>
     <File Include="assets/libs/js/dashboard-ecommerce.js">
       <publishTime>04/13/2020 14:57:28</publishTime>
@@ -1495,28 +1495,28 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/13/2020 14:57:30</publishTime>
     </File>
     <File Include="bin/WFM.BAL.dll">
-      <publishTime>12/05/2024 22:31:43</publishTime>
+      <publishTime>12/25/2024 20:34:13</publishTime>
     </File>
     <File Include="bin/WFM.BAL.dll.config">
       <publishTime>09/19/2024 16:42:06</publishTime>
     </File>
     <File Include="bin/WFM.BAL.pdb">
-      <publishTime>12/05/2024 22:31:43</publishTime>
+      <publishTime>12/25/2024 20:34:13</publishTime>
     </File>
     <File Include="bin/WFM.DAL.dll">
-      <publishTime>12/05/2024 22:31:42</publishTime>
+      <publishTime>12/25/2024 20:34:13</publishTime>
     </File>
     <File Include="bin/WFM.DAL.dll.config">
       <publishTime>09/13/2024 22:30:26</publishTime>
     </File>
     <File Include="bin/WFM.DAL.pdb">
-      <publishTime>12/05/2024 22:31:42</publishTime>
+      <publishTime>12/25/2024 20:34:13</publishTime>
     </File>
     <File Include="bin/WFM.UI.DF.dll">
-      <publishTime>12/06/2024 09:44:17</publishTime>
+      <publishTime>12/25/2024 22:50:56</publishTime>
     </File>
     <File Include="bin/WFM.UI.DF.pdb">
-      <publishTime>12/06/2024 09:44:17</publishTime>
+      <publishTime>12/25/2024 22:50:56</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.css">
       <publishTime>09/19/2024 16:42:31</publishTime>
@@ -1624,7 +1624,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/13/2020 14:57:28</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>12/05/2024 15:26:37</publishTime>
+      <publishTime>12/25/2024 20:33:16</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>04/13/2020 14:57:28</publishTime>
@@ -1932,6 +1932,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/AccountUser/Index.cshtml">
       <publishTime>04/13/2020 14:57:28</publishTime>
     </File>
+    <File Include="Views/Administration/Index.cshtml">
+      <publishTime>12/23/2024 18:36:15</publishTime>
+    </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>04/13/2020 14:57:28</publishTime>
     </File>
@@ -1942,7 +1945,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/23/2024 16:22:56</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>12/06/2024 09:43:16</publishTime>
+      <publishTime>12/25/2024 20:32:45</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>04/13/2020 14:57:28</publishTime>
@@ -1962,8 +1965,14 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/Manage/VerifyPhoneNumber.cshtml">
       <publishTime>04/13/2020 14:57:28</publishTime>
     </File>
+    <File Include="Views/Member/Index.cshtml">
+      <publishTime>12/25/2024 22:50:10</publishTime>
+    </File>
     <File Include="Views/Ministry/View.cshtml">
-      <publishTime>12/06/2024 08:29:39</publishTime>
+      <publishTime>12/10/2024 14:06:53</publishTime>
+    </File>
+    <File Include="Views/Relationship/Index.cshtml">
+      <publishTime>12/25/2024 17:48:06</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>04/13/2020 14:57:28</publishTime>
@@ -1972,7 +1981,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/13/2020 14:57:28</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>12/04/2024 09:52:55</publishTime>
+      <publishTime>12/25/2024 17:21:36</publishTime>
+    </File>
+    <File Include="Views/Shared/_LayoutAdministration.cshtml">
+      <publishTime>12/23/2024 18:38:06</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutLogin.cshtml">
       <publishTime>07/01/2021 00:19:04</publishTime>

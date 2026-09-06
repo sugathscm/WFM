@@ -422,7 +422,7 @@ namespace WFM.BAL.Services
         {
             using (LinkManagementEntities entities = new LinkManagementEntities())
             {
-                return entities.WFM_Project.Where(p => p.Code.Substring(p.Code.Length-4, 4) == code).SingleOrDefault();
+                return entities.WFM_Project.Where(p => p.Code == code).SingleOrDefault();
             }
         }
     }

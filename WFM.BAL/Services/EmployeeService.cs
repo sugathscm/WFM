@@ -14,6 +14,13 @@ namespace WFM.BAL.Services
                 return entities.WFM_Employee.Where(d => d.IsActive == true).OrderBy(d => d.Name).ToList();
             }
         }
+        public List<WFM_Employee> GetAllEmployeeList()
+        {
+            using (LinkManagementEntities entities = new LinkManagementEntities())
+            {
+                return entities.WFM_Employee.OrderBy(d => d.Name).ToList();
+            }
+        }
 
         public WFM_Employee GetEmployeeById(int? id)
         {
@@ -27,7 +34,7 @@ namespace WFM.BAL.Services
         {
             using (LinkManagementEntities entities = new LinkManagementEntities())
             {
-                return entities.WFM_Employee.Where(s => s.UserId == userId).SingleOrDefault();
+                return entities.WFM_Employee.Where(s => s.UserId == userId).OrderByDescending(s => s.Id).FirstOrDefault();
             }
         }
 

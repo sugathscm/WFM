@@ -1,0 +1,38 @@
+﻿.days_below_20 {
+    background-color: #FF9CD1;
+}
+
+.days_below_40 {
+    background-color: #B28CFF;
+}
+
+.days_below_60 {
+    background-color: #62A6FF;
+}
+
+.days_below_80 {
+    background-color: #3ECEC3;
+}
+
+.days_over_80 {
+    background-color: #C8D33D;
+}
+
+.select2-results {
+    display: block;
+    font-size: .75rem;
+}
+
+select 
+{
+    width:100%;
+}
+
+.select2-selection {
+    overflow: hidden;
+}
+
+.select2-selection__rendered {
+    white-space: normal;
+    word-break: break-all;
+}

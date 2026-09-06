@@ -1,0 +1,85 @@
+@{
+    ViewBag.Title = "Gate Control List";
+}
+
+<script type="text/javascript">
+    function renderGate(data) {
+        if (data === true)
+            return '<span class="text-success">Yes</span>';
+        else if (data === false)
+            return '<span class="text-danger">No</span>';
+        else
+            return '';
+    }
+
+    $(document).ready(function () {
+        $('#List').DataTable({
+            "paging": true,
+            "ajax": {
+                "url": "/GateControl/GetList",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                {
+                    "data": "ProjectId", "searchable": false, "ordering": false,
+                    "render": function (data, type, full, meta) {
+                        return '<a href="/PublicSectorTender/Details/' + data + '">' + full.ProjectCode + '</a>';
+                    }
+                },
+                { "data": "ProjectName" },
+                { "data": "QG1Bid", "searchable": false, "render": function (data) { return renderGate(data); } },
+                { "data": "QG2Kickoff", "searchable": false, "render": function (data) { return renderGate(data); } },
+                { "data": "QG3Fifty", "searchable": false, "render": function (data) { return renderGate(data); } },
+                { "data": "QG4Ninety", "searchable": false, "render": function (data) { return renderGate(data); } },
+                { "data": "QG5Approve", "searchable": false, "render": function (data) { return renderGate(data); } },
+                { "data": "QG6Submit", "searchable": false, "render": function (data) { return renderGate(data); } },
+                { "data": "GatesDone", "searchable": false },
+                {
+                    "data": "PercentComplete", "searchable": false,
+                    "render": function (data) {
+                        return (data == null) ? '' : data + '%';
+                    }
+                },
+                { "data": "CurrentStage" }
+            ]
+        });
+    });
+</script>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        @Html.Partial("_PageHeaderPartial")
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="border border-primary bg-actual-white">
+            <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-t-20">
+                    <div class="table-responsive">
+                        <table id="List" class="table table-striped table-bordered first">
+                            <thead>
+                                <tr>
+                                    <th>Ref</th>
+                                    <th>Proposal</th>
+                                    <th>QG1 Bid</th>
+                                    <th>QG2 Kickoff</th>
+                                    <th>QG3 50%</th>
+                                    <th>QG4 90%</th>
+                                    <th>QG5 Approve</th>
+                                    <th>QG6 Submit</th>
+                                    <th>Gates Done</th>
+                                    <th>% Complete</th>
+                                    <th>Current Stage</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

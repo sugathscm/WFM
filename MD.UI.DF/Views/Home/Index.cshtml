@@ -68,14 +68,14 @@
                 {
                     "data": "MinisterId", "className": "dt-center", "targets": "_all",
                     "render": function (data, type, full, meta) {
-                        return '<img src="/Images/Member/' + data + '.png" width="90" height="90"/></a><br />' + full["Minister"] + '<br />' + full["MinisterProfiles"];
+                        return '<img src="/Images/Member/' + data + '.png" width="90" height="90"/></a><br />' + full["Minister"] + '<br />' + full["MinisterProfiles"] + '<br /><i class="related">' + full["MinisterRelated"] + '</i>';
                     }
                 },
                 {
                     "data": "DeputyMinisterId", "className": "dt-center", "targets": "_all",
                     "render": function (data, type, full, meta) {
                         if (data != null)
-                            return '<img src="/Images/Member/' + data + '.png" width="90" height="90" /></a><br />' + full["DeputyMinister"] + '<br />' + full["DeputyMinisterProfiles"];
+                            return '<img src="/Images/Member/' + data + '.png" width="90" height="90" /></a><br />' + full["DeputyMinister"] + '<br />' + full["DeputyMinisterProfiles"] + '<br /><i class="related">' + full["DeputyMinisterRelated"] + '</i>';
                         else
                             return '';
                     }
@@ -84,7 +84,7 @@
                     "data": "MinistrySecrateryId", "className": "dt-center", "targets": "_all",
                     "render": function (data, type, full, meta) {
                         if (data != null)
-                            return '<img src="/Images/Member/' + data + '.png" width="90" height="90"/></a><br />' + full["MinistrySecratery"] + '<br />' + full["MinistrySecrateryProfiles"];
+                            return '<img src="/Images/Member/' + data + '.png" width="90" height="90"/></a><br />' + full["MinistrySecratery"] + '<br />' + full["MinistrySecrateryProfiles"] + '<br /><i class="related">' + full["MinistrySecrateryRelated"] + '</i>';
                         else
                             return '';
                     }
@@ -121,9 +121,3 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-
-<script>
-    $(document).ready(function () {
-
-    });
-</script>

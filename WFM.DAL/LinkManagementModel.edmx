@@ -169,6 +169,15 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="MD_MemberRelationship">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberId" Type="int" />
+          <Property Name="RelatedMemberId" Type="int" />
+          <Property Name="RelationshipTypeId" Type="int" />
+        </EntityType>
         <EntityType Name="Organization">
           <Key>
             <PropertyRef Name="Id" />
@@ -417,7 +426,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="Title" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
           <Property Name="FixedLine" Type="nvarchar" MaxLength="50" />
@@ -426,7 +435,7 @@
           <Property Name="DesignationId" Type="int" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" />
-          <Property Name="Code" Type="nvarchar" MaxLength="5" />
+          <Property Name="Code" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="WFM_FileNote">
           <Key>
@@ -509,6 +518,116 @@
           <Property Name="LegalFacilitation10" Type="nvarchar" MaxLength="250" />
           <Property Name="ValidityPeriodOfTheAgreement" Type="nvarchar" MaxLength="150" />
           <Property Name="FormDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WFM_BidNoBidDecision">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="StrategicFit" Type="int" />
+          <Property Name="WinProbability" Type="int" />
+          <Property Name="TechCapability" Type="int" />
+          <Property Name="Resource" Type="int" />
+          <Property Name="Profitability" Type="int" />
+          <Property Name="ClientRelationship" Type="int" />
+          <Property Name="Risks" Type="int" />
+          <Property Name="Total" Type="int" />
+          <Property Name="Decision" Type="nvarchar" MaxLength="50" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WFM_QAScore">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="RfpTorCompliance" Type="int" />
+          <Property Name="MethodologyApproach" Type="int" />
+          <Property Name="KeyExpertsCv" Type="int" />
+          <Property Name="RelevantExperience" Type="int" />
+          <Property Name="WorkPlanDeliverables" Type="int" />
+          <Property Name="MandatoryAttachments" Type="int" />
+          <Property Name="FinancialCompetitiveness" Type="int" />
+          <Property Name="ProposalQuality" Type="int" />
+          <Property Name="FinalQcSubmissionReadiness" Type="int" />
+          <Property Name="Total" Type="int" />
+          <Property Name="Decision" Type="nvarchar" MaxLength="50" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WFM_GateControl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="QG1Bid" Type="bit" />
+          <Property Name="QG2Kickoff" Type="bit" />
+          <Property Name="QG3Fifty" Type="bit" />
+          <Property Name="QG4Ninety" Type="bit" />
+          <Property Name="QG5Approve" Type="bit" />
+          <Property Name="QG6Submit" Type="bit" />
+          <Property Name="GatesDone" Type="int" />
+          <Property Name="PercentComplete" Type="int" />
+          <Property Name="CurrentStage" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WFM_RecommendStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WFM_BidRecommendation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="ConsortiumJV" Type="nvarchar" MaxLength="250" />
+          <Property Name="Source" Type="nvarchar" MaxLength="250" />
+          <Property Name="StrategicFit" Type="nvarchar" MaxLength="20" />
+          <Property Name="Eligible" Type="bit" />
+          <Property Name="RecommendStatusId" Type="int" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WFM_ProposalOutcome">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="Outcome" Type="nvarchar" MaxLength="20" />
+          <Property Name="ResultDate" Type="datetime" />
+          <Property Name="WinningConsultant" Type="nvarchar" MaxLength="250" />
+          <Property Name="TechnicalScore" Type="int" />
+          <Property Name="FinancialScore" Type="int" />
+          <Property Name="TotalScore" Type="int" />
+          <Property Name="ReasonForLoss" Type="nvarchar" MaxLength="50" />
+          <Property Name="LessonLearned" Type="nvarchar" MaxLength="500" />
+          <Property Name="FollowUpAction" Type="nvarchar" MaxLength="500" />
+          <Property Name="ActionOwner" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="WFM_Location">
           <Key>
@@ -762,7 +881,7 @@
           <Property Name="DateCreated" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'db_a666d3_eml.dbo.WFM_ProjectDocumentHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="WFM_ProjectDocumentHistory">
           <Key>
             <PropertyRef Name="ProjectId" />
@@ -1696,6 +1815,9 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
         <Function Name="GetRelationshipListReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PersonId" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetRelationshipMembersByMember" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MemberID" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetTaskList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StatusId" Type="int" Mode="In" />
           <Parameter Name="ProjectId" Type="int" Mode="In" />
@@ -1726,6 +1848,7 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <EntitySet Name="MD_Institute" EntityType="Self.MD_Institute" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MD_InstituteMember" EntityType="Self.MD_InstituteMember" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MD_Member" EntityType="Self.MD_Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MD_MemberRelationship" EntityType="Self.MD_MemberRelationship" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrganizationType" EntityType="Self.OrganizationType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
@@ -1752,6 +1875,12 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <EntitySet Name="WFM_FileNote" EntityType="Self.WFM_FileNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_Form12B" EntityType="Self.WFM_Form12B" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_Form8B" EntityType="Self.WFM_Form8B" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WFM_BidNoBidDecision" EntityType="Self.WFM_BidNoBidDecision" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WFM_QAScore" EntityType="Self.WFM_QAScore" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WFM_GateControl" EntityType="Self.WFM_GateControl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WFM_RecommendStatus" EntityType="Self.WFM_RecommendStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WFM_BidRecommendation" EntityType="Self.WFM_BidRecommendation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WFM_ProposalOutcome" EntityType="Self.WFM_ProposalOutcome" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_Location" EntityType="Self.WFM_Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_LoginAudit" EntityType="Self.WFM_LoginAudit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_Marketing" EntityType="Self.WFM_Marketing" Schema="dbo" store:Type="Tables" />
@@ -2081,7 +2210,6 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="WFM_Employee" Relationship="Self.FK_WFM_Employee_AspNetUsers" FromRole="AspNetUsers" ToRole="WFM_Employee" />
           <NavigationProperty Name="WFM_Marketing" Relationship="Self.FK_WFM_Marketing_AspNetUsers" FromRole="AspNetUsers" ToRole="WFM_Marketing" />
           <NavigationProperty Name="WFM_MarketingSourcingPartner" Relationship="Self.FK_WFM_MarketingSourcingPartner_AspNetUsers" FromRole="AspNetUsers" ToRole="WFM_MarketingSourcingPartner" />
           <NavigationProperty Name="WFM_ProjectDocumentHistory" Relationship="Self.FK_WFM_ProjectDocumentHistory_AspNetUsers" FromRole="AspNetUsers" ToRole="WFM_ProjectDocumentHistory" />
@@ -2089,6 +2217,7 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="WFM_Project" Relationship="LinkManagementModel.FK_WFM_Project_AspNetUsers" FromRole="AspNetUser" ToRole="WFM_Project" />
           <NavigationProperty Name="WFM_Project1" Relationship="LinkManagementModel.FK_WFM_Project_AspNetUsers1" FromRole="AspNetUser" ToRole="WFM_Project" />
+          <NavigationProperty Name="WFM_Employee" Relationship="LinkManagementModel.FK_WFM_Employee_AspNetUsers" FromRole="AspNetUser" ToRole="WFM_Employee" />
           </EntityType>
         <EntityType Name="DataAudit">
           <Key>
@@ -2348,24 +2477,6 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <NavigationProperty Name="WFM_ProjectType" Relationship="Self.FK_WFM_DocumentTab_WFM_ProjectType" FromRole="WFM_DocumentTab" ToRole="WFM_ProjectType" />
           <NavigationProperty Name="WFM_Project" Relationship="LinkManagementModel.FK_WFM_Project_WFM_DocumentTab" FromRole="WFM_DocumentTab" ToRole="WFM_Project" />
         </EntityType>
-        <EntityType Name="WFM_Employee">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FixedLine" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="DesignationId" Type="Int32" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_WFM_Employee_AspNetUsers" FromRole="WFM_Employee" ToRole="AspNetUsers" />
-          <NavigationProperty Name="WFM_Designation" Relationship="LinkManagementModel.FK_WFM_Employee_WFM_Designation" FromRole="WFM_Employee" ToRole="WFM_Designation" />
-          <Property Name="Code" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="WFM_Marketing">
           <Key>
             <PropertyRef Name="Id" />
@@ -2598,18 +2709,6 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AspNetUserLogins">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WFM_Employee_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
-          <End Role="WFM_Employee" Type="Self.WFM_Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Employee">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -2993,7 +3092,6 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <EntitySet Name="WFM_Document" EntityType="Self.WFM_Document" />
           <EntitySet Name="WFM_DocumentField" EntityType="Self.WFM_DocumentField" />
           <EntitySet Name="WFM_DocumentTab" EntityType="Self.WFM_DocumentTab" />
-          <EntitySet Name="WFM_Employee" EntityType="Self.WFM_Employee" />
           <EntitySet Name="WFM_Marketing" EntityType="Self.WFM_Marketing" />
           <EntitySet Name="WFM_MarketingSourcingPartner" EntityType="Self.WFM_MarketingSourcingPartner" />
           <EntitySet Name="WFM_Organization" EntityType="Self.WFM_Organization" />
@@ -3017,10 +3115,6 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WFM_Employee_AspNetUsers" Association="Self.FK_WFM_Employee_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="WFM_Employee" EntitySet="WFM_Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_WFM_Marketing_AspNetUsers" Association="Self.FK_WFM_Marketing_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -3164,10 +3258,6 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <EntitySet Name="WFM_PriorityFramework" EntityType="LinkManagementModel.WFM_PriorityFramework" />
           <EntitySet Name="WFM_Designation" EntityType="LinkManagementModel.WFM_Designation" />
           <EntitySet Name="WFM_Division" EntityType="LinkManagementModel.WFM_Division" />
-          <AssociationSet Name="FK_WFM_Employee_WFM_Designation" Association="LinkManagementModel.FK_WFM_Employee_WFM_Designation">
-            <End Role="WFM_Designation" EntitySet="WFM_Designation" />
-            <End Role="WFM_Employee" EntitySet="WFM_Employee" />
-          </AssociationSet>
           <EntitySet Name="WFM_CommonData" EntityType="LinkManagementModel.WFM_CommonData" />
           <EntitySet Name="WFM_DataAudit" EntityType="LinkManagementModel.WFM_DataAudit" />
           <EntitySet Name="WFM_LoginAudit" EntityType="LinkManagementModel.WFM_LoginAudit" />
@@ -3260,6 +3350,12 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <FunctionImport Name="GetDashboardData" ReturnType="Collection(LinkManagementModel.GetDashboardData_Result)" />
           <EntitySet Name="WFM_Form12B" EntityType="LinkManagementModel.WFM_Form12B" />
           <EntitySet Name="WFM_Form8B" EntityType="LinkManagementModel.WFM_Form8B" />
+          <EntitySet Name="WFM_BidNoBidDecision" EntityType="LinkManagementModel.WFM_BidNoBidDecision" />
+          <EntitySet Name="WFM_QAScore" EntityType="LinkManagementModel.WFM_QAScore" />
+          <EntitySet Name="WFM_GateControl" EntityType="LinkManagementModel.WFM_GateControl" />
+          <EntitySet Name="WFM_RecommendStatus" EntityType="LinkManagementModel.WFM_RecommendStatus" />
+          <EntitySet Name="WFM_BidRecommendation" EntityType="LinkManagementModel.WFM_BidRecommendation" />
+          <EntitySet Name="WFM_ProposalOutcome" EntityType="LinkManagementModel.WFM_ProposalOutcome" />
           <EntitySet Name="WFM_BondType" EntityType="LinkManagementModel.WFM_BondType" />
           <AssociationSet Name="FK_WFM_BondType_WFM_BondType" Association="LinkManagementModel.FK_WFM_BondType_WFM_BondType">
             <End Role="WFM_BondType" EntitySet="WFM_BondType" />
@@ -3319,6 +3415,19 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
             <Parameter Name="StatusId" Mode="In" Type="Int32" />
             <Parameter Name="InstituteId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="MD_MemberRelationship" EntityType="LinkManagementModel.MD_MemberRelationship" />
+          <FunctionImport Name="GetRelationshipMembersByMember" ReturnType="Collection(LinkManagementModel.GetRelationshipMembersByMember_Result)">
+          <Parameter Name="MemberID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="WFM_Employee" EntityType="LinkManagementModel.WFM_Employee" />
+          <AssociationSet Name="FK_WFM_Employee_AspNetUsers" Association="LinkManagementModel.FK_WFM_Employee_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="WFM_Employee" EntitySet="WFM_Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WFM_Employee_WFM_Designation" Association="LinkManagementModel.FK_WFM_Employee_WFM_Designation">
+            <End Role="WFM_Designation" EntitySet="WFM_Designation" />
+            <End Role="WFM_Employee" EntitySet="WFM_Employee" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="GetDataAuditByUser_Result">
           <Property Type="Guid" Name="UserId" Nullable="true" />
@@ -3431,18 +3540,6 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <NavigationProperty Name="WFM_Project" Relationship="LinkManagementModel.FK_WFM_Project_WFM_Division" FromRole="WFM_Division" ToRole="WFM_Project" />
         </EntityType>
-        <Association Name="FK_WFM_Employee_WFM_Designation">
-          <End Type="LinkManagementModel.WFM_Designation" Role="WFM_Designation" Multiplicity="1" />
-          <End Type="LinkManagementModel.WFM_Employee" Role="WFM_Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WFM_Designation">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WFM_Employee">
-              <PropertyRef Name="DesignationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="WFM_CommonData">
           <Key>
             <PropertyRef Name="Id" />
@@ -3912,6 +4009,116 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <Property Name="ValidityPeriodOfTheAgreement" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="FormDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="WFM_BidNoBidDecision">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="StrategicFit" Type="Int32" />
+          <Property Name="WinProbability" Type="Int32" />
+          <Property Name="TechCapability" Type="Int32" />
+          <Property Name="Resource" Type="Int32" />
+          <Property Name="Profitability" Type="Int32" />
+          <Property Name="ClientRelationship" Type="Int32" />
+          <Property Name="Risks" Type="Int32" />
+          <Property Name="Total" Type="Int32" />
+          <Property Name="Decision" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="WFM_QAScore">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="RfpTorCompliance" Type="Int32" />
+          <Property Name="MethodologyApproach" Type="Int32" />
+          <Property Name="KeyExpertsCv" Type="Int32" />
+          <Property Name="RelevantExperience" Type="Int32" />
+          <Property Name="WorkPlanDeliverables" Type="Int32" />
+          <Property Name="MandatoryAttachments" Type="Int32" />
+          <Property Name="FinancialCompetitiveness" Type="Int32" />
+          <Property Name="ProposalQuality" Type="Int32" />
+          <Property Name="FinalQcSubmissionReadiness" Type="Int32" />
+          <Property Name="Total" Type="Int32" />
+          <Property Name="Decision" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="WFM_GateControl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="QG1Bid" Type="Boolean" />
+          <Property Name="QG2Kickoff" Type="Boolean" />
+          <Property Name="QG3Fifty" Type="Boolean" />
+          <Property Name="QG4Ninety" Type="Boolean" />
+          <Property Name="QG5Approve" Type="Boolean" />
+          <Property Name="QG6Submit" Type="Boolean" />
+          <Property Name="GatesDone" Type="Int32" />
+          <Property Name="PercentComplete" Type="Int32" />
+          <Property Name="CurrentStage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="WFM_RecommendStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="WFM_BidRecommendation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="ConsortiumJV" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Source" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StrategicFit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Eligible" Type="Boolean" />
+          <Property Name="RecommendStatusId" Type="Int32" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="WFM_ProposalOutcome">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="Outcome" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ResultDate" Type="DateTime" Precision="3" />
+          <Property Name="WinningConsultant" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TechnicalScore" Type="Int32" />
+          <Property Name="FinancialScore" Type="Int32" />
+          <Property Name="TotalScore" Type="Int32" />
+          <Property Name="ReasonForLoss" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LessonLearned" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FollowUpAction" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ActionOwner" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="WFM_BondType">
           <Key>
             <PropertyRef Name="Id" />
@@ -3960,7 +4167,7 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="strCreatedDate" Nullable="true" MaxLength="82" />
           <Property Type="String" Name="TaskType" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="Meeting" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Meeting" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="strDueDate" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="Priority" Nullable="true" MaxLength="4000" />
           <Property Type="String" Name="TaskCategory" Nullable="false" MaxLength="222" />
@@ -3975,6 +4182,8 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <Property Type="DateTime" Name="scheduleDate" Nullable="true" />
           <Property Type="DateTime" Name="ScheduleTime" Nullable="true" Precision="23" />
           <Property Type="String" Name="NoofHrs" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="TaskDescriptionDB" Nullable="true" />
+          <Property Type="String" Name="CurrentProgressNoteView" Nullable="false" />
         </ComplexType>
         <EntityType Name="WFM_Company">
           <Key>
@@ -4349,7 +4558,7 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="128" />
           <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="Minister" Nullable="true" MaxLength="202" />
-          <Property Type="String" Name="DeputyMinister" Nullable="true" MaxLength="202" />
+          <Property Type="String" Name="DeputyMinister" Nullable="true" MaxLength="4000" />
           <Property Type="String" Name="MinistrySecratery" Nullable="true" MaxLength="202" />
           <Property Type="Int32" Name="MinisterId" Nullable="true" />
           <Property Type="Int32" Name="DeputyMinisterId" Nullable="true" />
@@ -4359,6 +4568,9 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <Property Type="String" Name="Description" Nullable="true" />
           <Property Type="String" Name="DeputyMinisterProfiles" Nullable="true" MaxLength="690" />
           <Property Type="String" Name="MinistrySecrateryProfiles" Nullable="true" MaxLength="690" />
+          <Property Type="String" Name="MinisterRelated" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="DeputyMinisterRelated" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="MinistrySecrateryRelated" Nullable="true" MaxLength="4000" />
           </ComplexType>
         <ComplexType Name="GetMinistryLineAgencies_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -4373,6 +4585,67 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
           <Property Type="String" Name="DesignationName" Nullable="true" MaxLength="150" />
           <Property Type="String" Name="MemberProfiles" Nullable="true" MaxLength="690" />
         </ComplexType>
+        <EntityType Name="MD_MemberRelationship">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" />
+          <Property Name="RelatedMemberId" Type="Int32" />
+          <Property Name="RelationshipTypeId" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="GetRelationshipMembersByMember_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ContactNumbers" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="FBProfile" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="LIProfile" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="TTProfile" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <EntityType Name="WFM_Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FixedLine" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DesignationId" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="LinkManagementModel.FK_WFM_Employee_AspNetUsers" FromRole="WFM_Employee" ToRole="AspNetUser" />
+          <NavigationProperty Name="WFM_Designation" Relationship="LinkManagementModel.FK_WFM_Employee_WFM_Designation" FromRole="WFM_Employee" ToRole="WFM_Designation" />
+        </EntityType>
+        <Association Name="FK_WFM_Employee_AspNetUsers">
+          <End Type="LinkManagementModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="LinkManagementModel.WFM_Employee" Role="WFM_Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WFM_Employee">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WFM_Employee_WFM_Designation">
+          <End Type="LinkManagementModel.WFM_Designation" Role="WFM_Designation" Multiplicity="1" />
+          <End Type="LinkManagementModel.WFM_Employee" Role="WFM_Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WFM_Designation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WFM_Employee">
+              <PropertyRef Name="DesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4664,23 +4937,6 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="ProjectTypeId" ColumnName="ProjectTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WFM_Employee">
-            <EntityTypeMapping TypeName="LinkManagementModel.WFM_Employee">
-              <MappingFragment StoreEntitySet="WFM_Employee">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="FixedLine" ColumnName="FixedLine" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5230,6 +5486,122 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="WFM_BidNoBidDecision">
+            <EntityTypeMapping TypeName="LinkManagementModel.WFM_BidNoBidDecision">
+              <MappingFragment StoreEntitySet="WFM_BidNoBidDecision">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Decision" ColumnName="Decision" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Risks" ColumnName="Risks" />
+                <ScalarProperty Name="ClientRelationship" ColumnName="ClientRelationship" />
+                <ScalarProperty Name="Profitability" ColumnName="Profitability" />
+                <ScalarProperty Name="Resource" ColumnName="Resource" />
+                <ScalarProperty Name="TechCapability" ColumnName="TechCapability" />
+                <ScalarProperty Name="WinProbability" ColumnName="WinProbability" />
+                <ScalarProperty Name="StrategicFit" ColumnName="StrategicFit" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WFM_QAScore">
+            <EntityTypeMapping TypeName="LinkManagementModel.WFM_QAScore">
+              <MappingFragment StoreEntitySet="WFM_QAScore">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Decision" ColumnName="Decision" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="FinalQcSubmissionReadiness" ColumnName="FinalQcSubmissionReadiness" />
+                <ScalarProperty Name="ProposalQuality" ColumnName="ProposalQuality" />
+                <ScalarProperty Name="FinancialCompetitiveness" ColumnName="FinancialCompetitiveness" />
+                <ScalarProperty Name="MandatoryAttachments" ColumnName="MandatoryAttachments" />
+                <ScalarProperty Name="WorkPlanDeliverables" ColumnName="WorkPlanDeliverables" />
+                <ScalarProperty Name="RelevantExperience" ColumnName="RelevantExperience" />
+                <ScalarProperty Name="KeyExpertsCv" ColumnName="KeyExpertsCv" />
+                <ScalarProperty Name="MethodologyApproach" ColumnName="MethodologyApproach" />
+                <ScalarProperty Name="RfpTorCompliance" ColumnName="RfpTorCompliance" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WFM_GateControl">
+            <EntityTypeMapping TypeName="LinkManagementModel.WFM_GateControl">
+              <MappingFragment StoreEntitySet="WFM_GateControl">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CurrentStage" ColumnName="CurrentStage" />
+                <ScalarProperty Name="PercentComplete" ColumnName="PercentComplete" />
+                <ScalarProperty Name="GatesDone" ColumnName="GatesDone" />
+                <ScalarProperty Name="QG6Submit" ColumnName="QG6Submit" />
+                <ScalarProperty Name="QG5Approve" ColumnName="QG5Approve" />
+                <ScalarProperty Name="QG4Ninety" ColumnName="QG4Ninety" />
+                <ScalarProperty Name="QG3Fifty" ColumnName="QG3Fifty" />
+                <ScalarProperty Name="QG2Kickoff" ColumnName="QG2Kickoff" />
+                <ScalarProperty Name="QG1Bid" ColumnName="QG1Bid" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WFM_RecommendStatus">
+            <EntityTypeMapping TypeName="LinkManagementModel.WFM_RecommendStatus">
+              <MappingFragment StoreEntitySet="WFM_RecommendStatus">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WFM_BidRecommendation">
+            <EntityTypeMapping TypeName="LinkManagementModel.WFM_BidRecommendation">
+              <MappingFragment StoreEntitySet="WFM_BidRecommendation">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RecommendStatusId" ColumnName="RecommendStatusId" />
+                <ScalarProperty Name="Eligible" ColumnName="Eligible" />
+                <ScalarProperty Name="StrategicFit" ColumnName="StrategicFit" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="ConsortiumJV" ColumnName="ConsortiumJV" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WFM_ProposalOutcome">
+            <EntityTypeMapping TypeName="LinkManagementModel.WFM_ProposalOutcome">
+              <MappingFragment StoreEntitySet="WFM_ProposalOutcome">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ActionOwner" ColumnName="ActionOwner" />
+                <ScalarProperty Name="FollowUpAction" ColumnName="FollowUpAction" />
+                <ScalarProperty Name="LessonLearned" ColumnName="LessonLearned" />
+                <ScalarProperty Name="ReasonForLoss" ColumnName="ReasonForLoss" />
+                <ScalarProperty Name="TotalScore" ColumnName="TotalScore" />
+                <ScalarProperty Name="FinancialScore" ColumnName="FinancialScore" />
+                <ScalarProperty Name="TechnicalScore" ColumnName="TechnicalScore" />
+                <ScalarProperty Name="WinningConsultant" ColumnName="WinningConsultant" />
+                <ScalarProperty Name="ResultDate" ColumnName="ResultDate" />
+                <ScalarProperty Name="Outcome" ColumnName="Outcome" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="WFM_BondType">
             <EntityTypeMapping TypeName="LinkManagementModel.WFM_BondType">
               <MappingFragment StoreEntitySet="WFM_BondType">
@@ -5282,6 +5654,8 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
                 <ScalarProperty Name="scheduleDate" ColumnName="scheduleDate" />
                 <ScalarProperty Name="ScheduleTime" ColumnName="ScheduleTime" />
                 <ScalarProperty Name="NoofHrs" ColumnName="NoofHrs" />
+                <ScalarProperty Name="TaskDescriptionDB" ColumnName="TaskDescriptionDB" />
+                <ScalarProperty Name="CurrentProgressNoteView" ColumnName="CurrentProgressNoteView" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5702,6 +6076,9 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="DeputyMinisterProfiles" ColumnName="DeputyMinisterProfiles" />
                 <ScalarProperty Name="MinistrySecrateryProfiles" ColumnName="MinistrySecrateryProfiles" />
+                <ScalarProperty Name="MinisterRelated" ColumnName="MinisterRelated" />
+                <ScalarProperty Name="DeputyMinisterRelated" ColumnName="DeputyMinisterRelated" />
+                <ScalarProperty Name="MinistrySecrateryRelated" ColumnName="MinistrySecrateryRelated" />
                 </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5722,6 +6099,47 @@ warning 6002: The table/view 'db_a666d3_osl.dbo.WFM_ProjectDocumentHistory' does
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="MD_MemberRelationship">
+            <EntityTypeMapping TypeName="LinkManagementModel.MD_MemberRelationship">
+              <MappingFragment StoreEntitySet="MD_MemberRelationship">
+                <ScalarProperty Name="RelationshipTypeId" ColumnName="RelationshipTypeId" />
+                <ScalarProperty Name="RelatedMemberId" ColumnName="RelatedMemberId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetRelationshipMembersByMember" FunctionName="LinkManagementModel.Store.GetRelationshipMembersByMember">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LinkManagementModel.GetRelationshipMembersByMember_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ContactNumbers" ColumnName="ContactNumbers" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FBProfile" ColumnName="FBProfile" />
+                <ScalarProperty Name="LIProfile" ColumnName="LIProfile" />
+                <ScalarProperty Name="TTProfile" ColumnName="TTProfile" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="WFM_Employee">
+            <EntityTypeMapping TypeName="LinkManagementModel.WFM_Employee">
+              <MappingFragment StoreEntitySet="WFM_Employee">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FixedLine" ColumnName="FixedLine" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

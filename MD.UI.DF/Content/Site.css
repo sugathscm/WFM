@@ -58,8 +58,8 @@ element.style {
 .form-control {
     display: block;
     /*    width: 100% !important;*/
-    height: calc(1.5em + 0.75rem + 2px);
-    padding: 0.375rem 0.75rem;
+    height: calc(1rem + 0.75rem + 2px);
+    padding: 0.3rem 0.75rem;
     font-size: .750rem;
     font-weight: 400;
     line-height: 1.5;
@@ -82,9 +82,13 @@ element.style {
     white-space: normal;
 }
 
-.text-blue{
+.text-blue {
     color: blue;
 }
+.related {
+    color: orangered;
+/*    font-weight:bold;
+*/}
 
 .border-blue{
     border:2px solid blue;
@@ -92,4 +96,10 @@ element.style {
 
 .bg-yellow{
     background-color:lightgoldenrodyellow;
+}
+
+.btn {
+    font-size: 12px !important;
+    padding: 0.35rem 0.75rem !important;
+    border-radius: 0.25rem;
 }
