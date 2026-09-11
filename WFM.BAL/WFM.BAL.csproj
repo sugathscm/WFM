@@ -72,6 +72,7 @@
     <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Services\QAScoreService.cs" />
     <Compile Include="Services\GateControlService.cs" />
+    <Compile Include="Services\ProjectHandoverService.cs" />
     <Compile Include="Services\ProposalOutcomeService.cs" />
     <Compile Include="Services\RecommendStatusService.cs" />
     <Compile Include="Services\BidRecommendationService.cs" />

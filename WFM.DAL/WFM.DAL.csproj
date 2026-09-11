@@ -247,6 +247,9 @@
     <Compile Include="WFM_ProposalOutcome.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="WFM_ProjectHandover.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="WFM_BidRecommendation.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>

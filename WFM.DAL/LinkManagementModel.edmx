@@ -629,6 +629,36 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="WFM_ProjectHandover">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="H1" Type="bit" />
+          <Property Name="H1Note" Type="nvarchar" MaxLength="250" />
+          <Property Name="H2" Type="bit" />
+          <Property Name="H2Note" Type="nvarchar" MaxLength="250" />
+          <Property Name="H3" Type="bit" />
+          <Property Name="H3Note" Type="nvarchar" MaxLength="250" />
+          <Property Name="H4" Type="bit" />
+          <Property Name="H4Note" Type="nvarchar" MaxLength="250" />
+          <Property Name="H5" Type="bit" />
+          <Property Name="H5Note" Type="nvarchar" MaxLength="250" />
+          <Property Name="H6" Type="bit" />
+          <Property Name="H6Note" Type="nvarchar" MaxLength="250" />
+          <Property Name="H7" Type="bit" />
+          <Property Name="H7Note" Type="nvarchar" MaxLength="250" />
+          <Property Name="H8" Type="bit" />
+          <Property Name="H8Note" Type="nvarchar" MaxLength="250" />
+          <Property Name="ItemsDone" Type="int" />
+          <Property Name="HandoverStatus" Type="nvarchar" MaxLength="20" />
+          <Property Name="HandoverDone" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="WFM_Location">
           <Key>
             <PropertyRef Name="Id" />
@@ -1881,6 +1911,7 @@ warning 6002: The table/view 'db_a666d3_eml.dbo.WFM_ProjectDocumentHistory' does
           <EntitySet Name="WFM_RecommendStatus" EntityType="Self.WFM_RecommendStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_BidRecommendation" EntityType="Self.WFM_BidRecommendation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_ProposalOutcome" EntityType="Self.WFM_ProposalOutcome" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WFM_ProjectHandover" EntityType="Self.WFM_ProjectHandover" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_Location" EntityType="Self.WFM_Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_LoginAudit" EntityType="Self.WFM_LoginAudit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WFM_Marketing" EntityType="Self.WFM_Marketing" Schema="dbo" store:Type="Tables" />
@@ -3356,6 +3387,7 @@ warning 6002: The table/view 'db_a666d3_eml.dbo.WFM_ProjectDocumentHistory' does
           <EntitySet Name="WFM_RecommendStatus" EntityType="LinkManagementModel.WFM_RecommendStatus" />
           <EntitySet Name="WFM_BidRecommendation" EntityType="LinkManagementModel.WFM_BidRecommendation" />
           <EntitySet Name="WFM_ProposalOutcome" EntityType="LinkManagementModel.WFM_ProposalOutcome" />
+          <EntitySet Name="WFM_ProjectHandover" EntityType="LinkManagementModel.WFM_ProjectHandover" />
           <EntitySet Name="WFM_BondType" EntityType="LinkManagementModel.WFM_BondType" />
           <AssociationSet Name="FK_WFM_BondType_WFM_BondType" Association="LinkManagementModel.FK_WFM_BondType_WFM_BondType">
             <End Role="WFM_BondType" EntitySet="WFM_BondType" />
@@ -4114,6 +4146,36 @@ warning 6002: The table/view 'db_a666d3_eml.dbo.WFM_ProjectDocumentHistory' does
           <Property Name="LessonLearned" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FollowUpAction" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ActionOwner" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="WFM_ProjectHandover">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="H1" Type="Boolean" />
+          <Property Name="H1Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H2" Type="Boolean" />
+          <Property Name="H2Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H3" Type="Boolean" />
+          <Property Name="H3Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H4" Type="Boolean" />
+          <Property Name="H4Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H5" Type="Boolean" />
+          <Property Name="H5Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H6" Type="Boolean" />
+          <Property Name="H6Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H7" Type="Boolean" />
+          <Property Name="H7Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="H8" Type="Boolean" />
+          <Property Name="H8Note" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ItemsDone" Type="Int32" />
+          <Property Name="HandoverStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="HandoverDone" Type="Boolean" />
           <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
@@ -5597,6 +5659,37 @@ warning 6002: The table/view 'db_a666d3_eml.dbo.WFM_ProjectDocumentHistory' does
                 <ScalarProperty Name="WinningConsultant" ColumnName="WinningConsultant" />
                 <ScalarProperty Name="ResultDate" ColumnName="ResultDate" />
                 <ScalarProperty Name="Outcome" ColumnName="Outcome" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WFM_ProjectHandover">
+            <EntityTypeMapping TypeName="LinkManagementModel.WFM_ProjectHandover">
+              <MappingFragment StoreEntitySet="WFM_ProjectHandover">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="HandoverDone" ColumnName="HandoverDone" />
+                <ScalarProperty Name="HandoverStatus" ColumnName="HandoverStatus" />
+                <ScalarProperty Name="ItemsDone" ColumnName="ItemsDone" />
+                <ScalarProperty Name="H8Note" ColumnName="H8Note" />
+                <ScalarProperty Name="H8" ColumnName="H8" />
+                <ScalarProperty Name="H7Note" ColumnName="H7Note" />
+                <ScalarProperty Name="H7" ColumnName="H7" />
+                <ScalarProperty Name="H6Note" ColumnName="H6Note" />
+                <ScalarProperty Name="H6" ColumnName="H6" />
+                <ScalarProperty Name="H5Note" ColumnName="H5Note" />
+                <ScalarProperty Name="H5" ColumnName="H5" />
+                <ScalarProperty Name="H4Note" ColumnName="H4Note" />
+                <ScalarProperty Name="H4" ColumnName="H4" />
+                <ScalarProperty Name="H3Note" ColumnName="H3Note" />
+                <ScalarProperty Name="H3" ColumnName="H3" />
+                <ScalarProperty Name="H2Note" ColumnName="H2Note" />
+                <ScalarProperty Name="H2" ColumnName="H2" />
+                <ScalarProperty Name="H1Note" ColumnName="H1Note" />
+                <ScalarProperty Name="H1" ColumnName="H1" />
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

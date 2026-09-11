@@ -84,6 +84,7 @@ namespace WFM.DAL
         public virtual DbSet<WFM_RecommendStatus> WFM_RecommendStatus { get; set; }
         public virtual DbSet<WFM_BidRecommendation> WFM_BidRecommendation { get; set; }
         public virtual DbSet<WFM_ProposalOutcome> WFM_ProposalOutcome { get; set; }
+        public virtual DbSet<WFM_ProjectHandover> WFM_ProjectHandover { get; set; }
         public virtual DbSet<WFM_BondType> WFM_BondType { get; set; }
         public virtual DbSet<WFM_Company> WFM_Company { get; set; }
         public virtual DbSet<WFM_VCP> WFM_VCP { get; set; }

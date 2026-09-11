@@ -204,6 +204,7 @@
     <Compile Include="Controllers\BidNoBidController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\ProposalController.cs" />
+    <Compile Include="Controllers\HandoverController.cs" />
     <Compile Include="Controllers\AlertEngineController.cs" />
     <Compile Include="Controllers\WinLossDashboardController.cs" />
     <Compile Include="Controllers\ProposalAnalysisController.cs" />
@@ -909,6 +910,7 @@
     <Content Include="Views\WinLossDashboard\Index.cshtml" />
     <Content Include="Views\ProposalAnalysis\Index.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\ControlSettings\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
