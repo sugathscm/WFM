@@ -177,25 +177,25 @@
         <div class="border border-primary bg-actual-white p-3">
             <div class="row">
                 <div class="col-6 col-md-2 mb-3">
-                    <a class="kpi-card" href="@Url.Action("Index", "Opportunity")" title="View opportunity list">
+                    <a class="kpi-card" href="@Url.Action("Index", "Opportunity")" target="_blank" title="View opportunity list">
                         <div class="kpi-label">Active opportunities</div>
                         <div class="kpi-value">@Model.ActiveOpportunities</div>
                     </a>
                 </div>
                 <div class="col-6 col-md-2 mb-3">
-                    <a class="kpi-card" href="@Url.Action("Index", "Proposal")" title="View proposal pipeline">
+                    <a class="kpi-card" href="@Url.Action("Index", "Proposal")" target="_blank" title="View proposal pipeline">
                         <div class="kpi-label">Active proposals</div>
                         <div class="kpi-value">@Model.ActiveProposals</div>
                     </a>
                 </div>
                 <div class="col-6 col-md-2 mb-3">
-                    <a class="kpi-card" href="@Url.Action("Index", "WinLossDashboard")" title="View win/loss dashboard">
+                    <a class="kpi-card" href="@Url.Action("Index", "WinLossDashboard")" target="_blank" title="View win/loss dashboard">
                         <div class="kpi-label">Win rate (90d)</div>
                         <div class="kpi-value">@(Model.WinRate90d == null ? "-" : Model.WinRate90d + "%")</div>
                     </a>
                 </div>
                 <div class="col-6 col-md-2 mb-3">
-                    <a class="kpi-card" href="@Url.Action("Index", "Proposal")" title="View proposal pipeline">
+                    <a class="kpi-card" href="@Url.Action("Index", "Proposal")" target="_blank" title="View proposal pipeline">
                         <div class="kpi-label">Ongoing projects</div>
                         <div class="kpi-value">@Model.OngoingProjects</div>
                     </a>
@@ -207,7 +207,7 @@
                     </a>
                 </div>
                 <div class="col-6 col-md-2 mb-3">
-                    <a class="kpi-card" href="@Url.Action("Index", "BidNoBid")" title="View Bid/No-Bid list">
+                    <a class="kpi-card" href="@Url.Action("Index", "BidNoBid")" target="_blank" title="View Bid/No-Bid list">
                         <div class="kpi-label">Avg bid score (GO)</div>
                         <div class="kpi-value">@(Model.AvgBidScore == null ? "-" : Model.AvgBidScore.ToString())</div>
                     </a>
@@ -245,7 +245,7 @@
                         {
                             foreach (var r in Model.Risks)
                             {
-                                <a class="risk-row" href="@Url.Action("Details", "PublicSectorTender", new { id = r.ProjectId })" title="Open project">
+                                <a class="risk-row" href="@Url.Action("Details", "PublicSectorTender", new { id = r.ProjectId })" target="_blank" title="Open project">
                                     <span>@r.ProjectName</span>
                                     <span class="badge @(r.Severity == "danger" ? "badge-danger" : "badge-warning")">@r.Issue</span>
                                 </a>
@@ -285,7 +285,7 @@
                 scales: { x: { beginAtZero: true, ticks: { precision: 0 } } },
                 onClick: function (evt, elements) {
                     if (elements.length > 0) {
-                        window.location.href = funnelLinks[elements[0].index];
+                        window.open(funnelLinks[elements[0].index], '_blank');
                     }
                 }
             }
@@ -310,7 +310,7 @@
                 plugins: { legend: { position: 'bottom' } },
                 onClick: function (evt, elements) {
                     if (elements.length > 0) {
-                        window.location.href = '@Url.Action("Index", "Proposal")';
+                        window.open('@Url.Action("Index", "Proposal")', '_blank');
                     }
                 }
             }
