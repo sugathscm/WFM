@@ -1,6 +1,6 @@
 ﻿@model WFM.UI.DF.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Register New User";
 }
 
 <div class="dashboard-ecommerce">
@@ -8,61 +8,42 @@
         <!-- ============================================================== -->
         <!-- pageheader  -->
         <!-- ============================================================== -->
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="page-header">
-                    <h2 class="pageheader-title">@ViewBag.Title</h2>
-                    <div class="page-breadcrumb">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                @*<li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>*@
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-                @if (TempData["Message"] != null)
-                {
-                    @Html.Raw(TempData["Message"])
-                }
-            </div>
-        </div>
+        @Html.Partial("_PageHeaderPartial")
         <!-- ============================================================== -->
         <!-- end pageheader  -->
         <!-- ============================================================== -->
-        <div class="row" style="background-color:#fff">
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 m-t-20">
+        <div class="border border-primary bg-actual-white">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
                 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
                     <hr />
                     @Html.ValidationSummary("", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-4">
+                    <div class="form-row">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 ">
+                            @Html.LabelFor(m => m.Email, new { @class = "control-label" })
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-4">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 ">
+                            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @type = "password" })
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 ">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", @type = "password" })
                         </div>
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-4">
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    <div class="form-row">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 ">
+                            @Html.LabelFor(m => m.EmployeeId, new { @class = "control-label" })<span style="color:red">&nbsp;*</span>
+                            @Html.DropDownListFor(m => m.EmployeeId, new SelectList(Model.Employees.Items, "Id", "Name"), "Select Employee ", new { @class = "form-control form-select", required = "required" })
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.RoleId, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-2">
-                            @Html.DropDownListFor(m => m.RoleId, new SelectList(Model.Roles.Items, "Id", "Name"), "Select Title", new { @class = "form-control" })
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 ">
+                            @Html.LabelFor(m => m.RoleId, new { @class = "control-label" })<span style="color:red">&nbsp;*</span>
+                            @Html.DropDownListFor(m => m.RoleId, new SelectList(Model.Roles.Items, "Id", "Name"), "Select Role ", new { @class = "form-control form-select", required = "required" })
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 ">
+                            <label class="control-label" for="RoleId">&nbsp;</label><br />
                             <input type="submit" class="btn btn-default" value="Register" />
                         </div>
                     </div>
@@ -72,8 +53,15 @@
     </div>
 </div>
 
-
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $('#EmployeeId').select2({
+            selectOnClose: true
+        });
+
+        $('#RoleId').select2({
+            selectOnClose: true
+        });
+    </script>
 }

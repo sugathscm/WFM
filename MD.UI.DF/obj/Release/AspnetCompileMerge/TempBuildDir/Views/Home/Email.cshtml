@@ -1,0 +1,26 @@
+﻿
+@model WFM.UI.DF.ModelsView.EmailModelView
+@{
+    ViewBag.Title = "Email Management";
+}
+
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        @Html.Partial("_PageHeaderPartial")
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="border border-primary bg-actual-white">
+            <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
+                @using (Html.BeginForm("SendEmail", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    <input type="submit" value="Send" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

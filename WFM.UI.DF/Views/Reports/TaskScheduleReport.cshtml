@@ -1,0 +1,233 @@
+﻿@model WFM.UI.DF.ModelsView.ReportsViewModel
+@{
+    ViewBag.Title = "Reports";
+}
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="pagetitle">
+                    <h4>Task Schedule @ViewBag.Title</h4>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 pull-right">
+                @if (TempData["Message"] != null)
+                {
+                    @Html.Raw(TempData["Message"])
+                }
+            </div>
+        </div>        <!-- ============================================================== -->
+        <div class="border border-primary bg-actual-white">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-12 col-form-label text-small">From Date (mm/dd/yyyy)</label>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">To Date (mm/dd/yyyy)</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                        </div>*@
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-12 col-form-label text-small">Project</label>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                @Html.DropDownListFor(m => m.ProjectId, new SelectList(ViewBag.ProjectList, "Value", "Text"), "All Projects", new { @class = "form-select" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-12 col-form-label text-small">Meeting</label>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                @Html.DropDownListFor(m => m.MeetingId, new SelectList(ViewBag.MeetingList, "Id", "Topic"), "All Meetings", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="form-group row">
+                            <label class="col-lg-12 col-sm-12 col-form-label text-small">Assignee</label>
+                            <div class="col-lg-12 col-sm-12">
+                                @Html.DropDownListFor(m => m.AssigneeId, new SelectList(ViewBag.EmployeeList, "Id", "Name"), "All Assignees", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="form-group row">
+                            <label class="col-lg-12 col-sm-12 col-form-label text-small">Status</label>
+                            <div class="col-lg-12 col-sm-12">
+                                @Html.DropDownListFor(m => m.StatusId, new SelectList(ViewBag.TaskTrackerStatusList, "Value", "Text"), "All Stages", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="form-group row">
+                            <label class="col-lg-12 col-sm-12 col-form-label text-small">Priority</label>
+                            <div class="col-lg-12 col-sm-12">
+                                @Html.DropDownListFor(m => m.PriorityId, new SelectList(ViewBag.PriorityList, "Id", "Name"), "All Priorities", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                        <div class="form-group row">
+                            @*<label class="col-lg-12 col-sm-12 col-form-label text-small">&nbsp;</label>*@
+                            <div class="col-lg-12 col-sm-12">
+                                <input type="button" class="btn btn-primary button button4 generate" value="Generate" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 table-responsive">
+                @*<div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                            <input type="button" class="btn btn-warning button button4" value="Print" onclick="printDiv('reportdata', 'Task Tracker Report')" />
+                        </div>
+                    </div>*@
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="reportdata" style="display:block;width:100%">
+                    <table class="table table-bordered" style="width:100%">
+                        <caption style="caption-side:top">
+                            <h4><b>Task Schedule Report</b></h4>
+                            <br />Generated Date : <span class="generated_date"></span>
+                            <br />Generated By : @ViewBag.GeneratedBy
+                        </caption>
+                    </table>
+                    <div id="searchResults">
+                        @Html.Action("ScheduleDate", "TaskTracker", new { date = Model.FromDate.Value, Model })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ViewModal" tabindex="-1">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">View Task</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="viewpartial"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#FromDate").datepicker({ dateFormat: 'mm/dd/yy' });
+        $("#ToDate").datepicker({ dateFormat: 'mm/dd/yy' });
+        $(".generated_date").text(new Date());
+
+        $(".report").hide();
+
+        $(".generate").on('click', function () {
+            DisplayTaskSchduleReport();
+        });
+
+        $('#ProjectId').select2();
+        $('#MeetingId').select2();
+        $('#AssigneeId').select2();
+        $('#StatusId').select2();
+        $('#PriorityId').select2();
+
+        $('.view').click(function () {
+            alert('test');
+            @*var $row = $(this).closest('tr');
+            var rowData = table.row($row).data();
+            var id = rowData["Id"];
+
+            var route = '@Url.Action("View", "Invoice")/' + id;
+            console.log(route);*@
+
+            //$('#viewpartial').load(route);
+            //$('#ViewModal').modal('show');
+        });
+
+    });
+
+    function DisplayTaskSchduleReport() {
+        var url = '@Url.Action("ScheduleDate", "TaskTracker")';
+        $('#searchResults').load(url, {
+            "StatusId": $("#StatusId").val(),
+            "ProjectId": $("#ProjectId").val(),
+            "MeetingId": $("#MeetingId").val(),
+            "TaskTypeId": $("#TaskTypeId").val(),
+            "AssigneeId": $("#AssigneeId").val(),
+            "PriorityId": $("#PriorityId").val(),
+            "FromDate": $("#FromDate").val(),
+        });
+    }
+
+    function printDiv(divName, reportname) {
+        //var printContents = document.getElementById(divName).innerHTML;
+        //var originalContents = document.body.innerHTML;
+
+        //document.body.innerHTML = printContents;
+
+        //window.print();
+
+        //document.body.innerHTML = originalContents;
+
+        var contents = $("#" + divName).html();
+        var frame1 = $('<iframe />');
+        frame1[0].name = "frame1";
+        frame1.css({ "position": "absolute", "top": "-1000000px" });
+        $("body").append(frame1);
+        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+        frameDoc.document.open();
+        //Create a new HTML document.
+        frameDoc.document.write('<html><head><title>' + reportname + '</title>');
+        frameDoc.document.write('</head><body>');
+        //Append the external CSS file.
+        frameDoc.document.write('<link href="../assets/css/style.css" rel="stylesheet" type="text/css" />');
+        //Append the DIV contents.
+        frameDoc.document.write(contents);
+        frameDoc.document.write('</body></html>');
+        frameDoc.document.close();
+        setTimeout(function () {
+            window.frames["frame1"].focus();
+            window.frames["frame1"].print();
+            frame1.remove();
+        }, 500);
+    }
+
+    function GetDate(date) {
+        CurTime = new Date(date);
+        var offset = (new Date().getTimezoneOffset() / 60) * (-1);
+        var utc = CurTime.getTime() + (offset * 60000 * (-1));
+        var serverDate = new Date(utc + (3600000 * offset));
+        var dateString = (serverDate.getMonth() + 1) + "/" + serverDate.getDate() + "/" +
+            serverDate.getFullYear() + " " + serverDate.toLocaleTimeString("en-US", { hour12: true });
+    }
+</script>
+
+<style>
+    .group {
+        background-color: silver;
+    }
+</style>
+
+

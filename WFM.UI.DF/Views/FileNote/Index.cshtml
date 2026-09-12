@@ -1,0 +1,121 @@
+﻿@model WFM.DAL.WFM_FileNote
+
+@{
+    ViewBag.Title = "File Note Management";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#List').DataTable({
+            "paging": true,
+
+            "ajax": {
+                "url": "/FileNote/GetList",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "DateString" },
+                { "data": "ProjectName" },
+                { "data": "MeetingName" },
+                { "data": "NoteGivenByName" },
+                { "data": "NoteTakenByName" },
+                { "data": "Note" },
+                {
+                    "data": "Id", "searchable": false, "ordering": false,
+                    "render": function (data, type, full, meta) {
+                        return '<a class="btn btn-info" href="/FileNote/Index/' + data + '">Edit</a>';
+                    }
+                },
+            ]
+        });
+    });
+</script>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        @Html.Partial("_PageHeaderPartial")
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="border border-primary bg-actual-white">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
+                @using (Html.BeginForm("SaveOrUpdate", "FileNote", FormMethod.Post, new { @class = "needs-validation", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.HiddenFor(m => m.Id, new { @name = "Id" })
+                    <div class="form-row">
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-2">
+                            @Html.LabelFor(m => m.Date, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Date, new { @class = "form-control" })
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <label class="control-label">Project</label>
+                            @Html.DropDownListFor(model => model.ProjectId, new SelectList(ViewBag.ProjectList, "Id", "Name"), "Select Project")
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-2">
+                            <label class="control-label">Meeting</label>
+                            @Html.DropDownListFor(model => model.MeetingId, new SelectList(ViewBag.MeetingList, "Id", "Name"), "Select Meeting")
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-2">
+                            <label class="control-label">Note Given By</label>
+                            @Html.DropDownListFor(model => model.NoteGivenBy, new SelectList(ViewBag.EmployeeList, "Id", "Name"), "Select Given By")
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 mb-2">
+                            <label class="control-label">Note Taken By</label>
+                            @Html.DropDownListFor(model => model.NoteTakenBy, new SelectList(ViewBag.EmployeeList, "Id", "Name"), "Select Taken By")
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-xl-11 col-lg-11 col-md-12 col-sm-12 col-12 mb-2">
+                            <label class="control-label">Note</label>
+                            @Html.TextAreaFor(m => m.Note, new { @class = "form-control" })
+                        </div>
+                        <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12 col-12 ">
+                            <label>&nbsp;</label><br />
+                            <input type="submit" class="btn-xs btn-success" value="Save" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="border border-primary bg-actual-white m-b-10 m-t-10">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10 m-t-10">
+                <div class="table-responsive">
+                    <table id="List" class="table table-striped table-bordered first">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Project</th>
+                                <th>Meeting</th>
+                                <th>Note Given By</th>
+                                <th>Note Taken By</th>
+                                <th>Note</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $('select').select2({
+            width: '100%',
+            selectOnClose: true
+        });
+        $('#Date').datepicker({
+            uiLibrary: 'bootstrap',
+            "dateFormat": "mm/dd/yy"
+        });
+    </script>
+}
+

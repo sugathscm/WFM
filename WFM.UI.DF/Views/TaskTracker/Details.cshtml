@@ -1,0 +1,315 @@
+﻿@model WFM.UI.DF.ModelsView.TaskTrackerViewModel
+@{
+    ViewBag.Title = "Task ";
+}
+
+@using (Html.BeginForm("SaveOrUpdate", "TaskTracker", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    <div class="dashboard-ecommerce">
+        <div class="container-fluid dashboard-content ">
+            <!-- ============================================================== -->
+            <!-- pageheader  -->
+            <!-- ============================================================== -->
+            <div class="row mb-1">
+                <div class="col-xl-8 col-lg-8 col-md-11 col-sm-12 col-12">
+                    <div class="pagetitle">
+                        @if (String.IsNullOrEmpty(@Model.TaskDescriptionDB))
+                        {
+                            <h3>New @ViewBag.Title</h3>
+                        }
+                        else
+                        {
+                            <h3>@Model.TaskDescriptionDB</h3>
+                        }
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 text-right">
+                    @*<button class="cta-sm ml-2 btn btn-sm btn-primary" type="button" fdprocessedid="4w2c8q">In-Progress</button>
+                        <button class="cta-sm ml-2 btn btn-sm btn-success" type="button" fdprocessedid="b6qtgf">Completed</button>
+                        <button class="cta-sm ml-2 btn btn-sm btn-danger" type="button" fdprocessedid="b6qtgf">Cancel</button>*@
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end pageheader  -->
+            <!-- ============================================================== -->
+            <div class="border border-primary bg-actual-white">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.HiddenFor(m => m.Id, new { @name = "Id" })
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small"><span style="color:red">Task Type&nbsp;*</span></label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.DropDownListFor(m => m.TaskTypeId, new SelectList(ViewBag.TaskTypeList, "Id", "Name"), "Select Task Type", new { @class = "form-select validate", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small"><span style="color:red">Division&nbsp;*</span></label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.DropDownListFor(m => m.TaskTrackerCategoryId, new SelectList(ViewBag.TaskTrackerCategoryList, "Id", "Name"), "Select Division", new { @class = "form-select", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Project</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.DropDownListFor(m => m.ProjectId, new SelectList(ViewBag.ProjectList, "Id", "Name"), "No Related Project", new { @class = "form-select" })
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                                <div class="form-group row">
+                                    <label class="col-12 col-sm-12 col-form-label text-small">Meeting</label>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        @Html.DropDownListFor(m => m.MeetingId, new SelectList(ViewBag.MeetingList, "Id", "Name"), "No Related Meeting", new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>*@
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Priority</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @Html.DropDownListFor(m => m.PriorityId, new SelectList(ViewBag.PriorityList, "Id", "Name"), "Select Priority", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                                <div class="form-group row">
+                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Add to Agenda</label>
+                                    <div class="col-lg-12 col-sm-12">
+                                        @Html.DropDownListFor(m => m.AddToAgendaMeetingId, new SelectList(ViewBag.MeetingList, "Id", "Name"), "No Related Meeting", new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>*@
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small"><span style="color:red">Task Description&nbsp;*</span></label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.TextAreaFor(m => m.TaskDescriptionDB, new { @class = "form-control validate", @rows = "2", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Current Progress Note</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @Html.TextAreaFor(m => m.CurrentProgressNote, new { @class = "form-control", @rows = "5" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small"><span style="color:red"> the Authority of&nbsp;*</span></label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @Html.DropDownListFor(m => m.AuthorityId, new SelectList(ViewBag.EmployeeList, "Id", "Name"), "Select Authority", new { @class = "form-control", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Assignee - <span style="color:blue"><i>@Html.DisplayFor(a => a.Assignees)</i></span></label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @*@Html.DropDownListFor(m => m.AssigneeId, new SelectList(ViewBag.EmployeeList, "Id", "Name"), "Select Assignee", new { @class = "form-control" })*@
+                                    @Html.DropDownListFor(m => m.AssigneeIdList, new SelectList(ViewBag.EmployeeList, "Id ", "Name"), "Select Assignee", htmlAttributes: new
+                                       {
+                                           @class = "js-example-placeholder-multiple col-sm-12 form-select form-control validate",
+                                           @multiple = "multiple",
+                                           id = "AssigneeDropDownList"
+                                       })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-12 col-sm-12 col-form-label text-small">Email to</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.TextBoxFor(m => m.EmailTo, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small"><span style="color:red">Date of Assignment&nbsp;*</span></label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @Html.TextBoxFor(m => m.DateOfAssignment, new { @class = "form-control validate", @placeholder = "MM/DD/YYYY", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small"><span style="color:red">Schdule Date</span></label>
+                                <div class="col-lg-12 col-sm-12 ">
+                                    @Html.TextBoxFor(m => m.ScheduleDate, new { @class = "form-control", @placeholder = "MM/DD/YYYY", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small"><span style="color:red">Due Date&nbsp;*</span></label>
+                                <div class="col-lg-12 col-sm-12 ">
+                                    @Html.TextBoxFor(m => m.DueDate, new { @class = "form-control", @placeholder = "MM/DD/YYYY", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-xl-1 col-lg-1 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small"><span style="color:red">Hrs(24)</span></label>
+                                <div class="col-lg-12 col-sm-12 ">
+                                    @Html.TextBoxFor(m => m.ScheduleTimeHrs, new { @class = "form-control", required = "required" })-->
+                                    @*@Html.DropDownListFor(m => m.ScheduleTimeHrs, new SelectList(ViewBag.ScheduleTimeHrs, "Value", "Text"), "Select Hrs", new { @class = "form-control" })*@
+                                <!--</div>
+                            </div>
+                        </div>
+                        <div class="col-xl-1 col-lg-1 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small"><span style="color:red">Mins</span></label>
+                                <div class="col-lg-12 col-sm-12 ">
+                                    @Html.TextBoxFor(m => m.ScheduleTimeMins, new { @class = "form-control", required = "required" })-->
+                                    @*@Html.DropDownListFor(m => m.ScheduleTimeMins, new SelectList(ViewBag.ScheduleTimeMins, "Value", "Text"), "Select Mins", new { @class = "form-control" })*@
+                                <!--</div>
+                            </div>
+                        </div>
+                        <div class="col-xl-1 col-lg-1 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Hours</label>
+                                <div class="col-lg-12 col-sm-12 ">
+                                    @Html.TextBoxFor(m => m.NoOfHrs, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Status</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @Html.DropDownListFor(m => m.StatusId, new SelectList(ViewBag.StatusList, "Value", "Text"), new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Meeting Date</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @Html.TextBoxFor(m => m.ActuallyStartedDate, new { @class = "form-control", @placeholder = "MM/DD/YYYY" })
+                                </div>
+                            </div>
+                        </div>*@
+                        @*<div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                                <div class="form-group row">
+                                    <label class="col-lg-12 col-sm-12 col-form-label text-small">Actual Completed Date</label>
+                                    <div class="col-lg-12 col-sm-12 ">
+                                        @Html.TextBoxFor(m => m.ActuallyCompletedDate, new { @class = "form-control", @placeholder = "MM/DD/YYYY" })
+                                    </div>
+                                </div>
+                            </div>*@
+                        <div class="col-xl-1 col-lg-1 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Recurring</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @Html.CheckBoxFor(m => m.IsRecurring, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Recurring End Date</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @Html.TextBoxFor(m => m.RecurringEndDate, new { @class = "form-control", @placeholder = "MM/DD/YYYY" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Frequency</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    @Html.DropDownListFor(m => m.Frequency, new SelectList(ViewBag.FrequencyList, "Value", "Text"), new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">Documents</label>
+                                <div class="col-lg-12 col-sm-12">
+                                    <input type="file" name="postedFiles" multiple="multiple" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-1 col-lg-1 col-md-3 col-sm-12 col-12 mb-0">
+                            <div class="form-group row">
+                                <label class="col-lg-12 col-sm-12 col-form-label text-small">&nbsp;</label>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <button type="submit" class="btn btn-sm btn-success float-left">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        @if (Model.Documents != null)
+                        {
+                            foreach (var document in Model.Documents)
+                            {
+                                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12 mb-0">
+                                    <a class="btn btn-sm btn-primary m-t-10 " style="width:97%" target="_blank" href="@Url.Content(@document.DocumentPath)">@document.DocumentName</a>
+                                    <br />
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('select').select2({
+                width: '100%',
+                selectOnClose: true
+            });
+
+            $('#DateOfAssignment').datepicker({ dateFormat: 'mm/dd/yy' });
+            $('#DueDate').datepicker({ dateFormat: 'mm/dd/yy' });
+            $('#DateOfMeeting').datepicker({ dateFormat: 'mm/dd/yy' });
+            $('#RecurringEndDate').datepicker({ dateFormat: 'mm/dd/yy' });
+            $('#TakenNextDueDate').datepicker({
+                uiLibrary: 'bootstrap',
+                "dateFormat": "mm/dd/yy"
+            });
+            $('#DateOfMeeting').datepicker({
+                uiLibrary: 'bootstrap',
+                "dateFormat": "mm/dd/yy"
+            });
+            $('#ActuallyStartedDate').datepicker({
+                uiLibrary: 'bootstrap',
+                "dateFormat": "mm/dd/yy"
+            });
+            $('#ActuallyCompletedDate').datepicker({
+                uiLibrary: 'bootstrap',
+                "dateFormat": "mm/dd/yy"
+            });
+            $('#ScheduleDate').datepicker({
+                uiLibrary: 'bootstrap',
+                "dateFormat": "mm/dd/yy"
+            });
+
+            $('#ScheduleTime').datetimepicker({
+            });
+
+            $('#RecurringEndDate').attr("disabled", "disabled");
+            $('#IsRecurring').change(function () {
+                if (!this.checked) {
+                    $('#RecurringEndDate').attr("disabled", "disabled");
+                }
+                else {
+                    $('#RecurringEndDate').removeAttr("disabled");
+                }
+            });
+        });
+    </script>
+}

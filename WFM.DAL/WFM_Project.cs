@@ -96,6 +96,14 @@ namespace WFM.DAL
         public Nullable<int> HotPickId { get; set; }
         public Nullable<int> Number { get; set; }
         public Nullable<int> MainIntroducerId { get; set; }
+        public Nullable<System.DateTime> PublishedDate { get; set; }
+        public Nullable<System.DateTime> PreBidMeetingDate { get; set; }
+        public Nullable<System.DateTime> TenderSubmissionDate { get; set; }
+        public Nullable<decimal> BidBondAmount { get; set; }
+        public Nullable<decimal> TenderDocCollectionFee { get; set; }
+        public Nullable<int> TenderExtensionTimes { get; set; }
+        public string PrebidParticipants { get; set; }
+        public string PastBidders { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }

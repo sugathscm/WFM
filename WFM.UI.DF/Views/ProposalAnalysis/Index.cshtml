@@ -1,0 +1,146 @@
+@{
+    ViewBag.Title = "Analysis";
+}
+
+<script src="~/Scripts/chart.min.js"></script>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">@ViewBag.Title</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="border border-primary bg-actual-white p-3 m-b-20">
+                    <h5>Win rate by sector</h5>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Sector</th>
+                            <th>Won</th>
+                            <th>Lost</th>
+                            <th>Win rate</th>
+                        </tr>
+                        @foreach (var r in ViewBag.WinRateBySector)
+                        {
+                            <tr>
+                                <td>@r.Sector</td>
+                                <td>@r.Won</td>
+                                <td>@r.Lost</td>
+                                <td>@(r.WinRate == null ? "-" : r.WinRate + "%")</td>
+                            </tr>
+                        }
+                    </table>
+
+                    <h5 class="m-t-20">Win rate by value band</h5>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Value band (LKR '000)</th>
+                            <th>Won</th>
+                            <th>Lost</th>
+                            <th>Win rate</th>
+                        </tr>
+                        @foreach (var r in ViewBag.WinRateByBand)
+                        {
+                            <tr>
+                                <td>@r.Band</td>
+                                <td>@r.Won</td>
+                                <td>@r.Lost</td>
+                                <td>@(r.WinRate == null ? "-" : r.WinRate + "%")</td>
+                            </tr>
+                        }
+                    </table>
+
+                    <h5 class="m-t-20">Delay analysis (live pipeline)</h5>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Status</th>
+                            <th>Count</th>
+                        </tr>
+                        @{
+                            string[] delayLabels = ViewBag.DelayLabels;
+                            List<int> delayCounts = ViewBag.DelayCounts;
+                        }
+                        @for (int i = 0; i < delayLabels.Length; i++)
+                        {
+                            <tr><td>@delayLabels[i]</td><td>@delayCounts[i]</td></tr>
+                        }
+                    </table>
+                    <small class="text-muted">"Behind Plan" is reserved for a future schedule-lag signal (e.g. gates trailing the expected pace) - not yet computed, always 0.</small>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="border border-primary bg-actual-white p-3 m-b-20">
+                    <h5>Win rate by sector</h5>
+                    <div style="position: relative; height: 300px;">
+                        <canvas id="sectorChart"></canvas>
+                    </div>
+                </div>
+                <div class="border border-primary bg-actual-white p-3">
+                    <h5>Pipeline by delay status</h5>
+                    <div style="position: relative; height: 300px;">
+                        <canvas id="delayChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var sectorLabels = @Html.Raw(Json.Encode(ViewBag.SectorLabels));
+        var sectorRates = @Html.Raw(Json.Encode(ViewBag.SectorWinRates));
+
+        var sectorCtx = document.getElementById('sectorChart').getContext('2d');
+        new Chart(sectorCtx, {
+            type: 'bar',
+            data: {
+                labels: sectorLabels,
+                datasets: [{
+                    label: 'Win rate %',
+                    data: sectorRates,
+                    backgroundColor: '#16a36c'
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { beginAtZero: true, max: 100 }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        var delayLabels = @Html.Raw(Json.Encode(ViewBag.DelayLabels));
+        var delayCounts = @Html.Raw(Json.Encode(ViewBag.DelayCounts));
+
+        var delayCtx = document.getElementById('delayChart').getContext('2d');
+        new Chart(delayCtx, {
+            type: 'bar',
+            data: {
+                labels: delayLabels,
+                datasets: [{
+                    label: 'Proposals',
+                    data: delayCounts,
+                    backgroundColor: ['#16a36c', '#e58b00', '#5969ff', '#df3838', '#8b0000']
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { beginAtZero: true, ticks: { precision: 0 } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    });
+</script>

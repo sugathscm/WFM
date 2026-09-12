@@ -15,7 +15,8 @@ namespace WFM.DAL
     public partial class WFM_Employee
     {
         public int Id { get; set; }
-        public string Title { get; set; }
+        public int Title { get; set; }
+        public int TitleId { get; set; }
         public string Name { get; set; }
         public string Mobile { get; set; }
         public string FixedLine { get; set; }
@@ -24,6 +25,7 @@ namespace WFM.DAL
         public int DesignationId { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public string UserId { get; set; }
+        public string Code { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual WFM_Designation WFM_Designation { get; set; }

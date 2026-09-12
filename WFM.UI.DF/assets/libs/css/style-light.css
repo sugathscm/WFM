@@ -178,30 +178,30 @@ h6 {
 }
 
 h1 {
-    font-size: 34px;
+    font-size: 30px;
 }
 
 h2 {
-    font-size: 28px;
-    line-height: 30px;
+    font-size: 26px;
+    line-height: 26px;
 }
 
 h3 {
-    font-size: 20px;
+    font-size: 22px;
 }
 
 h4 {
-    font-size: 16px;
-    line-height: 26px;
+    font-size: 18px;
+    line-height: 16px;
 }
 
 h5 {
-    font-size: 15px;
-    line-height: 26px;
+    font-size: 14px;
+    line-height: 14px;
 }
 
 h6 {
-    font-size: 12px;
+    font-size: 10px;
 }
 
 p {
@@ -287,6 +287,7 @@ input[type=file] {
 
 .col-form-label {
     font-size: 15px;
+    font-weight: bold;
 }
 
 input {}
@@ -306,8 +307,10 @@ select.form-control {
     background-repeat: no-repeat;
     background-image: url(../../images/down-arrow.png);
     padding-right: 15px;
-    border: 1px solid #d2d2e4;
+    /*border: 1px solid #d2d2e4;*/
     border-radius: 2px;
+    width: 100% !important;
+    border: 1px solid #aaa;
 }
 
 textarea.form-control {
@@ -1700,7 +1703,7 @@ Left Navigation Sidebar
 
 .nav-left-sidebar .navbar-nav .nav-link {
     font-size: 14px;
-    padding: 12px;
+    padding: 5px;
     /* margin-bottom: 2px; */
     color: #71789e;
     transition: 0.3s;
@@ -1717,7 +1720,7 @@ Left Navigation Sidebar
 
 .nav-divider {
     padding: 10px 14px;
-    line-height: 30px;
+    line-height: 20px;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 14px!important;
@@ -2051,7 +2054,7 @@ Pageheader
 }
 
 .pageheader-title {
-    font-size: 24px;
+    font-size: 20px;
     margin-bottom: 8px;
 }
 
@@ -2627,9 +2630,10 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
 -------------------------*/
 
 .btn {
-    font-size: 14px;
-    /*padding: 9px 16px;*/
-    border-radius: 2px;
+    font-size: 12px !important;
+    padding: 4px 10px !important;
+    border-radius: 4px !important;
+    font-weight: bold !important;
 }
 
 .btn-wishlist {
@@ -2841,7 +2845,6 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
     color: #fff;
     background-color: #25d5f2;
     border-color: #25d5f2;
-    padding: .1rem .5rem;
     font-size:12px;
 }
 
@@ -3132,17 +3135,17 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
 /*--- btn size --*/
 
 .btn-xs {
-    padding: 4px 10px;
+    padding: 3px 8px;
     font-size: 12px;
 }
 
 .btn-sm {
-    padding: 5px 12px;
+    padding: 3px 10px;
     font-size: 14px;
 }
 
 .btn-lg {
-    padding: 11px 20px;
+    padding: 8px 15px;
     font-size: 15px;
 }
 
@@ -4525,7 +4528,7 @@ Pills vertical
 
     .table td {
         padding: 5px;
-        vertical-align: middle;
+        vertical-align: top;
         border-top: 1px solid #e6e6f2;
         font-weight: normal;
     }
@@ -6830,6 +6833,9 @@ Media Query
         border-right: transparent !important;
     }
 
+    .modal-lg {
+        max-width: 1000px !important;
+    }
 }
 
 
@@ -7022,3 +7028,236 @@ Media Query
 select.form-control:not([size]):not([multiple]) {
     height: calc(1rem +2)!important;
 }
+
+.form-control {
+    display: block;
+    width: 100% !important;
+    /*    height: calc(1.5em + 0.75rem);*/
+    padding: 0.375rem 0.75rem;
+    font-size: .750rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-clip: padding-box;
+    color: #768192;
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.Green {
+    background-color: lightgreen !important;
+}
+
+.Red {
+    background-color:lightpink !important;
+}
+.Yellow {
+    background-color:lemonchiffon  !important;
+}
+
+.table thead th, .table th {
+    background-color: lightgray !important;
+    color: #000 !important;
+    text-align:center!important;
+}
+
+.dataTables_wrapper {
+    width: 95%!important;
+}
+
+.assignee {
+    color: blue;
+}
+.project {
+    color: orangered;
+}
+
+.CompletedSR {
+    color: darkgreen !important;
+}
+
+.Not-StartedSR {
+    color: darkred !important;
+}
+
+.In-ProgressSR {
+    color: darkorange !important;
+}
+
+.Completed {
+    background-color: lightgreen !important;
+}
+
+.Not-Started {
+    background-color: lightpink !important;
+}
+.In-Progress {
+    background-color: lemonchiffon !important;
+}
+.Active {
+    background-color: #73d96c !important;
+}
+
+.Not-Relavent {
+    background-color: lightblue !important;
+}
+.On-Hold {
+    background-color: #ffc750 !important;
+}
+.Completed {
+    background-color: #7492f2 !important;
+}
+
+hr {
+    padding: 2px !important;
+    margin-top: .1rem;
+    margin-bottom: .1rem;
+}
+
+.thSaturday {
+    background-color: black !important;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+}
+
+.thSunday {
+    background-color: orange !important;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+}
+
+.thMonday {
+    background-color: darkgray !important;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+.thTuesday {
+    background-color: darkgray !important;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+.thWednesday {
+    background-color: darkgray !important;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+.thThursday {
+    background-color: darkgray !important;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+.thFriday {
+    background-color: darkgray !important;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+a.taskedit:hover, a.taskedit:active {
+    color: blue;
+}
+
+.today {
+    background-color: mediumpurple;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+
+.Sourcing {
+    background-color: lightyellow !important;
+}
+.RandD {
+    background-color: lightcoral !important;
+}
+.Marketing {
+    background-color: lightblue !important;
+}
+.PreImp {
+    background-color: lightgreen !important;
+}
+.Implementation {
+    background-color:lightpink !important;
+}
+.Monitization {
+    background-color: violet !important;
+}
+caption {
+    display: table-caption;
+    text-align: center;
+}
+
+.Progress-Critical {
+    background-color: red;
+}
+.Progress-Critical-C {
+    color: red;
+}
+.Progress-Critical-N {
+    color: blue;
+}
+.Progress-Attention {
+    background-color: #e58b00;
+}
+.Progress-Attention-C {
+    color: #e58b00;
+}
+.Progress-OnTrack {
+    background-color: #16a36c;
+}
+.Progress-OnTrack-C {
+    color: #16a36c;
+}
+
+
+.Not-Participated {
+    background-color: pink !important;
+}
+.Participated {
+    background-color: lightgreen !important;
+}
+.In-progress {
+    background-color: lightskyblue !important;
+}
+
+
+
+/*input:required {
+    background-color: lightyellow !important;
+}
+
+textarea:required {
+    background-color: lightyellow !important;
+}
+
+.select2-search:required {
+    background-color: lightyellow !important;
+}
+
+    .select2-search input:required {
+        background-color: lightyellow !important;
+    }
+
+.select2-:required {
+    background-color: lightyellow !important;
+}
+
+.select2-hidden-accessible {
+    background-color: lightyellow !important;
+}
+
+.validate
+{
+    border-color:red!important;
+}
+
+
+.select2-container--default .select2-selection--single {
+    background-color: lightyellow !important;
+}*/

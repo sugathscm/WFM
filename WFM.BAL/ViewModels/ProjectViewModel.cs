@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WFM.DAL;
 
 namespace WFM.BAL.ViewModels
@@ -108,7 +105,7 @@ namespace WFM.BAL.ViewModels
         public virtual WFM_ProjectSector WFM_ProjectSector { get; set; }
         public virtual WFM_ProjectStatus WFM_ProjectStatus { get; set; }
         public virtual WFM_ProjectSector WFM_ProjectSector1 { get; set; }
-        
+
         public string ProjectTypeName { get; set; }
         public string OrganizationName { get; set; }
         public string SectorName { get; set; }
@@ -144,6 +141,19 @@ namespace WFM.BAL.ViewModels
         public int MktStatus { get; set; }
         public int LegalStatus { get; set; }
         public int FinalStatus { get; set; }
+        public string ExpiaryDateString { get; set; }
+
+        public Nullable<System.DateTime> PreBidMeetingDate { get; set; }
+        public Nullable<System.DateTime> TenderSubmissionDate { get; set; }
+        public Nullable<decimal> BidBondAmount { get; set; }
+        public Nullable<decimal> TenderDocCollectionFee { get; set; }
+        public Nullable<int> TenderExtensionTimes { get; set; }
+        public string PrebidParticipants { get; set; }
+        public string PastBidders { get; set; }
+
+        public int DR {  get; set; }
+
 
     }
+
 }

@@ -51,7 +51,6 @@ namespace WFM.DAL
         public virtual DbSet<WFM_Document> WFM_Document { get; set; }
         public virtual DbSet<WFM_DocumentField> WFM_DocumentField { get; set; }
         public virtual DbSet<WFM_DocumentTab> WFM_DocumentTab { get; set; }
-        public virtual DbSet<WFM_Employee> WFM_Employee { get; set; }
         public virtual DbSet<WFM_Marketing> WFM_Marketing { get; set; }
         public virtual DbSet<WFM_MarketingSourcingPartner> WFM_MarketingSourcingPartner { get; set; }
         public virtual DbSet<WFM_Organization> WFM_Organization { get; set; }
@@ -79,6 +78,36 @@ namespace WFM.DAL
         public virtual DbSet<WFM_EmailTemplates> WFM_EmailTemplates { get; set; }
         public virtual DbSet<WFM_Form12B> WFM_Form12B { get; set; }
         public virtual DbSet<WFM_Form8B> WFM_Form8B { get; set; }
+        public virtual DbSet<WFM_BidNoBidDecision> WFM_BidNoBidDecision { get; set; }
+        public virtual DbSet<WFM_QAScore> WFM_QAScore { get; set; }
+        public virtual DbSet<WFM_GateControl> WFM_GateControl { get; set; }
+        public virtual DbSet<WFM_RecommendStatus> WFM_RecommendStatus { get; set; }
+        public virtual DbSet<WFM_BidRecommendation> WFM_BidRecommendation { get; set; }
+        public virtual DbSet<WFM_ProposalOutcome> WFM_ProposalOutcome { get; set; }
+        public virtual DbSet<WFM_ProjectHandover> WFM_ProjectHandover { get; set; }
+        public virtual DbSet<WFM_BondType> WFM_BondType { get; set; }
+        public virtual DbSet<WFM_Company> WFM_Company { get; set; }
+        public virtual DbSet<WFM_VCP> WFM_VCP { get; set; }
+        public virtual DbSet<WFM_TaskType> WFM_TaskType { get; set; }
+        public virtual DbSet<WFM_TaskUpdate> WFM_TaskUpdate { get; set; }
+        public virtual DbSet<WFM_FileNote> WFM_FileNote { get; set; }
+        public virtual DbSet<WFM_Location> WFM_Location { get; set; }
+        public virtual DbSet<WFM_TaskTrackerAssignee> WFM_TaskTrackerAssignee { get; set; }
+        public virtual DbSet<WFM_TaskTrackerDocument> WFM_TaskTrackerDocument { get; set; }
+        public virtual DbSet<WFM_TaskTrackerCategory> WFM_TaskTrackerCategory { get; set; }
+        public virtual DbSet<WFM_TaskStatus> WFM_TaskStatus { get; set; }
+        public virtual DbSet<WFM_MeetingType> WFM_MeetingType { get; set; }
+        public virtual DbSet<WFM_MeetingIP> WFM_MeetingIP { get; set; }
+        public virtual DbSet<WFM_Meeting> WFM_Meeting { get; set; }
+        public virtual DbSet<WFM_MeetingNote> WFM_MeetingNote { get; set; }
+        public virtual DbSet<WFM_TaskTracker> WFM_TaskTracker { get; set; }
+        public virtual DbSet<WFM_ProjectStage> WFM_ProjectStage { get; set; }
+        public virtual DbSet<MD_Designation> MD_Designation { get; set; }
+        public virtual DbSet<MD_InstituteMember> MD_InstituteMember { get; set; }
+        public virtual DbSet<MD_Member> MD_Member { get; set; }
+        public virtual DbSet<MD_Institute> MD_Institute { get; set; }
+        public virtual DbSet<MD_MemberRelationship> MD_MemberRelationship { get; set; }
+        public virtual DbSet<WFM_Employee> WFM_Employee { get; set; }
     
         public virtual ObjectResult<GetDataAuditByUser_Result> GetDataAuditByUser(Nullable<System.Guid> userId)
         {
@@ -131,18 +160,145 @@ namespace WFM.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ImportCSV");
         }
     
-        public virtual int SetRelationshipText(Nullable<int> iN_PersonId)
+        public virtual int SetRelationshipText(Nullable<int> inPersonId)
         {
-            var iN_PersonIdParameter = iN_PersonId.HasValue ?
-                new ObjectParameter("IN_PersonId", iN_PersonId) :
-                new ObjectParameter("IN_PersonId", typeof(int));
+            var inPersonIdParameter = inPersonId.HasValue ?
+                new ObjectParameter("InPersonId", inPersonId) :
+                new ObjectParameter("InPersonId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetRelationshipText", iN_PersonIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetRelationshipText", inPersonIdParameter);
         }
     
         public virtual ObjectResult<GetDashboardData_Result> GetDashboardData()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboardData_Result>("GetDashboardData");
+        }
+    
+        public virtual ObjectResult<GetTaskList_Result> GetTaskList(Nullable<int> statusId, Nullable<int> projectId, Nullable<int> meetingId, Nullable<int> taskTypeId, Nullable<int> assigneeId, Nullable<int> id)
+        {
+            var statusIdParameter = statusId.HasValue ?
+                new ObjectParameter("StatusId", statusId) :
+                new ObjectParameter("StatusId", typeof(int));
+    
+            var projectIdParameter = projectId.HasValue ?
+                new ObjectParameter("ProjectId", projectId) :
+                new ObjectParameter("ProjectId", typeof(int));
+    
+            var meetingIdParameter = meetingId.HasValue ?
+                new ObjectParameter("MeetingId", meetingId) :
+                new ObjectParameter("MeetingId", typeof(int));
+    
+            var taskTypeIdParameter = taskTypeId.HasValue ?
+                new ObjectParameter("TaskTypeId", taskTypeId) :
+                new ObjectParameter("TaskTypeId", typeof(int));
+    
+            var assigneeIdParameter = assigneeId.HasValue ?
+                new ObjectParameter("AssigneeId", assigneeId) :
+                new ObjectParameter("AssigneeId", typeof(int));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskList_Result>("GetTaskList", statusIdParameter, projectIdParameter, meetingIdParameter, taskTypeIdParameter, assigneeIdParameter, idParameter);
+        }
+    
+        public virtual ObjectResult<GetVCPList_Result> GetVCPList(Nullable<int> statusId)
+        {
+            var statusIdParameter = statusId.HasValue ?
+                new ObjectParameter("StatusId", statusId) :
+                new ObjectParameter("StatusId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetVCPList_Result>("GetVCPList", statusIdParameter);
+        }
+    
+        public virtual ObjectResult<GetMeetingList_Result> GetMeetingList(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, Nullable<int> typeId, Nullable<int> participantId, Nullable<int> id)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var typeIdParameter = typeId.HasValue ?
+                new ObjectParameter("TypeId", typeId) :
+                new ObjectParameter("TypeId", typeof(int));
+    
+            var participantIdParameter = participantId.HasValue ?
+                new ObjectParameter("ParticipantId", participantId) :
+                new ObjectParameter("ParticipantId", typeof(int));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetMeetingList_Result>("GetMeetingList", fromDateParameter, toDateParameter, typeIdParameter, participantIdParameter, idParameter);
+        }
+    
+        public virtual ObjectResult<GetProjectList_Result> GetProjectList(Nullable<int> statusId, Nullable<int> typeId, Nullable<int> sectorId, Nullable<int> organizationId, Nullable<int> stageId, Nullable<int> id)
+        {
+            var statusIdParameter = statusId.HasValue ?
+                new ObjectParameter("StatusId", statusId) :
+                new ObjectParameter("StatusId", typeof(int));
+    
+            var typeIdParameter = typeId.HasValue ?
+                new ObjectParameter("TypeId", typeId) :
+                new ObjectParameter("TypeId", typeof(int));
+    
+            var sectorIdParameter = sectorId.HasValue ?
+                new ObjectParameter("SectorId", sectorId) :
+                new ObjectParameter("SectorId", typeof(int));
+    
+            var organizationIdParameter = organizationId.HasValue ?
+                new ObjectParameter("OrganizationId", organizationId) :
+                new ObjectParameter("OrganizationId", typeof(int));
+    
+            var stageIdParameter = stageId.HasValue ?
+                new ObjectParameter("StageId", stageId) :
+                new ObjectParameter("StageId", typeof(int));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetProjectList_Result>("GetProjectList", statusIdParameter, typeIdParameter, sectorIdParameter, organizationIdParameter, stageIdParameter, idParameter);
+        }
+    
+        public virtual ObjectResult<GetMinistries_Result> GetMinistries(Nullable<int> statusId, Nullable<int> instituteId)
+        {
+            var statusIdParameter = statusId.HasValue ?
+                new ObjectParameter("StatusId", statusId) :
+                new ObjectParameter("StatusId", typeof(int));
+    
+            var instituteIdParameter = instituteId.HasValue ?
+                new ObjectParameter("InstituteId", instituteId) :
+                new ObjectParameter("InstituteId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetMinistries_Result>("GetMinistries", statusIdParameter, instituteIdParameter);
+        }
+    
+        public virtual ObjectResult<GetMinistryLineAgencies_Result> GetMinistryLineAgencies(Nullable<int> statusId, Nullable<int> instituteId)
+        {
+            var statusIdParameter = statusId.HasValue ?
+                new ObjectParameter("StatusId", statusId) :
+                new ObjectParameter("StatusId", typeof(int));
+    
+            var instituteIdParameter = instituteId.HasValue ?
+                new ObjectParameter("InstituteId", instituteId) :
+                new ObjectParameter("InstituteId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetMinistryLineAgencies_Result>("GetMinistryLineAgencies", statusIdParameter, instituteIdParameter);
+        }
+    
+        public virtual ObjectResult<GetRelationshipMembersByMember_Result> GetRelationshipMembersByMember(Nullable<int> memberID)
+        {
+            var memberIDParameter = memberID.HasValue ?
+                new ObjectParameter("MemberID", memberID) :
+                new ObjectParameter("MemberID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetRelationshipMembersByMember_Result>("GetRelationshipMembersByMember", memberIDParameter);
         }
     }
 }

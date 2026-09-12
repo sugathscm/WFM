@@ -33,7 +33,7 @@ namespace WFM.UI.DF.Controllers
         private readonly DivisionService divisionService = new DivisionService();
         private readonly EmployeeService employeeService = new EmployeeService();
         private readonly CommonDataService commonDataService = new CommonDataService();
-        private readonly int projectTypeId = 0; // All types
+        //private readonly int projectTypeId = 0; // All types
 
         public ProjectReportsController()
         {

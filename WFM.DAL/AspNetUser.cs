@@ -19,7 +19,6 @@ namespace WFM.DAL
         {
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
-            this.WFM_Employee = new HashSet<WFM_Employee>();
             this.WFM_Marketing = new HashSet<WFM_Marketing>();
             this.WFM_MarketingSourcingPartner = new HashSet<WFM_MarketingSourcingPartner>();
             this.WFM_ProjectDocumentHistory = new HashSet<WFM_ProjectDocumentHistory>();
@@ -27,6 +26,7 @@ namespace WFM.DAL
             this.AspNetRoles = new HashSet<AspNetRole>();
             this.WFM_Project = new HashSet<WFM_Project>();
             this.WFM_Project1 = new HashSet<WFM_Project>();
+            this.WFM_Employee = new HashSet<WFM_Employee>();
         }
     
         public string Id { get; set; }
@@ -47,8 +47,6 @@ namespace WFM.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WFM_Employee> WFM_Employee { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WFM_Marketing> WFM_Marketing { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WFM_MarketingSourcingPartner> WFM_MarketingSourcingPartner { get; set; }
@@ -62,5 +60,7 @@ namespace WFM.DAL
         public virtual ICollection<WFM_Project> WFM_Project { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WFM_Project> WFM_Project1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WFM_Employee> WFM_Employee { get; set; }
     }
 }

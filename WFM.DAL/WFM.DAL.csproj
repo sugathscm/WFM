@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WFM.DAL</RootNamespace>
     <AssemblyName>WFM.DAL</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -36,10 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -87,6 +87,15 @@
     <Compile Include="GetLoginAuditByUser_Result.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetMeetingList_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetMinistries_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetMinistryLineAgencies_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetOrganizationList_Result.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
@@ -96,7 +105,19 @@
     <Compile Include="GetPersonList_Result.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetProjectList_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetRelationshipListReport_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetRelationshipMembersByMember_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetTaskList_Result.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetVCPList_Result.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LinkManagementModel.Context.cs">
@@ -115,6 +136,21 @@
       <DependentUpon>LinkManagementModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="LoginAudit.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MD_Designation.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MD_Institute.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MD_InstituteMember.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MD_Member.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MD_MemberRelationship.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Organization.cs">
@@ -145,7 +181,13 @@
     <Compile Include="Title.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="WFM_BondType.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="WFM_CommonData.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_Company.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WFM_Configuration.cs">
@@ -181,10 +223,37 @@
     <Compile Include="WFM_Employee.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="WFM_BidNoBidDecision.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_FileNote.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="WFM_Form12B.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WFM_Form8B.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_Location.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_GateControl.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_RecommendStatus.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_ProposalOutcome.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_ProjectHandover.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_BidRecommendation.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_QAScore.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WFM_LoginAudit.cs">
@@ -194,6 +263,18 @@
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WFM_MarketingSourcingPartner.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_Meeting.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_MeetingIP.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_MeetingNote.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_MeetingType.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WFM_MethodOfIntroduction.cs">
@@ -229,6 +310,9 @@
     <Compile Include="WFM_ProjectSector.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="WFM_ProjectStage.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="WFM_ProjectStatus.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
@@ -238,6 +322,27 @@
     <Compile Include="WFM_SourcingPartner.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="WFM_TaskStatus.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_TaskTracker.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_TaskTrackerAssignee.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_TaskTrackerCategory.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_TaskTrackerDocument.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_TaskType.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_TaskUpdate.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="WFM_TenderDocumentSection.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
@@ -245,6 +350,9 @@
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="WFM_Title.cs">
+      <DependentUpon>LinkManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WFM_VCP.cs">
       <DependentUpon>LinkManagementModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -281,8 +389,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
 </Project>

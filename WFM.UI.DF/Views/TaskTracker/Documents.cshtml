@@ -1,0 +1,12 @@
+﻿@model List<WFM.UI.DF.ModelsView.TaskTrackerDocument>
+
+<div class="row">
+    @foreach (var document in Model)
+    {
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mb-0">
+            <a class="btn btn-sm btn-primary m-t-10 " style="width:97%" target="_blank" href="@Url.Content(@document.DocumentPath)">@document.DocumentName</a>
+            <br />
+        </div>
+    }
+</div>
+

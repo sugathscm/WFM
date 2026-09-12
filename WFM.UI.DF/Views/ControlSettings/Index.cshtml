@@ -1,0 +1,62 @@
+@model WFM.UI.DF.ModelsView.ControlSettingsViewModel
+@{
+    ViewBag.Title = "Control Settings";
+}
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        @Html.Partial("_PageHeaderPartial")
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="border border-primary bg-actual-white">
+            <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 m-t-20">
+                    @using (Html.BeginForm("SaveOrUpdate", "ControlSettings", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width:60%">Control Settings</th>
+                                <th>Value</th>
+                            </tr>
+                            <tr>
+                                <td>Alert lead time (days before deadline)</td>
+                                <td>@Html.TextBoxFor(m => m.AlertLeadTimeDays, new { @class = "form-control", type = "number", min = 0 })</td>
+                            </tr>
+                            <tr>
+                                <td>Amber warning window (days)</td>
+                                <td>@Html.TextBoxFor(m => m.AmberWarningWindowDays, new { @class = "form-control", type = "number", min = 0 })</td>
+                            </tr>
+                            <tr>
+                                <td>Bid GO threshold (of 100)</td>
+                                <td>@Html.TextBoxFor(m => m.BidGoThreshold, new { @class = "form-control", type = "number", min = 0, max = 100 })</td>
+                            </tr>
+                            <tr>
+                                <td>QA pass mark (of 100)</td>
+                                <td>@Html.TextBoxFor(m => m.QAPassMark, new { @class = "form-control", type = "number", min = 0, max = 100 })</td>
+                            </tr>
+                            <tr>
+                                <td>Project health: On track at</td>
+                                <td>@Html.TextBoxFor(m => m.ProjectHealthOnTrackAt, new { @class = "form-control", type = "number", min = 0, max = 100 })</td>
+                            </tr>
+                            <tr>
+                                <td>Project health: Attention at</td>
+                                <td>@Html.TextBoxFor(m => m.ProjectHealthAttentionAt, new { @class = "form-control", type = "number", min = 0, max = 100 })</td>
+                            </tr>
+                        </table>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-primary" value="Save" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -22,6 +22,13 @@ namespace WFM.BAL.Services
                 return entities.WFM_Division.Where(s => s.Id == id).SingleOrDefault();
             }
         }
+        public WFM_Division GetDivisionByName(string name)
+        {
+            using (LinkManagementEntities entities = new LinkManagementEntities())
+            {
+                return entities.WFM_Division.Where(s => s.Name == name).SingleOrDefault();
+            }
+        }
 
         public void SaveOrUpdate(WFM_Division designation)
         {

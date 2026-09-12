@@ -1,0 +1,352 @@
+﻿@using WFM.UI.DF.ModelsView
+@model Form8BViewModel
+
+
+@*@Html.HiddenFor(m => m.Form8BId, new { @name = "Form8BId" })
+    @Html.HiddenFor(m => m.ProjectId, new { @name = "ProjectId" })
+    @Html.HiddenFor(m => m.Id, new { @name = "Id" })*@
+<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="printForm8B">
+    <div class="dashboard-ecommerce">
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- pageheader  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- end pageheader  -->
+            <!-- ============================================================== -->
+            <div class="border border-primary bg-actual-white">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-10">
+                    <p class="text-justify">
+                        Note - It is mandatory that all legal documents signed with any outside entity should be processed through
+                        this form and essentially through Head of Legal with the written authorization of MD/BV. Any deviations
+                        are not acceptable to the company and shall amount to intentional noncompliance of Company procedures.
+                    </p>
+                    <div class="row form-group">
+                        <label class="col-lg-3 col-md-3 col-sm-3 control-label font-bold border" for="Requested by"><b>1.</b>&emsp;Requested by</label>
+                        <div class="col-lg-1 col-md-1 col-sm-1 border"><b>:</b></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 border">
+                            @Html.DisplayFor(r => r.RequestedBy)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 control-label font-bold" for="Designation"><b>2.</b>&emsp;Designation</label>
+                        <div class="col-md-1"><b>:</b></div>
+                        <div class="col-lg-6 col-md-6">
+                            @Html.DisplayFor(r => r.DesignationId)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 control-label font-bold" for="Division"><b>3.</b>&emsp;Division</label>
+                        <div class="col-md-1"><b>:</b></div>
+                        <div class="col-lg-6 col-md-6 ">
+                            @Html.DisplayFor(r => r.DivisionId)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 control-label font-bold" for="Reference No/File No"><b>4.</b>&emsp;Reference No/File No</label>
+                        <div class="col-md-1"><b>:</b></div>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(r => r.ReferenceNo)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 control-label font-bold" for="Date of Request"><b>5.</b>&emsp;Date of Request</label>
+                        <div class="col-md-1"><b>:</b></div>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(r => r.DateOfRequest)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 control-label font-bold" for="Project Sector"><b>6.</b>&emsp;Project Sector.</label>
+                        <div class="col-md-1"><b>:</b></div>
+                        <div class="col-md-6">
+                            @Html.DisplayFor(r => r.ProjectSectorId)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <b>7.&emsp;Complete accurate description of the Project:&nbsp;(To be given using the official professional terminology) : </b>@Html.DisplayFor(r => r.DescriptionOfTheProject)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 control-label font-bold" for="Total Project Value"><b>8.</b>&emsp;Total Project Value</label>
+                        <div class="col-md-1"><b>:</b></div>
+                        <div class="col-md-7">
+                            @Html.DisplayFor(m => m.TotalProjectValue)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <b>9.&emsp;The Company engaged representing CCC group :</b> @Html.DisplayFor(m => m.CompanyRepresentingCCC)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <b>10.&emsp;The role to be played by our (CCC) company as its obligations which will be the basis for the requested legal draft/ document :</b> @Html.DisplayFor(m => m.RoleToBePlayedByCCC)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <b>11.&emsp;Name of signatory from CCC side :</b> @Html.DisplayFor(m => m.NameOfSignatoryCCC)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <b>12.&emsp;Designation of signatory from CCC side : </b>@Html.DisplayFor(m => m.DesignationOfSignatoryCCC)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-12 control-label" for="Details of the other"><b>13.&emsp;Details of the other outside party involved :</b></label>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 control-label" for="Name">&emsp;&emsp;Name</label>
+                        <div class="col-md-1"><b>:</b></div>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(m => m.OtherPartyName)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 control-label" for="Reg No if a company">&emsp;&emsp;Reg No if a company</label>
+                        <div class="col-md-1"><b>:</b></div>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(m => m.OtherPartyRegNo)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 control-label" for="Registered address">&emsp;&emsp;Registered address</label>
+                        <div class="col-md-1"><b>:</b></div>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(m => m.OtherPartyAddress)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-3 control-label" for="Email">&emsp;&emsp;Email</label>
+                        <div class="col-md-1"><b>:</b></div>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(m => m.OtherPartyEmail)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-12 control-label" for="The “Role” played by the other company"><b>14.&emsp;The “Role” played by the other company and its obligations which will be the basis for the requested legal draft/ document :</b></label>
+                        <div class="col-md-12">
+                            @Html.DisplayFor(m => m.RoleToBePlayedByOtherParty)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <b>15.&emsp;Name and Designation of signatory from other Company/party´s side :</b> @Html.DisplayFor(m => m.OtherPartyName1)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-12 control-label" for="Details of the other"><b>16.&emsp;If there is or are more than single outside party involved, please indicate their details &obligations;</b></label>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11">
+                            <b>i.&emsp;Other Party/ies details :</b> @Html.DisplayFor(m => m.OtherPartyEmail1)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11">
+                            <b>ii.&emsp;Address :</b> @Html.DisplayFor(m => m.OtherPartyAddress1)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-11">
+                            <b>iii.&emsp;Registration Number/s etc :</b> @Html.DisplayFor(m => m.OtherPartyRegNo1)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-1"></div>
+                        <label class="col-md-11 control-label" for="Email"><b>iv.&emsp;Obligations of such other parties to be included I legal document :</b></label>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1" style="text-align: right;"><b>a)</b></div>
+                        <div class="col-md-10">
+                            @Html.DisplayFor(m => m.OtherPartyLegalDocument1)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1" style="text-align: right;"><b>b)</b></div>
+                        <div class="col-md-10">
+                            @Html.DisplayFor(m => m.OtherPartyLegalDocument2)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1" style="text-align: right;"><b>c)</b></div>
+                        <div class="col-md-10">
+                            @Html.DisplayFor(m => m.OtherPartyLegalDocument3)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <b>
+                                17.&emsp;The method of remuneration to CCC, percentages or amounts, terms and conditions and payment trigger points ; :
+                            </b>@Html.DisplayFor(m => m.MethodOfRemunerationToCCC)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-12 control-label" for="Details of the other">
+                            <b>
+                                18.&emsp;Other matters of direct importance (if any)
+                                for legal analysis or subsequent legal facilitation:
+                            </b>
+                        </label>
+                    </div>
+                    <div class="row form-group">
+                        <!-- <div class="col-md-1"></div> -->
+                        <div class="col-lg-1 col-md-1 col-sm-1" style="text-align: right;"><b>i)</b></div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            @Html.DisplayFor(m => m.LegalFacilitation1)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <!-- <div class="col-md-1"></div> -->
+                        <div class="col-md-1" style="text-align: right;"><b>ii)</b></div>
+                        <div class="col-md-11">
+                            @Html.DisplayFor(m => m.LegalFacilitation2)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <!-- <div class="col-md-1"></div> -->
+                        <div class="col-md-1" style="text-align: right;"><b>iii)</b></div>
+                        <div class="col-md-11">
+                            @Html.DisplayFor(m => m.LegalFacilitation3)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <!-- <div class="col-md-1"></div> -->
+                        <div class="col-md-1" style="text-align: right;"><b>iv)</b></div>
+                        <div class="col-md-11">
+                            @Html.DisplayFor(m => m.LegalFacilitation4)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <!-- <div class="col-md-1"></div> -->
+                        <div class="col-md-1" style="text-align: right;"><b>v)</b></div>
+                        <div class="col-md-11">
+                            @Html.DisplayFor(m => m.LegalFacilitation5)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <!-- <div class="col-md-1"></div> -->
+                        <div class="col-md-1" style="text-align: right;"><b>vi)</b></div>
+                        <div class="col-md-11">
+                            @Html.DisplayFor(m => m.LegalFacilitation6)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <!-- <div class="col-md-1"></div> -->
+                        <div class="col-md-1" style="text-align: right;"><b>vii)</b></div>
+                        <div class="col-md-11">
+                            @Html.DisplayFor(m => m.LegalFacilitation7)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <!-- <div class="col-md-1"></div> -->
+                        <div class="col-md-1" style="text-align: right;"><b>viii)</b></div>
+                        <div class="col-md-11">
+                            @Html.DisplayFor(m => m.LegalFacilitation8)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <!-- <div class="col-md-1"></div> -->
+                        <div class="col-md-1" style="text-align: right;"><b>ix)</b></div>
+                        <div class="col-md-11">
+                            @Html.DisplayFor(m => m.LegalFacilitation9)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <!-- <div class="col-md-1"></div> -->
+                        <div class="col-md-1" style="text-align: right;"><b>x)</b></div>
+                        <div class="col-md-11">
+                            @Html.DisplayFor(m => m.LegalFacilitation10)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-12 control-label" for="Details of the other">
+                            <b>
+                                19.&emsp;If an agreement or legally
+                                binding document is requested, the Validity Period of the Agreement :
+                            </b>
+                            @Html.DisplayFor(m => m.ValidityPeriodOfTheAgreement)
+                        </label>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-12 control-label" for="Details of the other"><b>20.&emsp;DECLARATION :</b></label>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-12 form-label text-justify">
+                            Wehereby endorse the contents of this request to be accurate and comprehensive for the purposes of
+                            intended legal facilitation and do hereby take full responsibility for any failure on my part
+                            to disclose or submit all critical information that should have been submitted for the legal facilitation.
+                        </p>
+                    </div>
+                    <br />
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <textarea class="form-control" rows="4"></textarea>
+                            <b>Signature of the official requesting</b>
+                        </div>
+                        <div class="col-md-6">
+                            <textarea class="form-control" rows="4"></textarea>
+                            <b>Signature of the Divisional Head reporting to MD</b>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <!-- <div class="col-md-1"></div> -->
+                        <!-- <div class="col-md-1" style="text-align: right;"><b>20.</b></div> -->
+                        <div class="col-md-6">
+                            <textarea class="form-control" rows="4"></textarea>
+                        </div>
+                        <div class="col-md-1">
+                            <b> Date: </b>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <!-- <div class="col-md-1"></div> -->
+                        <label class="col-md-1 control-label" style="text-align: right;"></label>
+                        <!-- <div class="col-md-1" style="text-align: right;"><b>20.</b></div> -->
+                        <div class="col-md-6">
+                            <b> Approved by (MD) </b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#btnPrintForm8B').click(function () {
+            //alert('test');
+            //printElement(document.getElementById("printForm8B"));
+            $("#printForm8B").printThis();
+        });
+    });
+
+    //function printElement(elem) {
+    //    var domClone = elem.cloneNode(true);
+
+    //    var $printSection = document.getElementById("printSection");
+
+    //    if (!$printSection) {
+    //        var $printSection = document.createElement("div");
+    //        $printSection.id = "printSection";
+    //        document.body.appendChild($printSection);
+    //    }
+
+    //    $printSection.innerHTML = "";
+    //    $printSection.appendChild(domClone);
+    //    window.print();
+    //}
+</script>
