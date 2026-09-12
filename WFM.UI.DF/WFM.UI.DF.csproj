@@ -251,6 +251,7 @@
     <Compile Include="ModelsView\ProposalOutcomeViewModel.cs" />
     <Compile Include="ModelsView\BidRecommendationViewModel.cs" />
     <Compile Include="ModelsView\ControlSettingsViewModel.cs" />
+    <Compile Include="ModelsView\ManagementDashboardViewModel.cs" />
     <Compile Include="ModelsView\EmailModelView.cs" />
     <Compile Include="ModelsView\EvalReportViewModel.cs" />
     <Compile Include="ModelsView\FileNotesReportViewModel.cs" />
@@ -911,6 +912,7 @@
     <Content Include="Views\ProposalAnalysis\Index.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\ControlSettings\Index.cshtml" />
+    <Content Include="Views\Handover\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

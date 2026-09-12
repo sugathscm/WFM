@@ -1,315 +1,54 @@
-﻿@model WFM.UI.DF.Models.ProposalManagementViewModel
+﻿@model WFM.UI.DF.ModelsView.ManagementDashboardViewModel
 @{
     ViewBag.Title = "Dashboard";
 }
 
+<script src="~/Scripts/chart.min.js"></script>
 <style>
-*{box-sizing:border-box}
-/*body{
-    margin:0;
-    padding:20px;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#fff;
-    color:#202124;
-}*/
-.dashboard{
-    max-width:1180px;
-    margin:auto;
-}
-.top-grid{
-    display:grid;
-    grid-template-columns: 1fr 1.35fr;
-    gap:10px;
-    align-items:start;
-}
-.card{
+.kpi-card{
     background:#fff;
     border:1px solid #ddd;
-    border-radius:16px;
-    padding:20px;
-    box-shadow:0 1px 2px rgba(0,0,0,.02);
+    border-radius:10px;
+    padding:14px;
 }
-.card-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:7px;
-}
-.card-header h2{
-    margin:0;
-    font-size:24px;
-    line-height:1.1;
-    letter-spacing:-.5px;
-}
-.menu{
-    color:#888;
-    font-size:20px;
-    letter-spacing:3px;
-}
-.section-title{
-    font-size:11px;
-    font-weight:700;
-    margin:5px 0 7px;
-}
-
-/* Proposal pipeline */
-.pipeline{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    margin-bottom:8px;
-    overflow:hidden;
-    border-radius:4px;
-}
-.pipe{
-    height:40px;
-    padding:4px 8px;
-    position:relative;
-    background:#e8edf3;
-}
-.pipe:nth-child(2){background:#e5eaf0}
-.pipe:nth-child(3){background:#e3edf2}
-.pipe:nth-child(4){background:#d2f0e5}
-.pipe:not(:last-child):after{
-    content:"";
-    position:absolute;
-    right:-10px;
-    top:0;
-    z-index:2;
-    border-top:15.5px solid transparent;
-    border-bottom:15.5px solid transparent;
-    border-left:10px solid #e8edf3;
-}
-.pipe:nth-child(2):after{border-left-color:#e5eaf0}
-.pipe:nth-child(3):after{border-left-color:#e3edf2}
-.pipe strong{
-    display:block;
-    font-size:11px;
-}
-.pipe small{
-    font-size:6px;
+.kpi-label{
+    font-size:12px;
     color:#68727d;
 }
-
-/* Tracking */
-.track-labels{
+.kpi-value{
+    font-size:24px;
+    font-weight:600;
+    margin-top:4px;
+}
+.kpi-card.danger{
+    background:#fff0f0;
+    border-color:#f3d0d0;
+}
+.kpi-card.danger .kpi-label,
+.kpi-card.danger .kpi-value{
+    color:#c0392b;
+}
+.panel{
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:16px;
+}
+.panel-title{
+    font-size:13px;
+    color:#68727d;
+    margin-bottom:10px;
+}
+.risk-row{
     display:flex;
     justify-content:space-between;
-    font-size:7px;
-    color:#777;
-    margin-bottom:3px;
+    font-size:13px;
+    padding:8px 0;
+    border-bottom:1px solid #eee;
 }
-.track-bar{
-    display:flex;
-    height:13px;
-    overflow:hidden;
-    border-radius:4px;
-    margin-bottom:11px;
-}
-.track-bar span{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    font-size:7px;
-    font-weight:600;
-}
-.won{background:#22a36c}
-.lost{background:#e34a4a}
-.rfi{background:#e78b00}
-.rfp{background:#2868d5}
-
-/* Risks */
-.risks{
-    width:100%;
-}
-.risk{
-    display:grid;
-    grid-template-columns:24px 1fr 20px;
-    gap:7px;
-    align-items:center;
-    border:1px solid #eee;
-    border-radius:7px;
-    padding:6px 7px;
-    margin-bottom:6px;
-    min-height:39px;
-}
-.risk-icon{
-    width:20px;
-    height:20px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:9px;
-}
-.purple{color:#8052e7;background:#f4efff}
-.orange{color:#db8a08;background:#fff6e7}
-.red{color:#e24a4a;background:#fff0f0}
-.blue{color:#1694b5;background:#eaf8fc}
-.risk-title{
-    font-size:8px;
-    font-weight:700;
-}
-.risk-desc{
-    font-size:6.5px;
-    color:#777;
-    margin:2px 0 4px;
-}
-.risk-line{
-    height:3px;
-    background:#e9edf0;
-    border-radius:3px;
-    overflow:hidden;
-}
-.risk-line span{display:block;height:100%}
-.risk-score{
-    font-size:9px;
-    font-weight:700;
-    text-align:right;
-}
-.purple-line{background:#824ce8}
-.orange-line{background:#e18a00}
-.red-line{background:#df4545}
-.blue-line{background:#1298bd}
-
-/* Project Management */
-.portfolio{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:7px;
-    margin-bottom:12px;
-}
-.status{
-    position:relative;
-    height:51px;
-    padding:6px 9px;
-    border:1px solid #eee;
-    border-radius:9px;
-}
-.status.delayed{background:linear-gradient(135deg,#fff0f0,#fff)}
-.status.attention{background:linear-gradient(135deg,#fff7e7,#fff)}
-.status.ontrack{background:linear-gradient(135deg,#eaf8f2,#fff)}
-.status-number{
-    font-size:20px;
-    font-weight:600;
-    line-height:20px;
-}
-.delayed .status-number{color:#e33c3c}
-.attention .status-number{color:#d78900}
-.ontrack .status-number{color:#159b68}
-.status-label{
-    font-size:7px;
-    color:#777;
-    margin-top:3px;
-}
-.dot{
-    width:5px;
-    height:5px;
-    border-radius:50%;
-    display:inline-block;
-    margin-right:3px;
-}
-.status-arrow{
-    position:absolute;
-    top:7px;
-    right:8px;
-    font-size:10px;
-    color:#aaa;
-}
-.delayed .dot{background:#e33c3c}
-.attention .dot{background:#d78900}
-.ontrack .dot{background:#159b68}
-
-.category{
-    display:grid;
-    grid-template-columns:115px 1fr 20px;
-    align-items:center;
-    gap:7px;
-    height:25px;
-}
-.category-name{
-    font-size:9px;
-    font-weight:600;
-    white-space:nowrap;
-}
-.cat-dot{
-    width:7px;
-    height:7px;
-    border-radius:2px;
-    display:inline-block;
-    margin-right:5px;
-}
-.engineering{background:#2563eb}
-.environment{background:#16a34a}
-.social{background:#eab308}
-.hydrology{background:#0891b2}
-.cat-bar{
-    display:flex;
-    height:16px;
-    overflow:hidden;
-    border-radius:4px;
-    background:#eee;
-}
-.cat-bar span{height:100%}
-.bar-attention{background:#e58b00}
-.bar-delayed{background:#df3838}
-.bar-ontrack{background:#16a36c}
-.total{
-    font-size:9px;
-    font-weight:700;
-    text-align:right;
-}
-.legend{
-    border-top:1px solid #eee;
-    margin-top:8px;
-    padding-top:8px;
-    display:flex;
-    gap:12px;
-    font-size:7px;
-    color:#777;
-}
-.legend i{
-    display:inline-block;
-    width:7px;
-    height:7px;
-    border-radius:2px;
-    margin-right:3px;
-}
-
-/* Upcoming */
-.upcoming{
-    margin-top:8px;
-    margin-left:35%;
-    width:65%;
-    min-height:100px;
-}
-.upcoming h3{
-    margin:0;
-    display:inline-block;
-    padding:13px 20px;
-    border:1px solid #e1e1e1;
-    border-radius:22px;
-    font-size:15px;
-    font-weight:600;
-}
-.click{
-    color:#0000bb;
-    font-size:11px;
-    text-align:center;
-    margin-bottom:2px;
-}
-
-@*/* Responsive */
-@media(max-width:850px){
-    .top-grid{grid-template-columns:1fr}
-    .upcoming{margin-left:0;width:100%}
-}
-@media(max-width:500px){
-    body{padding:10px}
-    .card{padding:14px}
-    .card-header h2{font-size:20px}
-    .category{grid-template-columns:105px 1fr 18px}
-}*@
+.risk-row:last-child{border-bottom:none}
+.risk-row .badge-danger{background:#e24b4a}
+.risk-row .badge-warning{background:#e58b00}
 </style>
 
 <script type="text/javascript">
@@ -420,27 +159,127 @@
             </div>
         </div>
         <input type="hidden" id="EmployeeId" value="@ViewBag.EmployeeId" />
-        <div class="border border-primary bg-actual-white">
-            @*<div class="dashboard">*@
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="top-grid mt-3">
-                        <!-- ================= PROPOSAL MANAGEMENT ================= -->
-
-                        @Html.Partial("_ProposalManagement", Model)
-                        <!-- ================= PROJECT MANAGEMENT ================= -->
-
-                        @Html.Partial("_ProjectManagement", Model.Projects)
+        <div class="border border-primary bg-actual-white p-3">
+            <div class="row">
+                <div class="col-6 col-md-2 mb-3">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Active opportunities</div>
+                        <div class="kpi-value">@Model.ActiveOpportunities</div>
                     </div>
-                    <!-- ================= UPCOMING DEADLINES ================= -->
-                    <div class="upcoming">
-                        <div class="click">Click this</div>
-                        <h3>Up-Coming Deadlines</h3>
+                </div>
+                <div class="col-6 col-md-2 mb-3">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Active proposals</div>
+                        <div class="kpi-value">@Model.ActiveProposals</div>
                     </div>
-
+                </div>
+                <div class="col-6 col-md-2 mb-3">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Win rate (90d)</div>
+                        <div class="kpi-value">@(Model.WinRate90d == null ? "-" : Model.WinRate90d + "%")</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2 mb-3">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Ongoing projects</div>
+                        <div class="kpi-value">@Model.OngoingProjects</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2 mb-3">
+                    <div class="kpi-card @(Model.OverdueCount > 0 ? "danger" : "")">
+                        <div class="kpi-label">Overdue items</div>
+                        <div class="kpi-value">@Model.OverdueCount</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2 mb-3">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Avg bid score (GO)</div>
+                        <div class="kpi-value">@(Model.AvgBidScore == null ? "-" : Model.AvgBidScore.ToString())</div>
+                    </div>
                 </div>
             </div>
-    </div>
-</div>
+
+            <div class="row">
+                <div class="col-md-7 mb-3">
+                    <div class="panel">
+                        <div class="panel-title">Pipeline funnel</div>
+                        <div style="position:relative;height:220px;">
+                            <canvas id="funnelChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <div class="panel">
+                        <div class="panel-title">Delivery health (ongoing projects)</div>
+                        <div style="position:relative;height:220px;">
+                            <canvas id="healthChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="panel mb-3">
+                        <div class="panel-title">Risk and bottlenecks</div>
+                        @if (Model.Risks == null || Model.Risks.Count == 0)
+                        {
+                            <div class="text-muted" style="font-size:13px;">Nothing needs attention right now.</div>
+                        }
+                        else
+                        {
+                            foreach (var r in Model.Risks)
+                            {
+                                <div class="risk-row">
+                                    <span>@r.ProjectName</span>
+                                    <span class="badge @(r.Severity == "danger" ? "badge-danger" : "badge-warning")">@r.Issue</span>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<script>
+    $(document).ready(function () {
+        new Chart(document.getElementById('funnelChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Opportunity', 'GO decision', 'Proposal', 'Shortlisted', 'Won'],
+                datasets: [{
+                    data: [@Model.FunnelOpportunity, @Model.FunnelGoDecision, @Model.FunnelProposal, @Model.FunnelShortlisted, @Model.FunnelWon],
+                    backgroundColor: '#378ADD'
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { x: { beginAtZero: true, ticks: { precision: 0 } } }
+            }
+        });
+
+        new Chart(document.getElementById('healthChart').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: ['On track', 'Attention', 'Delayed'],
+                datasets: [{
+                    data: [@Model.HealthOnTrack, @Model.HealthAttention, @Model.HealthDelayed],
+                    backgroundColor: ['#16a36c', '#e58b00', '#e24b4a'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+    });
+</script>
 
 
 @section Scripts {

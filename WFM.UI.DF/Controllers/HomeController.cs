@@ -41,6 +41,14 @@ namespace WFM.UI.DF.Controllers
         private readonly EmployeeService employeeService = new EmployeeService();
         private readonly TaskTypeService taskTypeService = new TaskTypeService();
         private readonly TaskTrackerCategoryService taskTrackerCategoryService = new TaskTrackerCategoryService();
+        private readonly BidNoBidDecisionService bidNoBidDecisionService = new BidNoBidDecisionService();
+        private readonly ProposalOutcomeService proposalOutcomeService = new ProposalOutcomeService();
+        private readonly GateControlService gateControlService = new GateControlService();
+        private readonly ProjectHandoverService projectHandoverService = new ProjectHandoverService();
+        private readonly ConfigurationService configurationService = new ConfigurationService();
+
+        private const int OpportunityTypeId = 4;
+        private const int ProposalTypeId = 7;
 
         public HomeController()
         {
@@ -206,107 +214,100 @@ namespace WFM.UI.DF.Controllers
 
         public ActionResult Index()
         {
-            var model = new ProposalManagementViewModel
+            var allProjects = projectService.GetProjectList(null, null, null, null, null, null).Where(p => p.IsActive).ToList();
+            var opportunities = allProjects.Where(p => p.ProjectTypeId == OpportunityTypeId).ToList();
+            var proposals = allProjects.Where(p => p.ProjectTypeId == ProposalTypeId).ToList();
+
+            var bidNoBidList = bidNoBidDecisionService.GetList();
+            var outcomeList = proposalOutcomeService.GetList();
+            var gateControlList = gateControlService.GetList();
+            var handoverList = projectHandoverService.GetList();
+
+            int alertLeadTimeDays = int.Parse(configurationService.GetValue("AlertLeadTimeDays", "3"));
+            int healthOnTrackAt = int.Parse(configurationService.GetValue("ProjectHealthOnTrackAt", "80"));
+            int healthAttentionAt = int.Parse(configurationService.GetValue("ProjectHealthAttentionAt", "60"));
+            var today = DateTime.Today;
+
+            var goDecisions = bidNoBidList.Where(b => b.Decision == "GO").ToList();
+            var wonOutcomes = outcomeList.Where(o => o.Outcome == "Won").ToList();
+            var shortlisted = outcomeList.Count(o => o.Outcome == "Shortlisted");
+
+            // Win rate over the last 90 days, by result date.
+            var recentOutcomes = outcomeList.Where(o => o.ResultDate != null && o.ResultDate.Value >= today.AddDays(-90)).ToList();
+            int recentWon = recentOutcomes.Count(o => o.Outcome == "Won");
+            int recentLost = recentOutcomes.Count(o => o.Outcome == "Lost");
+            decimal? winRate90d = (recentWon + recentLost == 0) ? (decimal?)null : Math.Round((decimal)recentWon / (recentWon + recentLost) * 100, 0);
+
+            // "Ongoing projects" = proposals that converted (won) and are still active.
+            var wonProjectIds = wonOutcomes.Select(o => o.ProjectId).ToList();
+            var ongoingProjects = proposals.Where(p => wonProjectIds.Contains(p.Id)).ToList();
+
+            int healthOnTrack = 0, healthAttention = 0, healthDelayed = 0;
+            var riskItems = new List<DashboardRiskItem>();
+
+            foreach (var p in ongoingProjects)
             {
-                Pipeline = new ProposalPipelineViewModel
-                {
-                    EoiSubmitted = 12,
-                    Shortlisted = 7,
-                    RfpStage = 9,
-                    Awarded = 4
-                },
+                if (p.ExpiaryDate == null) continue;
+                int daysLeft = (p.ExpiaryDate.Value.Date - today).Days;
+                if (daysLeft >= healthOnTrackAt) healthOnTrack++;
+                else if (daysLeft >= healthAttentionAt) healthAttention++;
+                else healthDelayed++;
+            }
 
-                Tracking = new ProposalTrackingViewModel
-                {
-                    Submitted = 7,
-                    Ongoing = 5,
-                    InPreparation = 3,
-                    Won = 4,
-                    Lost = 3,
-                    Rfi = 2,
-                    Rfp = 3
-                },
+            // Risk 1: proposals overdue against their deadline, still undecided.
+            foreach (var p in proposals)
+            {
+                if (p.ExpiaryDate == null) continue;
+                var outcome = outcomeList.Where(o => o.ProjectId == p.Id).FirstOrDefault();
+                string outcomeName = (outcome == null || string.IsNullOrEmpty(outcome.Outcome)) ? "Pending" : outcome.Outcome;
+                if (outcomeName != "Pending" && outcomeName != "Shortlisted") continue;
 
-                Risks = new List<ProposalRiskViewModel>
-                {
-                    new ProposalRiskViewModel
-                    {
-                        Title = "Lack of Expert Team",
-                        Description = "Both - No qualified expert mapped to a required position",
-                        Count = 4,
-                        Percentage = 85,
-                        Color = "purple"
-                    },
+                int daysLeft = (p.ExpiaryDate.Value.Date - today).Days;
+                if (daysLeft < 0)
+                    riskItems.Add(new DashboardRiskItem { ProjectName = p.Name, Issue = "Overdue", Severity = "danger" });
+                else if (daysLeft <= alertLeadTimeDays)
+                    riskItems.Add(new DashboardRiskItem { ProjectName = p.Name, Issue = "Due in " + daysLeft + "d", Severity = "warning" });
+            }
 
-                    new ProposalRiskViewModel
-                    {
-                        Title = "Methodology Submission Delay",
-                        Description = "Ongoing - Methodology document still in draft / missing past plan",
-                        Count = 4,
-                        Percentage = 65,
-                        Color = "orange"
-                    },
+            // Risk 2: gate control stalled - not updated in the last 14 days and not complete.
+            foreach (var g in gateControlList.Where(g => g.PercentComplete != 100 && g.UpdatedDate != null && g.UpdatedDate.Value <= today.AddDays(-14)))
+            {
+                var p = allProjects.FirstOrDefault(x => x.Id == g.ProjectId);
+                if (p == null) continue;
+                int daysStalled = (today - g.UpdatedDate.Value.Date).Days;
+                riskItems.Add(new DashboardRiskItem { ProjectName = p.Name, Issue = "Gate stalled " + daysStalled + "d", Severity = "warning" });
+            }
 
-                    new ProposalRiskViewModel
-                    {
-                        Title = "Financial Proposal Weakness",
-                        Description = "Submitted - Pricing scored low / uncompetitive vs winners",
-                        Count = 2,
-                        Percentage = 45,
-                        Color = "red"
-                    },
+            // Risk 3: handover not ready for a project nearing its end date.
+            foreach (var h in handoverList.Where(h => h.HandoverStatus != "READY"))
+            {
+                var p = allProjects.FirstOrDefault(x => x.Id == h.ProjectId);
+                if (p == null || p.ExpiaryDate == null) continue;
+                int daysLeft = (p.ExpiaryDate.Value.Date - today).Days;
+                if (daysLeft <= alertLeadTimeDays)
+                    riskItems.Add(new DashboardRiskItem { ProjectName = p.Name, Issue = "Handover not ready", Severity = "danger" });
+            }
 
-                    new ProposalRiskViewModel
-                    {
-                        Title = "Technical Proposal Weakness",
-                        Description = "Submitted - Technical score below qualification threshold",
-                        Count = 1,
-                        Percentage = 30,
-                        Color = "blue"
-                    }
-                },
+            var model = new ManagementDashboardViewModel
+            {
+                ActiveOpportunities = opportunities.Count,
+                ActiveProposals = proposals.Count,
+                WinRate90d = winRate90d,
+                OngoingProjects = ongoingProjects.Count,
+                OverdueCount = riskItems.Count,
+                AvgBidScore = goDecisions.Any() ? Math.Round(goDecisions.Average(b => (decimal)(b.Total ?? 0)), 0) : (decimal?)null,
 
-                Projects = new ProjectPortfolioViewModel
-                {
-                    Delayed = 2,
-                    NeedsAttention = 4,
-                    OnTrack = 4,
+                FunnelOpportunity = opportunities.Count,
+                FunnelGoDecision = goDecisions.Count,
+                FunnelProposal = proposals.Count,
+                FunnelShortlisted = shortlisted,
+                FunnelWon = wonOutcomes.Count,
 
-                    Categories = new List<ProjectCategoryViewModel>
-                    {
-                        new ProjectCategoryViewModel
-                        {
-                            Name = "Engineering",
-                            Delayed = 0,
-                            Attention = 1,
-                            OnTrack = 2
-                        },
+                HealthOnTrack = healthOnTrack,
+                HealthAttention = healthAttention,
+                HealthDelayed = healthDelayed,
 
-                        new ProjectCategoryViewModel
-                        {
-                            Name = "Environment",
-                            Delayed = 0,
-                            Attention = 1,
-                            OnTrack = 2
-                        },
-
-                        new ProjectCategoryViewModel
-                        {
-                            Name = "Social & Urban Dev.",
-                            Delayed = 1,
-                            Attention = 1,
-                            OnTrack = 1
-                        },
-
-                        new ProjectCategoryViewModel
-                        {
-                            Name = "Hydrology & Water",
-                            Delayed = 0,
-                            Attention = 1,
-                            OnTrack = 2
-                        }
-                    }
-                }
+                Risks = riskItems
             };
 
             return View(model);
