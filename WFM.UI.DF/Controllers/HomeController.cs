@@ -264,9 +264,9 @@ namespace WFM.UI.DF.Controllers
 
                 int daysLeft = (p.ExpiaryDate.Value.Date - today).Days;
                 if (daysLeft < 0)
-                    riskItems.Add(new DashboardRiskItem { ProjectName = p.Name, Issue = "Overdue", Severity = "danger" });
+                    riskItems.Add(new DashboardRiskItem { ProjectId = p.Id, ProjectName = p.Name, Issue = "Overdue", Severity = "danger" });
                 else if (daysLeft <= alertLeadTimeDays)
-                    riskItems.Add(new DashboardRiskItem { ProjectName = p.Name, Issue = "Due in " + daysLeft + "d", Severity = "warning" });
+                    riskItems.Add(new DashboardRiskItem { ProjectId = p.Id, ProjectName = p.Name, Issue = "Due in " + daysLeft + "d", Severity = "warning" });
             }
 
             // Risk 2: gate control stalled - not updated in the last 14 days and not complete.
@@ -275,7 +275,7 @@ namespace WFM.UI.DF.Controllers
                 var p = allProjects.FirstOrDefault(x => x.Id == g.ProjectId);
                 if (p == null) continue;
                 int daysStalled = (today - g.UpdatedDate.Value.Date).Days;
-                riskItems.Add(new DashboardRiskItem { ProjectName = p.Name, Issue = "Gate stalled " + daysStalled + "d", Severity = "warning" });
+                riskItems.Add(new DashboardRiskItem { ProjectId = p.Id, ProjectName = p.Name, Issue = "Gate stalled " + daysStalled + "d", Severity = "warning" });
             }
 
             // Risk 3: handover not ready for a project nearing its end date.
@@ -285,7 +285,7 @@ namespace WFM.UI.DF.Controllers
                 if (p == null || p.ExpiaryDate == null) continue;
                 int daysLeft = (p.ExpiaryDate.Value.Date - today).Days;
                 if (daysLeft <= alertLeadTimeDays)
-                    riskItems.Add(new DashboardRiskItem { ProjectName = p.Name, Issue = "Handover not ready", Severity = "danger" });
+                    riskItems.Add(new DashboardRiskItem { ProjectId = p.Id, ProjectName = p.Name, Issue = "Handover not ready", Severity = "danger" });
             }
 
             var model = new ManagementDashboardViewModel

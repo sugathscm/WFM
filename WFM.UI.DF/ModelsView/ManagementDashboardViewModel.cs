@@ -26,6 +26,7 @@ namespace WFM.UI.DF.ModelsView
 
     public class DashboardRiskItem
     {
+        public int ProjectId { get; set; }
         public string ProjectName { get; set; }
         public string Issue { get; set; }
         public string Severity { get; set; } // danger | warning

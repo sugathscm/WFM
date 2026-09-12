@@ -6,10 +6,18 @@
 <script src="~/Scripts/chart.min.js"></script>
 <style>
 .kpi-card{
+    display:block;
     background:#fff;
     border:1px solid #ddd;
     border-radius:10px;
     padding:14px;
+    color:inherit;
+    text-decoration:none;
+}
+.kpi-card:hover{
+    border-color:#adb5bd;
+    color:inherit;
+    text-decoration:none;
 }
 .kpi-label{
     font-size:12px;
@@ -45,6 +53,13 @@
     font-size:13px;
     padding:8px 0;
     border-bottom:1px solid #eee;
+    color:inherit;
+    text-decoration:none;
+}
+.risk-row:hover{
+    background:#f7f9fb;
+    color:inherit;
+    text-decoration:none;
 }
 .risk-row:last-child{border-bottom:none}
 .risk-row .badge-danger{background:#e24b4a}
@@ -162,40 +177,40 @@
         <div class="border border-primary bg-actual-white p-3">
             <div class="row">
                 <div class="col-6 col-md-2 mb-3">
-                    <div class="kpi-card">
+                    <a class="kpi-card" href="@Url.Action("Index", "Opportunity")" title="View opportunity list">
                         <div class="kpi-label">Active opportunities</div>
                         <div class="kpi-value">@Model.ActiveOpportunities</div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-6 col-md-2 mb-3">
-                    <div class="kpi-card">
+                    <a class="kpi-card" href="@Url.Action("Index", "Proposal")" title="View proposal pipeline">
                         <div class="kpi-label">Active proposals</div>
                         <div class="kpi-value">@Model.ActiveProposals</div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-6 col-md-2 mb-3">
-                    <div class="kpi-card">
+                    <a class="kpi-card" href="@Url.Action("Index", "WinLossDashboard")" title="View win/loss dashboard">
                         <div class="kpi-label">Win rate (90d)</div>
                         <div class="kpi-value">@(Model.WinRate90d == null ? "-" : Model.WinRate90d + "%")</div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-6 col-md-2 mb-3">
-                    <div class="kpi-card">
+                    <a class="kpi-card" href="@Url.Action("Index", "Proposal")" title="View proposal pipeline">
                         <div class="kpi-label">Ongoing projects</div>
                         <div class="kpi-value">@Model.OngoingProjects</div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-6 col-md-2 mb-3">
-                    <div class="kpi-card @(Model.OverdueCount > 0 ? "danger" : "")">
+                    <a class="kpi-card @(Model.OverdueCount > 0 ? "danger" : "")" href="#risk-panel" title="Jump to risk and bottlenecks">
                         <div class="kpi-label">Overdue items</div>
                         <div class="kpi-value">@Model.OverdueCount</div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-6 col-md-2 mb-3">
-                    <div class="kpi-card">
+                    <a class="kpi-card" href="@Url.Action("Index", "BidNoBid")" title="View Bid/No-Bid list">
                         <div class="kpi-label">Avg bid score (GO)</div>
                         <div class="kpi-value">@(Model.AvgBidScore == null ? "-" : Model.AvgBidScore.ToString())</div>
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -220,7 +235,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="panel mb-3">
+                    <div class="panel mb-3" id="risk-panel">
                         <div class="panel-title">Risk and bottlenecks</div>
                         @if (Model.Risks == null || Model.Risks.Count == 0)
                         {
@@ -230,10 +245,10 @@
                         {
                             foreach (var r in Model.Risks)
                             {
-                                <div class="risk-row">
+                                <a class="risk-row" href="@Url.Action("Details", "PublicSectorTender", new { id = r.ProjectId })" title="Open project">
                                     <span>@r.ProjectName</span>
                                     <span class="badge @(r.Severity == "danger" ? "badge-danger" : "badge-warning")">@r.Issue</span>
-                                </div>
+                                </a>
                             }
                         }
                     </div>
@@ -243,7 +258,17 @@
 
 <script>
     $(document).ready(function () {
-        new Chart(document.getElementById('funnelChart').getContext('2d'), {
+        var funnelLinks = [
+            '@Url.Action("Index", "Opportunity")',
+            '@Url.Action("Index", "BidNoBid")',
+            '@Url.Action("Index", "Proposal")',
+            '@Url.Action("Index", "Proposal")',
+            '@Url.Action("Index", "WinLossDashboard")'
+        ];
+
+        var funnelChartEl = document.getElementById('funnelChart');
+        funnelChartEl.style.cursor = 'pointer';
+        new Chart(funnelChartEl.getContext('2d'), {
             type: 'bar',
             data: {
                 labels: ['Opportunity', 'GO decision', 'Proposal', 'Shortlisted', 'Won'],
@@ -257,11 +282,18 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
-                scales: { x: { beginAtZero: true, ticks: { precision: 0 } } }
+                scales: { x: { beginAtZero: true, ticks: { precision: 0 } } },
+                onClick: function (evt, elements) {
+                    if (elements.length > 0) {
+                        window.location.href = funnelLinks[elements[0].index];
+                    }
+                }
             }
         });
 
-        new Chart(document.getElementById('healthChart').getContext('2d'), {
+        var healthChartEl = document.getElementById('healthChart');
+        healthChartEl.style.cursor = 'pointer';
+        new Chart(healthChartEl.getContext('2d'), {
             type: 'doughnut',
             data: {
                 labels: ['On track', 'Attention', 'Delayed'],
@@ -275,7 +307,12 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 cutout: '65%',
-                plugins: { legend: { position: 'bottom' } }
+                plugins: { legend: { position: 'bottom' } },
+                onClick: function (evt, elements) {
+                    if (elements.length > 0) {
+                        window.location.href = '@Url.Action("Index", "Proposal")';
+                    }
+                }
             }
         });
     });
