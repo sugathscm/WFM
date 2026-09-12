@@ -28,7 +28,7 @@ namespace WFM.BAL.Services
                               handover.H5 == true, handover.H6 == true, handover.H7 == true, handover.H8 == true };
             handover.ItemsDone = items.Count(x => x);
             handover.HandoverStatus = (handover.ItemsDone == 8) ? "READY" : "NOT READY";
-            handover.HandoverDone = handover.ItemsDone == 8;
+            // HandoverDone is a manual sign-off set by the user in the popup, not auto-derived from the checklist.
 
             using (LinkManagementEntities entities = new LinkManagementEntities())
             {

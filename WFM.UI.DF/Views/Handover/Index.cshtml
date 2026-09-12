@@ -62,6 +62,11 @@
         });
     }
 
+    function setChecklistLocked(locked) {
+        $('.handover-item, .handover-note').prop('disabled', locked);
+        $('#SaveChecklistBtn').text(locked ? 'Save (locked)' : 'Save');
+    }
+
     $(document).on('click', '.open-checklist', function () {
         currentProjectId = $(this).data('id');
         $.ajax({
@@ -83,13 +88,19 @@
                 }
                 $('#ChecklistBody').html(rows);
                 $('#ChecklistStatus').html(statusBadge(handover.HandoverStatus || 'NOT READY'));
+                $('#HandoverDoneCheck').prop('checked', handover.HandoverDone === true);
+                setChecklistLocked(handover.HandoverDone === true);
                 $('#HandoverModal').modal('show');
             }
         });
     });
 
+    $(document).on('change', '#HandoverDoneCheck', function () {
+        setChecklistLocked($(this).is(':checked'));
+    });
+
     $(document).on('click', '#SaveChecklistBtn', function () {
-        var handover = { ProjectId: currentProjectId };
+        var handover = { ProjectId: currentProjectId, HandoverDone: $('#HandoverDoneCheck').is(':checked') };
         $('.handover-item').each(function () {
             handover[$(this).data('key')] = $(this).is(':checked');
         });
@@ -166,6 +177,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
+                <div class="form-check m-b-15">
+                    <input type="checkbox" class="form-check-input" id="HandoverDoneCheck" />
+                    <label class="form-check-label" for="HandoverDoneCheck"><strong>Handover done</strong></label>
+                    <small class="text-muted d-block">Tick once handover is complete - the checklist below becomes display-only.</small>
+                </div>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
